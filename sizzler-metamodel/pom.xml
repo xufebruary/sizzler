@@ -17,24 +17,8 @@
         <module>csv</module>
         <module>test</module>
         <module>full</module>
-        <module>facebookad</module>
-        <module>googlead</module>
         <module>saas</module>
-        <module>ptengine</module>
-        <!-- <module>bigquery</module>-->
-        <module>ptapp</module>
-        <module>twitter</module>
-        <module>salesforce</module>
-        <module>doubleclick</module>
         <module>json</module>
-        <module>paypal</module>
-        <module>stripe</module>
-        <module>googleadsense</module>
-        <module>mailchimp</module>
-        <module>yahooAdsYDN</module>
-        <module>yahooAds</module>
-        <module>facebookpages</module>
-        <module>zendesk</module>
     </modules>
 
 
@@ -50,33 +34,10 @@
             </snapshots>
         </repository>
         <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Releases Repository</name>
-            <url>http://ptonenexus.ptmind.com/nexus/content/repositories/releases/</url>
-        </repository>
-        <repository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots Repository</name>
-            <url>http://ptonenexus.ptmind.com/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
             <id>cloudera</id>
             <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
         </repository>
     </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>nexus-releases</id>
-            <name>Nexus Releases Repository</name>
-            <url>http://ptonenexus.ptmind.com/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus-snapshots</id>
-            <name>Nexus Snapshots Repository</name>
-            <url>http://ptonenexus.ptmind.com/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 
     <properties>
         <slf4j.version>1.7.7</slf4j.version>
