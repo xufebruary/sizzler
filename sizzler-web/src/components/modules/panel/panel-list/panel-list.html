@@ -1,0 +1,236 @@
+<div class="aside-navi animated fade-in">
+    <div class="aside-navi-wrap">
+
+        <!-- list.html -->
+        <script type="text/ng-template" id="list.html">
+            <ul class="dashboard-ul"
+                dnd-list="list">
+                <li ng-repeat="item in list"
+                    dnd-draggable="item"
+                    dnd-effect-allowed="move"
+                    dnd-moved="list.splice($index, 1)"
+                    dnd-dragend="dragEnd(item, list)"
+                    dnd-disable-if="item.editing"
+                    ng-include="item.type + '.html'">
+                </li>
+            </ul>
+        </script>
+
+        <!-- container.html -->
+        <script type="text/ng-template" id="container.html">
+            <div class="dashboard-container"
+                data-containerId="{{item.containerId}}">
+                <div class="pos-rlt clearfix dashboard-menu-single">
+                    <span class="dashboard-menu-icon block pull-left"
+                          ng-click="panelSelect(item)">
+                        <svg>
+                            <use ng-if="item.fold" xlink:href="#icon-folder"></use>
+                            <use ng-if="!item.fold" xlink:href="#icon-folder-open"></use>
+                        </svg>
+                    </span>
+                    <p class="dashboard-menu-title text-over m-b-none pos-rlt"
+                       title="{{item.containerName}}">
+                        <span class="block text-ellipsis"
+                              ng-if="!item.editing"
+                              ng-click="panelSelect(item)">{{item.containerName}}</span>
+
+                        <input type="text" 
+                                class="no-bg no-border"
+                                maxlength="50"
+                                ng-if="item.editing"
+                                ng-model="item.containerName"
+                                ng-blur="doneEditing(item)"
+                                ui-input
+                                ui-input-options = "{
+                                    'autoFocus': 'true',
+                                    'autoSelect': 'true',
+                                    'onEnter': 'doneEditing(item)'
+                                }">
+                    </p>
+
+                    <a class="pull-right block dashboard-menu-option pos-rlt"
+                       ng-click="toggleDashboardOption($event, item)">
+                        <svg data-jsTarget="js_dashboard-menu-option-svg">
+                            <use data-jsTarget="js_dashboard-menu-option-use" xlink:href="#icon-set"></use>
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="dashboard-container-list"
+                     ng-hide="item.fold"
+                     ng-repeat="list in item.columns"
+                     ng-include="'list.html'"></div>
+            </div>
+        </script>
+
+        <!-- item.html -->
+        <script type="text/ng-template" id="panel.html">
+            <div class="dashboard-menu-single pos-rlt"
+               data-panelId="{{item.panelId}}"
+               ng-class="{'active': currentPanelSelect.panelId == item.panelId}">
+                <span class="dashboard-menu-icon block pull-left"
+                      ng-hide="panel.shareSourceId"
+                      ng-click="panelSelect(item)">
+                    <svg ng-if="!isShare(item.panelId)">
+                        <use xlink:href="#icon-panel"></use>
+                    </svg>
+                    <svg ng-if="isShare(item.panelId)" style="margin-top: 2px;">
+                        <use xlink:href="#icon-share"></use>
+                    </svg>
+                </span>
+                <p class="dashboard-menu-title text-over m-b-none"
+                   title="{{item.panelTitle}}"
+                   ng-click="panelSelect(item)">
+                    <span has-sys-role="!ptone-admin-user">
+                         {{item.panelTitle}}
+                    </span>
+                    <span has-sys-role="ptone-admin-user">
+                        {{listFunc.adminTitle(item.panelTitle)}}
+                    </span>
+                </p>
+
+                <a class="pull-right block dashboard-menu-option pos-rlt"
+                   ng-click="toggleDashboardOption($event, item)">
+                    <svg data-jsTarget="js_dashboard-menu-option-svg">
+                        <use data-jsTarget="js_dashboard-menu-option-use" xlink:href="#icon-set"></use>
+                    </svg>
+                </a>
+            </div>
+        </script>
+
+        <!--dashboard list-->
+        <div class="dashboard-nav-list" stop-scroll-to-father>
+            <ul class="dashboard-ul"
+                dnd-list="currentPanelLayout.panelLayout">
+                <li ng-repeat="item in currentPanelLayout.panelLayout"
+                    dnd-draggable="item"
+                    dnd-effect-allowed="move"
+                    dnd-moved="currentPanelLayout.panelLayout.splice($index, 1)"
+                    dnd-dragend="dragEnd(item, currentPanelLayout.panelLayout)"
+                    dnd-disable-if="item.editing"
+                    ng-include="item.type + '.html'">
+                </li>
+            </ul>
+        </div>
+
+        <!--dashboard add-->
+        <div class="dashboard-add-dom pos-rlt" 
+            id="js-dashboardAddDom" 
+            ng-class="{'dashboard-noadd-dom':rootPanel.noData}">
+            <div class="dashboard-add-dom-wrap">
+                <a class="block dashboard-add-btn">
+                    <svg style="width: 32px; height: 32px;">
+                        <use xlink:href="#icon-circle-plus"></use>
+                    </svg>
+                </a>
+
+                <!-- dropdown -->
+                <div class="dropdown-menu dashboard-add-dropdown">
+                    <div>
+                        <span class="arrow bottom hidden-folded arrow-info"></span>
+                        <ul class="list-unstyled">
+                            <!--add folder-->
+                            <li>
+                                <a class="block"
+                                   ng-click="addFolder()">
+                                    <svg>
+                                        <use xlink:href="#icon-inbox"></use>
+                                    </svg>
+                                    <span translate="PANEL.ADD.BTN_ADD_FOLDER">add folder</span>
+                                </a>
+                            </li>
+
+                            <!--add dashboard-->
+                            <li>
+                                <a class="block"
+                                   ng-click="addPanel()">
+                                    <svg style="width: 20px; height: 20px;">
+                                        <use xlink:href="#icon-panel"></use>
+                                    </svg>
+                                    <span translate="PANEL.ADD.BTN_ADD_DASHBOARD">add dashboard</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!--onboarding 功能介绍-->
+            <div class="notification-icon ng-hide"
+                 id="js-dashboardAddNotification"
+                 ng-show="settingsInfo.showTips.dashboardAddEntry == 0">
+                <svg>
+                    <use xlink:href="#icon-ask"></use>
+                </svg>
+                <div class="notification-ring"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--dashboard option-->
+<div class="dashboard-option-pop"
+     ng-style="{'top': myOptions.optionDropdown.top+'px'}"
+     ng-if="myOptions.optionDropdown.show">
+    <div class="dashboard-option-dom pos-rlt">
+        <div class="dashboard-option-bd open">
+            <ul class="dropdown-menu pos-rlt pull-none">
+                <li ng-if="myOptions.optionDropdown.subNav.edit">
+                    <a ng-click="panelOperation('edit')">
+                        <span class="pt-icon-personal">
+                            <svg><use xlink:href="#icon-info"></use></svg>
+                        </span>
+                        <span ng-if="myOptions.optionDropdown.item.type == 'container' " translate="PANEL.SET_UP.RENAME_FOLDER"></span>
+                        <span ng-if="myOptions.optionDropdown.item.type == 'panel' " translate="PANEL.SET_UP.EDIT_PANEL.BUTTON"></span>
+                    </a>
+                </li>
+                <li ng-if="myOptions.optionDropdown.subNav.copy">
+                    <a ng-click="panelOperation('copy')">
+                        <span class="pt-icon-personal">
+                            <svg><use xlink:href="#icon-copy"></use></svg>
+                        </span>
+                        <span translate="PANEL.SET_UP.COPY_PANEL.BUTTON"></span>
+                    </a>
+                </li>
+                <li ng-if="myOptions.optionDropdown.subNav.delete">
+                    <a ng-click="panelOperation('delete')">
+                        <span class="pt-icon-personal">
+                            <svg><use xlink:href="#icon-del"></use></svg>
+                        </span>
+                        <span ng-if="myOptions.optionDropdown.item.type == 'container' " translate="PANEL.SET_UP.DELETE_FOLDER"></span>
+                        <span ng-if="myOptions.optionDropdown.item.type == 'panel' " translate="PANEL.SET_UP.DELETE_PANEL.BUTTON"></span>
+                    </a>
+                    <!-- <a ng-click="listFunc.dashboardOption('delete')">
+                        <span class="pt-icon-personal">
+                            <svg><use xlink:href="#icon-del"></use></svg>
+                        </span>
+                        <span ng-if="myOptions.optionDropdown.item.type == 'container' " translate="PANEL.SET_UP.DELETE_FOLDER">重命名</span>
+                        <span ng-if="myOptions.optionDropdown.item.type == 'panel' " translate="PANEL.SET_UP.DELETE_PANEL.BUTTON">ダッシュボードの削除</span>
+                    </a> -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div tips-two-btn tips-options="{{myOptions.tips.options}}" ng-if="myOptions.tips.show"></div>
+
+<!--功能提示框-->
+<div id="js-dashboard-add-tips">
+    <div class="notification-inner left animated fadeInDown">
+        <span class="arrows left"></span>
+        <div class="notification-info clear">
+            <p ng-bind-html=" 'ONBOARDING.TIPS.FUNC_TIPS.DASHBOARD_ADD_ENTRY' | translate"></p>
+            <div class="clear">
+                <!--<a translate="ONBOARDING.TIPS.FUNC_TIPS.BTN_CANCEL"-->
+                    <!--ng-click="tipsClose()"></a>-->
+                <button class="pt-btn notification-info-btn m-l-md"
+                        translate="ONBOARDING.TIPS.FUNC_TIPS.BTN_OK"
+                        ng-click="tipsOk()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,663 @@
+<div class="landing-page" ng-if="!noLandingPage">
+    <div class=" site-move-tips"  ng-class="{'site-move-tips-phone':pt.settings.isPhone}">
+        <div class="site-move-tips-slide" ng-class="{'ng-hide':pt.settings.isPhone}">
+            <img src="/assets/images/landingpage/site-move-tips.jpg" alt="site move to datadeck.jp"/>
+        </div>
+        <div class="site-move-tips-body">
+            <h3>PtOneはDataDeckへ<br> 生まれ変わりました！</h3>
+            <p>PtOneはDataDeck(データデック)へと</p>
+            <p>ブランド名をリニューアルしました。</p>
+            <p class="middle">すでにPtOneをご利用いただいている</p>
+            <p>みなさんも引き続きDataDeckとして</p>
+            <p>サービスをご利用いただけます。</p>
+            <p class="btn-ldp"><a href="http://www.datadeck.jp">DataDeckへ移動する</a></p>
+            <p>※以前ご利用いただいていたメールアドレスと</p>
+            <p>パスワードでDataDeckにログインできます。</p>
+        </div>
+    </div>
+    <div class="site-move-tips-mask" ng-class="{'site-move-tips-mask-phone':pt.settings.isPhone}"></div>
+    <div class="pt-loading" ng-show="loadSetting.signin">
+        <span class="pt-center pt-loading-box-lg">
+            <svg class="load-s btnloads white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+            <svg class="load-m btnloadm white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+        </span>
+    </div>
+    <div class="fixed-bar" ng-class="{'opened': loadSetting.topNav}">
+        <div class="top-bar clearfix">
+        <span class="logo">
+            <svg>
+                <use xlink:href="{{productConfigs.logo}}"></use>
+            </svg>
+        </span>
+            <p class="links">
+                <a >コミュニティ</a>
+                <a >サインイン</a>
+                <a class="signup" >事前登録</a>
+            </p>
+            <div class="mobil" dropdown>
+                <span class="entrance"  dropdown-toggle ng-click="openTopNav()"></span>
+                <ul class="dropdown-menu dropdown-menu-left dropdown-menu-ds">
+                    <li>
+                        <a class="" href="javascript:">コミュニティ</a>
+                    </li>
+                    <li>
+                        <a class="" href="javascript:">サインイン</a>
+                    </li>
+                    <li>
+                        <a class="signup" href="javascript:">事前登録（期間限定）</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-style="{'display': loadSetting.modelWindow ? 'block' : 'none'}">
+        <div class="popup">
+            <div class="container">
+                <div class="popup-bd">
+                    <div class="row">
+                        <div class="col-sm-5 popup-bd-l">
+                            <p>SMART WORK</p>
+                            <p>NOT HARD WORK</p>
+                        </div>
+                        <div class="col-sm-7 popup-bd-r">
+                            <form name="form3">
+                                <a class="popup-close" href="javascript:" ng-click="close()">
+                                    <svg><use xlink:href="#icon-close"></use></svg>
+                                </a>
+                                <p class="title">事前登録（期間限定）</p>
+                                <div class="input-box">
+                                    <input type="email"
+                                           class="form-control"
+                                           ng-model="user.userEmail"
+                                           ng-focus="gtmEvent('signup_popup_email')"
+                                           placeholder="メールアドレス"
+                                           ng-required="true"
+                                           name="email"
+                                           autocomplete="off"
+                                           ng-keydown="enterKeyUp($event,'form3');authError = false;"
+                                           ng-maxlength="100"/>
+                                    <div ng-show="form3.email.$dirty && form3.email.$invalid || authError" class="error-tips">
+                                        <div ng-show="form3.email.$error.required">メールアドレスを入力してください。</div>
+                                        <div ng-show="form3.email.$error.email">正しいメールアドレスを入力してください。</div>
+                                        <div ng-show="form3.email.$error.maxlength">6-20文字以内に入力してください。</div>
+                                        <div ng-show="authError" ng-bind="errorMessage"></div>
+                                    </div>
+                                </div>
+                                <div class="input-box">
+                                    <input type="password"
+                                           class="form-control"
+                                           ng-minlength="6"
+                                           ng-keydown="enterKeyUp($event,'form3')"
+                                           ng-focus="gtmEvent('signup_popup_password')"
+                                           placeholder="パスワード"
+                                           ng-required="true"
+                                           ng-maxlength="20"
+                                           name="userPassword"
+                                           ng-model="userPassword"/>
+                                    <div ng-show="form3.userPassword.$dirty && form3.userPassword.$invalid" class="error-tips">
+                                        <div ng-show="form3.userPassword.$error.required">パスワードを入力してください。</div>
+                                        <div ng-show="form3.userPassword.$error.minlength">6-20文字以内に入力してください。</div>
+                                        <div ng-show="form3.userPassword.$error.maxlength">6-20文字以内に入力してください。</div>
+                                    </div>
+                                </div>
+                                <p class="second"><a href="http://support.ptone.jp/treaty" target="_blank">「利用規約」</a>に同意した上、事前登録を行ってください。</p>
+                                <a class="btn-sign" ng-click="gtmEvent('signup_popup_btn'); signupPreRegistration('form3')" ng-keydown="preRegisterKeyup($event,'form3')">事前登録</a>
+                                <div class="popup-ft">
+                                    <a href="javascript:" class="google" ng-click="gtmEvent('signup_popup_google'); gaSignup()">
+                                        <svg><use xlink:href="#icon-logo-google2"></use></svg>
+                                    </a>
+                                    <a href="javascript:" class="facebook" ng-click="gtmEvent('signup_popup_facebook'); facebookSignup()">
+                                        <svg><use xlink:href="#icon-logo-facebook2"></use></svg>
+                                    </a>
+                                    <a href="javascript:" class="linkedin" ng-click="gtmEvent('signup_popup_linkedin'); linkedinSignup()">
+                                        <svg><use xlink:href="#icon-logo-linkedin2"></use></svg>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in"></div>
+    </div>
+    <div id="container"><div id="output"></div></div>
+    <div class="banner">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <div class="mid-text">
+                        <h1>Control Your Data</h1>
+                        <h2>あなたのデータを使った仕事がスマートに変わる</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top-signup-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <form class="form-inline  top-signup-bar-form " name="form1">
+                        <div class="form-group">
+                            <svg class="form-icon"><use xlink:href="#icon-email"></use></svg>
+                            <input type="email" ng-model="user.userEmail"
+                                   class="form-control"
+                                   placeholder="メールアドレス"
+                                   ng-required="true"
+                                   ng-focus="gtmEvent('signup_bar1_email')"
+                                   name="email" autocomplete="off"
+                                   ng-keydown="enterKeyUp($event,'form1');authError = false;" ng-maxlength="100">
+                            <div ng-show="form1.email.$dirty && form1.email.$invalid || authError" class="error-tips">
+                                <div ng-show="form1.email.$error.required">メールアドレスを入力してください。</div>
+                                <div ng-show="form1.email.$error.email">正しいメールアドレスを入力してください。</div>
+                                <div ng-show="form1.email.$error.maxlength">6-20文字以内に入力してください。</div>
+                                <div ng-show="authError" ng-bind="errorMessage"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <svg class="form-icon"><use xlink:href="#icon-pwd"></use></svg>
+                            <input type="password"
+                                   class="form-control"
+                                   ng-minlength="6"
+                                   ng-focus="gtmEvent('signup_bar1_password')"
+                                   ng-keydown="enterKeyUp($event,'form1')"
+                                   placeholder="パスワード"  ng-required="true" ng-maxlength="20" name="userPassword" ng-model="userPassword">
+                            <div ng-show="form1.userPassword.$dirty && form1.userPassword.$invalid" class="error-tips">
+                                <div ng-show="form1.userPassword.$error.required">パスワードを入力してください。</div>
+                                <div ng-show="form1.userPassword.$error.minlength">6-20文字以内に入力してください。</div>
+                                <div ng-show="form1.userPassword.$error.maxlength">6-20文字以内に入力してください。</div>
+                            </div>
+                        </div>
+                        <a class="btn btn-signup" ng-click="gtmEvent('signup_bar1_btn'); signupPreRegistration('form1')">事前登録（期間限定）</a>
+                        <div class="form-group other-signup">
+                            <a href="javascript:" class="google " ng-click="gtmEvent('signup_bar1_google'); gaSignup()">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-google2"></use>
+                                </svg>
+                            </a>
+                            <a href="javascript:" class="facebook" ng-click="gtmEvent('signup_bar1_facebook'); facebookSignup()">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-facebook2"></use>
+                                </svg>
+                            </a>
+                            <a href="javascript:" class="linkedin" ng-click="gtmEvent('signup_bar1_linkedin'); linkedinSignup()">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-linkedin2"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </form>
+                    <p>
+                        <a href="http://support.ptone.jp/treaty" target="_blank">「利用規約」</a>に同意した上、事前登録を行ってください。
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="compare">
+        <div class="compare-box">
+            <div class="compare-title clearfix">
+                <span class="l"><em>▼&nbsp;</em>今までの仕事のしかた</span>
+                <span class="r">PtOneでできる仕事のしかた<em>&nbsp;▼</em></span>
+            </div>
+        </div>
+        <div class="compare-box">
+            <div class="compare-main" ldp-compare>
+                <div class="base">
+                    <div class="before"></div>
+                    <div class="after"></div>
+                </div>
+                <div class="divider">
+                    <span class="slider">
+                        <span class="left">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow"></use>
+                            </svg>
+                        </span>
+                        <span class="right">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-arrow-right"></use>
+                            </svg>
+                        </span>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <div class="compare-box mid-text">
+            <p>PtOneは仕事で使うデータがバラバラに保管されていて、まとめるのが面倒であったり、すぐに確認したい結果を知るのに時間がかかったりする問題からあなたを解放するダッシュボードサービスです。</p>
+            <p>あなたのデータを使った仕事が早く、簡単にできるようになります。</p>
+        </div>
+        <div class="compare-box btm-tell-us">
+            <a ng-click="gtmEvent('community_feedback_bar_1')" class="tell-us"  target="_blank">
+                <span>
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-twitter"></use>
+                    </svg>
+                </span>
+                他にも困っていることがあれば教えてください！
+            </a>
+        </div>
+    </div>
+    <!--<div class="mid-signup-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1">
+                    <form class="form-inline  top-signup-bar-form" name="form2">
+                        <div class="form-group">
+                            <input type="email" ng-model="user.userEmail"  class="form-control"   ng-required="true"
+                                   placeholder="メールアドレス"  name="email" autocomplete="off" ng-keydown="enterKeyUp($event,'form2');authError = false;" ng-maxlength="100">
+                            <div ng-show="form2.email.$dirty && form2.email.$invalid || authError" class="error-tips">
+                                <div ng-show="form1.email.$error.required">メールアドレスを入力してください。</div>
+                                <div ng-show="form1.email.$error.email">正しいメールアドレスを入力してください。</div>
+                                <div ng-show="form1.email.$error.maxlength">6-20文字以内に入力してください。</div>
+                                <div ng-show="authError" ng-bind="errorMessage"></div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="パスワード" ng-minlength="6" ng-keydown="enterKeyUp($event,'form2')"
+                                   ng-maxlength="20" name="userPassword" ng-model="userPassword"  ng-required="true">
+                            <div ng-show="form2.userPassword.$dirty && form2.userPassword.$invalid" class="error-tips">
+                                <div ng-show="form1.userPassword.$error.required">パスワードを入力してください。</div>
+                                <div ng-show="form1.userPassword.$error.minlength">6-20文字以内に入力してください。</div>
+                                <div ng-show="form1.userPassword.$error.maxlength">6-20文字以内に入力してください。</div>
+                            </div>
+                        </div>
+                        <a class="btn btn-signup" ng-click="signupPreRegistration('form2')">事前登録（期間限定）</a>
+                        <div class="form-group other-signup">
+                            <a href="javascript:" class="google" ng-click="gaSignup()">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-google2"></use>
+                                </svg>
+                            </a>
+                            <a href="javascript:" class="facebook" ng-click="facebookSignup()">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-facebook2"></use>
+                                </svg>
+                            </a>
+                            <a href="javascript:" class="linkedin" ng-click="linkedinSignup()">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-linkedin2"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </form>
+                    <p>
+                        <a href="http://support.ptone.jp/treaty" target="_blank">「利用規約」</a>に同意した上、事前登録を行ってください。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <div class="role" data-hw="1257/1980">
+        <div class="box-wrap">
+            <div class="box clearfix pos-rlt">
+                <div class="box-info pos-abt">
+                    <h2>仕事をする人たちが楽になるプラットフォームです</h2>
+
+                    <p>
+                        PtOneはあらゆる役割の仕事をしている人たちが
+                        利用できるデータプラットフォームです。
+                        単純にデータをグラフなどにビジュアライズ
+                        するだけでなく、画面デザインを自由に変更したり、
+                        APIを通してあらゆるカスタマイズが可能です。
+                        オープンで、あなた好みに染められる楽しさもあります。
+                        そして驚くほどそれらを簡単にできる操作性を持
+                        っているのです。
+                    </p>
+                </div>
+                <div class="box-img pull-right pos-rlt role-unsilder">
+                    <div class="role-unsilder-bd"
+                         ui-jq="unslider"
+                         ui-options="{
+                            autoplay: true,
+                            dots: true,
+                            fluid: true,
+                            arrows: false
+                        }">
+                        <ul>
+                            <li><img src="/assets/images/landingpage/role1.png" alt=""></li>
+                            <li><img src="/assets/images/landingpage/role2.png" alt=""></li>
+                            <li><img src="/assets/images/landingpage/role3.png" alt=""></li>
+                            <li><img src="/assets/images/landingpage/role4.png" alt=""></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="data-source">
+        <div class="box-wrap">
+            <div class="box clearfix pos-rlt">
+                <!--<div class="phone-text text-center">-->
+                    <!--<h2>日々使うデータやオンラインサービスと連携</h2>-->
+
+                    <!--<p>-->
+                        <!--様々なクラウドサービス、ExcelやDBなどと簡単に接続。API(POS?もちろん大丈夫)を通せば-->
+                        <!--あらゆるデータを取り扱えるようになります。-->
+                    <!--</p>-->
+                <!--</div>-->
+                <div class="box-info pos-abt">
+                    <h2>あらゆるデータを一つの場所に</h2>
+
+                    <p>
+                        ビジネスマンであればスプレッドシート、
+                        エンジニアであればデータベースやAPI、
+                        マーケターであれば広告など、仕事でよく
+                        使うデータと簡単に接続して利用できます。
+                    </p>
+
+                    <div class="ds-logo clearfix pos-rlt">
+                        <span class="pull-left block">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ds-googleanalysis"></use>
+                            </svg>
+                        </span>
+                        <span class="pull-left block">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-facebook3"></use>
+                            </svg>
+                        </span>
+                        <span class="pull-left block">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-api"></use>
+                            </svg>
+                        </span>
+                        <span class="pull-left block">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-excel"></use>
+                            </svg>
+                        </span>
+                        <span class="pull-left block">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-db"></use>
+                            </svg>
+                        </span>
+                        <a class="pull-left more block pos-rlt" href="javascript:">
+                            More
+                            <div class="more-tips">
+                                <ul class="clearfix list-unstyled text-left">
+                                    <li class="pull-left"><span>Googleドライブ</span></li>
+                                    <li class="pull-left"><span>Salesforce</span></li>
+                                    <li class="pull-left"><span>Adwords</span></li>
+                                    <li class="pull-left"><span>Yahoo広告</span></li>
+                                    <li class="pull-left"><span>Facebook広告</span></li>
+                                    <li class="pull-left"><span>Mysql</span></li>
+                                    <li class="pull-left"><span>Big Query</span></li>
+                                    <li class="pull-left"><span>Amazon Web Services</span></li>
+                                    <li class="pull-left"><span>Ptengine</span></li>
+                                    <li class="pull-left"><span>Ptengine APP</span></li>
+                                    <li class="pull-left"><span>ETL</span></li>
+                                    <li class="pull-left"><span>その他計算指標</span></li>
+                                </ul>
+                                <p class="text-left">More...</p>
+                                <span class="arrow bottom hidden-folded"></span>
+                            </div>
+                        </a>
+                    </div>
+                    <a ng-click="gtmEvent('community_feedback_bar_2')"
+                       class="ds-twitter"
+                       target="_blank">
+                        <span>
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-twitter"></use>
+                            </svg>
+                        </span>
+                        もっと欲しいデータ接続先がある？
+                    </a>
+                </div>
+                <div class="box-img pull-left">
+                    <img class="img-responsive"
+                         animate-visible="true"
+                         animate-speed="0.5s"
+                         lazy-src="/assets/images/landingpage/data-source.gif"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="dashboard">
+        <div class="box-wrap">
+            <div class="box clearfix pos-rlt">
+                <div class="box-info pos-abt">
+                    <h2>紙の報告書に時間はもうかけない</h2>
+
+                    <p>
+                        ダッシュボードは共有したいチームメンバー、外部のクライアントにシェアができます。<br>
+                        同じ目標に向けて一丸となって前進で。また、気に入ったダッシュボードをフォローして常にモニターしておくこともできます。
+                    </p>
+
+                    <a class="block"
+                       target="_blank"
+                       href="https://www.ptone.jp/share-panel.html?id=36b2493b-83bc-4b90-ba29-ad299b88de58">
+                        実際にシェアされたダッシュボードの例を見る
+                    </a>
+                </div>
+                <div class="box-img pull-right">
+                    <img class="img-responsive"
+                         animate-visible="true"
+                         animate-speed="0.5s"
+                         lazy-src="/assets/images/landingpage/dashboard.gif"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="share" data-hw="1262/1980">
+        <div class="box-wrap clearfix">
+            <h2>様々な利用シーン </h2>
+
+            <div class="share-box pull-left pos-rlt">
+                <div class="share-box-inline">
+                    <span class="block share-icon">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-example2-ds"></use>
+                        </svg>
+                    </span>
+                    <p>広告、webトラフィックなど、データをエクセルで苦労して集計してレポートしていた作業がぜんぶいらなくなったよ！　</p>
+                </div>
+            </div>
+            <div class="share-box pull-left pos-rlt">
+                <div class="share-box-inline">
+                    <span class="block share-icon">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-example2-ds"></use>
+                        </svg>
+                    </span>
+                    <p>チームのパフォーマンスやKPI、トレンドなどの情報を外出先から、いつでも確認できるようになるで、もう報告を待つ必要がないよ。</p>
+                </div>
+            </div>
+            <div class="share-box pull-left pos-rlt">
+                <div class="share-box-inline">
+                    <span class="block share-icon">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-example2-ds"></use>
+                        </svg>
+                    </span>
+                    <p>APIを通せば、日々監視したいデータを好きにモニタリングできるし、画面のカスタマイズも簡単だから開発コストが大幅に削減できたよ！</p>
+                </div>
+            </div>
+            <div class="share-box pull-left pos-rlt">
+                <div class="share-box-inline">
+                    <span class="block share-icon">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-example2-ds"></use>
+                        </svg>
+                    </span>
+                    <p>分析やモニターのテンプレートがあるので、個人でサイトを運営しているような自分でも難しいことを一切考えずに設定ができたよ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="video" data-hw="1420/1980">
+        <div class="box-wrap">
+            <div class="video-info">
+                <h2 class="text-center">1分以内に設定</h2>
+                <p class="text-center">カスタマイズも簡単で早いPtOneをすぐにはじめよう</p>
+            </div>
+            <div class="video-bd" w2h data-ratio="0.63">
+                <iframe width="100%"
+                        height="100%"
+                        src="https://www.youtube.com/embed/OmfB9eRC9AM?rel=0&amp;showinfo=0"
+                        frameborder="0"
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+    <div class="ft-login pos-rlt" data-hw="862/1980"
+         data-type="svgBg"
+         data-ratio="0.44">
+
+        <svg class="ft-login-bg"
+             width="100%"
+             height="100%"
+             version="1.1"
+             xmlns="http://www.w3.org/2000/svg"
+             ng-if="myOptions.points !== null">
+            <polygon points="{{myOptions.points}}" style="fill:#8bc34a;"/>
+        </svg>
+
+        <div class="box-wrap pos-rlt">
+            <h2 class="text-center">今からスマートに仕事をしよう</h2>
+            <!--<p class="text-center">xxxx 人が現在PtOneを先行ユーザー体験しています</p>-->
+            <div class="login-bd m-t-lg">
+                <form name="form" class="form-validation">
+                    <div class="ipt-login m-b-xs">
+                        <svg><use xlink:href="#icon-email"></use></svg>
+                        <input id="login-signup-email"
+                               class="no-bg no-border text-lg ft-input"
+                               type="email"
+                               placeholder="メールアドレス"
+                               ng-model="user.userEmail"
+                               ng-focus="gtmEvent('signup_bar_bottom_email')"
+                               name="email"
+                               autocomplete="off"
+                               ng-keydown="enterKeyUp($event,'form3');authError = false;"
+                               ng-maxlength="100"
+                               ng-required="true">
+                        <div class="popover text-danger"
+                             ng-show="form.email.$dirty && form.email.$invalid || authError">
+                            <div class="popover-inner">
+                                <div class="popover-content">
+                                    <div ng-show="form.email.$error.required">メールアドレスを入力してください</div>
+                                    <div ng-show="form.email.$error.email">正しいメールアドレスを入力してください。</div>
+                                    <div ng-show="form.email.$error.maxlength">6-20文字以内に入力してください。</div>
+                                    <div ng-show="authError" ng-bind="errorMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ipt-login m-b-xs">
+                        <svg><use xlink:href="#icon-pwd"></use></svg>
+                        <input id="login-signup-password"
+                               class="no-bg no-border text-lg ft-input"
+                               type="password"
+                               ng-minlength="6"
+                               ng-keydown="enterKeyUp($event,'form')"
+                               ng-focus="gtmEvent('signup_bar_bottom_password')"
+                               placeholder="パスワード"
+                               ng-maxlength="20" name="userPassword" ng-model="userPassword" ng-required="true">
+                        <div class="popover text-danger"
+                             ng-show="form.userPassword.$dirty && form.userPassword.$invalid">
+                            <div class="popover-inner">
+                                <div class="popover-content">
+                                    <div ng-show="form.userPassword.$error.required">パスワードを入力してください。</div>
+                                    <div ng-show="form.userPassword.$error.minlength">6-20文字以内に入力してください。</div>
+                                    <div ng-show="form.userPassword.$error.maxlength">6-20文字以内に入力してください。</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="signup-info">
+                        <div class="text-center text-over text-md text-center">
+                            <a class="login-default-color login-a" href="http://support.ptone.jp/treaty" target="_blank">
+                                <span>「利用規約」</span>
+                            </a>
+                            <span class="login-default-color">に同意した上、事前登録を行ってください。</span>
+                        </div>
+                    </div>
+
+                    <button id="login-signup-submit"
+                            id="pt-signupButton"
+                            class="text-xl no-border block text-center btn-login"
+                            type="button"
+                            ng-click="gtmEvent('signup_bar_bottom_btn'); signupPreRegistration('form')">
+                        <span class="ft-signup-btn">事前登録（期間限定）</span>
+                    </button>
+                </form>
+            </div>
+
+            <footer class="login-ft">
+                <a href="#none" title="google" ng-click="gtmEvent('signup_bar_bottom_google'); gaSignup()">
+                    <svg class="svg-google">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-google2"></use>
+                    </svg>
+                </a>
+                <a href="#none" title="facebook" ng-click="gtmEvent('signup_bar_bottom_facebook'); facebookSignup()">
+                    <svg class="svg-facebook">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-facebook2"></use>
+                    </svg>
+                </a>
+                <a href="#none" title="linkedin" ng-click="gtmEvent('signup_bar_bottom_linkedin'); linkedinSignup()">
+                    <svg class="svg-linkedin">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-linkedin2"></use>
+                    </svg>
+                </a>
+            </footer>
+        </div>
+    </div>
+    <footer class="copyright" data-hw="238/1980">
+        <div class="footer-nav pos-rlt">
+            <div class="footer-nav-bd clearfix">
+                <ul class="clearfix list-unstyled pull-left m-b-none">
+                    <li class="pull-left">
+                        <a ng-click="gtmEvent('bottom_info_company')" target="_blank">会社概要</a>
+                    </li>
+                    <li class="pull-left">
+                        <a ng-click="gtmEvent('bottom_info_treaty')" target="_blank">利用規約</a>
+                    </li>
+                    <li class="pull-left">
+                        <a ng-click="gtmEvent('bottom_info_contact')" target="_blank">お問い合わせ</a>
+                    </li>
+                    <li class="pull-left">
+                        <a href="javascript:" ng-click="gtmEvent('bottom_info_community')" ui-sref="signin({community:true})">コミュニティ</a>
+                    </li>
+                </ul>
+                <ol class="clearfix list-unstyled pull-right m-b-none">
+                    <li class="pull-left">
+                         <a ng-click="gtmEvent('bottom_info_facebook')" target="_blank" title="facebook">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-facebook2"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="pull-left">
+                        <a ng-click="gtmEvent('bottom_info_twitter')" target="_blank" title="twitter">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-twitter"></use>
+                            </svg>
+                        </a>
+                    </li>
+                    <li class="pull-left">
+                        <a ng-click="gtmEvent('bottom_info_youtube')" target="_blank" title="youtube">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-youtube"></use>
+                            </svg>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="copyright-info pos-rlt">
+            <p class="text-center">
+                Copyright © 2016 Ptmind all rights reserved
+            </p>
+        </div>
+    </footer>
+</div>
+
+

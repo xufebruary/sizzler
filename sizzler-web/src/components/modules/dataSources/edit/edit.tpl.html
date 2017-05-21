@@ -1,0 +1,340 @@
+<!-- 通用头部 -->
+<div class="pos-rlt" ng-show=" editSet.pageLoad ">
+    <!-- 路径-账户列表 -->
+    <div class="ds-header-breadcrumb text-black-900 m-b-none">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.ASIDE.DATA_SOURCES">Data Source
+            Management</a>
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use>
+        </svg>
+        <a class="text-black-900" ui-sref="pt.dataSources.{{dsCtrl.editDs.code}}">
+            {{dsCtrl.editDs.name}}<span translate="DATA_SOURCE.EDITOR.HD_MANAGE"></span>
+        </a>
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use>
+        </svg>
+        <span class="text-black-1000" href="javascript:" translate="DATA_SOURCE.EDITOR.TITLE">Table Setting</span>
+    </div>
+
+    <p class="m-t-lg">
+        <span ng-if=" dsCtrl.editDs.code != 'googledrive' && dsCtrl.editDs.code != 's3'"
+              ng-bind-html=" 'DATA_SOURCE.EDITOR.MYSQL_INTRODUCE' | translate "></span>
+        <span ng-if=" dsCtrl.editDs.code == 'googledrive' || dsCtrl.editDs.code == 's3' "
+              ng-bind-html=" 'DATA_SOURCE.EDITOR.GD_INTRODUCE' | translate "></span>
+    </p>
+</div>
+
+
+<div class="m-t-lg">
+    <span class="text-black-500" translate="DATA_SOURCE.EDITOR.FILE_NAME">File Name:</span>
+    <span class="m-b-xs text-black-800">{{dsEditor.dsContnet.name}}</span>
+</div>
+
+<div class="ds-editor-box"
+     ng-if="editSet.pageLoad"
+     ng-class="{'ds-mysql-editor-box': dsCtrl.editDs.config.dataSource.editTpl.tableClass}">
+
+    <!-- 选取有效行范围 -->
+    <div class="clearfix pos-rlt ds-editor-hd ds-editor-hd-bg ds-editor-rang"
+         ng-if=" !dsCtrl.editDs.config.dataSource.editTpl.tableHdHide ">
+
+        <div class="pull-left clearfix m-r-xxl">
+            <span class="pull-left" translate="DATA_SOURCE.EDITOR.SET_ROW">行设定：</span>
+            <div class="pull-left pos-rlt ds-dropdown-rang m-r-sm m-r-xs" dropdown>
+                <a class="block ds-dropdown-rang-toggle text-black-400" dropdown-toggle>
+                    {{ dsEditor.hotTable.headMode | translateFilter: {code: dsEditor.hotTable.headMode, path:
+                    'DATA_SOURCE.EDITOR.'} }}
+                    <span class="pull-right"><b class="caret"></b></span>
+                </a>
+                <ul class="dropdown-menu animated fadeInDown dropdown-menu-ds">
+                    <li ng-class="{'active': dsEditor.hotTable.headMode == 'assign'}">
+                        <a ng-click="changeMode('assign')" translate="DATA_SOURCE.EDITOR.ASSIGN">指定行</a>
+                    </li>
+                    <li ng-class="{'active': dsEditor.hotTable.headMode == 'custom'}">
+                        <a ng-click="changeMode('custom')" translate="DATA_SOURCE.EDITOR.CUSTOM">自定义编辑</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-left" ng-hide="dsEditor.hotTable.headMode == 'custom'">
+                <input type="number"
+                       class="no-bg ds-ipt-rang"
+                       min="1"
+                       max="{{dsEditor.hotTable.rowSum}}"
+                       ng-model="editSet.dataRange.headerIndex"
+                       ng-change="changeMode(dsEditor.hotTable.headMode,'change-header-index')"
+                       ng-class="{'warning': editSet.dataRange.headerIndexErrorTips}">
+                <span translate="DATA_SOURCE.EDITOR.ROW">行</span>
+            </div>
+        </div>
+        <div class="pull-left clearfix">
+            <div class="pull-left m-r-xs">
+                <span translate="DATA_SOURCE.EDITOR.RANG">范围：</span>
+                <input class="no-bg ds-ipt-rang"
+                       type="number"
+                       min="{{editSet.dataRange.startMin}}"
+                       max="{{dsEditor.hotTable.rowSum}}"
+                       ng-model="editSet.dataRange.startIndex"
+                       ng-change="changeRang('start')"
+                       ng-class="{'warning': editSet.dataRange.startIndexErrorTips}">
+                <span translate="DATA_SOURCE.EDITOR.ROW_SUM">行</span>
+                <span>~</span>
+                <span translate="DATA_SOURCE.EDITOR.END_ROW">倒数</span>
+                <input class="no-bg ds-ipt-rang"
+                       type="number"
+                       min="{{editSet.dataRange.endMin}}"
+                       max="{{dsEditor.hotTable.rowSum}}"
+                       ng-model="editSet.dataRange.endIndex"
+                       ng-change="changeRang('end')"
+                       ng-class="{'warning': editSet.dataRange.endIndexErrorTips}">
+                <span translate="DATA_SOURCE.EDITOR.ROW_SUM">行</span>
+            </div>
+            <div class="pull-left btn-help m-n text-md">
+                <i class="fa fa-question-circle"></i>
+                <p class="ng-binding ng-scope" translate="DATA_SOURCE.EDITOR.TIP_2"></p>
+            </div>
+        </div>
+
+        <!-- <div class="ds-dropdown-rang-tips">
+            <span class="clear text-danger headerIndexTips" ng-if="editSet.dataRange.headerIndexErrorTips">输入数值有误，不能小于1且不能大于最大显示行数</span>
+        </div> -->
+    </div>
+
+    <!-- 数据类型下拉 -->
+    <div class="pos-rlt ds-dropdown-dataType">
+        <ul class="dropdown-menu animated fadeInDown dropdown-menu-dataType block"
+            ng-if="editSet.dataTypeDropdown.show"
+            ng-style="{'left': editSet.dataTypeDropdown.left+'px'}"
+            ng-class="{'dropdown-menu-right': editSet.dataTypeDropdown.right}">
+            <li class="dropdown-submenu clearfix"
+                ng-repeat="dataType in dsEditor.dataTypeList"
+                ng-class="{'dropdown-submenu': dataType.format, 'active': editSet.dataTypeDropdown.schema.dataType == dataType.code}">
+                <a class="dropdown-submenu-a" ng-if="['STRING','NUMBER','PERCENT','TIMESTAMP'].indexOf(dataType.code)<0">
+                    <dom-svg-func class="svg-ds" data-svgid="{{'#icon-ds-'+dataType.code.toLocaleLowerCase()}}"></dom-svg-func>
+                    <span>{{ 'COMMON.'+dataType.code | translate }}</span>
+                    <i class="fa fa-fw fa-caret-right pull-right text m-t-xs text-black-500"></i>
+                </a>
+                <a ng-click="changeDataType(dataType, editSet.dataTypeDropdown.index)"
+                   ng-if="['STRING','NUMBER','PERCENT','TIMESTAMP'].indexOf(dataType.code)>=0">
+                    <dom-svg-func class="svg-ds" data-svgid="{{'#icon-ds-'+dataType.code.toLocaleLowerCase()}}"></dom-svg-func>
+                    <span>{{ 'COMMON.'+dataType.code | translate }}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dataType" ng-if="dataType.format">
+                    <li ng-repeat="format in dataType.format"
+                        ng-click="changeDataFormat(format, editSet.dataTypeDropdown.index);"
+                        ng-class="{'active': editSet.dataTypeDropdown.schema.dataFormat == format.code && editSet.dataTypeDropdown.schema.dataType == dataType.code}">
+                        <a tabindex="-1">
+                            <svg ng-if="['¥##','¥###','$##'].indexOf(format.code)>=0">
+                                <use xlink:href="#icon-ds-currency-jpy" ng-if=" format.code == '¥##' "/>
+                                <use xlink:href="#icon-ds-currency-rmb" ng-if=" format.code == '¥###' "/>
+                                <use xlink:href="#icon-ds-currency-usd" ng-if=" format.code == '$##' "/>
+                            </svg>
+                            {{format.name}}
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="ds-editor-box-bd">
+        <div class="ds-editor-table-hd" ng-style="{width: dsEditor.hotWeight+'px'}">
+            <table class="no-border ds-editor-table">
+                <colgroup>
+                    <col width="28">
+                    <col ng-repeat="schema in dsEditor.hotTable.schema"
+                         ng-style="{'width': ($index == dsEditor.hotTable.schema.length-1) ? 'auto' : editSet.tdWidth}">
+                </colgroup>
+
+                <thead>
+                    <tr class="ds-editor-header">
+                        <th class="pos-rlt">
+                            <div class="ds-editor-hd-bg ds-editor-hd-tips">
+                                <div class="btn-help m-n text-center">
+                                    <i class="fa fa-question-circle"></i>
+                                    <p class="ng-binding font-normal text-left">
+                                        <span ng-if="['googledrive','s3', 'upload'].indexOf(dsCtrl.editDs.code)>=0"
+                                              translate="DATA_SOURCE.EDITOR.GD_TIP_1"></span>
+                                        <span ng-if="['mysql','mysqlAmazonRds','postgre','redshift', 'auroraAmazonRds', 'bigquery', 'standardRedshift', 'sqlserver'].indexOf(dsCtrl.editDs.code)>=0"
+                                              translate="DATA_SOURCE.EDITOR.MYSQL_TIP_1"></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </th>
+                        <th class="ds-editor-hd-box pos-rlt"
+                            ng-repeat="schema in dsEditor.hotTable.schema"
+                            ng-init="sIndex = $index">
+                            <!-- dataType -->
+                            <div class="pos-abt ds-editor-hd-bg ds-dropdown-dataType"
+                                 auto-close="outsideClick"
+                                 is-open="dataTypeIndex[sIndex]">
+                                <button class="block no-bg no-border btn-dataType"
+                                        ng-click="toggleDataType($event, sIndex, schema)"
+                                        tooltip-placement="top"
+                                        tooltip="{{ 'DATA_SOURCE.EDITOR.DATA_TYPE_TIPS' | translate}}">
+                                    <svg class="svg-triangle">
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                             xlink:href="#icon-triangle-down"></use>
+                                    </svg>
+
+                                    <svg>
+                                        <use xlink:href="#icon-ds-string" ng-if=" schema.dataType == 'STRING' "/>
+                                        <use xlink:href="#icon-ds-number" ng-if=" schema.dataType == 'NUMBER' "/>
+                                        <use xlink:href="#icon-ds-percent" ng-if=" schema.dataType == 'PERCENT' "/>
+                                        <use xlink:href="#icon-ds-date" ng-if=" schema.dataType == 'DATE' "/>
+                                        <use xlink:href="#icon-ds-time" ng-if=" schema.dataType == 'TIME' "/>
+                                        <use xlink:href="#icon-ds-datetime" ng-if=" schema.dataType == 'DATETIME' "/>
+                                        <use xlink:href="#icon-ds-duration" ng-if=" schema.dataType == 'DURATION' "/>
+                                        <use xlink:href="#icon-ds-currency-jpy"
+                                             ng-if=" schema.dataType == 'CURRENCY' &&  schema.dataFormat == '¥##' "/>
+                                        <use xlink:href="#icon-ds-currency-rmb"
+                                             ng-if=" schema.dataType == 'CURRENCY' &&  schema.dataFormat == '¥###' "/>
+                                        <use xlink:href="#icon-ds-currency-usd"
+                                             ng-if=" schema.dataType == 'CURRENCY' &&  schema.dataFormat == '$##' "/>
+                                        <use xlink:href="#icon-ds-timestamp" ng-if=" schema.dataType == 'TIMESTAMP' "/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <!-- header -->
+                            <div class="ds-dropdown-dataHeader">
+                                <input type="text"
+                                       class="no-bg ds-ipt-header"
+                                       placeholder="{{COMMON.NO_SET | translate}}"
+                                       maxLength="30"
+                                       ng-model="editSet.headData.modeHeadValue[$index]"
+                                       ng-value="schema.name"
+                                       ng-init="editSet.headData.modeHeadValue[$index] = schema.name"
+                                       ng-change="changeHeader(editSet.headData.modeHeadValue[$index], sIndex, 'change')"
+                                       ng-blur="changeHeader(editSet.headData.modeHeadValue[$index], sIndex, 'blur')">
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="ds-table-hd-tr">
+                        <td class="ds-table-hd-th ds-table-first-col"></td>
+                        <td class="ds-table-hd-th text-center pos-rlt" ng-repeat="th in dsEditor.hotTable.schema" dropdown
+                            auto-close="outsideClick" ng-init="sIndex = $index"> <!-- is-open="dimensionIndex[f.index]" -->
+                            <span>{{ i2s($index) }}</span>
+                            <button class="no-bg no-border ds-table-hd-btn" dropdown-toggle>
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-triangle-down"></use>
+                                </svg>
+                            </button>
+                            <ul class="dropdown-menu animated fadeInDown dropdown-menu-ds">
+                                <li class="padder-sm">
+                                    <label class="i-checks i-checks-sm m-b-none" ng-click="ignore(col[$index], sIndex)">
+                                        <input type="checkbox" class="ng-pristine"
+                                               ng-model="col[$index]"
+                                               ng-change="ignoreCol(sIndex)"
+                                               ng-init="col[$index] = dsEditor.hotTable.ignoreCol.indexOf(sIndex) >= 0 ? true : false ">
+                                        <i class="m-r-none"></i>
+                                        <span class="padder-l-xs" translate="DATA_SOURCE.EDITOR.IGNORE" )></span>
+                                    </label>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="ds-editor-table-bd" ng-style="{width: dsEditor.hotWeight+'px'}">
+            <table class="no-border ds-editor-table">
+                <colgroup>
+                    <col width="28">
+                    <col ng-repeat="schema in dsEditor.hotTable.schema"
+                         ng-style="{'width': ($index == dsEditor.hotTable.schema.length-1) ? 'auto' : editSet.tdWidth}">
+                </colgroup>
+                <tbody>
+                    <tr class="ds-table-bd-tr"
+                        ng-repeat="tr in dsEditor.hotTable.data"
+                        ng-class="{'header': editSet.data[$index].header, 'ignore': editSet.data[$index].ignore}"
+                        on-finish-render-filters>
+                        <td class="ds-table-bd-td ds-table-first-col text-center">{{ $index + 1 }}</td>
+                        <td class="ds-table-bd-td padder-l-sm" ng-repeat="td in tr track by $index">{{td}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="ds-editor-box-ft m-t-xs clearfix pos-rlt"
+         ng-if=" !dsCtrl.editDs.config.dataSource.editTpl.sheetHide ">
+
+        <div class="clearfix pull-left js_sheet_tab">
+            <button type="button"
+                    class="ds-ft-btn text-ellipsis pull-left"
+                    title="{{table.name}}"
+                    ng-repeat="table in dsEditor.dsContnet.table"
+                    ng-class="{'active': dsEditor.hotTable.name == table.name}"
+                    ng-click="sltSheet(table, $index)">
+                <span>{{table.name}}</span>
+            </button>
+        </div>
+        <div class="pull-right ds-ft-sheet-btn">
+            <button class="no-bg no-border no-padder">
+                <svg class="m-l-xs">
+                    <use xlink:href="#icon-chevron-small-left"></use>
+                </svg>
+            </button>
+            <button class="no-bg no-border no-padder">
+                <svg class="m-r-xs">
+                    <use xlink:href="#icon-chevron-small-right"></use>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix m-t-md" ng-if="editSet.pageLoad">
+    <div class="pull-left text-success">
+        <span translate="DATA_SOURCE.EDITOR.ROW_TIPS_1" 
+            translate-values="{'rows': dsCtrl.editDs.code == 'bigquery' ? 10 : 200}"></span>
+        <b>{{dsEditor.hotTable.rowSum}}</b>
+        <span translate="DATA_SOURCE.EDITOR.ROW_TIPS_2">行です。</span>
+    </div>
+
+    <div class="text-right pull-right">
+        <button type="button" class="pt-btn pt-btn-default m-r-md" ng-click="cancel()" translate="COMMON.CANCEL">
+            Cancel
+        </button>
+        <button type="button" class="pt-btn pt-btn-success" ng-click="save()" translate="DATA_SOURCE.EDITOR.SAVE_EDIT">
+            Save
+        </button>
+    </div>
+</div>
+
+<div ng-if="editSet.saveSuccessTips">
+    <div class="popup">
+        <div class="popup-content">
+            <header class="popup-hd">
+                <!-- <span class="popup-title">文件保存</span> -->
+                <a class="popup-btnClose" ng-click="closeTips()">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+                    </svg>
+                </a>
+            </header>
+            <div class="popup-bd padder-v-sm text-md text-ellipsis" title="{{panelInfo.panelTitle}}">
+                <span class="ng-scope" translate="DATA_SOURCE.EDITOR.SAVE_SUCCESS_TIP_1">文件保存成功，</span>
+                <a class="text-u-l" ng-click="goTo('fileList')" translate="DATA_SOURCE.EDITOR.SAVE_SUCCESS_TIP_2">返回Google
+                    Drive管理页</a>
+            </div>
+            <footer class="popup-ft text-right m-t-sm">
+                <button class="pt-btn pt-btn-default m-r-xs" ng-click="goTo('fileAdd')" id="panel-delete-close">
+                    <span translate="DATA_SOURCE.EDITOR.BTN_CREATE_WIDGET">继续添加文件</span>
+                </button>
+                <button class="pt-btn pt-btn-success" ng-click="goTo('createWidget')" id="panel-delete-save">
+                    <span translate="DATA_SOURCE.EDITOR.BTN_CREATE_WIDGET">创建widget</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>
+
+
+<div tips-two-btn tips-options="{{editSet.tips.options}}" ng-if="editSet.tips.show"></div>

@@ -1,0 +1,24 @@
+<div class="editor" movable move-by=".editor-hd" style="width: 400px; padding: 20px;">
+    <header class="editor-hd" style="height: 20px;">
+        <span has-sys-role="!ptone-admin-user" class="text-xs m-l-sm block pull-left text-over">{{modal.editorNow.baseWidget.widgetTitle}} demo data:</span>
+        <a class="pull-right m-r-xs" ng-click="close()">
+            <i class="fa fa-times fa-fw"></i>
+        </a>
+    </header>
+
+    <div class="editor-admin-bd">
+        <div class="editor-admin-describe m-t">
+            <textarea id="demoData" ng-model="showChartData" class="block wrapper-lg text-md" style="height: 240px;"></textarea>
+        </div>
+    </div>
+
+    <footer class="clear m-t editor-admin-ft">
+        <span class="text-success" ng-if="isSuccess">
+            <span translate="COMMON.SAVE"></span><span translate="COMMON.SUCCESS"></span>
+        </span>
+        <!--<a class="text-center pull-right" ng-click="apply()">apply</a>-->
+        <a class="text-center pull-right" ng-click="saveDemoData()">save</a>
+        <a class="text-center pull-right m-r-xs" ng-click="close()">cancel</a>
+        <a class="text-center pull-right m-r-xs" ng-click="removeDemoData()">remove</a>
+    </footer>
+</div>

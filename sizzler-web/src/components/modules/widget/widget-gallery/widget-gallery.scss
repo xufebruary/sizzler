@@ -1,0 +1,385 @@
+@import "compass";
+@import "../../../../assets/sass/framework/varibles";
+@import "../../../../assets/sass/framework/mixin-ui";
+@import "../../../../assets/sass/framework/mixin-basic";
+
+.widget-gallery-wrap {
+  .popup-content {
+    width: 720px;
+  }
+
+  .widget-gallery-hd {
+
+    .tab {
+      text-align: center;
+      margin-bottom: 14px;
+
+      button {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        color: $white;
+        font-size: 13px;
+        margin: 0 8px;
+        background-color: #dfdfdf;
+        border: none;
+        line-height: 1em;
+        cursor: default;
+        padding: 3px 0 0 0;
+      }
+
+      .dot {
+        display: inline-block;
+        position: relative;
+        margin: 2px 2px;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: #dfdfdf;
+      }
+
+      &.active_1 > button:first-child,
+      &.active_2 > button,
+      &.active_2 .dot {
+        background-color: #6ec5fd;
+      }
+    }
+
+    .title {
+      font-size: 20px;
+      color: #414141;
+      line-height: 28px;
+      float: left;
+      margin: 0;
+    }
+
+    .search {
+      width: 160px;
+      height: 28px;
+      border-radius: 4px;
+      border: 1px solid #e5e5e5;
+      float: right;
+
+      input {
+        border: none;
+        width: 130px;
+        height: 100%;
+        padding-left: 5px;
+        background-color: transparent;
+      }
+
+      a {
+        width: 28px;
+        height: 100%;
+        text-align: center;
+
+        i {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+
+  .widget-gallery-bd {
+    width: 636px;
+    height: 440px;
+    margin: 14px 0;
+    position: relative;
+
+    .widget-gallery-list {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .box {
+      width: 200px;
+      height: 140px;
+      box-shadow: inset 0 0 0 1px #e5e5e5;
+      position: relative;
+      border-radius: 4px;
+      cursor: pointer;
+      display: table;
+      margin: 0 10px 10px 0;
+      float: left;
+
+      &:hover,
+      &.active {
+        box-shadow: inset 0 0 0 3px #9bcb64;
+      }
+
+      &.active .box-active {
+        display: block;
+      }
+
+      .box-active {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 28px;
+        height: 28px;
+        border-radius: 0 4px 0 22px;
+        background-color: #9bcb64;
+        z-index: 10;
+        text-align: left;
+
+        svg {
+          width: 18px;
+          height: 18px;
+          fill: #fff;
+          margin: 4px 0 0 6px;
+        }
+      }
+
+      .box-img {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+
+        img {
+          width: 194px;
+          max-width: 100%;
+          max-height: 100%;
+        }
+      }
+    }
+
+    .widget-gallery-chart {
+      text-align: center;
+      font-size: 16px;
+      color: #444;
+      text-shadow: 0 1px 0 #fff;
+
+      &:hover {
+        .widget-gallery-chart-bd {
+          .widget-gallery-chart-img img {
+            opacity: 1;
+            -webkit-filter: grayscale(0);
+            -moz-filter: grayscale(0);
+            -ms-filter: grayscale(0);
+            -o-filter: grayscale(0);
+            filter: grayscale(0);
+          }
+          span {
+            opacity: 0;
+          }
+        }
+
+        .widget-gallery-chart-ds {
+          opacity: 0;
+        }
+      }
+
+      .widget-gallery-chart-bd {
+        display: table-cell;
+        vertical-align: middle;
+        height: 100%;
+        word-wrap: break-word;
+        word-break: break-all;
+        padding: 0 10px;
+        line-height: 17px;
+        position: relative;
+
+        .widget-gallery-chart-img {
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          right: 3px;
+          bottom: 3px;
+          z-index: 1;
+
+          img {
+            width: 100%;
+            max-height: 100%;
+            opacity: .24;
+
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: gray;
+
+            -webkit-transition: opacity .15s linear;
+            -o-transition: opacity .15s linear;
+            transition: opacity .15s linear;
+          }
+        }
+
+        span {
+          position: relative;
+          z-index: 10;
+
+          opacity: 1;
+          -webkit-transition: opacity .15s linear;
+          -o-transition: opacity .15s linear;
+          transition: opacity .15s linear;
+        }
+      }
+
+      .widget-gallery-chart-bar {
+        background: url("/assets/images/chart/bar.png") no-repeat center center;
+      }
+      .widget-gallery-chart-column {
+        background: url("/assets/images/chart/column.png") no-repeat center center;
+      }
+      .widget-gallery-chart-line {
+        background: url("/assets/images/chart/line.png") no-repeat center center;
+      }
+      .widget-gallery-chart-map {
+        background: url("/assets/images/chart/map.png") no-repeat center center;
+      }
+      .widget-gallery-chart-number {
+        background: url("/assets/images/chart/number.png") no-repeat center center;
+      }
+      .widget-gallery-chart-pie {
+        background: url("/assets/images/chart/pie.png") no-repeat center center;
+      }
+      .widget-gallery-chart-progressbar {
+        background: url("/assets/images/chart/progressbar.png") no-repeat center center;
+      }
+      .widget-gallery-chart-table {
+        background: url("/assets/images/chart/table.png") no-repeat center center;
+      }
+    }
+
+    .widget-gallery-chart-ds {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      left: 10px;
+      text-align: right;
+      height: 16px;
+      z-index: 10;
+      opacity: 1;
+      -webkit-transition: opacity .15s linear;
+      -o-transition: opacity .15s linear;
+      transition: opacity .15s linear;
+
+      span {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        border-radius: 50%;
+        margin-left: 6px;
+        overflow: hidden;
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+
+    .widget-gallery-chart-info {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200px;
+      padding: 10px;
+      background-color: #3e4042;
+      box-shadow: 0 1px 2px #3e4042;
+      border-radius: 4px;
+      display: none;
+      z-index: 20;
+
+      line-height: 14px;
+      font-size: 12px;
+      color: #fff;
+      word-wrap: break-word;
+      word-break: break-all;
+
+      .info-title {
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      //.info-title,
+      //.info-bd {
+      //  line-height: 14px;
+      //  font-size: 12px;
+      //  color: #fff;
+      //  word-wrap: break-word;
+      //  word-break: break-all;
+      //}
+
+      .arrow.bottom {
+
+        &:after {
+          border-top-color: #3e4042;
+        }
+      }
+    }
+
+    .no-data {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 16px;
+      color: #757575;
+      width: 620px;
+    }
+  }
+
+  .widget-gallery-ft {
+    position: relative;
+
+    .error-tips {
+      padding: 0 10px;
+      background-color: #ee6e66;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #fff;
+      line-height: 30px;
+      position: absolute;
+      bottom: 40px;
+      right: 0;
+      z-index: 30;
+    }
+
+    .help-tips {
+      float: left;
+      line-height: 30px;
+      font-size: 14px;
+      color: #757575;
+
+      a {
+        text-decoration: underline;
+
+        &:hover {
+          text-decoration: none;
+          color: #757575;
+        }
+
+        &:focus {
+          color: #757575;
+        }
+      }
+    }
+  }
+
+  .tips-success {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    background-color: #3e4041;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border-radius: 10px;
+    padding: 20px;
+    z-index: 9999;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      background-color: #fff;
+      border-radius: 50%;
+      vertical-align: middle;
+      margin-right: 6px;
+      fill: #3e4041;
+    }
+
+    span {
+      color: #fff;
+    }
+  }
+}

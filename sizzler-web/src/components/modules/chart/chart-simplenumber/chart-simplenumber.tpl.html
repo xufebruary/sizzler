@@ -1,0 +1,15 @@
+<div> 
+    <div ng-if="showLoading" class="text-muted text-base" style="position: absolute;left: 70px;top: 140px;font-weight: bold;z-index: 10;">Loading ...</div> 
+    <div ng-if="showError" class="text-muted text-base" style="cursor:pointer; position: absolute;left: 60px;top: 120px;font-weight: bold;z-index: 10;">
+        <p ng-bind-html="errorMsg"></p>
+    </div> 
+    <div ng-show="showThumb" class="text-muted l-h-1x text-xs" style="height: 40px;">{{data.dateRange}}</div>
+
+    <div id="{{d.variableId}}" ng-repeat="d in data.series[0].data" class="wrapper-md" style="height: 140px;">
+        <div class="top text-right w-full" style="position: absolute;right: 0;">
+        </div>
+
+        <div style="text-align: center;" class="h1  text-info font-thin h1">{{d.y}}{{d.dataLabels}}</div>
+        <div style="text-align: center;" class="text-muted text-xs">{{d.name}}</div>
+    </div>
+</div>

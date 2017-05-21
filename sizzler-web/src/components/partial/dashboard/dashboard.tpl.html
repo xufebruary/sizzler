@@ -1,0 +1,366 @@
+<div class="bd">
+    <!-- aside (left) -->
+    <div class="pt-aside clearfix">
+        <div class="aside-wrap">
+            <div class="aside-fold" ng-click="pt.settings.asideFolded = !pt.settings.asideFolded">
+                <svg>
+                    <use ng-if="!pt.settings.asideFolded" xlink:href="#icon-chevron-small-left"></use>
+                    <use ng-if="pt.settings.asideFolded" xlink:href="#icon-chevron-small-right"></use>
+                </svg>
+                <svg>
+                    <use ng-if="!pt.settings.asideFolded" xlink:href="#icon-chevron-small-left"></use>
+                    <use ng-if="pt.settings.asideFolded" xlink:href="#icon-chevron-small-right"></use>
+                </svg>
+            </div>
+
+            <!-- 面板列表 -->
+            <panel-list
+                ng-if="modal.panel.list"
+                space-id="rootSpace.current.spaceId"
+                settings-info="rootUser.settingsInfo"
+                current-panel-select="rootPanel.now"
+                current-panel-list="rootPanel.list"
+                current-panel-layout="rootPanel.layout"
+                show-panel-operation="showPanelOperation(type, panelInfo)"
+                panel-operation-call-back="panelOperationCallBack(type, layout, data)"
+                panel-operation-failure-call-back="panelOperationFailureCallBack(type, data)"
+                dashboard-select="dashboardSelect(panelId, type)">
+            </panel-list>
+
+            <div class="pt-loading" ng-if="!modal.panel.list">
+                <span class="pt-center pt-loading-box-sm">
+                    <svg class="load-s btnloads"><use xlink:href="#icon-loading"></use></svg>
+                    <svg class="load-m btnloadm"><use xlink:href="#icon-loading"></use></svg>
+                </span>
+            </div>
+        </div>
+        <!--show btn-->
+        <div class="aside-toggle hide">
+            <div class="aside-dot-group">
+                <span class="block aside-dot"></span>
+                <span class="block aside-dot"></span>
+                <span class="block aside-dot"></span>
+            </div>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="content"
+         ng-class="{'content-phone':pt.settings.isPhone,'content-edit':rootPage.dashboardMode == 'EDIT' || pt.settings.fullScreen, 'full-screen-content':pt.settings.fullScreen}"
+         data-shareSourceId="{{rootPanel.now.shareSourceId}}"
+         data-shareSourceStatus="{{rootPanel.now.shareSourceStatus}}">
+
+        <!--面板头部-->
+        <div panel-header></div>
+
+        <!-- dashboard-loading" -->
+        <div class="pt-loading pt-loading-bd hide" data-loading-area="widgetList" ng-class="{'no-aside': pt.settings.asideFolded}">
+            <span class="pt-center pt-loading-box-sm">
+                <svg class="load-s btnloads">
+                    <use xlink:href="#icon-loading"></use>
+                </svg>
+                <svg class="load-m btnloadm">
+                    <use xlink:href="#icon-loading"></use>
+                </svg>
+            </span>
+            <div class="pt-center padder-t-xxl m-t-md none" ng-class="{'inline': pt.loadFinish.bodyTimeout}"><span translate="COMMON.LOADING_ERROR">网络可能发生异常，请</span><a href="javascript:window.location.reload();"  translate="COMMON.RETRY">重试</a></div>
+        </div>
+
+        <!-- link data(tips) -->
+        <!-- <div class="tips-link-data"
+             ng-if="rootWidget.linkData.showTips && !rootPanel.now.shareSourceId && !pt.settings.isPhone"
+             ng-style="{'min-width': rootPage.contentWidth+'px'}">
+            <div class="link-data-dom pull-right">
+                <div class="pull-left">
+                    <span class="text-md pull-left" translate="TIP.PANEL.TIP_4">link now</span>
+                    <div class="tips-link-data-dsList padder-l-xl pull-right">
+                        <a class="text-md font-blod font-italic text-u-l js-linkData block pull-left"
+                           ng-repeat=" ds in rootWidget.linkData.dsList | orderBy:'(orderNumber-0)' "
+                           ng-click="linkData(ds, $event)"
+                           ng-class="{'active': rootWidget.linkData.currentDs == ds}"
+                           title="{{ds.name}}">
+                            <dom-svg-func class="svg-ds" data-svgid="{{'#icon-ds-'+ds.code.toLowerCase()}}"></dom-svg-func>
+                            <svg class="svg-link">
+                                <use xlink:href="#icon-link"></use>
+                            </svg>
+                        </a>
+
+                        <div link-data class="linkData-dropdown" ng-if="rootWidget.linkData.showDire"
+                             ng-style="{'left': rootWidget.linkData.currentDsLeft+'px'}"></div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+        <!--no widget tips-->
+        <div class="readModeNoData dom-table" ng-if="!rootPanel.noData && rootPage.dashboardMode == 'READ' && rootWidget.noData && $state.current.name == 'pt.dashboard' && !rootPanel.now.shareSourceId">
+            <div class="dom-table-cell text-center text-black-500" ng-if="!pt.settings.isPhone">
+                <h3 class="text-xl" translate="GUIDE.WIDGET.NO_WIDGET_TITLE">This Dashboard is blank!</h3>
+                <p translate="GUIDE.WIDGET.NO_WIDGET_READ"></p>
+                <button class="btn btn-success m-t-md" ng-click="toggleDashboardMode('EDIT')"
+                        ng-if="!pt.settings.fullScreen">
+
+                    <span translate="GUIDE.WIDGET.BTN_EDIT">Edit Dashboard</span>
+                </button>
+            </div>
+            <div class="pt-phone-no-data" ng-if="pt.settings.isPhone">
+                <p translate="GUIDE.WIDGET.PT_PHONE_PANEL_NO_DATA1"></p>
+                <p translate="GUIDE.WIDGET.PT_PHONE_PANEL_NO_DATA2"></p>
+            </div>
+        </div>
+
+        <!--no dashboard tips-->
+        <div class="readModeNoData dom-table" ng-if="rootPanel.noData && $state.current.name == 'pt.dashboard'">
+            <div class="dom-table-cell text-center text-black-500" ng-if="!pt.settings.isPhone">
+                <h3 class="text-xl">
+                    <span ng-bind="'GUIDE.PANEL.NO_PANEL_TITLE' | translate"></span>
+                </h3>
+                <p>
+                    <span ng-bind="'GUIDE.PANEL.NO_PANEL_READ' | translate"></span>
+                </p>
+                <div class="clearfix">
+                    <a ui-sref="pt.dataSources"
+                       pt-log="{
+                            'where': 'space_tips',
+                            'what': 'connect_data',
+                            'value': '{{rootSpace.current.spaceId}}'
+                        }"
+                       class="btn btn-success-empty m-t-md m-r-md">
+                        <span ng-bind="'GUIDE.PANEL.BTN_CONNECT_DATA' | translate"></span>
+                    </a>
+                    <button
+                        class="btn btn-success m-t-md"
+                        pt-log="{
+                            'where': 'space_tips',
+                            'what': 'create_dashboard',
+                            'value': '{{rootSpace.current.spaceId}}'
+                        }"
+                        ng-click="showPanelOperation('add')">
+
+                        <span ng-bind="'GUIDE.PANEL.BTN_CREATE_DASHBOARD' | translate"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="pt-phone-no-data-header" ng-if="pt.settings.isPhone">
+                <span ng-if="rootSpace.list.length == 1" class="pt-phone-title text-ellipsis">{{rootSpace.current.name}}</span>
+                <span ng-if="rootSpace.list.length > 1" class="pt-phone-title" dropdown>
+                    <span dropdown-toggle>{{rootSpace.current.name}}</span>
+                    <svg class="icon-down" ng-if="rootSpace.list.length>1">
+                        <use xlink:href="#icon-chevron-down"></use>
+                    </svg>
+                    <ul class="dropdown-menu dropdown-menu-ds">
+                        <li>
+                            <p class="switch-to">
+                                <span translate="HEADER.SPACE.SWITCH">Switch to</span>
+                            </p>
+                        </li>
+                        <li ng-repeat="space in rootSpace.list | orderBy:'name'"
+                            ng-hide="rootSpace.current.spaceId == space.spaceId">
+                            <a ng-click="switchSpace(space)">{{space.name}}</a>
+                        </li>
+                    </ul>
+                </span>
+            </div>
+            <div class="pt-phone-no-data" ng-if="pt.settings.isPhone">
+                <P translate="GUIDE.WIDGET.PT_PHONE_PANEL_EMPTY1"></P>
+                <P translate="GUIDE.WIDGET.PT_PHONE_PANEL_EMPTY2"></P>
+                <p class="pt-phone-logout">
+                    <a ng-click="logout()"
+                       data-toggle="modal"
+                       data-target="#modifyPasswordModal">
+                        <span translate="HEADER.PROFILE.SIGNOUT">Logout</span>
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <!-- widget 列表 -->
+        <div class="content-dom" ng-style="{'width': pt.settings.isPhone ? '100%' : rootPage.contentWidth+'px'}">
+            <div class="dashboard-time pull-left pos-rlt active"
+                 ng-show=" (pt.settings.isPhone && !rootPanel.now.shareSourceId && !rootWidget.noData && !rootPanel.noData ) || (pt.settings.isPhone && rootPanel.now.shareSourceId && rootPanel.now.shareSourceStatus == 2) ">
+                <a class="content-hd-a" ng-click="modal.dashboardTime.isOpen = !modal.dashboardTime.isOpen">
+                    <svg>
+                        <use xlink:href="#icon-dashboard-time"></use>
+                    </svg>
+                    <span>
+                        {{ localDate(modal.dashboardTime.dateKey) }}
+                    </span>
+                </a>
+            </div>
+            <div class="content-bd">
+                <!--分享panel无法显示-->
+                <div ng-if="rootPanel.now.shareSourceId && rootPanel.now.shareSourceStatus != 2" class="no-share-data">
+                    <h3 ng-if="rootPanel.now.shareSourceStatus == 1" translate="SHARE.PANELTIPS.TITLE2">
+                        面板已关闭，您已无权使用</h3>
+                    <h3 ng-if="rootPanel.now.shareSourceStatus == 0" translate="SHARE.PANELTIPS.TITLE1">
+                        面板已删除，您已无权使用</h3>
+                    <h3 ng-if="rootPanel.now.shareSourceStatus == 3" translate="SHARE.PANELTIPS.TITLE3">空间被删了</h3>
+
+                    <p ng-if="rootPanel.now.shareSourceStatus != 3 && rootPanel.now.shareSourceStatus != 4">
+                        {{'SHARE.PANELTIPS.OWNER'|translate}}：<span>{{rootPanel.now.spaceName}}</span>
+                    </p>
+                    <div ng-if="rootPanel.now.shareSourceStatus != 4">
+
+                        <p>{{'SHARE.PANELTIPS.PANELNAME'|translate}}：<span>{{rootPanel.now.panelTitle}}</span></p>
+                        <br/>
+                        <p translate="SHARE.PANELTIPS.TIPS1">如果要使用，请向所有者申请权限</p>
+                        <p ng-hide="pt.settings.isPhone">
+                            <a href="javascript:"
+                               ng-click="showPanelOperation('delete', rootPanel.now)"
+                               translate="SHARE.PANELTIPS.DELETEPANEL">
+                                删除此面板
+                            </a>
+                        </p>
+                    </div>
+                    <div ng-if="rootPanel.now.shareSourceStatus == 4" class="panel-share-password" ng-class="{'phone': pt.settings.isPhone}">
+                        <h4 translate="PANEL.SHARE.TITLE_1">This link is password protected</h4>
+                        <p translate="PANEL.SHARE.TITLE_2">Enter the password below to view the project</p>
+                        <form>
+                            <div class="clearfix">
+                                <input type="password"
+                                       class="pt-ipt"
+                                       maxlength="20"
+                                       translate
+                                       translate-attr-placeholder='PANEL.SHARE.PASSWORD'
+                                       ng-model="sharePasswordMsg.sharePassword" />
+                                <button class="pt-btn btn-success" ng-click="checkPassword(sharePasswordMsg.sharePassword,rootPanel.now)"  translate="PANEL.SHARE.CONFIRM">Save</button>
+                            </div>
+                            <div ng-if="sharePasswordMsg.show" class="password-error">
+                                <span ng-if="sharePasswordMsg.error" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT">密码错误</span>
+                                <span ng-if="sharePasswordMsg.require" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">密码不能为空</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- widget 列表 -->
+                <widget-list
+                    ng-if="!rootPanel.now.shareSourceStatus ||  rootPanel.now.shareSourceStatus == 2">
+                </widget-list>
+            </div>
+        </div>
+
+        <!--视频播放功能-->
+        <div class="content-footer" ng-if="rootPage.dashboardMode == 'EDIT' && rootUser.settingsInfo.showTips.dashboardVideo == 0">
+           <div>
+               <span class="content-footer-text m-r-sm" translate="ONBOARDING.TIPS.FUNC_TIPS.DASHBOARD_VIDEO"></span>
+               <a class="pos-rlt play-icon" ng-click="toggleVideo(true)">
+                   <svg>
+                       <use xlink:href="#icon-play"/>
+                   </svg>
+               </a>
+           </div>
+           <div  class="play-close" ng-click="updateShowTips()">
+                <a translate="ONBOARDING.TIPS.FUNC_TIPS.BTN_CLOSE"></a>
+           </div>
+        </div>
+
+        <!--视频弹窗-->
+        <div ng-if="modal.onboarding.showVideo">
+            <div class="pt-popup video-popup">
+                <a ng-click="toggleVideo(false)">
+                    <svg>
+                        <use xlink:href="#icon-close"/>
+                    </svg>
+                </a>
+                <div ng-if=" !(isDomain('ptone.com.cn') || isDomain('ptone.cn') || isDomain('datadeck.cn')) && rootUser.settingsInfo.locale == 'en_US' ">
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/iXzuGpVmUhk" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div ng-if=" !(isDomain('ptone.com.cn') || isDomain('ptone.cn') || isDomain('datadeck.cn')) && rootUser.settingsInfo.locale == 'ja_JP' ">
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/NLc_PcPXoQ4" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div ng-if=" !(isDomain('ptone.com.cn') || isDomain('ptone.cn') || isDomain('datadeck.cn')) && rootUser.settingsInfo.locale == 'zh_CN' ">
+                    <iframe width="100%" height="450" src="https://www.youtube.com/embed/SPdBanruIbU" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div ng-if="isDomain('ptone.com.cn') || isDomain('ptone.cn') || isDomain('datadeck.cn')">
+                    <video width="100%" height="450" controls="controls">
+                        <source ng-src="{{modal.onboarding.videoSrc}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="modal-backdrop fade in"></div>
+        </div>
+    </div>
+
+    <!-- 创建空间view -->
+    <div ui-view></div>
+
+    <!-- onboarding 完成提示 -->
+    <div class="onboarding-tips-success"
+         ng-if="modal.onboarding.showTips">
+        <p translate="ONBOARDING.TIPS.SUCCESS_TITLE"></p>
+        <span translate="ONBOARDING.TIPS.SUCCESS_INFO"></span>
+    </div>
+</div>
+
+<!-- 新增默认空间的提示信息 -->
+<space-add-tips ng-if="!pt.settings.isPhone && rootUser.settingsInfo.showTips.spaceCreate == 0 && rootPage.dashboardMode == 'READ'" tips-user-info="rootUser.settingsInfo.showTips"></space-add-tips>
+
+<!-- 提示模板 -->
+<div tips-two-btn tips-options="{{modal.tips.options}}" ng-if="modal.tips.show"></div>
+
+<!-- 面板新增 -->
+<panel-add
+    ng-if="modal.panel.add"
+    space-id="rootSpace.current.spaceId"
+    current-panel-layout="rootPanel.layout.panelLayout"
+    on-cancel="hidePanelOperation('add')"
+    on-success="panelOperationCallBack('add', layout, data)"
+    on-failure="panelOperationFailureCallBack('add')">
+</panel-add>
+
+<!-- 面板复制 -->
+<panel-copy
+    ng-if="modal.panel.copy"
+    space-id="rootSpace.current.spaceId"
+    current-panel-id="modal.panel.info.panelId"
+    current-panel-layout="rootPanel.layout.panelLayout"
+    current-panel-list="rootPanel.list"
+    on-cancel="hidePanelOperation('copy')"
+    on-success="panelOperationCallBack('copy', layout, data)"
+    on-failure="panelOperationFailureCallBack('copy')">
+</panel-copy>
+
+<!-- 面板编辑 -->
+<panel-edit
+    ng-if="modal.panel.edit"
+    space-id="rootSpace.current.spaceId"
+    current-panel-id="modal.panel.info.panelId"
+    current-panel-title="modal.panel.info.panelTitle"
+    current-panel-description="modal.panel.info.description"
+    current-panel-share-id="modal.panel.info.shareSourceId"
+    on-cancel="hidePanelOperation('edit')"
+    on-success="panelOperationCallBack('edit', layout, data)"
+    on-failure="panelOperationFailureCallBack('edit')">
+</panel-edit>
+
+<!-- 面板删除 -->
+<panel-delete
+    ng-if="modal.panel.delete"
+    space-id="rootSpace.current.spaceId"
+    delete-panel-id="modal.panel.info.panelId"
+    delete-panel-title="modal.panel.info.panelTitle"
+    on-cancel="hidePanelOperation('delete')"
+    on-success="panelOperationCallBack('delete', layout, data)"
+    on-failure="panelOperationFailureCallBack('delete')">
+</panel-delete>
+
+<!-- 面板分享 -->
+<!-- <panel-share
+    ng-if="modal.panel.share"
+    current-panel="rootPanel.now"
+    on-cancel="hidePanelOperation('share')"
+    on-success="panelOperationCallBack('share', layout, data)"
+    on-failure="panelOperationFailureCallBack('share')">
+</panel-share> -->
+
+<!-- 文件夹删除 -->
+<folder-delete
+    ng-if="modal.panel.deleteFolder"
+    space-id="rootSpace.current.spaceId"
+    delete-folder-layout="modal.panel.info"
+    on-cancel="hidePanelOperation('deleteFolder')"
+    on-success="panelOperationCallBack('deleteFolder', layout, data)"
+    on-failure="panelOperationFailureCallBack('deleteFolder')">
+</folder-delete>
+

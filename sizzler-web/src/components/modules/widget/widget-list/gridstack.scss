@@ -1,0 +1,247 @@
+//@import "compass";
+//@import "../../../../assets/sass/framework/varibles";
+//@import "../../../../assets/sass/framework/mixin-ui";
+//@import "../../../../assets/sass/framework/mixin-basic";
+
+//= require "compass"
+//= require "../../../../assets/sass/framework/varibles";
+//= require "../../../../assets/sass/framework/mixin-ui";
+//= require "../../../../assets/sass/framework/mixin-basic";
+
+
+
+:root .grid-stack-item > .ui-resizable-handle {
+    filter: none;
+}
+
+.grid-stack {
+    position: relative;
+
+    //只读模式禁止拖拽
+    &.read-mode > .grid-stack-item > .ui-resizable-handle,
+    &.read-mode > .grid-stack-item.ui-resizable-disabled > .ui-resizable-handle,
+    &.read-mode > .grid-stack-item.ui-resizable-autohide > .ui-resizable-handle {
+        display: none !important;
+    }
+
+    &.grid-stack-rtl {
+        direction: ltr;
+    }
+
+    &.grid-stack-rtl > .grid-stack-item {
+        direction: rtl;
+    }
+
+    & > .grid-stack-item.ui-resizable-resizing {
+        z-index: 100;
+    }
+
+    .grid-stack-placeholder {
+        .placeholder-content {
+            //border: 1px dashed lightgray;
+            background-color: #abc720;
+            margin: 0;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            width: auto;
+            opacity: 0.2;
+            z-index: 0 !important;
+            text-align: center;
+        }
+    }
+
+    & > .grid-stack-item {
+        min-width: 8.3333333333%;
+        position: absolute;
+        padding: 0;
+        &:hover {
+            z-index:100;
+            & > .ui-resizable-se {
+            border-color: transparent transparent #8BC34A;
+            }
+        }
+
+        &.ui-resizable-disabled > .ui-resizable-handle,
+        &.ui-resizable-autohide > .ui-resizable-handle {
+            display: block !important;
+        }
+
+        &.ui-draggable-disabled .grid-stack-item-content{
+            cursor: default;
+        }
+
+        &.ui-draggable-dragging {
+            z-index: 100;
+        }
+
+        &.ui-draggable-dragging > .grid-stack-item-content,
+        &.ui-resizable-resizing > .grid-stack-item-content {
+            box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.2);
+            //opacity: 0.8;
+        }
+
+        .grid-stack-item-content {
+            margin: 0;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            width: auto;
+            z-index: 0 !important;
+            cursor: pointer;
+        }
+
+        .ui-resizable-handle {
+            position: absolute;
+            font-size: 0.1px;
+            display: block !important;
+            -ms-touch-action: none;
+            touch-action: none;
+        }
+
+        & > .ui-resizable-nw {
+            cursor: nw-resize;
+            width: 6px;
+            height: 6px;
+            left: 10px;
+            top: 0;
+        }
+        & > .ui-resizable-n {
+            cursor: n-resize;
+            height: 6px;
+            top: 0;
+            left: 25px;
+            right: 25px;
+        }
+        & > .ui-resizable-ne {
+            cursor: ne-resize;
+            width: 6px;
+            height: 20px;
+            right: 5px;
+            top: 5px;
+        }
+        & > .ui-resizable-e {
+            cursor: e-resize;
+            width: 6px;
+            right: 5px;
+            top: 15px;
+            bottom: 15px;
+        }
+        & > .ui-resizable-se {
+            cursor: se-resize;
+            width: 0;
+            height: 0;
+            right: 5px;
+            bottom: 5px;
+            border-style: solid;
+            border-width: 0 0 15px 15px;
+            border-color: transparent;
+        }
+        & > .ui-resizable-s {
+            cursor: s-resize;
+            height: 6px;
+            left: 25px;
+            bottom: 5px;
+            right: 25px;
+        }
+        & > .ui-resizable-sw {
+            cursor: sw-resize;
+            width: 6px;
+            height: 6px;
+            left: 5px;
+            bottom: 5px;
+        }
+        & > .ui-resizable-w {
+            cursor: w-resize;
+            width: 6px;
+            left: 5px;
+            top: 15px;
+            bottom: 15px;
+        }
+
+        &.ui-draggable-dragging > .ui-resizable-handle {
+            display: none !important;
+        }
+
+        $gridstack-columns: 36;
+
+        @for $i from 1 through $gridstack-columns {
+            &[data-gs-width='#{$i}'] {
+                width: (100% / $gridstack-columns) * $i;
+            }
+            &[data-gs-x='#{$i}'] {
+                left: (100% / $gridstack-columns) * $i;
+            }
+            &.grid-stack-item[data-gs-min-width='#{$i}'] {
+                min-width: (100% / $gridstack-columns) * $i;
+            }
+            &.grid-stack-item[data-gs-max-width='#{$i}'] {
+                max-width: (100% / $gridstack-columns) * $i;
+            }
+        }
+    }
+
+    &.grid-stack-animate,
+    &.grid-stack-animate .grid-stack-item {
+        -webkit-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+        -moz-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+        -ms-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+        -o-transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+        transition: left 0.3s, top 0.3s, height 0.3s, width 0.3s;
+    }
+
+    &.grid-stack-animate .grid-stack-item.ui-draggable-dragging,
+    &.grid-stack-animate .grid-stack-item.ui-resizable-resizing,
+    &.grid-stack-animate .grid-stack-item.grid-stack-placeholder {
+        -webkit-transition: left 0s, top 0s, height 0s, width 0s;
+        -moz-transition: left 0s, top 0s, height 0s, width 0s;
+        -ms-transition: left 0s, top 0s, height 0s, width 0s;
+        -o-transition: left 0s, top 0s, height 0s, width 0s;
+        transition: left 0s, top 0s, height 0s, width 0s;
+    }
+
+    &.mobile {
+        height: auto !important;
+
+        .grid-stack-item {
+            position: relative !important;
+            width: auto !important;
+            height: auto !important;
+            left: 0 !important;
+            top: auto !important;
+            min-height: inherit !important;
+            margin-bottom: 20px;
+            padding: 0 10px;
+
+            .ui-resizable-handle {
+                display: none;
+            }
+
+            .grid-stack-item-content {
+                position: relative;
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+}
+
+//@media (max-width: 768px) {
+//  .grid-stack-item {
+//    position: relative !important;
+//    width: auto !important;
+//    left: 0 !important;
+//    top: auto !important;
+//    margin-bottom: 20px;
+//  }
+//  .grid-stack-item .ui-resizable-handle {
+//    display: none;
+//  }
+//  .grid-stack {
+//    height: auto !important;
+//  }
+//}

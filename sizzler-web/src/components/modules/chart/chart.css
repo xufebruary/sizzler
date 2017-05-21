@@ -1,0 +1,281 @@
+@charset "utf-8";
+
+/*table*/
+.chart-table {overflow: hidden;}
+
+
+
+/*highchart*/
+.chart-highchart {
+    height: 100%;
+    position: relative;
+}
+.invisible .chart-highchart,
+.invisible .chart-highmap {
+    z-index: -1;
+}
+
+.chart-highchart-bd {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+}
+
+.highcharts-legend {
+    z-index: 7;
+}
+
+.chart-highchart-legend {
+    width: 100px;
+    max-width: 100px;
+    /*color: #bdbdbd;*/ /* 字体颜色通过 itemStyle 等三个属性设置，以实现单击图例series隐藏时变色*/
+    position: relative;
+    padding-left: 12px;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 1px 0;
+}
+
+.chart-highchart-legend-color {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.highcharts-tooltip {
+    z-index: 8;
+}
+
+.chart-highchart-tooltip {
+    line-height: 25px;
+    border-radius: 2px;
+    box-shadow: 0 0 3px 2px rgba(0,0,0,.2);
+}
+
+.chart-highchart-tooltip-data {
+    padding: 0 4px 0 10px;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.chart-highchart-tooltip-data span {
+    color: #9e9e9e;
+    font-size: 12px;
+    font-family: 'Helvetica';
+}
+.chart-highchart-tooltip-data b {
+    color: #757575;
+    font-size: 16px;
+}
+
+.chart-highchart-tooltip-info {
+    padding: 0 4px 0 10px;
+    color: #fff;
+}
+
+.chart-highchart-tooltip-info span {
+    font-size: 12px;
+    padding-right: 10px;
+}
+.chart-highchart-tooltip-info small {}
+
+
+
+.chart-pie-data {
+    font-size: 10px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-radius: 50%;
+    -webkit-transform:translate(-50%,0);
+    transform: translate(-50%, 0);
+}
+.chart-pie-data-top {
+    z-index: 2;
+}
+.chart-pie-info {
+    position: absolute;
+    top: 50%;
+    transform: translate(0,-50%);
+    width: 100%;
+}
+.chart-pie-info span {
+    width: 100%;
+    color: #424242;
+    /*font-size: 2.8em;*/
+    font-size: 2.3em;
+}
+.chart-pie-info small {
+    width: 80%;
+    color: #9e9e9e;
+    font-size: 1.2em;
+    line-height: 1.2em;
+    margin: 0 auto;
+}
+
+.chart-highmap {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+
+.chart-progressbars {
+    height: 100%;
+    font-size: 10px;
+    position: relative;
+}
+.chart-progressbars-wrap {
+    max-width:100%;
+    float: left;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
+}
+
+.chart-progressbars-data {
+    color: #424242;
+    letter-spacing: -1px;
+}
+
+.chart-progressbars-data span {
+    font-size: 4.6em;
+}
+
+.chart-progressbars-data small {
+    font-size: 3.4em;
+}
+
+.chart-progressbars-bg {
+    /*width: 110%;*/
+    /*margin-left: -5%;*/
+    background-color: #eee;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.chart-progressbars-bar {
+    width: 0;
+    height: 100%;
+    border-radius: 3px;
+    background-color: #aed581;
+    transition: width .3s linear;
+}
+
+.chart-progressbars-target {
+    font-size: 1.4em;
+    color: #9e9e9e;
+}
+
+.chart-progressbars-info {
+    color: #9e9e9e;
+    font-size: 1.2em;
+}
+
+.widget .popover{
+    z-index: 10001;
+}
+
+
+/* =50 工具类widget
+-------------------------------------------------- */
+
+
+.text-title {
+    overflow: hidden;
+    word-wrap: break-word;
+    color: #BDBDBD;
+    word-break: break-all;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 30px;
+    height: 100%;
+    padding: 5px 0 0 0;
+    transition: all .5s ease-in-out;
+}
+
+.text-edit {
+    color: #333;
+}
+
+.text-bg {
+    width: 16px;
+    height: 16px;
+    border-width: 1px;
+    border-style: solid;
+    display: inline-block;
+}
+
+.text-bg-white {
+    background-color: #fff;
+}
+
+.text-bg-gray {
+    background-color: #616161;
+}
+
+.text-bg-transparent {
+    background-color: #eeeeee;
+}
+
+/* =60 no widget tips
+-------------------------------------------------- */
+.widget-noData {
+    position: absolute;
+    top: 80px;
+    left: -390px;
+    width: 380px;
+    padding: 120px 0 0;
+    z-index: 100;
+    margin: 3px 0 0 5px;
+    background: url('/assets/images/tips-left.png?v=20160317') right top no-repeat;
+    background-size: 120px 110px;
+}
+.widget-noData span {cursor: default;}
+
+
+/**************        移动端适配                   ******************/
+
+.pt-phone .widget .chart-progressbars{
+    height: 123px;
+}
+
+
+
+
+/* =70
+-------------------------------------------------- */
+.numAcAnmintate{
+    animation: animated_div 1s infinite;
+    -moz-animation: animated_div 1s infinite;
+    -webkit-animation: animated_div 1s infinite;
+    -o-animation: animated_div 1s infinite;
+}
+
+
+@-webkit-keyframes animated_div {
+    0%{top:0;}
+    100%{top:50px;}
+}
+
+@-moz-keyframes animated_div {
+    0%{top:0;}
+    100%{top:50px;}
+}
+
+@-o-keyframes animated_div {
+    0%{top:0;}
+    100%{top:50px;}
+}
+
+@keyframes animated_div {
+    0%{top:0;}
+    100%{top:50px;}
+}

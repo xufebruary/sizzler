@@ -1,0 +1,615 @@
+<div class="editor-pop editor-data wrapper-md">
+    <div class="pt-loading hide">
+        <span class="pt-center pt-loading-box">
+            <svg class="load-s btnloads white">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+            </svg>
+            <svg class="load-m btnloadm white">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+            </svg>
+        </span>
+    </div>
+    <div class="text-black-400"
+         ng-class="{'hide': editor.filterShow || editor.dimensionOperation || dataSettings.dataAlias.showFlag}"
+         ng-hide="editor.filterShow">
+        <div class="data-box m-b">
+            <header class="data-hd sl-item m-b-sm">
+                <div dropdown
+                    auto-close="outsideClick"
+                    is-open="dataSettings.metricsSearch"
+                    class="pull-left">
+
+                    <!-- 指标按钮 -->
+                    <a dropdown-toggle
+                        class="btn-add pull-left"
+                        ng-click="switchDownOrUp('metrics')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-hollow"></use>
+                        </svg>
+                        <span>
+                            <span translate="WIDGET.EDITOR.DATA.METRICS" ng-if="dsConfig.editor.data.metrics">Metrics</span>
+                            <span translate="WIDGET.EDITOR.DATA.VALUE" ng-if="dsConfig.editor.data.value">Value</span>
+                        </span>
+                    </a>
+
+                    <!-- 指标列表 -->
+                    <div class="dropdown-menu editor-search editor-data-search">
+                        <div class="editor-search-hd">
+                            <input type="text"
+                                   ui-Focus="dataSettings.metricsSearchFocus"
+                                   class="editor-search-ipt"
+                                   ng-model="dataSettings.metricsSearchKey"
+                                   ng-change="searchContent(dataSettings.metricsSearchKey,['metricsList'],dataSettings.tempMetricsList,restMetricsList,'metricsList')">
+
+                            <a class="pull-right block text-black-400">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <div class="editor-search-bd wrapper-sm clearfix">
+                            <div ng-if="!dataSettings.loadFinish.metricsList || !dataSettings.loadFinish.calculatedValueList"
+                                 translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">数据请求中
+                            </div>
+                            <!--<div ui-jq="slimScroll"-->
+                            <!--ui-options="{-->
+                            <!--height:'156',-->
+                            <!--size:'4px',-->
+                            <!--allowPageScroll: false,-->
+                            <!--alwaysVisible: true-->
+                            <!--}">-->
+                            <div class="js-mCustomScrollbar clear"
+                                 id="metricsListWrap"
+                                 style="height: 156px;"
+                                 ng-show="dataSettings.loadFinish.calculatedValueList && dataSettings.loadFinish.metricsList">
+                                <ul class="list-unstyled editor-search-ul" id="metricsList">
+                                    <div ng-show="dataSettings.metricsList.length>0"
+                                         ng-repeat="content in dataSettings.metricsList"
+                                         on-repeat-finish="listRepeatFinish('metricsListWrap')">
+                                        <li class="text-ellipsis search-ul-li"
+                                            title="{{content.i18nCode | translate}}"
+                                            ng-click="dataSettings.metricsListIndex[$index] = !dataSettings.metricsListIndex[$index];
+                                            isCustomVariable(content.i18nCode,dataSettings.metricsListIndex[$index],$index,'metricsList');"
+                                            ng-show="dsConfig.editor.data.metricsTwoLayer">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-caret-down text-black-600"
+                                                   ng-class="{'fa-caret-right': !dataSettings.metricsListIndex[$index]}"></i>
+                                                <span>{{content.i18nCode | translate}}</span>
+                                            </a>
+                                        </li>
+                                        <li class="text-ellipsis search-ul-li"
+                                            ng-class="{'li-with-svg': dsConfig.editor.data.metricsOneLayer}"
+                                            title="{{content.i18nCode | translate}}"
+                                            ng-click="addData(content, 'metrics')"
+                                            ng-show="dsConfig.editor.data.metricsOneLayer">
+                                            <a href="javascript:" class="width-svg">
+                                                <svg ng-if="dsConfig.editor.data.metricsOneLayer && dsConfig.editor.data.metricsOneLayerIsShowDataType">
+                                                    <use xlink:href="{{dsIconFun(content.dataType,content.dataFormat)}}"/>
+                                                </svg>
+                                                <span world-high
+                                                      title="{{content.name}}"
+                                                      name="{{content.name}}"
+                                                      data-searchKey="{{dataSettings.metricsSearchKey}}"
+                                                      type="metrics"></span>
+                                            </a>
+                                        </li>
+                                        <div class="div-search" ng-show="dataSettings.metricsListIndex[$index]">
+                                            <div ng-repeat="metrics in content.metricsList">
+                                                <li class="text-over search-ul-li"
+                                                    ng-click="addData(metrics, 'metrics')">
+                                                    <a href="javascript:void(0);"
+                                                       class="text-ellipsis font-thin block padder-l-md width-svg">
+                                                        <svg ng-if="dsConfig.editor.data.metricsTwoLayer && dsConfig.editor.data.metricsTwoLayerIsShowDataType">
+                                                            <use xlink:href="{{dsIconFun(metrics.dataType,metrics.dataFormat)}}"/>
+                                                        </svg>
+                                                        <span title="{{metrics.i18nCode | translate}}"
+                                                              id="{{metrics.id}}"
+                                                              world-high
+                                                              data-searchKey="{{dataSettings.metricsSearchKey}}"
+                                                              name="{{metrics.i18nCode | translate}}"></span>
+                                                    </a>
+                                                </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<li class="search-line" ng-if="dataSettings.calculatedValueList.length>0 && dataSettings.metricsList.length>0"></li>-->
+                                    <li class="search-ul-li calculated-li"
+                                        ng-repeat=" calculatedValue in dataSettings.calculatedValueList | orderBy: 'createTime'"
+                                        ng-class="{'m-t-lg': dataSettings.metricsList.length == 0 && $index==0}"
+                                        on-repeat-finish="listRepeatFinish('calculatedValueList')">
+                                        <div class="pull-left" style="width: 270px;"
+                                             ng-click="addData(calculatedValue, 'compoundMetrics')">
+                                            <a class="clearfix" href="javascript:void(0);">
+                                                <svg class="pull-left"
+                                                     ng-style="{'margin-right': dsConfig.editor.data.calculatedValueScopeShowAll?'5px':'17px'}">
+                                                    <use xlink:href="#icon-fx"></use>
+                                                </svg>
+                                                <span class="text-ellipsis pull-left"
+                                                      style="max-width: 220px;"
+                                                      title="{{calculatedValue.name}}"
+                                                      world-high
+                                                      data-searchKey="{{dataSettings.metricsSearchKey}}"
+                                                      name="{{calculatedValue.name}}"></span>
+                                            </a>
+                                        </div>
+                                        <a class="pull-right btn-more"
+                                           tooltip-placement="top"
+                                           tooltip="{{ 'COMMON.DELETE' | translate}}"
+                                           tooltip-class="blackBgClass"
+                                           ng-click="calculatedValueDelShowTips(calculatedValue)">
+                                            <svg>
+                                                <use xlink:href="#icon-del"></use>
+                                            </svg>
+                                        </a>
+                                        <a class="pull-right btn-more"
+                                           tooltip-placement="top"
+                                           tooltip="{{ 'COMMON.EDIT' | translate}}"
+                                           tooltip-class="blackBgClass"
+                                           ng-click="calculatedValueEdit(calculatedValue)">
+                                            <svg>
+                                                <use xlink:href="#icon-edit"></use>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                    <div ng-show="dataSettings.metricsList.length==0 && dataSettings.calculatedValueList.length==0"
+                                         translate="COMMON.NO_DATA">no data
+                                    </div>
+                                </ul>
+                            </div>
+                            <a class="m-t-sm m-r-sm pull-right add-calculatedValue-btn"
+                               ng-click="addCalculatedValue()"
+                               ng-if="dataSettings.showCalculatedValue && dataSettings.loadFinish.metricsList && dataSettings.loadFinish.calculatedValueList">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add"></use>
+                                </svg>
+                                <span class="padder-l-none" translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_TITLE">calculated value</span>
+                                <span calss="padder-l-none" ng-if="dsConfig.editor.data.calculatedValueBeta">(beta)</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-help pull-left">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                    </svg>
+                    <p ng-show="dsConfig.editor.data.metricsTips">
+                        <span class="text-warning" translate="WIDGET.EDITOR.DATA.METRICS">Metric</span>
+                        {{'WIDGET.EDITOR.DATA.METRICS_TIP_1'|translate}}<br><i>{{'WIDGET.EDITOR.DATA.METRICS_TIP_2'|translate}}
+                        <b>{{'WIDGET.EDITOR.DATA.METRICS_TIP_3'|translate}}</b>
+                        {{'WIDGET.EDITOR.DATA.METRICS_TIP_4'|translate}}</i>
+                    </p>
+                    <p ng-show="dsConfig.editor.data.valueTips">
+                        <span translate="WIDGET.EDITOR.DATA.METRICS_TIP"></span>
+                    </p>
+                </div>
+                <div class="pull-right">
+                    <a class="btn-filter m-r-sm"
+                       ng-click="toggleFilter('segment')"
+                       ng-if="dsConfig.editor.filter.isSegment"
+                       ng-class="{'active': modal.editorNow.variables[0].segment !== null}"
+                       tooltip-placement="bottom"
+                       tooltip="{{ 'WIDGET.EDITOR.DATA.SEGMENT' | translate}}"
+                       tooltip-class="blackBgClass">
+                        <svg>
+                            <use xlink:href="#icon-ds-segment"></use>
+                        </svg>
+                    </a>
+                    <a class="btn-filter"
+                       ng-click="toggleFilter('filters')"
+                       ng-if="dsConfig.editor.filter.isFilters"
+                       ng-class="{'active': modal.editorNow.variables[0].filters !== null}"
+                       tooltip-placement="bottom"
+                       tooltip="{{ 'WIDGET.EDITOR.DATA.FILTER' | translate}}"
+                       tooltip-class="blackBgClass">
+                        <svg>
+                            <use xlink:href="#icon-ds-filter"></use>
+                        </svg>
+                    </a>
+                </div>
+            </header>
+            <div class="data-list" id="metrics-list">
+                <dl dropdown
+                    auto-close="outsideClick"
+                    is-open="dataSettings.countSelectBox[valueIndex]"
+                    class="clearfix data-bd sl-item"
+                    ng-repeat="metrics in modal.editorNow.variables[0].metrics track by $index"
+                    ng-init="valueIndex = $index;dataSettings.countSelectBox[valueIndex] = false"
+                    ng-class="{'active':dataSettings.countSelectBox[valueIndex]}">
+                    <dt class="pull-right dropdown-menus" dropdown>
+                        <button class="btn-more pos-rlt no-bg no-border" dropdown-toggle>
+                            <span class="block"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-panelSet">
+                            <li>
+                                <button class="no-bg no-border" 
+                                    ng-click="showDataAlias(metrics, $index, 'metrics')"
+                                    pt-log="{
+                                        'where': 'widget_editor_metrics',
+                                        'what': 'metrics_alias'
+                                    }">
+                                    <span translate="WIDGET.EDITOR.DATA_ALIAS.SHOW_NAME"></span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="no-bg no-border" ng-click="deletedData($index, 'metrics')">
+                                    <span translate="WIDGET.EDITOR.DATA.REMOVE">Remove</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </dt>
+                    <dd class="move-icon">
+                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-drag"></use></svg>
+                    </dd>
+                    <dd class="pull-left"
+                        ng-if="metrics.type == 'compoundMetrics'"
+                        ng-class="{'value': dsConfig.editor.data.metricsHasCount}"
+                        ng-click="calculatedValueClick(valueIndex, metrics.isContainsFunc)">
+                        <span class="vertical-middle text-ellipsis"
+                              title="{{metrics.name}}"
+                              ng-if="!dsConfig.editor.data.metricsHasCount || metrics.isContainsFunc == 1">
+                            <!--{{metrics.isContainsFunc == 1 ? metrics.realName : metrics.name}}-->
+                            {{metrics.name}}
+                        </span>
+                        <span class="count"
+                              title="{{metrics.name}}"
+                              ng-if="dsConfig.editor.data.metricsHasCount && metrics.isContainsFunc != 1">
+                            <em class="name">{{metrics.name}}&nbsp;&nbsp;</em>
+                            <i class="count-more">
+                                <svg>
+                                    <use xlink:href="#icon-triangle-down"/>
+                                </svg>
+                            </i>
+                        </span>
+                        <span class="inline svg-warning"
+                              tooltip-placement="top"
+                              tooltip="{{'WIDGET.EDITOR.CALCULATED_VALUE.LIST_DEL_TIPS' | translate}}"
+                              tooltip-class="blackBgClass"
+                              ng-if="metrics.isValidate == '-1'">
+                            <svg>
+                                <use xlink:href="#icon-warning"></use>
+                            </svg>
+                        </span>
+                        <span class="inline svg-warning"
+                              tooltip-placement="top"
+                              tooltip="{{'WIDGET.EDITOR.CALCULATED_VALUE.LIST_ERROR_TIPS' | translate}}"
+                              tooltip-class="blackBgClass"
+                              ng-if="metrics.isValidate == 0">
+                            <svg>
+                                <use xlink:href="#icon-warning"></use>
+                            </svg>
+                        </span>
+                    </dd>
+                    <dd class="pull-left metrics"
+                        ng-class="{'no-more-list': metrics.type != 'compoundMetrics' && !dsConfig.editor.data.metricsHasCount}"
+                        ng-if="metrics.type != 'compoundMetrics' && !dsConfig.editor.data.metricsHasCount">
+                        <span class="vertical-middle text-ellipsis" title="{{metrics.i18nCode | translate}}" translate="{{metrics.i18nCode}}">{{metrics.name}}</span>
+                    </dd>
+                    <dd class="pull-left value"
+                        ng-if="metrics.type != 'compoundMetrics' && dsConfig.editor.data.metricsHasCount"
+                        ng-click="dataSettings.countSelectBox[valueIndex] = !dataSettings.countSelectBox[valueIndex];closeOtherCountBox(valueIndex,'value');">
+                    <!-- <dd dropdown-toggle
+                        class="pull-left value"
+                        ng-if="metrics.type != 'compoundMetrics' && dsConfig.editor.data.metricsHasCount"> -->
+                        <span class="count">
+                            <em class="name">{{metrics.name}}&nbsp;&nbsp;</em>
+                            <i class="count-more">
+                                <svg>
+                                    <use xlink:href="#icon-triangle-down"/>
+                                </svg>
+                            </i>
+                        </span>
+                    </dd>
+                    <!-- <div class="select-count" ng-if="dataSettings.countSelectBox[valueIndex]"> -->
+                    <div class="dropdown-menu select-count">
+                        <ul class="list-unstyled">
+                            <li ng-repeat="count in dataSettings.countType"
+                                ng-click="changeCalculateType(metrics,count.name,valueIndex)"
+                                ng-show="((metrics.dataType == 'NUMBER' || metrics.dataType == 'CURRENCY' ||
+                                metrics.dataType == 'DURATION' || metrics.dataType == 'PERCENT') &&
+                                (dsConfig.editor.data.supportAggregateFunctionArrayOfNumber.indexOf(count.name) >= 0))||
+                                ((metrics.dataType == 'STRING' || metrics.dataType == 'TIME' ||
+                                metrics.dataType == 'DATE' || metrics.dataType == 'DATETIME'  ||
+                                metrics.dataType == 'TIMESTAMP'|| metrics.dataType == 'BOOLEAN') &&
+                                (dsConfig.editor.data.supportAggregateFunctionArrayOfString.indexOf(count.name) >= 0))">
+                                <p class="title">{{count.name}}</p>
+                                <p class="detail">
+                                    {{count.description}}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                </dl>
+            </div>
+        </div>
+
+        <div class="data-box">
+            <header class="data-hd sl-item m-b-sm">
+                <div dropdown
+                    auto-close="outsideClick"
+                    is-open="dataSettings.dimensionsSearch"
+                    class="pull-left">
+
+                    <!-- 维度按钮 -->
+                    <a dropdown-toggle
+                        class="btn-add block"
+                        ng-click="switchDownOrUp('dimensions')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-hollow"></use>
+                        </svg>
+                        <span>
+                            <span translate="WIDGET.EDITOR.DATA.DIMENSIONS" ng-if="dsConfig.editor.data.dimensions">Dimensions</span>
+                            <span translate="WIDGET.EDITOR.DATA.ATTRIBUTES" ng-if="dsConfig.editor.data.attributes">Attributes</span>
+                        </span>
+                    </a>
+
+                    <!-- 维度列表 -->
+                    <div class="dropdown-menu editor-search editor-data-search">
+                        <div class="editor-search-hd">
+                            <input type="text"
+                                   ui-Focus="dataSettings.dimensionsSearchFocus"
+                                   class="editor-search-ipt"
+                                   ng-model="dataSettings.dimensionsSearchKey"
+                                   ng-change="searchContent(dataSettings.dimensionsSearchKey,['dimensionList'],dataSettings.tempDimensionsList,restDimensionsList,'dimensionList')">
+
+                            <a class="pull-right block text-black-400">
+                               <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="editor-search-bd wrapper-sm clearfix">
+                            <div ng-if="!dataSettings.loadFinish.dimensionsList"
+                                 translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">数据请求中
+                            </div>
+                            <div ui-jq="slimScroll"
+                                 ui-options="{
+                                    height:'156',
+                                    size:'4px',
+                                    allowPageScroll: false,
+                                    alwaysVisible:true
+                                }">
+                                <ul class="list-unstyled editor-search-ul" id="dimensionList">
+                                    <div ng-show="dataSettings.dimensionsList.length>0"
+                                         ng-repeat="content in dataSettings.dimensionsList">
+                                        <li class="text-ellipsis search-ul-li"
+                                            title="{{content.i18nCode | translate}}"
+                                            ng-click="dataSettings.dimensionsListIndex[$index] = !dataSettings.dimensionsListIndex[$index];
+                                            isCustomVariable(content.i18nCode,dataSettings.dimensionsListIndex[$index],$index,'dimensionsList');"
+                                            ng-hide="content.id == 22 && modal.editorNow.baseWidget.graphName == 'line' || dsConfig.editor.data.dimensionsOneLayer">
+                                            <a href="javascript:void(0);">
+                                                <i class="fa fa-caret-down text-black-600"
+                                                   ng-class="{'fa-caret-right': !dataSettings.dimensionsListIndex[$index]}"></i>
+                                                <span>{{content.i18nCode | translate}}</span>
+                                            </a>
+                                        </li>
+                                        <li class="text-ellipsis search-ul-li"
+                                            ng-class="{'li-with-svg': dsData.dsInfo.config.data.dimensionsOneLayer}"
+                                            title="{{content.name}}"
+                                            ng-hide="content.id == 22 && modal.editorNow.baseWidget.graphName == 'line' || dsConfig.editor.data.dimensionsTwoLayer || (content.isDefaultSelect && content.isDefaultSelect === 1)"
+                                            ng-click="addData(content, 'dimensions')">
+                                            <a href="javascript:" class="width-svg">
+                                                <svg ng-if="dsConfig.editor.data.dimensionsOneLayer && dsConfig.editor.data.dimensionsOneLayerIsShowDataType">
+                                                    <use xlink:href="{{dsIconFun(content.dataType,content.dataFormat)}}"/>
+                                                </svg>
+                                                <span name="{{content.name}}" type="dimensions">{{content.name}}</span>
+                                            </a>
+                                        </li>
+                                        <div class="div-search" ng-show="dataSettings.dimensionsListIndex[$index]">
+                                            <div ng-repeat="dimensions in content.dimensionList">
+                                                <li class="search-ul-li"
+                                                    ng-click="addData(dimensions, 'dimensions')">
+                                                    <a href="javascript:void(0);"
+                                                       class="text-ellipsis font-thin block padder-l-md width-svg">
+                                                        <svg ng-if="dsConfig.editor.data.dimensionsTwoLayer && dsConfig.editor.data.dimensionsTwoLayerIsShowDataType">
+                                                            <use xlink:href="{{dsIconFun(dimensions.dataType,dimensions.dataFormat)}}"/>
+                                                        </svg>
+                                                        <span id="{{dimensions.id}}"
+                                                              title="{{dimensions.i18nCode | translate}}"
+                                                              world-high
+                                                              data-searchKey="{{dataSettings.dimensionsSearchKey}}"
+                                                              name="{{dimensions.i18nCode | translate}}"></span>
+                                                    </a>
+                                                </li>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div ng-show="dataSettings.dimensionsList.length==0" translate="COMMON.NO_DATA">no data</div>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-help pull-left">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                    </svg>
+                    <p ng-show="dsConfig.editor.data.dimensionsTips">
+                        <span class="text-warning" translate="WIDGET.EDITOR.DATA.DIMENSIONS">Dimension</span>
+                        {{'WIDGET.EDITOR.DATA.DIMENSIONS_TIP_1'|translate}}<br><i>{{'WIDGET.EDITOR.DATA.DIMENSIONS_TIP_2'|translate}}
+                        <b>{{'WIDGET.EDITOR.DATA.DIMENSIONS_TIP_3'|translate}}</b>{{'WIDGET.EDITOR.DATA.DIMENSIONS_TIP_4'|translate}}</i>
+                    </p>
+                    <p ng-show="dsConfig.editor.data.attributesTips">
+                        <span translate="WIDGET.EDITOR.DATA.DIMENSIONS_TIP"></span>
+                    </p>
+                </div>
+                <span class="pull-left m-t-xs hide">
+                    {{modal.editorNow.variables[0].dimensions.length}}/2
+                </span>
+            </header>
+
+            <div class="data-list" id="dimensions-list">
+                <dl class="clearfix data-bd sl-item"
+                    ng-repeat="dimensions in modal.editorNow.variables[0].dimensions"
+                    ng-init="valueIndex = $index;dataSettings.attributeSelectBox[valueIndex] = false"
+                    ng-class="{'active':dataSettings.attributeSelectBox[valueIndex]}">
+                    <dt class="pull-right dropdown-menus" dropdown>
+                        <button class="btn-more pos-rlt no-bg no-border" dropdown-toggle>
+                            <span class="block"></span>
+                        </button>
+
+                        <ul class="dropdown-menu dropdown-menu-panelSet">
+                            <li>
+                                <button class="no-bg no-border pos-rlt"
+                                        ng-click="dimensionOperation(dimensions, $index, 'sort')"
+                                        ng-disabled=" getBtnDisabled($index, 'sort') ">
+                                    <span translate="WIDGET.EDITOR.SORT.SORT">Sort</span>
+
+                                    <svg ng-mouseenter="sortTips[$index] = true"
+                                         ng-mouseleave="sortTips[$index] = false">
+                                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                                    </svg>
+
+                                    <p class="data-chartTips" ng-show="sortTips[$index]" translate="WIDGET.EDITOR.SORT.CHART_TIPS">请切换至其他图表类型才可使用此功能</p>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="no-bg no-border pos-rlt"
+                                        ng-click="dimensionOperation(dimensions, $index, 'max')"
+                                        ng-disabled=" getBtnDisabled($index, 'max') ">
+                                <span translate="WIDGET.EDITOR.MAX.MAX">Max</span>
+                                    <svg ng-mouseenter="maxTips[$index] = true" ng-mouseleave="maxTips[$index] = false">
+                                      <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                                    </svg>
+
+                                    <p class="data-chartTips" ng-show="maxTips[$index]" translate="WIDGET.EDITOR.SORT.CHART_TIPS">请切换至其他图表类型才可使用此功能</p>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="no-bg no-border" 
+                                    ng-click="showDataAlias(dimensions, $index, 'dimensions')"
+                                    pt-log="{
+                                        'where': 'widget_editor_dimensions',
+                                        'what': 'dimensions_alias'
+                                    }">
+                                    <span translate="WIDGET.EDITOR.DATA_ALIAS.SHOW_NAME"></span>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="no-bg no-border" ng-disabled="dimensions.isDefaultSelect === 1" ng-click="dimensions.isDefaultSelect ? '' :deletedData($index, 'dimensions');">
+                                    <span translate="WIDGET.EDITOR.DATA.REMOVE">Remove</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </dt>
+                    <dd class="move-icon">
+                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-drag"></use></svg>
+                    </dd>
+                    <dd class="pull-left" ng-class="{'no-more-list': !dsConfig.editor.data.dimensionsHasGroupBy}" ng-show="!dsConfig.editor.data.dimensionsHasGroupBy">
+                        <!--<span class="vertical-middle" >{{dimensions.i18nCode | translate}}</span>-->
+                        <span class="vertical-middle text-ellipsis">{{dimensions.name}}</span>
+                    </dd>
+                    <div dropdown
+                        auto-close="outsideClick"
+                        is-open="dataSettings.attributeSelectBox[valueIndex]"
+                        class="pull-left">
+
+                        <dd dropdown-toggle
+                            class="pull-left value max" ng-show="dsConfig.editor.data.dimensionsHasGroupBy"
+                            ng-click="closeOtherCountBox(valueIndex,'attribute');">
+                            <span class="count">
+                                <em class="name" title="{{dimensions.name}}" data-jian="{{dimensions}}">
+                                    {{dimensions.name}}&nbsp;&nbsp;
+                                    <span ng-if="dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'">
+                                        <span ng-if="dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'">by&nbsp;</span>
+                                        <span ng-if="dimensions.datePeriod == 'seconds'" translate="COMMON.DURATION_FORMAT.SECONDS">Seconds</span>
+                                        <span ng-if="dimensions.datePeriod == 'minute'" translate="DIMENSION.GA.MINUTE">Minute</span>
+                                        <span ng-if="dimensions.datePeriod == 'hour'" translate="DIMENSION.GA.HOUR">Hour</span>
+                                        <span ng-if="dimensions.datePeriod == 'day'" translate="DIMENSION.GOOGLEADWORDS.DAY">Day</span>
+                                        <span ng-if="dimensions.datePeriod == 'month'" translate="DIMENSION.GOOGLEADWORDS.MONTH">Month</span>
+                                        <span ng-if="dimensions.datePeriod == 'year'" translate="DIMENSION.GOOGLEADWORDS.YEAR">Year</span>
+                                        <span ng-if="dimensions.datePeriod == 'quarter'" translate="DIMENSION.GOOGLEADWORDS.QUARTER">Quarter</span>
+                                        <span ng-if="dimensions.datePeriod == 'week'"  translate="DIMENSION.GOOGLEADWORDS.WEEK">Week</span>
+                                    </span>
+                                </em>
+                                <i class="count-more" ng-if="dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'">
+                                    <svg>
+                                        <use xlink:href="#icon-triangle-down" />
+                                    </svg>
+                                </i>
+                            </span>
+                        </dd>
+                        <div class="dropdown-menu select-count attribute" ng-if="dsConfig.editor.data.dimensionsHasGroupBy && (dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME')">
+                            <p class="groupby-title" ng-init="dataSettings.groupByGranularity = true" ng-click="dataSettings.groupByGranularity = !dataSettings.groupByGranularity">
+                                Granularity
+                                <i ng-class="{'turn-right': !dataSettings.groupByGranularity}">
+                                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-triangle-down"></use></svg>
+                                </i>
+                            </p>
+                            <ul class="list-unstyled" ng-if="dataSettings.groupByGranularity">
+                                <li ng-if="groupBy(dimensions.dataFormat) == 'year' || groupBy(dimensions.dataFormat) == 'month' || groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'year');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.YEAR">Year</p></li>
+                                <li ng-if="groupBy(dimensions.dataFormat) == 'month' || groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'month');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.MONTH">Month</p></li>
+                                <li ng-if="(groupBy(dimensions.dataFormat) == 'day' || groupBy(dimensions.dataFormat) == 'month'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME') && dsConfig.editor.data.isSupportQuarterOfGroupBy"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'quarter');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.QUARTER">Quarter</p></li>
+                                <li ng-if="groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'day');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.DAY">Day</p></li>
+                                <li ng-if="(groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME') && dsConfig.editor.data.isSupportWeekOfGroupBy"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'week');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title"  translate="DIMENSION.GOOGLEADWORDS.WEEK">Week</p></li>
+                                <li ng-if="groupBy(dimensions.dataFormat) == 'hour' || groupBy(dimensions.dataFormat) == 'minute' || groupBy(dimensions.dataFormat) == 'seconds' || dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'hour');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GA.HOUR">Hour</p></li>
+                                <li ng-if="groupBy(dimensions.dataFormat) == 'minute' || groupBy(dimensions.dataFormat) == 'seconds' || dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'minute');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GA.MINUTE">Minute</p></li>
+                                <li ng-if="groupBy(dimensions.dataFormat) == 'seconds' || dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
+                                    ng-click="changeDimensionsGroupBy(dimensions,'seconds');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="COMMON.DURATION_FORMAT.SECONDS">Second</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </dl>
+
+            </div>
+        </div>
+    </div>
+
+    <div widget-filter
+         class="data-fliter animated fadeInRight text-black-400"
+         ng-if="editor.filterShow">
+    </div>
+
+    <!--<div dimension-operation-->
+         <!--class="animated fadeInRight text-black-400"-->
+         <!--ng-if="editor.dimensionOperation"></div>-->
+
+    <!--排序组件-->
+    <widget-editor-dimension-data-sort
+        ng-if="editor.dimensionOperation && dataSettings.currentDimensionType == 'sort'"
+        dimensions="modal.editorNow.variables[0].dimensions"
+        metrics="modal.editorNow.variables[0].metrics"
+        default-sorts="dataSettings.defaultSorts"
+        on-cancel="onCancelSort"
+        on-submit="onSubmitSort"
+    ></widget-editor-dimension-data-sort>
+
+    <!--类别设置组件-->
+    <widget-editor-dimension-category-setting
+        ng-if="editor.dimensionOperation && dataSettings.currentDimensionType == 'max'"
+        graph-name="{{modal.editorNow.baseWidget.graphName}}"
+        ds-code="{{modal.editorNow.variables[0].dsCode}}"
+        dimension-index="dataSettings.currentDimensionIndex"
+        dimension="dataSettings.currentDimension"
+
+        on-cancel="onCancelCategorySetting"
+        on-submit="onSubmitCategorySetting"
+    ></widget-editor-dimension-category-setting>
+
+    <!-- 计算指标 -->
+    <div calculated-value ng-if="editor.calculatedValue"></div>
+
+    <!-- 提示模板 -->
+    <div tips-two-btn tips-options="{{dataSettings.tips.options}}" ng-if="dataSettings.tips.show"></div>
+
+    <!-- 指标、维度名称别名 -->
+    <editor-data-alias
+        ng-if="dataSettings.dataAlias.showFlag"
+        current-widget-id="modal.editorNow.baseWidget.widgetId"
+        current-data-name="dataSettings.dataAlias.value.name"
+        current-data-alias="dataSettings.dataAlias.value.alias"
+        current-data-type="dataSettings.dataAlias.type"
+        current-data-uuid="dataSettings.dataAlias.value.uuid"
+        on-apply="dataAliasOnApply(alias)"
+        on-cancel="dataAliasOnCancel()">
+    </editor-data-alias>
+</div>

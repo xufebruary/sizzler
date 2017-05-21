@@ -1,0 +1,401 @@
+<!-- 通用头部 -->
+<div class="pt-ds-header">
+    <!-- 路径-账户列表 -->
+    <div class="ds-header-breadcrumb text-black-900" ng-hide="dsBinding.fileAdd">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" href="javascript:" translate="DATA_SOURCE.GD.GD_MANAGE">Google Drive</span>
+    </div>
+
+    <!-- 数据源默认介绍 -->
+    <div class="pt-ds-header-introduce clearfix" ng-hide="dsBinding.fileAdd">
+        <div class="pt-ds-header-introduce-logo"><span class="pt-img"><img src="/assets/images/ds/set-googledrive.jpg" alt=""/></span></div>
+        <div class="pt-ds-header-introduce-detail">
+            <p translate="DATA_SOURCE.GD.INTRODUCE" translate-values="{{productConfigs}}"></p>
+            <p class="pt-ds-header-introduce-website"><a href="https://www.google.com/intl/ja/drive/" target="_blank">Google Drive &gt;</a></p>
+        </div>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="changeFileType('mydrive')"
+           ng-show="dsCtrl.dsDataTep.googledrive.currentAddBtnType == 'owner' && dsCtrl.dsDataTep.googledrive.accountList.length != 0">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span translate="DATA_SOURCE.GD.NEW_FILE">Connect New File</span>
+        </a>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="addAccount()"
+           ng-show="dsCtrl.dsDataTep.googledrive.currentAddBtnType == 'view' && dsCtrl.dsDataTep.googledrive.accountList.length != 0">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span translate="DATA_SOURCE.MANAGEMENT.ADD_CONNECT">Connect New Account</span>
+        </a>
+    </div>
+</div>
+
+<!--无数据时提示层 -->
+<div dataType="noData" class="ds-no-binding m-t-xxl" ng-show="dsCtrl.dsDataTep.googledrive.accountList.length==0 && !dsBinding.fileAdd && dsBinding.pageLoad">
+    <div class="description">
+        <p ng-bind-html="'DATA_SOURCE.GD.ADD_ACCOUNT_TIPS' | translate"></p>
+    </div>
+    <p>
+        <a class="pt-btn pt-btn-success pt-btn-add" href="javascript:" ng-click="addAccount()"> <!-- ng-if="!dsBinding.authorize" -->
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span translate="WIDGET.ADD_AUTHOR_ACCOUNT">Connect New Account</span>
+        </a>
+    </p>
+</div>
+
+<!-- google drive content binding page -->
+<div class="ds-binding" ng-show="dsCtrl.dsDataTep.googledrive.accountList.length>0 && dsBinding.pageLoad">
+    <!-- 路径-添加文件 -->
+    <div class="ds-header-breadcrumb text-black-900" ng-show="dsBinding.fileAdd">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <a class="text-black-900" href="javascript:" ng-click="showGoogleDrive()" translate="DATA_SOURCE.GD.GD_MANAGE">Google Drive</a>
+        <svg ng-show="dsBinding.fileAdd"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" translate="DATA_SOURCE.GD.CONNECT_FILE">Google Drive</span>
+    </div>
+    <!-- 数据源添加界面提示 -->
+    <div class="ds-header-add-tips" ng-show="dsBinding.fileAdd">
+        <h2 class="text-xl text-black-800" translate="DATA_SOURCE.GD.ADD_FILE_TIPS_TITLE">How to add file from Google Drive</h2>
+        <p ng-bind-html="'DATA_SOURCE.GD.ADD_FILE_TIPS_INFO' | translate"></p>
+    </div>
+    <div class="ds-binding-hd m-t-xxl clearfix">
+        <div class="pt-select ds-binding-hd-select" dropdown>
+            <button type="button" class="pt-btn pt-btn-dropdown" ng-click="chooseConnection()" dropdown-toggle>
+                {{dsCtrl.dsDataTep.googledrive.currentAccount.name}}
+                <b class="pt-caret"></b>
+            </button>
+            <ul class="pt-dropdown-menu">
+                <li ng-click="selectAccountName('all')" ng-hide="dsBinding.fileAdd || dsCtrl.dsDataTep.googledrive.accountList.length==1">
+                    <a  href="javascript:" translate="DATA_SOURCE.GD.ALL_ACCOUNT">All Account</a>
+                </li>
+                <li ng-repeat="account in dsCtrl.dsDataTep.googledrive.accountList"
+                    ng-click="selectAccountName(account)"
+                    ng-if="!dsBinding.fileAdd || dsBinding.fileAdd && userInfo.ptId == account.uid">
+                    <a href="javascript:">{{account.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-add pull-left" ng-show="dsBinding.fileAdd">
+            <a class="pt-btn pt-btn-success  pt-btn-add" href="javascript:" ng-click="addAccount()">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+                </svg>
+                <span translate="WIDGET.ADD_AUTHOR_ACCOUNT">Connect New Account</span>
+            </a>
+        </div>
+        <div class="ds-binding-hd-setting pt-select" dropdown ng-hide="dsBinding.fileAdd || dsCtrl.dsDataTep.googledrive.currentAccountCid=='all'">
+            <a href="javascript:"
+               class="pt-icon-share pt-selectIcon"
+                tooltip-placement="top"
+                tooltip="{{ 'COMMON.SETTINGS' | translate}}"
+                ng-click="setConnection()"
+                dropdown-toggle>
+                <svg>
+                    <use xlink:href="#icon-set" />
+                </svg>
+            </a>
+            <ul class="pt-dropdown-menu dropdown-menu-ds"
+                ng-if="dsCtrl.dsDataTep.googledrive.currentAddBtnType == 'owner'">
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="changeFileType('mydrive')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+
+                        <span translate="DATA_SOURCE.GD.NEW_FILE">New File</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       id="noBindingAccount"
+                       ng-click="removeAccountShow()">
+                        <svg>
+                            <use xlink:href="#icon-del" />
+                        </svg>
+                        <span translate="DATA_SOURCE.MANAGEMENT.BTN_REMOVE">Remove</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="pt-dropdown-menu "
+                ng-if="dsCtrl.dsDataTep.googledrive.currentAddBtnType == 'view'">
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="addAccount()">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+                        <span translate="DATA_SOURCE.MANAGEMENT.ADD_CONNECT">Connect New Account</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="removeAccountShow()">
+                        <svg>
+                            <use xlink:href="#icon-del" />
+                        </svg>
+                        <span translate="DATA_SOURCE.MANAGEMENT.BTN_REMOVE">Remove</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-owner pull-left"
+             ng-hide=" dsCtrl.dsDataTep.googledrive.currentAccountCid=='all' || dsBinding.fileAdd">
+            <span translate="DATA_SOURCE.MYSQL.OWNER">owner</span>
+            <span>: &nbsp;</span>
+            {{dsCtrl.dsDataTep.googledrive.currentAccount.userName}}
+        </div>
+        <div class="ds-binding-hd-refresh pull-left"  ng-if="dsBinding.fileAdd">
+            <a href="javascript:" ng-click="refreshFileList()"
+                tooltip-placement="top"
+                tooltip="{{ 'DATA_SOURCE.GD.REFRESH_TIPS' | translate}}">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh-bg"></use>
+                </svg>
+            </a>
+        </div>
+        <form class="ds-binding-hd-search form-inline inline ng-hide">
+            <div class="form-group-sm">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Amount">
+                    <div class="input-group-addon"><svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                        </svg></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 已存文件列表 -->
+    <div class="ds-table-list pos-rlt" ng-hide="dsBinding.fileAdd">
+        <div class="pt-ds-table-list-bd">
+            <div ng-if="dsBinding.fileQueryStatus !== null">
+                <div class="pt-ds-table padder-md clearfix text-center text-black-500" ng-if="dsCtrl.dsDataTep.googledrive.fileAllList.length == 0 && dsCtrl.dsDataTep.googledrive.currentAccountCid=='all'">
+                    <p class="ds-table-nodata">
+                        <span translate="DATA_SOURCE.GD.NO_FILE">您还没有关联任何文件</span>
+                    </p>
+                </div>
+                <div class="pt-ds-table padder-md clearfix text-center text-black-500" ng-if="dsCtrl.dsDataTep.googledrive.fileList.length == 0 && dsCtrl.dsDataTep.googledrive.currentAccountCid != 'all'">
+                    <p class="ds-table-nodata">
+                        <span translate="DATA_SOURCE.GD.ACCOUNT_NO_FILE">当前账户下还没有绑定任何文件</span>
+                    </p>
+                </div>
+                <div class="pt-ds-table padder-md clearfix pos-rlt" ng-repeat="file in dsCtrl.dsDataTep.googledrive.fileList">
+                    <div class="pt-ds-table-info ds-table-info">
+                        <div class="pt-file-title clearfix">
+                            <p class="pt-text-ellipsis text-black-900" title="{{file.name}}">{{file.name}}</p>
+                            <span ng-if=" file.remoteStatus=='0' "
+                                 class="chart-tips-trigger m-l-xs pull-left pt-tooltip"
+                                 chart-tips-trigger>
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                                </svg>
+                                <div class="pt-inner pt-inner-left">
+                                    <div class="pt-arrows pt-arrows-left"></div>
+                                    <div class="pt-content">
+                                        {{ 'DATA_SOURCE.GD.FILE_WARNING_TIPS' | translate}}
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="clearfix pt-file-path">
+                            <p class="pt-text-ellipsis" title="{{file.accountName}}&nbsp;&gt;&nbsp;{{ file.remotePath | replaceFilter }}">{{file.accountName}}</p>
+                            <span>&nbsp;&gt;&nbsp;</span>
+                            <p class="pt-text-ellipsis" title="{{file.accountName}}&nbsp;&gt;&nbsp;{{ file.remotePath | replaceFilter }}">{{ file.remotePath | replaceFilter }}</p>
+                        </div>
+                    </div>
+                    <div class="pt-ds-table-date m-t-md">
+                        <p class="pt-ds-table-date-list">
+                            <span translate="DATA_SOURCE.GD.CONNECTED">connected at</span>
+                            {{file.createTime | date:'yyyy/MM/dd'}}
+                        </p>
+                        <p class="pt-ds-table-date-list">
+                            <span translate="DATA_SOURCE.GD.UPDATE">update at</span>
+                            {{file.updateTime | date:'yyyy/MM/dd HH:mm:ss'}}
+                        </p>
+                    </div>
+                    <div class="pt-ds-table-set">
+                        <div class="pt-btn-group pt-select" dropdown>
+                            <a class="pt-block pt-btn-more" href="javascript:" dropdown-toggle>
+                                <span class="more"></span>
+                            </a>
+                            <ul class="pt-dropdown-menu pt-mysql-dropdowm">
+                                <li>
+                                    <a href="javascript:"
+                                       class="pt-btn-add pt-menu"
+                                       ng-click="editFile(file, $index)">
+                                        <svg>
+                                            <use xlink:href="#icon-edit"></use>
+                                        </svg>
+                                        <span translate="DATA_SOURCE.GD.BTN_EDIT">Edit</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:"
+                                       class="pt-btn-add pt-menu"
+                                       ng-click="refreshFile(file, $index)">
+                                        <svg>
+                                            <use xlink:href="#icon-refresh"></use>
+                                        </svg>
+                                        <span translate="COMMON.REFRESH">Refresh</span>
+                                    </a>
+                                </li>
+                                <!-- 自定义更新频率，暂隐藏 -->
+                                <!--
+                                <li>
+                                    <a href="javascript:"
+                                       class="pt-btn-add pt-menu"
+                                       ng-click="autoUpdateRateShow(file, $index)">
+                                        <svg>
+                                            <use xlink:href="#icon-refresh-auto" />
+                                        </svg>
+                                        <span translate="DATA_SOURCE.MANAGEMENT.BTN_AUTO_UPDATE_RATE">Auto update rate</span>
+                                    </a>
+                                </li>
+                                -->
+                                
+                                <li>
+                                    <a href="javascript:"
+                                       class="pt-btn-add pt-menu"
+                                       ng-click="setTimezone(file,$index)">
+                                        <svg>
+                                            <use xlink:href="#icon-timezone" />
+                                        </svg>
+                                        <span translate="DATA_SOURCE.TIMEZONE.BUTTON"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:"
+                                       class="pt-btn-add pt-menu"
+                                       ng-click="removeFileShow(file, $index)">
+                                        <svg>
+                                            <use xlink:href="#icon-del" />
+                                        </svg>
+                                        <span translate="DATA_SOURCE.MANAGEMENT.BTN_REMOVE">Remove</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 远端文件目录 -->
+    <div class="ds-gd-file" ng-show="dsBinding.fileAdd">
+        <div class="ds-gd-file-hd">
+            <div class="ds-gd-file-hd-tab text-black-800 clearfix">
+                <button class="pull-left block padder-md m-r-xxs"
+                    ng-click="changeFileType('mydrive')"
+                    ng-class="{'active': dsBinding.fileListType.type == 'mydrive'}">
+                    <svg class="m-r-xs">
+                        <use xlink:href="#icon-my-drive" />
+                    </svg>
+                    <span translate="DATA_SOURCE.GD.MY_DRIVE">My Drive</span>
+                </button>
+                <button class="pull-left block padder-md"
+                    ng-click="changeFileType('sharewithme')"
+                    ng-class="{'active': dsBinding.fileListType.type == 'sharewithme'}">
+                    <svg class="m-r-xs">
+                        <use xlink:href="#icon-share-ds" />
+                    </svg>
+                    <span translate="DATA_SOURCE.GD.SHARE_WITH_ME">Share With Me</span>
+                </button>
+            </div>
+
+            <div class="ds-gd-file-breadcrumb clearfix">
+                <!-- <a class="pull-left"
+                    ng-click="changeFileType('mydrive')"
+                    ng-if="dsBinding.fileListType.type == 'mydrive'"
+                    translate="DATA_SOURCE.GD.MY_DRIVE">My Drive</a>
+                <a class="pull-left"
+                    ng-click="changeFileType('mydrive')"
+                    ng-if="dsBinding.fileListType.type == 'sharewithme'"
+                    translate="DATA_SOURCE.GD.SHARE_WITH_ME">Share With Me</a> -->
+            </div>
+
+            <div class="ds-gd-file-title clearfix padder-r-lg">
+                <div class="pull-left ds-gd-file-name text-black-800" translate="DATA_SOURCE.GD.NAME">Name</div>
+                <div class="pull-left ds-gd-file-owner text-black-800">
+                    <span translate="DATA_SOURCE.GD.OWNER" ng-hide="dsBinding.fileListType.showTitleShare">Owner</span>
+                    <span translate="DATA_SOURCE.GD.SHARE" ng-show="dsBinding.fileListType.showTitleShare">共享者</span>
+                </div>
+                <div class="pull-left ds-gd-file-modified text-black-800">
+                    <span translate="DATA_SOURCE.GD.LAST_MODIFIED" ng-hide="dsBinding.fileListType.showTitleShare">Last modified</span>
+                    <span translate="DATA_SOURCE.GD.SHART_DATE" ng-show="dsBinding.fileListType.showTitleShare">共享日期</span>
+                </div>
+                <div class="pull-left ds-gd-file-connect"></div>
+            </div>
+        </div>
+
+        <div class="ds-gd-file-bd clearfix pos-rlt">
+            <div class="ds-gd-file-list ds-gd-file-empty" ng-show="dsBinding.accountDataCopy.child.length == 0">
+                <span translate="DATA_SOURCE.GD.EMPTY_TIPS">这是一个空文件夹</span>
+            </div>
+
+            <div class="ds-gd-file-list clearfix padder-r-lg"
+                ng-show="dsBinding.accountDataCopy.child.length > 0"
+                ng-repeat="file in dsBinding.accountDataCopy.child"
+                ng-click="addFile(file,file.extra.isDirectory)" id="{{file.id}}">
+                <div class="pull-left ds-gd-file-name text-ellipsis padder-md" title="{{file.name}}">
+                    <svg class="m-r-xs filelist-icon" ng-show="file.extra.isDirectory">
+                        <use xlink:href="#icon-inbox" />
+                    </svg>
+                    <svg class="m-r-xs svg-file" ng-hide="file.extra.isDirectory">
+                        <use xlink:href="#icon-file" />
+                    </svg>
+                    {{file.name}}
+                </div>
+                <div class="pull-left text-black-600 ds-gd-file-owner">
+                    <span ng-hide="dsBinding.fileListType.showTitleShare">{{file.extra.owner}}</span>
+                    <span ng-show="dsBinding.fileListType.showTitleShare">{{file.extra.sharingUserName}}</span>
+                </div>
+                <div class="pull-left text-black-600 ds-gd-file-modified">
+                    <span ng-hide="dsBinding.fileListType.showTitleShare">{{file.extra.lastModifiedDate | date}}</span>
+                    <span ng-show="dsBinding.fileListType.showTitleShare">{{file.extra.sharedWithMeDate | date}}</span>
+                </div>
+                <div class="pull-left text-black-600 ds-gd-file-connect text-right" ng-hide="file.extra.isDirectory">
+                    <span class="m-r-sm" translate="DATA_SOURCE.GD.CONNECT">
+                        connect
+                    </span>
+                    <svg class="v-middle">
+                        <use xlink:href="#icon-link" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 提示框 -->
+<div tips-two-btn tips-options="{{dsBinding.tips.options}}" ng-if="dsBinding.tips.show"></div>
+
+<!-- 时区 -->
+<timezone 
+    ng-if="dsBinding.timezone.show"
+    fieds="dsBinding.timezone.fieds"
+    tips-code="DATA_SOURCE.TIMEZONE.MYSQL_SUPPORT"
+    hide-timezone="hideTimezone()"
+></timezone>
+
+<!-- 数据源自定义更新频率设置 -->
+<div ds-auto-date-rate
+    timezone="{{dsBinding.autoUpdateRate.file.timezone}}"
+    update-frequency="{{dsBinding.autoUpdateRate.file.updateFrequency}}"
+    update-hour="{{dsBinding.autoUpdateRate.file.updateHour}}"
+    on-save="autoUpdateRate(updateFrequency, updateHour)"
+    on-cancel="close()"
+    ng-if="dsBinding.autoUpdateRate.showTips"></div>

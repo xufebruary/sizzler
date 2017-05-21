@@ -1,0 +1,133 @@
+<div class="dashboard-template">
+    <div class="dashboard-template-nav">
+        <p class="dashboard-template-nav-title">
+            <span translate="PANEL.TAG.CHOSE_TAG"></span>
+        </p>
+
+        <div class="dashboard-template-nav-bd">
+            <div class="dashboard-template-nav-wrap">
+                <div class="dashboard-template-nav-list" stop-scroll-to-father>
+                    <ul class="list-unstyled">
+                        <li ng-repeat="tag in rootCommon.tagList">
+                            <button ng-class="{'active': $ctrl.myOptions.tagsFilter.list.indexOf(tag)>=0}"
+                                    ng-click="$ctrl.sltTag(tag)">{{tag.ptoneTagName[rootUser.settingsInfo.locale]}}</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>
+                <a href="mailto:{{productConfigs.email}}">
+                    <span translate="PANEL.TAG.TELL_ME"></span>
+                </a>
+            </p>
+        </div>
+    </div>
+
+    <div class="dashboard-template-bd">
+        <header>
+            <h2>
+                <span translate="PANEL.TEMPLATE.TITLE"></span>
+            </h2>
+            <p>
+                <span translate="PANEL.TEMPLATE.INTRODUCTIONS_P1"></span><br>
+                <span translate="PANEL.TEMPLATE.INTRODUCTIONS_P2"></span>
+            </p>
+        </header>
+        <div class="dashboard-template-list clearfix">
+            <div class="dashboard-template-box"
+                 ng-repeat="template in rootPanel.templateList track by $index "
+                 ng-hide="$ctrl.tagFilter(template.tagList, $index)">
+                <div class="dashboard-template-box-img" ng-if="template.description[rootUser.settingsInfo.locale]['Preview IMG']">
+                    <a class="block">
+                        <img imageloaded
+                             alt="template.panelTitle[rootUser.settingsInfo.locale]"
+                             ng-src="{{template.description[rootUser.settingsInfo.locale]['Preview IMG']}}"
+                             ng-click="$ctrl.showBigImg($event)">
+                    </a>
+                </div>
+                <div class="dashboard-template-box-bd">
+                    <p class="dashboard-template-box-tags">
+                        <span ng-repeat="tag in template.tagList">
+                            {{tag.ptoneTagName[rootUser.settingsInfo.locale] +';'}}
+                        </span>
+                    </p>
+                    <p class="dashboard-template-box-title">
+                        <span>
+                            {{template.panelTitle[rootUser.settingsInfo.locale]}}
+                        </span>
+                    </p>
+                    <div class="dashboard-template-box-paragraph">
+                        <h2>
+                            <span translate="PANEL.ADD.PANEL_REGULARITY"></span>
+                        </h2>
+                        <p>
+                            <span ng-bind-html="$ctrl.getDescriptionHtml(template.description[rootUser.settingsInfo.locale].Abstract)"></span>
+                        </p>
+                    </div>
+                    <div class="dashboard-template-box-paragraph">
+                        <h2>
+                            <span translate="PANEL.ADD.PANEL_COMPONENTS"></span>
+                        </h2>
+                        <p>
+                            <span ng-bind-html="$ctrl.getDescriptionHtml(template.description[rootUser.settingsInfo.locale].Components)"></span>
+                        </p>
+                    </div>
+                     <div class="dashboard-template-box-paragraph" ng-if="template.description[rootUser.settingsInfo.locale].attachment && template.description[rootUser.settingsInfo.locale].attachment.length>0">
+                        <h2>
+                            <span translate="PANEL.TEMPLATE.ATTACHMENT">Attachment</span>
+                        </h2>
+                        <p ng-repeat="attachment in template.description[rootUser.settingsInfo.locale].attachment">
+                            <a href="{{attachment.link}}" 
+                                target="_blank" 
+                                class="pt-a-underline">
+                                {{attachment.title}}        
+                            </a>
+                        </p>
+                    </div>
+                    <div class="dashboard-template-box-dsList">
+                        <dom-svg-func ng-repeat="ds in template.dsInfoList | orderBy:'-orderNumber' " class="svg-ds" data-svgid="{{'#icon-ds-'+ds.code.toLowerCase()}}"></dom-svg-func>
+                    </div>
+                </div>
+                <footer class="dashboard-template-box-ft">
+                    <button class="pt-btn pt-btn-success btn-dashboard-template" ng-click="$ctrl.addTemplet(template)">
+                        <span translate="PANEL.TEMPLATE.ADD_DASHBOARD"></span>
+                    </button>
+                </footer>
+            </div>
+
+        </div>
+
+        <div class="dashboard-template-noData text-center" ng-if="$ctrl.myOptions.tagsFilter.tmpList !== null && $ctrl.myOptions.tagsFilter.tmpList.length == rootPanel.templateList.length">
+            <span translate="PANEL.TEMPLATE.NODATA_P1">
+                お探しのダッシュボードのテンプレートが見つかりませんでした。
+            </span><br>
+            <span translate="PANEL.TEMPLATE.NODATA_P2" translate-values="{{productConfigs.email}}">ぜひptone@ptmind.co.jpにほしいダッシュボードの要望をリクエストください！</span>
+        </div>
+    </div>
+</div>
+
+<!--template big img-->
+<div class="dashboard-bigImg"
+     ng-if="$ctrl.myOptions.bigImg.show">
+    <div class="modal block">
+        <div class="dashboard-bigImg-content">
+            <a class="popup-btnClose" ng-click="$ctrl.closeBigImg()">
+                <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+            </a>
+            <div class="dashboard-bigImg-img"  ng-click="$ctrl.closeBigImg()">
+                <img class="js_bigImg"
+                     ng-src="{{$ctrl.myOptions.bigImg.src}}"
+                     ng-style="{'max-width': $ctrl.myOptions.bigImg.width+'px'}"
+                     alt="{{$ctrl.myOptions.bigImg.title}}"
+                     title="{{$ctrl.myOptions.bigImg.title}}">
+            </div>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in" ng-click="$ctrl.closeBigImg()"></div>
+    </div>
+</div>
+
+<!-- 新增默认空间的提示信息 -->
+<space-add-tips ng-if="rootUser.settingsInfo.showTips.spaceCreate == 0" tips-user-info="rootUser.settingsInfo.showTips"></space-add-tips>

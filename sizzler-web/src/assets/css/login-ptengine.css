@@ -1,0 +1,241 @@
+.login-ptengine {
+  background-color: #fff;
+  width: 360px;
+  margin: 50px auto 0 auto;
+}
+.login-ptengine:before {
+  content: '';
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  background-color: #fff;
+}
+.login-ptengine.big {
+  width: 500px;
+}
+.login-ptengine header {
+  height: 95px;
+  text-align: center;
+  box-sizing: content-box;
+}
+.login-ptengine header svg {
+  vertical-align: middle;
+  fill: #b2d009;
+  height: 45px;
+  padding-bottom: 20px;
+  box-sizing: content-box;
+}
+.login-ptengine header p {
+  margin: 0;
+  font-size: 16px;
+}
+.login-ptengine header.big {
+  height: 45px;
+  width: 500px;
+  padding-bottom: 20px;
+}
+.login-ptengine .form-box {
+  border: 1px solid #e0e0e0;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  padding: 40px 50px;
+}
+.login-ptengine .form-box .icon {
+  margin: 0 auto;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background-color: #eee;
+  border: 1px solid #e0e0e0;
+  width: 90px;
+  height: 90px;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 90px;
+}
+.login-ptengine .form-box .icon svg {
+  width: 60px;
+  height: 60px;
+  fill: #fff;
+  vertical-align: middle;
+}
+.login-ptengine .form-box .login-bd {
+  margin-top: 25px;
+}
+.login-ptengine .form-box .ipt-login {
+  background-color: #fff;
+  padding: 0;
+  height: 38px;
+  margin-bottom: 10px;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  border-radius: 0;
+}
+.login-ptengine .form-box .ipt-login input[type=email],
+.login-ptengine .form-box .ipt-login input[type=password] {
+  border: 1px solid #e0e0e0;
+  padding: 6px 15px;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  height: 36px;
+  line-height: 20px;
+  color: #424242;
+}
+.login-ptengine .form-box .ipt-login input[type=email]:hover,
+.login-ptengine .form-box .ipt-login input[type=password]:hover {
+  border-color: #bbb;
+}
+.login-ptengine .form-box .ipt-login input[type=email]:focus,
+.login-ptengine .form-box .ipt-login input[type=password]:focus {
+  border-color: #b2cf07;
+}
+.login-ptengine .form-box .ipt-login input[type=email]:-webkit-autofill,
+.login-ptengine .form-box .ipt-login input[type=password]:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #fff inset;
+  -webkit-text-fill-color: #424242;
+}
+.login-ptengine .form-box .ipt-login input[type=email]:-moz-placeholder,
+.login-ptengine .form-box .ipt-login input[type=password]:-moz-placeholder {
+  color: #424242;
+  font-size: 13px;
+  text-indent: 1em;
+}
+.login-ptengine .form-box .ipt-login input[type=email]::-moz-placeholder,
+.login-ptengine .form-box .ipt-login input[type=password]::-moz-placeholder {
+  color: #424242;
+  font-size: 13px;
+  text-indent: 1em;
+}
+.login-ptengine .form-box .ipt-login input[type=email]:-ms-input-placeholder,
+.login-ptengine .form-box .ipt-login input[type=password]:-ms-input-placeholder {
+  color: #424242;
+  font-size: 13px;
+  text-indent: 1em;
+}
+.login-ptengine .form-box .ipt-login input[type=email]::-webkit-input-placeholder,
+.login-ptengine .form-box .ipt-login input[type=password]::-webkit-input-placeholder {
+  color: #424242;
+  font-size: 13px;
+  text-indent: 1em;
+}
+.login-ptengine .form-box .btn-login {
+  width: 100%;
+  height: 38px;
+  line-height: 38px;
+  font-size: 13px;
+  text-align: center;
+  color: #fff;
+  background: #f98639;
+  border: none;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  -moz-transition: all, 0.2s, ease-out;
+  -o-transition: all, 0.2s, ease-out;
+  -webkit-transition: all, 0.2s, ease-out;
+  transition: all, 0.2s, ease-out;
+}
+.login-ptengine .form-box .btn-login:hover {
+  background-color: #fa9552;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.login-ptengine .form-box footer {
+  padding: 10px 0;
+  text-align: center;
+}
+.login-ptengine .form-box footer a {
+  color: #9d9d9d;
+}
+.login-ptengine .form-box footer a:hover {
+  color: #616161;
+}
+.login-ptengine .form-box .popover {
+  background-color: #6ec5fd;
+  border: none;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-transition: all, 0.2s, ease-out;
+  -o-transition: all, 0.2s, ease-out;
+  -webkit-transition: all, 0.2s, ease-out;
+  transition: all, 0.2s, ease-out;
+}
+.login-ptengine .form-box .popover.text-danger {
+  color: #fff;
+}
+.login-ptengine .form-box .popover .popover-content {
+  padding: 4px 4px 4px 8px;
+}
+.login-ptengine .form-box .popover.right .arrow {
+  left: -3px;
+  border-right-color: #6ec5fd;
+}
+.login-ptengine .form-box .popover.right .arrow:after {
+  display: none;
+}
+.login-ptengine .form-box.big {
+  width: 500px;
+  padding: 40px 40px 25px 40px;
+}
+.login-ptengine .form-box.big h3 {
+  font-size: 28px;
+  color: #616161;
+  padding-bottom: 20px;
+  margin: 0;
+}
+.login-ptengine .form-box.big p.list {
+  line-height: 24px;
+  text-indent: 15px;
+  margin: 0;
+}
+.login-ptengine .form-box.big p.list:before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #b2cf07;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin-left: -15px;
+  margin-top: 6px;
+}
+.login-ptengine .form-box.big p.list.last {
+  padding-bottom: 35px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+}
+.login-ptengine .form-box.big .btns {
+  padding-top: 20px;
+  text-align: right;
+}
+.login-ptengine .form-box.big .btns .btn {
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  line-height: 38px;
+  text-align: center;
+  -moz-border-radius: 20px;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  padding: 0;
+}
+.login-ptengine .form-box.big .btns .btn.deny {
+  border: 1px solid #ccc;
+  color: #ccc;
+}
+.login-ptengine .form-box.big .btns .btn.allow {
+  background-color: #f98639;
+  color: #fff;
+  margin-left: 20px;
+}
+.login-ptengine .form-box.big .btns .btn.allow:hover {
+  background-color: #fa9552;
+}

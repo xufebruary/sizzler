@@ -1,0 +1,20 @@
+.black {
+  color: #000;
+}
+
+.white {
+  color: #fff;
+}
+
+.green {
+  color: #9ccc65;
+}
+
+.onboarding-preview {
+  margin: 0 50px;
+}
+.onboarding-preview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

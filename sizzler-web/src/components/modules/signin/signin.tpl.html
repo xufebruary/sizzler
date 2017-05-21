@@ -1,0 +1,137 @@
+<div class="login" ng-class="{'pt-phone': pt.settings.isPhone}">
+<!--     <svg class="login-bg" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" login-svg-bg>
+        <polygon  points="" style="fill:#8bc34a;"/>
+        <polygon  points="" style="fill:#689f38;opacity:0.3"/>
+    </svg>
+
+    <header>
+        <svg>
+            <use xlink:href="{{productConfigs.logo}}"></use>
+        </svg>
+    </header> -->
+
+    <!-- dashboard-loading" -->
+    <div class="pt-loading login-bd m-t-lg" ng-show="loadSetting.signin">
+        <span class="pt-center pt-loading-box-lg">
+            <svg class="load-s btnloads white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+            <svg class="load-m btnloadm white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+        </span>
+    </div>
+
+    <div ng-show="showSigninDiv">
+        <div class="login-bd m-t-lg">
+            <form name="form" class="form-validation">
+                <div class="ipt-login m-b-xs">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-email"></use></svg>
+                    <input id="login-signin-email"
+                           class="no-bg no-border text-lg"
+                           type="text"
+                           tabindex="1"
+                           ng-pattern="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/"
+                           ng-attr-placeholder="{{'LOGIN.EMAIL' | translate}}"
+                           ng-model="userEmail"
+                           ng-required="true"
+                           ng-maxlength="100"
+                           autofocus
+                           ng-input-focus
+                           name="email"
+                           ng-keydown="enterKeyUp($event,login,form.email);emailErrorMessage=''">
+                    <div class="popover right text-danger"
+                         style="top: -10px; left: 348.25px; display: block;width:100%;"
+                         ng-if="!isPhone"
+                         ng-show="(form.email.$dirty && form.email.$invalid || emailErrorMessage ) && !form.email.$focused && !isPhone">
+                        <div class="arrow"></div>
+                        <div class="popover-inner">
+                            <div class="popover-content">
+                                <span ng-show="form.email.$error.required" translate="LOGIN.ERROR_TIP.EMAIL_NULL">Email is required.</span>
+                                <!--<div ng-show="form.email.$error.email && emailBlurFlag" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT">Invalid email address.</div>-->
+                                <span ng-show="form.email.$error.pattern" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT"></span>
+                                <span ng-show="form.email.$error.maxlength" translate="LOGIN.ERROR_TIP.USER_NOT_RIGHT"></span>
+                                <div ng-show="emailErrorMessage" ng-bind="emailErrorMessage"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ipt-login m-b-xs">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-pwd"></use></svg>
+                    <!--placeholder="{{'LOGIN.PASSWORD' | translate}}"-->
+                    <input id="login-signin-password"
+                           class="no-bg no-border text-lg"
+                           type="password"
+                           tabindex="2"
+                           ng-attr-placeholder="{{'LOGIN.PASSWORD' | translate}}"
+                           ng-minlength="6"
+                           ng-keydown="enterKeyUp($event,login,form.userPassword);passwordErrorMessage=''"
+                           ng-maxlength="20"
+                           name="userPassword"
+                           ng-model="userPassword"
+                           ng-input-focus
+                           ng-required="true">
+                </div>
+                <div class="popover right text-danger" style="top: 50px; left: 348.25px; display: block;width:100%;"
+                     ng-if="!isPhone"
+                     ng-show="(form.userPassword.$dirty && form.userPassword.$invalid || passwordErrorMessage ) && !form.userPassword.$focused && !isPhone">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <div class="popover-content">
+                            <span ng-show="form.userPassword.$error.required" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                            <span ng-show="form.userPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT">Min length 6.</span>
+                            <span ng-show="form.userPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT">Max length 20.</span>
+                            <div ng-show="passwordErrorMessage" ng-bind="passwordErrorMessage"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="clearfix padder-v check-login login-default-color">
+                    <label class="i-checks i-checks-sm pull-left text-md m-b-none"
+                        ng-init="userCookieTime=true">
+                        <input id="login-signin-remember"
+                               type="checkbox"
+                               tabindex="3"
+                               ng-model="userCookieTime"
+                               pt-log="{
+                                    'where': 'main_user_login',
+                                    'what': 'remember_password',
+                                    'value': {{userCookieTime}}
+                               }"
+                               >
+                        <i class="m-r-none"></i>
+                        <span translate="LOGIN.REMEMBER_ME" translate-cloak></span>
+                    </label>
+
+                </div>
+                <button id="login-signin-submit"
+                    class="text-xl no-border block text-center btn-login"
+                    tabindex="4"
+                    type="button"
+                    ng-click="login()"
+                    ripple-svg="default">
+                    <span translate="LOGIN.SIGNIN" translate-cloak></span>
+                </button>
+
+                <div class="login-tips-phone animated fadeInDown"
+                     ng-if="showErrorTipsPhone.wrapDom">
+                    <div class="login-tips-phone-info">
+                        <div ng-show="showErrorTipsPhone.emailCheck">
+                            <span ng-show="showErrorTipsPhone.emailErrorType == 'isEmpty'" translate="LOGIN.ERROR_TIP.EMAIL_NULL">Email is required.</span>
+                            <span ng-show="showErrorTipsPhone.emailErrorType == 'isInvalid'" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT">Invalid email address.</span>
+                            <!--<span ng-show="showErrorTipsPhone.emailErrorType == 'isMax'" translate="LOGIN.ERROR_TIP.EMAIL_LENGTH">Max length 100.</span>-->
+                            <span ng-show="showErrorTipsPhone.emailErrorType == 'isMax'" translate="LOGIN.ERROR_TIP.USER_NOT_RIGHT"></span>
+                            <span ng-show="showErrorTipsPhone.emailErrorType == 'isError'" ng-bind="showErrorTipsPhone.emailErrorMessage"></span>
+                        </div>
+                        <div ng-show="showErrorTipsPhone.passwordCheck">
+                            <span ng-show="showErrorTipsPhone.passwordErrorType == 'isEmpty'" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                            <span ng-show="showErrorTipsPhone.passwordErrorType == 'isMin'" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT"></span>
+                            <!--<span ng-show="showErrorTipsPhone.passwordErrorType == 'isMin'" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Min length 6.</span>-->
+                            <span ng-show="showErrorTipsPhone.passwordErrorType == 'isMax'" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT"></span>
+                            <div ng-show="showErrorTipsPhone.passwordErrorType == 'isError'" ng-bind="showErrorTipsPhone.passwordErrorMessage"></div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        
+    </div>
+
+</div>

@@ -1,0 +1,26 @@
+<div class="fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <!-- <span class="pt-popup-title" translate="PANEL.SET_UP.DELETE_PANEL.TITLE"></span> -->
+                <a class="pt-popup-close" ng-click="onCancel()">
+                    <svg><use xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd padder-v-sm text-md">
+                <span class="ng-scope" translate="PANEL.DEL_FOLDER"></span>
+            </div>
+            <footer class="pt-popup-footer">
+                <button class="pt-btn pt-btn-danger m-r-md" ng-click="deleteFolder()">
+                    <span translate="COMMON.DELETE">Delete</span>
+                </button>
+                <button class="pt-btn pt-btn-default" ng-click="onCancel()">
+                    <span translate="COMMON.CANCEL">Cancel</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

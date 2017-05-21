@@ -1,0 +1,679 @@
+@import "compass";
+@import "framework/varibles";
+@import "framework/mixin-ui";
+@import "framework/mixin-basic";
+
+@mixin chart-number {
+    .chart-number {
+        height: 100%;
+        font-size: 10px;
+        position: relative;
+        .chart-number-wrap {
+            max-width: 100%;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            @include transform(translate(-50%, -50%));
+            .chart-number-data {
+                color: $textGray8;
+                text-align: center;
+                span {
+                    font-size: 3.5em;
+                    line-height: 1.1;
+                }
+                small {
+                    font-size: 3.4em;
+                    line-height: 1.1;
+                }
+            }
+            .chart-number-info {
+                color: $bgGray6;
+                font-size: 1.2em;
+                line-height: 1.2em;
+                text-align: center;
+                margin-top: 5px;
+                @include text-ellipsis;
+            }
+            .chart-number-percent {
+                color: $textGray5;
+                margin-top: 24px;
+                font-size: 1.4em;
+                text-align: center;
+                line-height: 1.1;
+                svg {
+                    width: 10px;
+                    height: 10px;
+                    fill: $bgGraySpecial;
+                    vertical-align: middle;
+
+                    &.down {
+                        fill: $bgGrayHigher;
+                        @include transform(rotate(90deg));
+                        &.reverse {
+                            fill: $bgGraySpecial;
+                        }
+                        & use>svg {
+                            fill: $bgGrayHigher;
+
+                        }
+                    }
+                    &.reverse {
+                        fill: $bgGrayHigher;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.pt-phone {
+    .widget {
+        position: relative;
+        overflow: hidden;
+        .widget-hd {
+            .widget-set {
+                display: none;
+            }
+        }
+        .widget-bd {
+            position: static;
+            .chart {
+                position: static;
+                .chart-bd {
+                    position: static;
+                    .chart-number {
+                        .chart-number-wrap {
+                            position: static;
+                            @include transform(translate(0));
+                        }
+                    }
+                }
+            }
+        }
+        .widget-tools {
+            position: static;
+            .chart-tips {
+                position: static;
+            }
+        }
+    }
+}
+
+//查看模式下自定义widget鼠标滑动过不显示border
+.read-mode {
+    .widget {
+        &.can-edit-custom.is-self-editor-open {
+            .custom-widget {
+                &:hover {
+                    border: 1px solid transparent;
+                }
+            }
+        }
+    }
+}
+
+.li-widget {
+    &:hover {
+        .widget {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23);
+        }
+        .widget-hd:before {
+            opacity: 1;
+        }
+        .chart-tips .dsIcon {
+            visibility: visible;
+        }
+    }
+}
+
+.li-widget.draggableDisabled:hover .widget {
+    box-shadow: none;
+}
+
+.chart-center {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.chart-center-cell {
+    padding: 0 20px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.gridster-hand {
+    cursor: pointer;
+}
+
+.li-widget.draggableDisabled .gridster-hand {
+    cursor: text;
+}
+
+/*********  widget  **************/
+
+.widget {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    position: relative;
+    @include transition(box-shadow .5s ease-in-out);
+    &:hover {
+        .widget-hd {
+            .widget-set {
+                visibility: visible;
+            }
+        }
+        .widget-hd-tool {
+            .widget-set {
+                background-color: rgba(255, 255, 255, .8);
+            }
+        }
+    }
+    .pt-loading {
+        opacity: 1;
+    }
+    .new-widget-loading {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        background-color: #3e4041;
+        width: 58px;
+        height: 58px;
+        z-index: 100;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        border-radius: 10px;
+        svg {
+            position: absolute;
+            left: 13px;
+            top: 13px;
+            fill: #fff;
+            width: 32px;
+            height: 32px;
+            transform: translateZ(0);
+            -webkit-animation: btnloads 2s infinite linear;
+            -moz-animation: btnloads 2s infinite linear;
+            -o-animation: btnloads 2s infinite linear;
+            animation: btnloads 2s infinite linear;
+            -webkit-transform-origin: 50% 50%;
+            -moz-transform-origin: 50% 50%;
+            -o-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+        }
+    }
+
+    &.can-edit-custom.is-self-editor-open {
+        .edit-active.custom-widget {
+            border: 1px solid rgba(100, 149, 237, 1);
+            &:hover {
+                border: 1px solid rgba(100, 149, 237, 1);
+            }
+            .resizeHandle {
+                &[data-direction = down-right] {
+                    display: block;
+                }
+            }
+        }
+        .custom-widget {
+            border: 1px solid transparent;
+            &:hover {
+                border: 1px solid rgba(100, 149, 237, .5);
+            }
+        }
+    }
+    .custom-widget {
+        position: absolute;
+        .multi-widget-body {
+            width: 100%;
+            height: 100%;
+            [data-name ^= custom-tinymce] {
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+            }
+        }
+        .chart-number-div {
+            height: 100%;
+            @include chart-number;
+        }
+        svg.chart {
+            width: 100%;
+            height: 100%;
+            fill: cornflowerblue;
+        }
+        .no-value-tool {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .resizeHandle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            box-sizing: border-box;
+            touch-action: none;
+            display: none;
+            &[data-direction = up] {
+                left: 50%;
+                top: -2px;
+                margin-left: -6px;
+                border-top: 4px solid #999;
+                width: 12px;
+                cursor: n-resize;
+            }
+            &[data-direction = down] {
+                left: 50%;
+                bottom: -2px;
+                margin-left: -6px;
+                width: 12px;
+                border-bottom: 4px solid #999;
+                cursor: s-resize;
+            }
+            &[data-direction = left] {
+                left: -2px;
+                top: 50%;
+                margin-top: -6px;
+                height: 12px;
+                border-left: 4px solid #999;
+                cursor: w-resize;
+            }
+            &[data-direction = right] {
+                right: -2px;
+                top: 50%;
+                margin-top: -6px;
+                height: 12px;
+                border-right: 4px solid #999;
+                cursor: e-resize;
+            }
+            &[data-direction = up-left] {
+                left: -2px;
+                top: -2px;
+                border-left: 4px solid #999;
+                border-top: 4px solid #999;
+                cursor: nw-resize;
+            }
+            &[data-direction = up-right] {
+                right: -2px;
+                top: -2px;
+                border-right: 4px solid #999;
+                border-top: 4px solid #999;
+                cursor: ne-resize;
+            }
+            &[data-direction = down-left] {
+                left: -2px;
+                bottom: -2px;
+                border-left: 4px solid #999;
+                border-bottom: 4px solid #999;
+                cursor: sw-resize;
+            }
+            &[data-direction = down-right] {
+                right: -2px;
+                bottom: -2px;
+                border-right: 4px solid #999;
+                border-bottom: 4px solid #999;
+                cursor: se-resize;
+            }
+        }
+    }
+
+    //widget title
+    .widget-hd {
+        padding-left: 20px;
+        position: relative;
+        z-index: 100;
+        .widget-title {
+            margin-top: 14px;
+            margin-right: 40px;
+            transition: all .5s ease-in-out;
+            color: $textGray8;
+            @include transition(all .5s ease-in-out);
+            strong {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            input {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border: none;
+                padding: 0;
+                margin: 0;
+                display: block;
+                font-size: $fontMiddle;
+            }
+            span {
+                font-size: $fontMiddle;
+                min-height: 16px;
+            }
+        }
+        //    setting btn
+        .widget-set {
+            cursor: pointer;
+            visibility: hidden;
+            width: 30px;
+            height: 34px;
+            position: absolute;
+            right: 0;
+            top: 10px;
+            margin-right: 10px;
+            .fa-gear {
+                font-size: 20px;
+                color: #BDBDBD;
+                cursor: pointer;
+            }
+            &:hover .widget-set-dropdown {
+                display: block;
+            }
+            &:hover .widget-more,
+            &:hover .widget-more:before,
+            &:hover .widget-more:after {
+                background: $bgGrayLighter;
+            }
+            .widget-more {
+                @include more;
+            }
+            .widget-set-dropdown {
+                width: 30px;
+                position: absolute;
+                top: 100%;
+                display: none;
+                &:hover{
+                    display: block;
+                }
+            }
+            .widget-set-dropdown a {
+                width: 30px;
+                height: 30px;
+                background: $bgGrayLighter;
+                border-radius: 50%;
+                text-align: center;
+                padding: 7px;
+                margin-bottom: 6px;
+            }
+            .widget-set-dropdown a:hover {
+                background: $bgGreen;
+            }
+            .widget-set-dropdown a svg {
+                width: 16px;
+                height: 16px;
+                fill: $white;
+            }
+        }
+
+    }
+    .widget-hd-tool {
+        .widget-set {
+            width: 20px;
+            height: 20px;
+            .widget-set-dropdown {
+                right: -5px;
+            }
+        }
+    }
+    //widget main
+    .widget-bd,
+    .widget-empty {
+        position: absolute;
+        width: 100%;
+        background-color: $white;
+        bottom: 24px;
+        top: 36px;
+    }
+    .widget-bd-tool {
+        padding: 15px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        .default-text {
+            color: $textGray4;
+            padding-top: 15px;
+        }
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    }
+    .widget-empty {
+        top: 0;
+        a {
+            width: 82px;
+            height: 82px;
+            border-radius: 50%;
+            background-color: $bgGrayHigh;
+            padding: 18px 20px;
+            margin: 0 auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            @include transform(translate(-50%, -50%));
+            svg {
+                width: 42px;
+                height: 42px;
+                fill: $white;
+            }
+            &:hover {
+                background-color: $bgGreen;
+            }
+        }
+        .only-dimensions-tips {
+            text-align: center;
+            height: 32px;
+            line-height: 32px;
+            font-size: 14px;
+            @include transform(translate(-50%, -50%));
+            color: #bdbdbd;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+    }
+    .widget-bd {
+        .chart-dateRange {
+            padding-right: 20px;
+            padding-left: 20px;
+            font-size: $fontMini;
+            color: $textGray7;
+            visibility: hidden;
+            height: 18px;
+            line-height: 18px;
+        }
+
+        .chart {
+            width: 100%;
+            background-color: $white;
+            padding-right: 20px;
+            padding-left: 20px;
+            position: absolute;
+            top: 18px;
+            bottom: 0;
+
+            &.drawing:before {
+                content: "";
+                width: 100%;
+                background: #fff;
+                z-index: 2;
+                position: absolute;
+                top: -18px;
+                left: 0;
+                bottom: -20px;
+            }
+            .chart-value {
+                min-height: 42px;
+                span {
+                    display: block;
+                    font-size: 2em;
+                    line-height: 1.1em;
+                    color: $textGray8;
+                }
+                small {
+                    margin-top: -2px;
+                    padding-left: 1px;
+                    line-height: 1.2em;
+                    overflow: hidden;
+                    font-size: $fontMini;
+                    display: block;
+                    color: $textGray7;
+                    text-overflow: ellipsis;
+                }
+            }
+
+            .chart-bd {
+                padding-top: 16px;
+                position: absolute;
+                right: 20px;
+                left: 20px;
+                top: 42px;
+                bottom: 0;
+                text-align: left;
+                &.chart-num {
+                    padding: 0;
+                }
+                &.top0{
+                    top: 0;
+                }
+                &.top32{
+                    top: 32px;
+                }
+                &.top42{
+                    top: 42px;
+                }
+                /*number*/
+                @include chart-number;
+            }
+        }
+
+        .value-hide {
+            .chart-value {
+                display: none;
+            }
+            .chart-bd {
+                padding-top: 32px;
+            }
+            &.chart-pie {
+                .chart-bd {
+                    top: 0;
+                    padding: 0;
+                }
+            }
+        }
+        .chart-pie {
+            top: 32px;
+            .chart-value {
+                display: none;
+            }
+            .chart-bd {
+                top: 0;
+                padding: 0;
+            }
+        }
+    }
+
+    .widget-tools {
+        height: 20px;
+        position: absolute;
+        padding: 0 5px;
+        bottom: 0;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .chart-tips {
+        position: absolute;
+        width: 100%;
+        bottom: 5px;
+        left: 0;
+        padding: 0 5px;
+        svg {
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            fill: $bgRed;
+        }
+        .dsIcon {
+            visibility: hidden;
+        }
+        .chart-tips-trigger {
+            display: inline-block;
+            position: relative;
+            &:hover {
+                .tips-wrap {
+                    opacity: 1;
+                    visibility: visible;
+                    z-index: 10;
+                }
+            }
+        }
+        .tips-wrap {
+            position: absolute;
+            bottom: 28px;
+            left: -9px;
+            visibility: hidden;
+            opacity: 0;
+            z-index: -100;
+            transition: all .3s ease;
+            .inner {
+                width: 188px;
+                font-size: $fontSmall;
+                border: 1px solid rgba(0, 0, 0, .2);
+                @include border-radius(6px);
+                @include box-shadow(0 5px 10px rgba(0, 0, 0, .2));
+                .arrows {
+                    position: absolute;
+                    bottom: -10px;
+                    left: 6px;
+                    margin: 0;
+                    width: 0;
+                    height: 0;
+                    border-color: transparent;
+                    border-style: solid;
+                    border-width: 11px;
+                    border-bottom-width: 0;
+                    border-top-color: rgba(0, 0, 0, .25);
+                    box-sizing: border-box;
+                    &:after {
+                        content: '';
+                        position: absolute;
+                        bottom: 1px;
+                        width: 0;
+                        height: 0;
+                        margin-left: -10px;
+                        border-color: transparent;
+                        border-style: solid;
+                        border-width: 10px;
+                        border-bottom-width: 0;
+                        border-top-color: #fff;
+                        box-sizing: border-box;
+                    }
+                }
+                .tips-content {
+                    padding: 9px 14px;
+                    background-color: $white;
+                    @include border-radius(6px);
+                    p {
+                        margin: 1em 0;
+                        word-break: break-all;
+                        span:last-child i {
+                            display: none;
+                        }
+                    }
+                }
+                a {
+                    text-decoration: underline;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .widget-more {
+        @include more;
+    }
+}

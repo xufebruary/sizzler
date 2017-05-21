@@ -1,0 +1,767 @@
+@charset "utf-8";
+
+/*
+  Name:    Editor
+  Explain: Widget Editor 3.0
+  Author:  Dawn
+  Date:    2015-09-22
+*/
+.editor {
+    width: 90px;
+    border-radius: 4px;
+    background-color: #2f3032;
+    position: fixed;
+    z-index: 1030;
+}
+.editor-close {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: -8px;
+    left: 0;
+    background-color: #212121;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    text-align: center;
+}
+.editor-close:hover{
+    background-color: #323232;
+}
+.editor-close svg {
+    width: 14px;
+    height: 14px;
+    fill:#757575;
+    vertical-align: middle;
+}
+.editor-close:hover svg{
+    fill: #e0e0e0;
+}
+
+.editor-hd {
+    height: 12px;
+    cursor: move;
+    background-color: #212121;
+    border-radius: 4px 4px 0 0;
+}
+
+.editor-hd span {
+    color: #757575;    /*width: 286px;*/
+}
+
+.editor-bd {
+    width: 100%;
+    /*height: 30px;*/
+    background-color: #323232;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+}
+
+.editor-bd ul {
+    height: 100%;
+    list-style: none;
+    padding: 0 0 6px 0;
+    margin: 0;
+}
+
+.editor-bd ul li {
+    height: 24px;
+    line-height: 24px;
+    margin: 6px 0 0 0;
+}
+
+.btn-editor {
+    height: 100%;
+    border-radius: 4px;
+    color: #bdbdbd;
+    cursor: pointer;
+    white-space: nowrap;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+}
+
+.btn-editor:not(.disabled):hover,
+.btn-editor.active:not(.disabled) {
+    color: #bdbdbd;
+    background-color: #212121;
+}
+
+.btn-editor.disabled {
+    cursor: default;
+    color: #757575;
+    background-color: transparent;
+}
+
+/*public*/
+.editor-a {
+    color: #bdbdbd;
+}
+.editor-a:hover,
+.editor-a:focus,
+.editor-a:active {
+    color: #eee;
+}
+
+.eaditor-bg {
+    background-color: #bdbdbd;
+}
+.editor-bg:hover,
+.editor-bg:focus,
+.editor-bg:active {
+    background-color: #bdbdbd;
+}
+
+
+
+
+
+/*editor admin*/
+.admin {
+    /*width: 400px;*/
+}
+.admin .editor-bd ul li {
+    /*width: 20%;*/
+}
+
+
+
+/*border*/
+.editor-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.editor-border-t,
+.editor-border-b,
+.editor-border-r,
+.editor-border-l {
+    position: absolute;
+    background: url('/assets/images/border.gif') repeat;
+}
+
+.editor-border-t,
+.editor-border-b {
+    width: 200%;
+    height: 1px;
+    top: 0;
+    left: 0;
+}
+
+.editor-border-t {
+    animation: border-t 20s infinite linear;
+}
+
+.editor-border-b {
+    top: auto;
+    bottom: 0;
+    animation: border-b 20s infinite linear;
+}
+
+.editor-border-r,
+.editor-border-l {
+    width: 1px;
+    height: 200%;
+}
+
+.editor-border-r {
+    left: auto;
+    right: 0;
+    animation: border-r 20s infinite linear;
+}
+
+.editor-border-l {
+    animation: border-l 20s infinite linear;
+}
+
+@-webkit-keyframes border-t {
+    from {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+
+}
+
+@-webkit-keyframes border-b {
+    from {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+
+}
+
+@-webkit-keyframes border-l {
+    from {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-25%);
+    }
+
+}
+
+@-webkit-keyframes border-r {
+    from {
+        transform: translateY(-25%);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+
+}
+
+/*pop*/
+.editor-l .editor-pop {
+    left: auto;
+    right: 95px;
+}
+.editor-pop {
+    width: 400px;
+    padding: 24px 20px;
+    position: absolute;
+    top: 0;
+    left: 95px;
+    background-color: #2f3032;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23);
+    z-index: 10;
+    border-radius: 8px;
+}
+
+.editor-pop-arrow {
+    border-top-color: #f00;
+    left: 110px;
+    margin-left: 0;
+    border-width: 20px;
+    bottom: -40px;
+}
+
+.editor-pop-arrow,
+.editor-pop-arrow:after {
+    border-width: 20px;
+    bottom: -40px;
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.editor-pop-arrow:after {
+    content: "";
+    border-width: 19px;
+    bottom: 1px;
+    margin-left: -19px;
+    border-top-color: #ffffff;
+    border-bottom-width: 0;
+}
+
+/*editor-dropdown*/
+.editor-dropdown {}
+.editor-dropdown-toggle {
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #757575;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+}
+.editor-dropdown-toggle span {
+    color: #212121;
+}
+.editor-dropdown-caret {
+    width: 20px;
+    height: 100%;
+    color: #616161;
+    background-color: #212121;
+}
+.editor-dropdown-search {
+    margin: 2px 0 0 0;
+}
+svg.editor-dropdown-search  {
+    width: 16px;
+    height: 16px;
+    fill: #616161;
+}
+.editor-dropdown .dropdown-menu {
+    top: 100%;
+    overflow: hidden;
+    min-width: 100px;
+    background-color: #424242;
+}
+.editor-dropdown .dropdown-menu > li > a,
+.dropdown-ul li a {
+    padding: 0 16px;
+    color: #bdbdbd;
+    height: 20px;
+    line-height: 20px;
+    margin:0px 10px;
+}
+.editor-dropdown .dropdown-menu > li > a:hover,
+.editor-dropdown .dropdown-menu > li > a:focus,
+.editor-dropdown .dropdown-menu > .active > a:hover,
+.editor-dropdown .dropdown-menu > .active > a:focus,
+.dropdown-ul li a:hover,
+.dropdown-ul li a:focus,
+.dropdown-ul .active a:hover,
+.dropdown-ul .active a:focus  {
+    color: #424242;
+    background-color: #e0e0e0 !important;
+    margin:0px 10px;
+    border-radius:2px;
+}
+.editor-dropdown .dropdown-menu > .active > a,
+.editor-dropdown .dropdown-menu > .active > a:hover,
+.editor-dropdown .dropdown-menu > .active > a:focus,
+.dropdown-ul .active a,
+.dropdown-ul .active a:hover,
+.dropdown-ul .active a:focus {
+    color: #fff;
+    background-color: #9CCC65 !important;
+    margin: 0px 10px;
+    border-radius:2px;
+}
+.editor-dropdown.open .editor-dropdown-toggle {}
+.editor-dropdown.open .editor-dropdown-toggle span {
+    background-color: #bdbdbd;
+    color: #000;
+    /*box-shadow: inset 0 0 2px 1px rgba(255,255,255,.6);*/
+}
+.editor-dropdown div.editor-dropdown-toggle .padder-lineheight{
+    line-height:22px;
+}
+.btn-help .btn-help-icon:hover{
+    color:#fbc349;
+}
+
+
+/* editor-search */
+.editor-search {
+    position: relative;
+}
+.editor-search-hd {
+    background-color: #3e4042;
+    padding: 0 0 0 10px;
+    color: #fff;
+}
+.editor-search-ipt {
+    width: 320px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+}
+.editor-search-hd a {
+    margin: 7px 10px 0 0;
+}
+.editor-search-hd a svg{
+    width: 18px;
+    height: 18px;
+    fill: #bdbdbd
+}
+.editor-search-hd a:hover svg{
+    fill:#9CCC65;
+}
+.editor-search-bd {
+    width: 100%;
+    min-height: 160px;
+    overflow: hidden;
+    background-color: #3e4042;
+    position: absolute;
+    top: 100%;
+    margin-top: 1px;
+    left: 0;
+    z-index: 1;
+}
+.editor-search-bd.has-tab{
+    margin-top: 0;
+    padding-top: 5px;
+}
+
+
+/*profile list tab*/
+.profile-tab-hd{
+    background-color: #3e4042;
+    padding: 2px 2px 0 2px;
+    display: inline-block;
+}
+.profile-tab-hd button{
+    border: 0;
+    display: inline-block;
+    color: #bdbdbd;
+    background: #303032;
+    padding: 2px 5px;
+}
+.profile-tab-hd button.active{
+    background: #3e4042;
+
+}
+
+/*widget下拉列表统一样式*/
+.editor-search-ul {}
+.editor-search-ul .text-over>a,.editor-search-ul .text-over>a:hover,
+.editor-search-ul .text-ellipsis>a,.editor-search-ul .text-ellipsis>a:hover{
+    color:#bdbdbd;
+}
+.editor-search-ul .text-over .link-of-edit{
+    float: right;
+}
+.editor-search-ul .text-over .link-of-edit svg{
+    width: 12px;
+    height: 12px;
+    fill: #bdbdbd;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+.editor-search-ul .search-ul-li{
+    border-radius:2px;
+    color:#2f3032;
+    height: 24px;
+    line-height: 26px;
+    clear: both;
+}
+.editor-search-ul .search-ul-li:hover{
+    background:#eee;
+    color:#2f3032;
+}
+.editor-search-ul .search-ul-li a {
+    color: #bdbdbd;
+}
+.editor-search-ul .search-ul-li a:hover{
+    color:#2f3032;
+}
+.editor-search-ul .search-ul-li a.active{
+    background:#9ccc65;
+    color:#2f3032;
+}
+.editor-search-ul .search-ul-li.active{
+    background:#9ccc65;
+    color:#fff;
+}
+
+.editor-search-ul .search-ul-li.active .link-of-profile{
+    color:#2f3032;
+}
+
+.editor-search-ul .search-ul-li .link-of-profile{
+    padding-left: 20px;
+    font-weight: 300;
+    display: block;
+    color: #bdbdbd;
+}
+.editor-search-ul .search-ul-li:hover .link-of-profile{
+    color:#2f3032;
+}
+.editor-search-ul .search-ul-li .link-of-profile:hover{
+    color:#2f3032;
+}
+.editor-search-ul .search-ul-li .link-of-profile.active{
+    background:#9ccc65;
+    color:#2f3032;
+}
+.editor-search-ul .search-ul-li.link-to .link-of-profile{
+    float:left;
+    width: 100%;
+}
+.editor-search-ul .search-ul-li.link-to .link-of-edit{
+    float:left;
+    width: 20%;
+}
+
+.editor-search-ul .calculated-li {
+    padding-right: 10px;
+}
+.editor-search-ul .calculated-li a {}
+.editor-search-ul .calculated-li a > svg {
+    width: 14px;
+    height: 14px;
+    fill: #bdbdbd;
+    margin-top: 4px;
+    vertical-align: top;
+}
+.editor-search-ul .calculated-li a.btn-more {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    padding: 4px;
+    margin-top: 1px;
+}
+.editor-search-ul .calculated-li a.btn-more svg {
+    fill: #757575;
+    margin: 0;
+}
+.editor-search-ul .calculated-li a.btn-more:hover {
+    background-color: #bdbdbd;
+}
+.editor-search-ul .calculated-li a.btn-more:hover svg {
+    /*fill: #e0e0e0;*/
+}
+.editor-search-ul .search-line {
+    height:1px;
+    line-height: 0;
+    border-radius: 0;
+    background-color: #616161;
+    overflow: hidden;
+    margin: 10px;
+}
+
+
+
+.source-li-search {
+    position: relative;
+    padding-left: 12px;
+}
+.source-li-search-children a.active {
+    color: #2f3032;
+    background: #9ccc65;
+    border-radius: 2px;
+}
+.source-li-search-children a.active:hover{
+    background: #9ccc65;
+}
+.editor-search-ul .source-li-search-children a:hover {
+    color: #2f3032;
+    background-color: #eee;
+    border-radius: 2px;
+}
+.source-li-search-children a:hover .text-green-400{
+    color: #fff;
+}
+
+.editor-search-ul .source-li-search-children{
+    cursor: pointer;
+}
+.editor-search-ul .source-li-search-children:hover{
+    background-color: #eee;
+    border-radius: 2px;
+}
+.editor-search-ul .source-li-search-children:hover .link-of-profile{
+    color:#2f3032;
+}
+.editor-search-ul .source-li-search-children.active{
+    background:#9ccc65;
+    border-radius: 2px;
+}
+.editor-search-ul .source-li-search-children.active .link-of-profile{
+    color:#2f3032;
+}
+
+.editor-search-ul .source-li-search-children .link-of-profile{
+    color: #bdbdbd;
+    padding-left: 20px;
+    font-weight: 300;
+    float: left;
+    width: 100%;
+}
+.editor-search-ul .source-li-search-children .link-of-edit{
+    float: left;
+    width: 20%;
+}
+
+
+.source-li-search:before {
+    content: "";
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border-color: transparent transparent transparent #ccc;
+    border-style: dashed dashed dashed solid;
+    border-width: 4px;
+    position: absolute;
+    top: 6px;
+    left: 0;
+}
+.source-li-search.source-li-search-down:before {
+    top: 8px;
+    border-color: #ccc transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+}
+
+/*widget统一控件样式*/
+/*  双轴开关，结构请遵循
+    <label class="widget-switch-style">
+        <input class="hide" type="radio">
+        <i></i>
+    </label>
+*/
+.widget-switch-style{
+    width:20px;
+    height:8px;
+    top:5px;
+    left:8px;
+    display:inline-block;
+    position: relative;
+    cursor: pointer;
+    background-color:#46503b;
+    border-radius: 30px;
+    vertical-align: top;
+}
+.widget-switch-style input[type="radio"]{
+    position:absolute;
+    opacity: 0;
+}
+/*关闭的轴和按钮*/
+.widget-switch-style i:before{
+    background-color:#616161;
+    border:1px solid #616161;
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    bottom: -1px;
+    left: -1px;
+    border-radius: 30px;
+    content: "";
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+.widget-switch-style i:after{
+    background-color:#bdbdbd;
+    top: -2px;
+    bottom: 1px;
+    left: -1px;
+    right: 0px;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    border-radius: 50%;
+    content: "";
+    -webkit-transition: margin-left 0.3s;
+    transition: margin-left 0.3s;
+}
+/*开启的轴和按钮*/
+.widget-switch-style input:checked + i:before{
+    top:50%;
+    right:5px;
+    bottom:50%;
+    left:50%;
+    border-width:0;
+    border-radius:5px;
+}
+.widget-switch-style input:checked + i:after{
+    background-color:#9ccc65;
+    margin-left: 10px;
+}
+/*widget数据源列表统一样式*/
+.source-box-bd a.ds-logo {
+    width: 300px;
+    height: 30px;
+    line-height: 30px;
+    margin-left: 20px;
+    box-sizing: content-box;
+    padding:0 5px;
+    display: block;
+    background: #757575;
+    border-radius: 4px;
+    text-indent: 5px;
+    color: #2f3032;
+    -webkit-transition: all .3s linear;
+    -moz-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    transition: all .3s linear;
+    text-align: left;
+}
+.source-box-bd a.ds-logo.active{
+    background: #9ccc65;
+    /*color:#fff;*/
+}
+.source-box-bd a.ds-logo.active:hover{
+    background: #9ccc65;
+    /*color:#fff;*/
+}
+.source-box-bd a.ds-logo:hover{
+    background-color: #eee;
+}
+.source-box-bd a.ds-logo svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+/*widget单选框统一样式*/
+.editor-chart .check-box input[type=checkbox]+i{
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    margin-left: -18px;
+    background: #2f3032;
+    border: none;
+    margin-left:-9px;
+    border: 1px solid #757575;
+    transition:none;
+}
+.editor-chart .check-box input[type=checkbox]:checked+i{
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    margin-left: -18px;
+    background: #9ccc65;
+    border: none;
+    margin-left:-9px;
+    border: 1px solid #9ccc65;
+}
+.editor-chart .check-box > input[type=checkbox]+i:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: transparent;
+    content: "";
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+.editor-chart .check-box input[type=checkbox]:checked + i:before {
+    top: -2px;
+    left: -2px;
+    width: 6px;
+    height: 12px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid #2f3032;
+    border-bottom: 2px solid #2f3032;
+    -webkit-transform: rotateZ(37deg);
+    transform: rotateZ(37deg);
+    -webkit-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+}
+/*chart-checkbox-end*/
+/*widget title字号统一*/
+.editor-font-title{
+    font-size:14px;
+}
+.complex-dimensions{
+    position: absolute;
+    left: 95px;
+    top: 0;
+    width: 400px;
+    background: #2f3032;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .19), 0 6px 6px rgba(0, 0, 0, .23);
+    z-index: 11;
+    border-radius: 8px;
+    padding: 24px 20px;
+}
+.complex-dimensions .form-group{
+    display: inline;
+}
+.complex-dimensions input.form-control{
+    width: 115px;
+    padding: 6px 12px;
+    height: 34px;
+    display: inline;
+}
+.top-special .editor-pop{
+    top: 90px;
+}

@@ -1,0 +1,107 @@
+<div class="animated fadeInRight text-black-400">
+    <header class="filter-hd clearfix">
+        <span class="pull-left" translate="WIDGET.EDITOR.SORT.DIMENSION"></span>
+        <span class="pull-left block text-ellipsis" title="{{$ctrl.dimensions[0].name}}" style="max-width: 50%;">: {{$ctrl.dimensions[0].name}}</span>
+    </header>
+
+    <!--sort-->
+    <div class="m-t">
+        <div class="m-b-sm" translate="WIDGET.EDITOR.SORT.SORT_TITLE">Sort by</div>
+
+        <!--默认排序类型-->
+        <div class="sort-slt">
+            <label class="check-box m-b-n">
+                <input type="radio" name="sort" value="default" ng-model="$ctrl.state.currentSorter.type" ng-change="$ctrl.sltSortType()"><i></i>
+                <span translate="WIDGET.EDITOR.SORT.DS_ORDER" class="ng-scope">Data Source Order</span>
+            </label>
+        </div>
+
+        <!--维度-->
+        <div class="sort-slt">
+            <label class="check-box">
+                <input type="radio" name="sort" value="dimensionValue" ng-model="$ctrl.state.currentSorter.type" ng-change="$ctrl.sltSortType()"> <i></i>
+                <span>{{$ctrl.dimensions[0].name}}</span>
+            </label>
+
+            <div ng-if="$ctrl.state.currentSorter.type == 'dimensionValue'" class="pos-rlt editor-dropdown m-b-sm" dropdown>
+                <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                <span class="block padder-xs pull-left text-ellipsis"
+                      title="{{$ctrl.state.dimensionSorters.current.name | translate}}"
+                      style="max-width: 180px;">
+                    {{$ctrl.state.dimensionSorters.current.name | translate}}
+                </span>
+                    <div class="pull-right editor-dropdown-caret text-center"> <b class="caret m-l-none"></b></div>
+                </div>
+                <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                    <li ng-click="$ctrl.changeSorter(sorter); "
+                        ng-repeat="sorter in $ctrl.state.dimensionSorters.options">
+                        <a class="text-ellipsis padder">
+                            {{sorter.name | translate}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!--指标-->
+        <div class="sort-slt" ng-if="$ctrl.metrics.length>0">
+            <label class="check-box">
+                <input type="radio" name="sort" value="metricsValue" ng-model="$ctrl.state.currentSorter.type" ng-change="$ctrl.sltSortType()"> <i></i>
+                <span translate="WIDGET.EDITOR.SORT.VALUE">Sort Order</span>
+            </label>
+
+            <div ng-if="$ctrl.state.currentSorter.type == 'metricsValue'" class="pos-rlt sort-value">
+                <dl class="clearfix m-b-none">
+                    <dt class="pull-left font-normal" translate="WIDGET.EDITOR.SORT.SORT_BY">Sort By</dt>
+                    <dd class="pull-left pos-rlt editor-dropdown m-b-sm" dropdown>
+                        <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                        <span class="block padder-xs pull-left text-ellipsis"
+                              title="{{$ctrl.state.currentMetric.name}}"
+                              style="max-width: 180px;">
+                            {{$ctrl.state.currentMetric.name}}
+                        </span>
+                            <div class="pull-right editor-dropdown-caret text-center"> <b class="caret m-l-none"></b></div>
+                        </div>
+                        <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                            <li ng-click="$ctrl.sltMetric(metric)"
+                                ng-repeat="metric in $ctrl.metrics">
+                                <a class="text-ellipsis padder">
+                                    {{metric.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+
+                <dl class="clearfix m-b-none">
+                    <dt class="pull-left font-normal" translate="WIDGET.EDITOR.SORT.SORT_ORDER">Sort By</dt>
+                    <dd class="pull-left pos-rlt editor-dropdown m-b-sm" dropdown>
+                        <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                        <span class="block padder-xs pull-left text-ellipsis"
+                              title="{{$ctrl.state.metricSorters.current.name | translate}}"
+                              style="max-width: 180px;">
+                            {{$ctrl.state.metricSorters.current.name | translate}}
+                        </span>
+                            <div class="pull-right editor-dropdown-caret text-center"> <b class="caret m-l-none"></b></div>
+                        </div>
+                        <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                            <li ng-click="$ctrl.changeSorter(sorter)"
+                                ng-repeat="sorter in $ctrl.state.metricSorters.options">
+                                <a class="text-ellipsis padder">
+                                    {{sorter.name | translate}}
+                                </a>
+                            </li>
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <footer class="clearfix m-t-sm">
+        <button class="text-center block btn-filter-common btn-filter-apply pull-right m-l"
+                ng-click="$ctrl.submit()"
+                translate="COMMON.APPLY">Apply</button>
+        <a class="text-center block btn-filter-common btn-filter-cancel pull-right" ng-click="$ctrl.cancel()" translate="COMMON.CANCEL">Cancel</a>
+    </footer>
+</div>

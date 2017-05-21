@@ -1,0 +1,18 @@
+<div class="chart-number-wrap" ng-show="widget.widgetDrawing == 'success' || (numberSetting.isCustomWidget && child.widgetDrawing == 'success')">
+    <div class="chart-number-data" title="{{formatNumber(data.y, data.unit, 'thousands')}}">
+        <span ng-bind="data.formatValue[0]"></span>
+        <span ng-bind="data.formatValue[1]"></span>
+        <small ng-bind="data.formatValue[2]"></small>
+    </div>
+    <div class="chart-number-info" 
+        ng-if="!numberSetting.isCustomWidget" 
+        title="{{metricAmount.showTitle}}" 
+        ng-bind="data.name"></div>
+
+    <div class="chart-number-percent hide">
+        <svg ng-class="{'down': data.y - data.contrast < 0 , 'reverse': false && widget.chartSetting.reverseTarget==1}">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-up-md"></use>
+        </svg>
+        {{ getChain(data.y, data.contrast) }} {{ getChain(data.y, data.contrast)=='---' ?'':'%' }}
+    </div>
+</div>

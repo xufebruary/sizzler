@@ -1,0 +1,291 @@
+@import "compass";
+@import "../../../../assets/sass/framework/varibles";
+@import "../../../../assets/sass/framework/mixin-ui";
+@import "../../../../assets/sass/framework/mixin-basic";
+
+
+.space-setting{
+    padding-top: 150px;
+    margin-top: -100px;
+  &:after {
+    content: "";
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: $white;
+  }
+
+  .space-setting-hd {
+    height: 120px;
+    padding: 36px 0 0 240px;
+    background-color: $bggray;
+
+    h2{
+      font-size:32px;
+      line-height: 1em;
+      margin: 0;
+      color: $textGray9;
+
+    }
+    span{
+      font-size: 14px;
+      color: $textGray7;
+    }
+  }
+
+  .space-setting-bd {
+    margin: 40px 0;
+
+    .forms {
+      float: left;
+      position: relative;
+      left: 50%;
+
+      dl {
+        margin-bottom: 20px;
+        position: relative;
+        right: 50%;
+      }
+      dt {
+        font-weight: normal;
+        display: inline-block;
+        width: 180px;
+        line-height: 40px;
+        text-align: right;
+        margin-right: 20px;
+
+        small {
+          color: $textGreen4;
+          margin-right: 6px;
+          line-height: 45px;
+          vertical-align: top;
+        }
+        span {
+          color: $textGray7;
+        }
+      }
+      dd {
+        display: inline-block;
+        vertical-align: top;
+
+        .space-btn-help {
+          margin: 12px -22px 0 9px;
+          line-height: 24px;
+        }
+
+        &:nth-of-type(1) {
+          span {
+            display: inline-block;
+            width: 120px;
+            line-height: 20px;
+            color: $textGray8;
+            font-size: 14px;
+
+            & ~ input[type='text'] {
+              width: 380px;
+            }
+          }
+        }
+
+        &:nth-of-type(2) {
+          display: block;
+          color: #ee6e66;
+          font-size: 14px;
+          margin: 5px 0 0 200px;
+        }
+
+        input[type='text']{
+          width: 500px;
+          &.error {
+            border: 1px solid #ee6e66;
+          }
+        }
+        textarea {
+          width: 500px;
+          height: 40px;
+          padding: 0 10px;
+          line-height: 40px;
+          color: $textGray8;
+          font-size: 14px;
+          background-color: $bgGray1;
+          border: 1px solid $bgGray1;
+          border-radius: 4px;
+
+          &:focus {
+            border: 1px solid #9ccc65;
+          }
+
+          &.error {
+            border: 1px solid #ee6e66;
+          }
+        }
+        textarea {
+          height: 90px;
+          padding: 10px;
+          resize: none;
+          line-height: 1.2em;
+        }
+
+        .mod-setting-dropdown {
+          width: 500px;
+          display: inline-block;
+
+          &:hover .mod-setting-ipt {
+            color: initial;
+            background-color: #e0e0e0;
+          }
+
+          .mod-setting-ipt {
+            height: 40px;
+            line-height: 40px;
+            color: #424242;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+          }
+          .mod-setting-ipt svg {
+            width: 16px;
+            height: 16px;
+            fill: #bdbdbd;
+            margin-top: 12px;
+          }
+
+          .dropdown-menu {
+            width: 100%;
+            background-color: #f5f5f5;
+            border-radius: 0 0 4px 4px;
+            top: 100%;
+
+            & > li > a {
+              color: #616161;
+              padding: 9px 10px;
+            }
+            & > li > a:hover,
+            & > li > a:focus,
+            & > .active > a,
+            & > .active > a:hover,
+            & > .active > a:focus {
+              background-color: #9ccc65 !important;
+              width: 100%;
+              color: #fff;
+              box-shadow: none;
+            }
+            & > .active > a {
+              background: none !important;
+              color: #9ccc65;
+            }
+          }
+        }
+      }
+
+      footer {
+        clear: both;
+        text-align: right;
+        position: relative;
+        right: 50%;
+        margin-top: 40px;
+        width: 500px;
+        float: right;
+
+        a {
+          float: left;
+          color: $textGray7;
+          text-decoration: underline;
+          line-height: 30px;
+
+          &:hover {
+            color: $textGray9;
+          }
+        }
+        button {
+          display: inline-block;
+        }
+      }
+    }
+
+    .follower{
+      float: left;
+      position: relative;
+      left: 50%;
+
+      div{
+        line-height: 40px;
+        margin: 0 0 20px 0;
+        font-size: 14px;
+        position: relative;
+        right: 50%;
+
+        span {
+          display: inline-block;
+
+          &:nth-of-type(1){
+            width: 180px;
+            text-align: right;
+            padding-right:10px;
+            margin-right: 20px;
+            color: $textGray6;
+          }
+
+          &:nth-of-type(2){
+            width: 330px;
+            color: $textGray8;
+          }
+        }
+
+        .space-btn-help {
+          margin: 12px -22px 0 9px;
+          line-height: 24px;
+        }
+      }
+
+      footer {
+        clear: both;
+        position: relative;
+        right: 50%;
+        margin-top: 40px;
+        width: 330px;
+        float: right;
+
+        button {
+          display: inline-block;
+        }
+      }
+    }
+  }
+
+  .space-setting-pwd {
+
+    span {
+      display: inline-block;
+      width: 100px;
+    }
+
+    input[type='password'] {
+      width: 395px;
+      height: 40px;
+      padding: 0 10px;
+      line-height: 40px;
+      color: $textGray8;
+      font-size: 14px;
+      background-color: $bgGray1;
+      border: 1px solid $bgGray1;
+      border-radius: 4px;
+
+      &:focus {
+        border: 1px solid #9ccc65;
+      }
+
+      &.error {
+        border: 1px solid #ee6e66;
+      }
+    }
+
+    p {
+      margin: 5px 0 0 100px;
+      white-space: nowrap;
+      color: #ef4f4b;
+    }
+  }
+}

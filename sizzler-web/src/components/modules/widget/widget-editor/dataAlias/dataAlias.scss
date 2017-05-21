@@ -1,0 +1,40 @@
+.data-alias
+{
+    padding: 10px 0 5px;
+
+    color: #bdbdbd;
+    dl
+    {
+        margin: 10px 0 30px;
+        dt
+        {
+            float: left;
+
+            margin-right: 10px;
+            padding: 3px 0 0;
+
+            white-space: nowrap;
+        }
+        dd
+        {
+            overflow: hidden;
+            input
+            {
+                line-height: 1em;
+
+                width: 100%;
+                padding: 0 6px;
+                padding: 2px 6px;
+
+                color: #323232;
+                border: none;
+                border-radius: 4px;
+                background-color: #757575;
+                &:focus
+                {
+                    background-color: #bdbdbd;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,99 @@
+<div class="onboarding-ds">
+    <header class="widget-gallery-hd">
+        <h3 class="title">
+            <span translate="ONBOARDING.DATA_SOURCE.CHOOSE_DS.TITLE" ng-if="myOptions.currentStep == 'ds'"></span>
+            <span translate="ONBOARDING.DATA_SOURCE.CHOOSE_GALLERY.TITLE" ng-if="myOptions.currentStep == 'gallery'" ></span>
+        </h3>
+        <div class="search"
+             ng-if="myOptions.currentStep == 'gallery'">
+            <input type="text"
+                   ng-model="myOptions.modelSearch"
+                   ng-keydown="keyEvent($event)">
+            <a class="pull-right block text-black-400" ng-click="search()">
+                <svg>
+                    <use xlink:href="#search"></use>
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="widget-gallery-bd clearfix">
+        <!--loading-->
+        <div class="pt-loading">
+                <span class="pt-center pt-loading-box-sm">
+                    <svg class="load-s btnloads">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+                    </svg>
+                    <svg class="load-m btnloadm">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+                    </svg>
+                </span>
+        </div>
+
+        <div class="widget-gallery-list"
+             ui-jq="slimScroll"
+             ui-options="{
+                    height:'440',
+                    size:'6px',
+                    color:'#737373',
+                    distance:'0px',
+                    allowPageScroll:false,
+                    alwaysVisible:true
+                }">
+            <!--数据源模版-->
+            <div ng-if="myOptions.currentStep == 'ds'">
+                <div single-data-source
+                     ng-repeat="ds in myOptions.dsList | orderBy:'(orderNumber-0)'"
+                     data-ds="{{ds}}"
+                     title="{{ds.name}}"></div>
+
+                <div single-data-source
+                     ng-repeat="ds in myOptions.serviceDsList | orderBy:'(-isPlus-0)'"
+                     data-ds="{{ds}}"
+                     title="{{ds.name}}"></div>
+            </div>
+
+            <!--widget gallery模版-->
+            <div ng-if="myOptions.currentStep == 'gallery'">
+                <div single-gallery
+                     ng-repeat="gallery in myOptions.galleryList"
+                     data-gallery="{{gallery}}"></div>
+            </div>
+
+            <!--无数据提示-->
+            <div class="no-data"
+                 ng-if="myOptions.currentStep == 'gallery' && myOptions.queryList && myOptions.galleryList.length == 0">
+                <span translate="ONBOARDING.DATA_SOURCE.CHOOSE_GALLERY.TIPS_NO_DATA"></span>
+            </div>
+        </div>
+
+        <div class="widget-gallery-chart-info animated">
+            <div class="info-title"></div>
+            <div class="info-bd"></div>
+            <span class="arrow bottom arrow-info"></span>
+        </div>
+    </div>
+
+    <footer class="widget-gallery-ft text-right clearfix">
+        <button class="pt-btn pt-btn-default m-r-md"
+                ng-click="clickEvent('left')"
+                ng-if="myOptions.currentStep == 'gallery'">
+            <span>{{myOptions.btnLeftI18n}}</span>
+        </button>
+        <button class="pt-btn pt-btn-success"
+                ng-click="clickEvent('right')"
+                ng-class="{'disabled': myOptions.btnIsDisabled}">
+            <span>{{myOptions.btnRightI18n}}</span>
+        </button>
+
+        <div class="error-tips fade" ng-class="{'in': myOptions.errorDs}">
+            <span>{{myOptions.footerTips}}</span>
+        </div>
+
+        <div class="help-tips">
+            <span>{{myOptions.helpInfoA}}</span>
+            <a href="#none" ng-click="callIntercom()">{{myOptions.helpInfoB}}</a>
+            <span>{{myOptions.helpInfoC}}</span>
+        </div>
+    </footer>
+</div>

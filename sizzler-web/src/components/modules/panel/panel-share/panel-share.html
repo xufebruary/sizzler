@@ -1,0 +1,63 @@
+<div class="fade in panel-share">
+  <div class="pt-popup">
+      <div class="pt-popup-content">
+          <header class="pt-popup-hd">
+              <span class="pt-popup-title" translate="PANEL.SHARE.SHARE_PANEL"></span>
+              <a class="pt-popup-close" ng-click="$ctrl.onCancel()">
+                  <svg><use xlink:href="#icon-close"></use></svg>
+              </a>
+
+              <div class="text-base popup-share pull-right">
+                  <label class="i-switch bg-info">
+                      <input type="checkbox"
+                             ng-model="$ctrl.myOptions.shareUrl"
+                             ng-click="$ctrl.sharePanel()"
+                             class="ng-valid ng-dirty ng-pristine ng-touched">
+                      <i></i>
+                  </label>
+                  <span class="ng-scope share-switch">{{$ctrl.myOptions.shareUrl ? 'ON' : 'OFF'}}</span>
+              </div>
+              <!--<p class="pt-introduce-text" translate="PANEL.SHARE.SHARE_INTRODUCE"></p>-->
+          </header>
+          <div class="pt-popup-bd"  ng-class="{'no-share': !$ctrl.myOptions.shareUrl}">
+              <input class="form-control"
+                 ng-disabled="!$ctrl.myOptions.shareUrl"
+                 readonly="readonly"
+                 type="text"
+                 ng-model="$ctrl.myOptions.publicPanelShareUrl"
+                 ng-click="$ctrl.iptClick($event)">
+              <div class="pwd">
+                  <input type="checkbox"
+                         id="share-panel-password"
+                         ng-change="$ctrl.clearPassword()"
+                         ng-model="$ctrl.myOptions.sharePasswordStatus"
+                         ng-disabled="!$ctrl.myOptions.shareUrl">
+                  <label for="share-panel-password"  translate="PANEL.SHARE.PASSWORD_PROTECT">Password Protect</label>
+                  <div class="password-field show-password"
+                       ng-if="$ctrl.myOptions.sharePasswordStatus">
+                      <input class="pt-ipt"
+                             translate
+                             translate-attr-placeholder='PANEL.SHARE.PASSWORD'
+                             type="text"
+                             maxlength="20"
+                             ng-change="$ctrl.changePassword()"
+                             ng-model="$ctrl.myOptions.sharePassword">
+                      <button ng-class="{'pt-btn-disabled':!$ctrl.myOptions.sharePassword}"
+                              class="pt-btn pt-btn-success"
+                              ng-click="$ctrl.savePassword($ctrl.myOptions.sharePassword)">
+                          <span class="save" ng-if="!$ctrl.myOptions.sharePasswordSuccess"  translate="PANEL.SHARE.SAVE">Save</span>
+                          <span class="success" ng-if="$ctrl.myOptions.sharePasswordSuccess">
+                              <svg>
+                                  <use xlink:href="#icon-right"></use>
+                              </svg>
+                          </span>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- bg -->
+  <div class="modal-backdrop fade in"></div>
+</div>

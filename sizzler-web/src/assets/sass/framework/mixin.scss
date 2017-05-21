@@ -1,0 +1,871 @@
+@import "varibles";
+
+//font-size
+$pt-font-16: 16px;
+$pt-font-14: 14px;
+$pt-font-12: 12px;
+
+//float
+.pt-float-left {
+  float:left;
+}
+.pt-float-right {
+  float:right;
+}
+
+//margin
+.pt-marginRight-sm {
+  margin-right: 10px;
+}
+.pt-marginRight-md {
+  margin-right: 20px;
+}
+
+
+@mixin padding($padding){
+  padding:$padding;
+}
+
+@mixin button-variant($col, $bg, $bd) {
+  color: $col;
+  background-color: $bg;
+  border-color: $bd;
+}
+
+//border-radius
+@mixin border-radius($radius){
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+//transition
+@mixin transition($transtion){
+  -webkit-transition: $transtion;
+  -moz-transition: $transtion;
+  -o-transition: $transtion;
+  -ms-transition: $transtion;
+  transition: $transtion;
+}
+//shadow
+@mixin box-shadow($box-shadow) {
+  box-shadow: $box-shadow;/*opera\ie9*/
+  -moz-box-shadow:$box-shadow;/*firefox*/
+  -webkit-box-shadow:$box-shadow;/*webkit*/
+}
+
+
+//btn
+@mixin pt-btn {
+  .pt-btn {
+    min-width: 100px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-size: $fontMiddle;
+    padding:6px 20px 4px;
+    position: relative;
+    -moz-border-radius: 15px;
+    -webkit-border-radius: 15px;
+    border-radius: 15px;
+  }
+}
+
+/*success */
+@mixin pt-btn-success{
+  .pt-btn-success {
+    @include button-variant($white, $bgGreen4, $bgGreen4);
+    @include transition(background-color .1s ease-in-out);
+    &:hover{
+      @include button-variant($white, $bgGreen6, $bgGreen6);
+    }
+  }
+  //disabled
+  .pt-btn-success.disabled,
+  .pt-btn-success[disabled],
+  fieldset[disabled] .pt-btn-success,
+  .pt-btn-success.disabled:hover,
+  .pt-btn-success[disabled]:hover,
+  fieldset[disabled] .pt-btn-success:hover,
+  .pt-btn-success.disabled:focus,
+  .pt-btn-success[disabled]:focus,
+  fieldset[disabled] .pt-btn-success:focus,
+  .pt-btn-success.disabled:active,
+  .pt-btn-success[disabled]:active,
+  fieldset[disabled] .pt-btn-success:active,
+  .pt-btn-success.disabled.active,
+  .pt-btn-success[disabled].active,
+  fieldset[disabled] .pt-btn-success.active {
+    cursor: default;
+    color: #ffffff !important;
+    background-color: #bdbdbd;
+    border-color: #bdbdbd;
+  }
+}
+
+//danger
+@mixin pt-btn-danger{
+  .pt-btn-danger {
+    @include button-variant($white, $bgRed, $bgRed);
+    @include transition(background-color .1s ease-in-out);
+    &:hover{
+      @include button-variant($white, $bgRed1, $bgRed1);
+    }
+  }
+}
+
+//cancel
+@mixin pt-btn-cancel{
+  .pt-btn-cancel {
+    @include button-variant($white, $bgGray6, $bgGray6);
+    @include transition(background-color .1s ease-in-out);
+    &:hover{
+      @include button-variant($white, $bgGray7, $bgGray7);
+    }
+  }
+}
+
+//default
+@mixin pt-btn-default{
+  .pt-btn-default {
+    @include button-variant($textGray7, $white, $bgGray5);
+    @include transition(background-color .1s ease-in-out);
+    &:hover {
+      @include button-variant($textGray9, $white, $bgGray7);
+    }
+  }
+}
+
+//disabled
+@mixin pt-btn-disabled {
+  .pt-btn-disabled {
+    cursor: default;
+    @include button-variant($white, $textGray4, $textGray4);
+  }
+}
+
+
+//only icon
+//btn-more
+@mixin pt-btn-more{
+  .pt-btn-more {
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    padding:0;
+    @include border-radius(50%);
+    .more {
+      width: 3px;
+      height: 3px;
+      display: inline-block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: $bgGrayLight;
+      margin:-1px;
+      @include border-radius(3px);
+      &::before{
+        content: "";
+        position: absolute;
+        top:-5px;
+        left: 0;
+        width: 3px;
+        height: 3px;
+        background: $bgGrayLight;
+        @include border-radius(3px);
+      }
+      &::after{
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        left:0;
+        width: 3px;
+        height: 3px;
+        background:$bgGrayLight;
+        @include border-radius(3px);
+      }
+    }
+    &:hover {
+      background-color: $bgGrayHigh;
+      color: $white;
+      .more {
+        background-color: $white;
+        &::after ,&::before{
+          background-color: $white;
+        }
+      }
+    }
+  }
+}
+@mixin pt-icon-share{
+  .pt-icon-share {
+    color: $textGray6;
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    >svg {
+      width: 20px;
+      height: 20px;
+      vertical-align: top;
+      fill: $bgGrayLighter;
+    }
+    &:hover svg{
+      fill:$bgGray8;
+    }
+  }
+}
+
+//btn-add
+@mixin pt-btn-add {
+  .pt-btn-add {
+    //  height: 28px;
+    line-height: 18px;
+    border: none;
+    padding:6px 20px 3px;
+    font-size: $fontSmall;
+    @include border-radius(14px);
+
+    >svg{
+      width: 16px;
+      height: 16px;
+      fill: $white;
+      vertical-align: top;
+      margin:0px 5px 3px -5px;
+    }
+  }
+}
+@mixin pt-btn-add-lg{
+  .pt-btn-add-lg {
+    //  height: 28px;
+    bordesr: none;
+    font-size: $fontSmall;
+    padding:4px 20px 2px;
+    margin:0;
+    @include border-radius(14px);
+    >svg{
+      width: 24px;
+      height: 24px;
+      fill: $white;
+      vertical-align: top;
+      margin:-4px 5px 0 -5px;
+    }
+  }
+}
+
+//link
+@mixin pt-a-underline-sm {
+  .pt-a-underline-sm {
+    &:link {
+      text-decoration: underline;
+      color: $bgGray7;
+      font-size:$fontMini;
+    }
+    &:visited {
+      color: $bgGray7;
+    }
+    &:hover {
+      text-decoration: underline;
+      color: $bgGray9;
+    }
+  }
+}
+@mixin pt-a-underline-lg {
+  .pt-a-underline-lg {
+    &:link {
+      text-decoration: underline;
+      color: $bgGray7;
+      font-size:$fontSmall;
+    }
+    &:visited {
+      text-decoration: none;
+      color: $bgGray7;
+    }
+    &:hover {
+      text-decoration: underline;
+      color: $bgGray9;
+    }
+
+  }
+}
+@mixin pt-a-underline {
+  .pt-a-underline {
+    &:link {
+      text-decoration: underline;
+      color: $textGreen4;
+      font-size:$fontSmall;
+    }
+    &:visited {
+      text-decoration: none;
+      color: $textGreen4;
+    }
+    &:hover {
+      text-decoration: underline;
+      color: $textGreen7;
+    }
+
+  }
+}
+
+//input
+
+/*default */
+@mixin pt-ipt-default {
+  .pt-ipt {
+    width: 100%;
+    line-height: 20px;
+    display: inline-block;
+    color: $textGray7;
+    background-color:rgba(255,255,255,0);
+    border: 1px solid $bgGray3;
+    font-size:$fontSmall;
+    padding: 9px 12px;
+    @include border-radius(4px);
+
+    &:focus {
+      border: 1px solid $bgGreen4;
+    }
+    >svg {
+      width: 16px;
+      height: 16px;
+      fill: $bgGray4;
+    }
+  }
+}
+
+/*success */
+@mixin pt-ipt-success {
+  .pt-ipt-success {
+    border: 1px solid $bgGreen4;
+    &:focus {
+      border: 1px solid $bgGreen4;
+    }
+  }
+}
+
+/*error*/
+@mixin pt-ipt-error {
+  .pt-ipt-error {
+    border: 1px solid $bgRed;
+    &:focus {
+      border: 1px solid $bgRed;
+    }
+  }
+}
+
+//select
+@mixin pt-select{
+  .pt-select{
+    position: relative;
+    color: $textGray7;
+    font-size:$fontSmall;
+    cursor: pointer;
+
+    .pt-btn-dropdown {
+      min-width: 10px;
+      border: 1px solid $bgGray5;
+      color: $textGray7;
+      background-color: $white;
+      height: 28px;
+      line-height: 28px;
+      font-size:$fontSmall;
+      padding:0 10px;
+      @include border-radius(14px);
+      .pt-caret {
+        display: inline-block;
+        width: 0;
+        height: 0;
+        color: $bgGray5;
+        margin-left: 2px;
+        vertical-align: middle;
+        border-top: 4px dashed;
+        border-right: 4px solid transparent;
+        border-left: 4px solid transparent;
+      }
+      &:hover {
+        @include button-variant($textGray9, $white, $bgGray7);
+        .pt-caret {
+          color: $bgGray7;
+        }
+      }
+    }
+    .pt-dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      float: left;
+      min-width: 100px;
+      line-height: 20px;
+      text-align: left;
+      display: none;
+      border: 1px solid rgba(0, 0, 0, .15);
+      background-color: $white;
+      margin:2px 0 0;
+      padding:15px 0;
+      font-size: $fontSmall;
+
+      @include border-radius(4px);
+      li>a{
+        width: 100%;
+        display: block;
+        clear: both;
+        font-weight: 400;
+        color: $textGray7;
+        line-height: 21px;
+        padding:5px 20px 4px 15px;
+        white-space: nowrap;
+
+        &:hover {
+          color: $textGray9;
+          background-color: $bgGray2;
+        }
+      }
+      .pt-menu {
+        @include border-radius(0);
+        svg {
+          fill: $bgGray6;
+          margin:2px 5px 0 0;
+        }
+      }
+
+    }
+    .pt-selectbtn {
+
+    }
+    .pt-selectIcon {
+      &:hover {
+        svg {
+          fill:$bgGray8;
+        }
+      }
+    }
+    .pt-selectIpt {
+      &:hover {
+        background-color: $bggray;
+        color: $textGray8;
+        border: 1px solid $bggray;
+      }
+    }
+  }
+}
+
+//popup
+@mixin pt-popup-bg{
+  .pt-popup-bg {
+    width: 100%;
+    height: 300px;
+    padding-top: 20px;
+    background-color: rgba(58,63,81,0.8);
+    .pt-popup {
+      width: 600px;
+      background: $white;
+      padding: 50px;
+      position: relative;
+      border-radius: 8px;
+      margin: 0 auto;
+      box-shadow: 1px 2px 10px rgba(33, 33, 33, 0.6);
+      .pt-popup-hd{
+        color: $textGray8;
+        font-size: $fontBiger2;
+        line-height: 24px;
+        .pt-popup-close {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          height: 20px;
+          svg {
+            width: 20px;
+            height: 20px;
+            fill: $bgGray4;
+            vertical-align: top;
+          }
+          &:hover {
+            svg {
+              fill: $bgGray6;
+            }
+          }
+        }
+
+      }
+      .pt-popup-bd {
+        padding:14px 0;
+        font-size: $fontSmall;
+        color: $bgGray6;
+        display: block;
+        span {
+          display: inline-block;
+          margin-bottom: 10px;
+        }
+        .pt-popup-ipt {
+          width: 100%;
+
+        }
+      }
+      .pt-popup-bd-addPanel {
+        padding-top: 0;
+        .pt-popup-ipt-addPanel {
+          margin-top: 0;
+        }
+      }
+      .pt-popup-footer {
+        text-align: right;
+        margin-top: 10px;
+      }
+    }
+  }
+}
+
+//ds-editor select
+@mixin pt-ds-editor {
+  .pt-ds-editor-hd-box {
+    width: 140px;
+    height: 28px;
+    padding: 0 1px 2px 1px;
+    .pt-ds-dropdown-dataType {
+      width: 30px;
+      height: 28px;
+      position: absolute;
+      top: 0;
+      left: 1px;
+      bottom: 4px;
+      .pt-btn-dataType {
+        width: 100%;
+        height: 100%;
+        padding:8px;
+        color: inherit;
+        background-color: transparent;
+        border-color: transparent;
+        border-width: 0;
+        &:hover{
+          color: #9ccc65;
+          svg:nth-child(1),
+          svg:nth-child(2),
+          {
+            fill: #9ccc65;
+          }
+        }
+        svg:nth-child(1) {
+          width: 10px;
+          height: 10px;
+          fill: #757575;
+          position: absolute;
+          top: 1px;
+          right: 2px;
+        }
+        svg:nth-child(2) {
+          width: 14px;
+          height: 14px;
+          fill: #bdbdbd;
+        }
+      }
+    }
+    .pt-dropdown-menu-dataType {
+      position: absolute;
+      top: 26px;
+      right: 29px;
+      min-width: 140px;
+      background-color: #fff;
+      border-radius: 4px;
+      padding: 15px 0;
+      display: none;
+      .pt-dropdown-menu-dataType-list {
+        position: relative;
+        &:hover .pt-dropdown-menu-dataType-list-block{
+          display: block;
+        }
+        .pt-dropdown-submenu-a {
+          svg {
+            width: 16px;
+            height: 16px;
+            fill: #757575;
+            margin-right: 2px;
+            vertical-align: middle;
+          }
+          .icon-triangle-down {
+            transform-origin: 70%;
+            transform:rotate(-90deg);
+            width: 12px;
+            height: 12px;
+            fill: #757575;
+            position: absolute;
+            top: 8px;
+            right: 10px;
+          }
+        }
+        .pt-dropdown-menu-dataType {
+          position: absolute;
+          top: 0;
+          left: 100%;
+          margin-top: -6px;
+          margin-left: -1px;
+          .pt-dropdown-menu-dataType-list-block{
+            display: none;
+          }
+        }
+      }
+    }
+    .pt-ds-editor-hd-bg {
+      background-color: #3e4042;
+      border-radius: 2px;
+    }
+  }
+}
+
+// data source
+@mixin pt-ds {
+  .pt-ds-content {
+    min-width: 600px;
+    margin-left: 20px;
+    font-size: $fontSmall;
+    .pt-ds-header {
+      border-bottom: 1px solid $bgGray2;
+      position: relative;
+      .pt-ds-header-breadcrumb {
+        padding: 12px 30px 8px;
+        background-color: $bgGreen4;
+        border-radius: 4px;
+        margin-bottom: 60px;
+        color: $textGray9;
+        a {
+          cursor: pointer;
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+        svg {
+          width: 20px;
+          height: 20px;
+          fill: $bgGray9;
+          vertical-align: top;
+        }
+        span {
+          color: $white;
+        }
+      }
+      .pt-ds-header-introduce {
+        clear: both;
+        min-height: 82px;
+        margin-bottom: 20px;
+        .pt-ds-header-introduce-logo {
+          float: left;
+          background-color: $white;
+          border: 1px solid $bgGray4;
+          img {
+            display: table-cell;
+            text-align: center;
+            width: 200px;
+            height: 80px;
+            vertical-align: middle;
+          }
+        }
+        .pt-ds-header-introduce-detail {
+          padding-left: 230px;
+          color: $textGray7;
+          p {
+            line-height: 18px;
+            min-width: 500px;
+          }
+          .pt-ds-header-introduce-website {
+            display: none;
+          }
+        }
+        .pt-ds-gd-add-btn {
+          position: absolute;
+          right: 0;
+          bottom: -14px;
+        }
+      }
+    }
+    .pt-ds-table-list-bd {
+      border: 1px solid $bgGray2;
+      position: relative;
+      .pt-ds-table {
+        height: 80px;
+        padding:0 20px;
+        position: relative;
+        border-bottom: 1px solid $bgGray2;
+        &:nth-last-child(1) {
+          border-bottom: none;
+        }
+        .pt-ds-table-info {
+          width: -ms-calc(100% - 310px - 40px);
+          width: -moz-calc(100% - 310px - 40px);
+          width: -webkit-calc(100% - 310px - 40px);
+          width: calc(100% - 310px - 40px);
+          float: left;
+          margin-top:20px;
+          clear: both;
+          .pt-file-title {
+            font-size: 18px;
+            color: $textGray8;
+            .pt-text-ellipsis {
+              float: left;
+              margin: 0;
+            }
+          }
+          .pt-file-path {
+            line-height: 20px;
+            clear: both;
+            color: $textGray5;
+            span {
+              float: left;
+            }
+            .pt-text-ellipsis{
+              margin: 0;
+              float: left;
+              display: block;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+        .pt-ds-table-date {
+          width: 310px;
+          margin-top: 20px;
+          float: left;
+          .pt-ds-table-date-list {
+            margin: 0;
+            color: $textGray7;
+          }
+        }
+        .pt-ds-table-set{
+          width: 40px;
+          margin-top: 20px;
+          float: right;
+          .pt-btn-group{
+            float: left;
+            .pt-block {
+              display: block;
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+
+    }
+    .pt-ds-ga-content-list {
+      list-style: none;
+      padding-left: 0;
+      .pt-ds-table-ga{
+        height: 50px;
+        .pt-ds-table-date-ga{
+          margin-top: 18px;
+        }
+        .pt-ds-table-set-ga {
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+
+//tips
+@mixin pt-tooltip {
+  .pt-tooltip {
+    display: inline-block;
+    position: relative;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+    .pt-inner {
+      display: none;
+      position: absolute;
+      width: 200px;
+      border: 1px solid $bgGray4;
+      background-color: $white;
+      color: $textGray7;
+      font-size: $fontSmall;
+      z-index: 20;
+
+      @include border-radius(6px);
+      @include box-shadow(0 5px 10px rgba(0,0,0,.2));
+      .pt-arrows {
+        position: absolute;
+        bottom: -11px;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        border-style: solid;
+        border-width: 11px 11px 0;
+        border-top-color: rgba(0,0,0,.25);
+        box-sizing: border-box;
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 1px;
+          width: 0;
+          height: 0;
+          margin-left: -10px;
+          border-color: $white transparent transparent;
+          border-style: solid;
+          border-width: 10px 10px 0;
+        }
+      }
+      .pt-content {
+        padding: 20px 14px 10px;
+      }
+      .pt-arrows-left {
+        left: 6px;
+      }
+      .pt-arrows-right {
+        right: 6px;
+      }
+    }
+    &:hover {
+      .pt-inner-left {
+        display: block;
+        left: -10px;
+      }
+      .pt-inner-right {
+        display: block;
+        right: -10px;
+      }
+    }
+  }
+}
+
+//help tips
+@mixin pt-btn-help {
+  .pt-btn-help {
+    display: inline-block;
+    position: relative;
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: $bgGray4;
+      vertical-align: top;
+    }
+    p {
+      display: none;
+      position: absolute;
+      left: -200px;
+      top: 20px;
+      background-color: $white;
+      color: $textGray8;
+      width: 316px;
+      font-size: $fontMini;
+      padding:6px 15px;
+      border: 1px solid $bgGray4;
+      border-radius: 4px;
+      z-index: 20;
+    }
+    &:hover {
+      color: $bgInfoYellow;
+      svg {
+        fill: $bgInfoYellow;
+      }
+      p {
+        display: block;
+      }
+    }
+  }
+}
+
+
+

@@ -1,0 +1,221 @@
+﻿<!-- header -->
+<header class="pt-header clearfix">
+    <div class="logo {{productConfigs.logoClass.header}}">
+        <svg has-sys-role="!cig-media-smart">
+            <use xlink:href="{{productConfigs.logo}}"></use>
+        </svg>
+        <svg has-sys-role="cig-media-smart">
+            <use xlink:href="#icon-logo-mediasmart"></use>
+        </svg>
+    </div>
+
+    <div class="space">
+        <div class="space-btn">
+            <div class="pos-rlt" id="js-spaceBtnwarp">
+                <span class="text-ellipsis" title="{{rootSpace.current.name}}">{{rootSpace.current.name}}</span>
+                <svg class="icon-down">
+                    <use xlink:href="#icon-chevron-down"></use>
+                </svg>
+
+                <!-- <div class="dropdown">
+                    <span class="arrow top hidden-folded arrow-info"></span>
+                    <div class="dropdown-nav">
+                        <p class="switch-to" ng-if="rootSpace.list.length>1">
+                            <svg>
+                                <use xlink:href="#icon-switch"></use>
+                            </svg>
+                            <span translate="HEADER.SPACE.SWITCH">Switch to</span>
+                        </p>
+
+                        <ul class="list-unstyled" ng-if="rootSpace.list.length>1">
+                            <li
+                                ng-repeat="space in rootSpace.list"
+                                ng-hide="rootSpace.current.spaceId == space.spaceId">
+                                <a class="text-ellipsis"
+                                   title="{{space.name}}"
+                                   ng-click="switchSpace(space)"
+                                   pt-log="{
+                                        'where': 'header_nav',
+                                        'what': 'change_space',
+                                        'how': 'change',
+                                        'value':'{{space.spaceId}}'
+                                   }">{{space.name}}</a>
+                            </li>
+                        </ul> -->
+                        <!-- spaceType!=cartype && currentUid==spaceUid 当前空间 当复合这两个条件的时候才允许被查看member列表-->
+                        <!-- <p ng-if="rootSpace.current.spaceType!='cartype' ||  (rootSpace.current.spaceType=='cartype'  && rootSpace.current.ownerId==userInfo.ptId)">
+                            <svg>
+                                <use xlink:href="#icon-share-ds"></use>
+                            </svg>
+                            <a ui-sref="pt.spaceMember"
+                                href="javascript:"
+                                translate="HEADER.SPACE.MEMBER"
+                                pt-log="{
+                                    'where': 'header_nav',
+                                    'what': 'space_member',
+                                    'value':'{{rootSpace.current.spaceId}}'
+                                }">Member</a>
+                        </p>
+                        <p>
+                            <svg>
+                                <use xlink:href="#icon-set"></use>
+                            </svg>
+                            <a ui-sref="pt.spaceSettings"
+                                href="javascript:"
+                                translate="HEADER.SPACE.SETTINGS"
+                                pt-log="{
+                                    'where': 'header_nav',
+                                    'what': 'space_setting',
+                                    'value':'{{rootSpace.current.spaceId}}'
+                                }">Space Settings</a>
+                        </p> -->
+                    </div>
+                </div>
+            </div>
+            <!--onboarding 功能介绍(空间设置下拉菜单入口)-->
+        <!--     <func-tips ng-if="rootUser.settingsInfo.showTips.spaceSettingsEntry == 0"
+                       tips-area="spaceSettingsEntry"
+                       tips-code="ONBOARDING.TIPS.FUNC_TIPS.SPACE_SETTINGS_ENTRY"
+                       tips-is-left="true"
+                       tips-user-info="rootUser.settingsInfo.showTips"
+                       on-ok="pt.dataSources"></func-tips> -->
+        </div>
+    </div>
+
+    <div class="menu">
+        <ul class="list-unstyled clearfix">
+            <li ui-sref-active="active">
+                <svg class="icon-down">
+                    <use xlink:href="#icon-panel"></use>
+                </svg>
+                <a ui-sref="pt.dashboard"
+                    href="javascript:"
+                    translate="HEADER.NAV.DASHBOARD"
+                    translate-cloak
+                    pt-log="{
+                        'where': 'header_nav',
+                        'what': 'dashboards',
+                        'value':'{{rootSpace.current.spaceId}}'
+                    }"></a>
+            </li>
+            <li ui-sref-active="active">
+                <svg class="icon-down">
+                    <use xlink:href="#icon-datasource"></use>
+                </svg>
+                <a ui-sref="pt.dataSources"
+                    href="javascript:"
+                    translate="HEADER.NAV.DATASOURCE"
+                    translate-cloak
+                    pt-log="{
+                        'where': 'header_nav',
+                        'what': 'data_sources',
+                        'value':'{{rootSpace.current.spaceId}}'
+                    }"></a>
+
+                <!--onboarding 功能介绍(数据源管理页面入口)-->
+                <!-- <func-tips ng-if="rootUser.settingsInfo.showTips.dataSourceManageEntry == 0"
+                           tips-area="dataSourceManageEntry"
+                           tips-code="ONBOARDING.TIPS.FUNC_TIPS.DATA_SOURCE_MANAGE_ENTRY"
+                           tips-user-info="rootUser.settingsInfo.showTips"></func-tips> -->
+            </li>
+            <!-- <li class="pos-rlt hd-dropdown-wrap" ng-class="{'active': $state.current.name == 'pt.dashboardTemplate'}">
+                <svg class="icon-down">
+                    <use xlink:href="#icon-resource"></use>
+                </svg>
+                <a translate="HEADER.NAV.RESOURCE">Resource</a>
+                <svg class="icon-down">
+                    <use xlink:href="#icon-chevron-down"></use>
+                </svg>
+
+                <div class="hd-dropdown-bd">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a ui-sref="pt.dashboardTemplate"
+                               site-event-analytics
+                                pt-log="{
+                                    'where': 'header_nav',
+                                    'what': 'dashboard_templates',
+                                    'value':'{{rootSpace.current.spaceId}}'
+                                }">
+                                <span translate="HEADER.NAV.RESOURCE_TEMPLATE" translate-cloak></span>
+                            </a>
+                        </li>
+                        <li ng-if="productConfigs.link.help">
+                            <a target="_blank" href="{{productConfigs.link.help}}"
+                                class="pos-rlt"
+                                pt-log="{
+                                    'where': 'header_nav',
+                                    'what': 'knowledge_base',
+                                    'value':'{{rootSpace.current.spaceId}}'
+                                }">
+                                <span translate="HEADER.KNOWLEDGE_BASE"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li> -->
+        </ul>
+    </div>
+
+    <div class="account hd-dropdown-wrap">
+        <a class="account-btn">
+            <p>
+            <span class="header-user">
+                <dom-svg-func class="" data-svgid="{{userInfo.fistLetterSvg}}"></dom-svg-func>
+            </span>
+                <span class="header-userName" title="{{userInfo.emailName}}">{{userInfo.emailName | limitTo: 30}}</span>
+                <svg class="icon-down">
+                    <use xlink:href="#icon-chevron-down"></use>
+                </svg>
+            </p>
+        </a>
+
+        <div class="hd-dropdown-bd">
+            <ul class="list-unstyled">
+                <li>
+                    <a class="pt-icon-setting"
+                        ui-sref="pt.settings"
+                        pt-log="{
+                            'where': 'header_nav',
+                            'what': 'account_settings',
+                            'value':'{{rootSpace.current.spaceId}}'
+                        }">
+                        <svg>
+                            <use xlink:href="#icon-account"></use>
+                        </svg>
+                        <span translate="HEADER.PROFILE.SETTINGS.ACCOUNTSET">Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="pt-icon-loginOut"
+                        ng-click="logout()"
+                        pt-log="{
+                            'where': 'header_nav',
+                            'what': 'log_out',
+                            'value':'{{rootSpace.current.spaceId}}'
+                        }">
+                        <svg>
+                            <use xlink:href="#icon-out"></use>
+                        </svg>
+                        <span translate="HEADER.PROFILE.SIGNOUT">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</header>
+
+<!--<div class="bd" ui-view autoscroll="true"></div>-->
+<div class="pt-main" ui-view></div>
+
+<!-- footer -->
+<!--<div class="pt-footer wrapper b-t bg-light">-->
+<!--<span class="pull-right">-->
+    <!--{{pt.version}}-->
+    <!--<a href ui-scroll="pt" class="m-l-sm text-muted"> <i class="fa fa-long-arrow-up"></i>-->
+    <!--</a>-->
+<!--</span>-->
+<!--&copy; 2016 Copyright.-->
+<!--</div>-->
+<!-- / footer -->

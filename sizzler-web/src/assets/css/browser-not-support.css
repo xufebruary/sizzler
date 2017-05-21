@@ -1,0 +1,166 @@
+html {
+	min-height: 100%;
+}
+body {
+	background: #4D4C93;
+	background-image:  -webkit-radial-gradient(circle at left top, #8B61AA 0%, #8B61AA 100%);
+	background-image:  -moz-radial-gradient(circle at left top, #8B61AA 0%, #4D4C93 100%);
+    background-image:  radial-gradient(circle at left top, #8B61AA 0%, #4D4C93 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8B61AA', endColorstr='#4D4C93',GradientType=0 );
+    font-weight: 400;
+}
+.pt-browser-container{
+     margin: 0 auto;
+     text-align: center;
+     color:#fff;
+     padding:200px 40px 0;
+}
+.pt-browser-container .pt-browser-logo {
+	margin-bottom: 20px;
+}
+.pt-browser-container .pt-browser-logo img {
+	width: 225px;
+	border:none;
+}
+.pt-browser-container h1 {
+	font-size:30px;
+	font-weight: 400;
+	margin-bottom: 10px;
+}
+.pt-browser-container p {
+	font-size: 18px;
+	line-height: 20px;
+	margin-bottom:4px;
+	margin-top: 0;
+}
+.pt-browser-container .pt-browser {
+	display: inline-block;
+	margin-top:40px;
+}
+.pt-browser-container .pt-browser a {
+	display: inline-block;
+	width:68px;
+	height:68px;
+	border-radius: 100px;
+	background-color: #fff;
+	margin:0 50px;
+	position: relative;
+}
+.pt-browser-container .pt-browser a img {
+	width: 50px;
+	height:50px;
+	vertical-align: middle;
+	margin-top:9px;
+	border:none;
+}
+.pt-browser-container .pt-browser a span {
+	color:#fff;
+	text-decoration: none;
+	margin-top:20px;
+	display: inline-block;
+	font-size:14px;
+}
+.pt-browser-container .pt-browser a span:hover {
+	color:#9ccc65;
+}
+.pt-browser-container .pt-browser a.pt-edge  {
+	margin-right:0;
+}
+.pt-browser-container .pt-browser a.pt-edge span{
+	width: 120px;
+	margin-left: -24px;
+}
+.pt-browser-footer {
+	position: fixed;
+	bottom:10px;
+	left: 0;
+	right:0;
+	font-size:14px;
+	opacity: 0.4;
+}
+
+.pt-browser-container .continue{
+    position: fixed;
+    bottom:50px;
+    left: 0;
+    right:0;
+    display: block;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.pt-browser-container .continue:hover{
+    text-decoration: none;
+}
+
+/*-------------------------992px-----------------------------*/
+@media (max-width: 992px) {
+	.pt-browser-container .pt-browser-logo img{
+		width: 150px;
+	}
+	.pt-browser-container h1 {
+		font-size: 26px;
+	}
+	.pt-browser-container p {
+		font-size:16px;
+	}
+ }
+
+/*-------------------------768px-----------------------------*/
+@media (max-width: 768px) {
+	.pt-browser-container {
+		padding-top: 150px;
+	}
+	.pt-browser-container .pt-browser a {
+		margin:0 30px 50px;
+	}
+	.pt-browser-container h1 {
+		font-size: 20px;
+	}
+	.pt-browser-container p {
+		font-size:14px;
+	}
+	.pt-browser-container .pt-browser a span {
+		font-size:12px;
+	}
+
+	.pt-browser-container .pt-browser a.pt-edge {
+		margin-right:30px;
+	}
+}
+
+/*-------------------------414px-----------------------------*/
+@media (max-width: 414px) {
+	.pt-browser-container {
+		padding-top: 100px;
+	}
+	.pt-browser-container h1 {
+		font-size: 20px;
+	}
+	.pt-browser-container p {
+		font-size:12px;
+	}
+	.pt-browser-container .pt-browser a {
+		margin: 0 30px 50px;
+	}
+	.pt-browser-container .pt-browser a span {
+		font-size:12px;
+	}
+	.pt-browser-container .pt-browser a.pt-edge {
+		margin-right:30px;
+	}
+ }
+
+/*-------------------------375px-----------------------------*/
+@media (max-width: 375px) {
+	.pt-browser-container .pt-browser a {
+		margin:0 20px 50px;
+	}
+}
+
+/*-------------------------320px-----------------------------*/
+@media (max-width: 320px) {
+
+ }

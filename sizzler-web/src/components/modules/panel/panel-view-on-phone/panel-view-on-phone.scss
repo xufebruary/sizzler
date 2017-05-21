@@ -1,0 +1,46 @@
+.view-on-phone{
+    position: absolute;
+    top: 30px;
+    left: -195px;
+    width: 257px;
+    min-height: 219px;
+    border-radius: 8px;
+    background: #2f3032;
+    text-align: center;
+    color: #9e9e9e;
+    padding: 20px;
+    h4{
+        color: #9e9e9e;
+        padding: 0 0 10px;
+        font-size: 16px;
+    }
+    img{
+        border: 5px solid #fff;
+        width: 100px;
+        height: 100px;
+    }
+    span{
+        padding: 10px 0 0;
+        display: block;
+        line-height: 1;
+        font-size: 16px;
+    }
+    .short-link{
+        color: #fff;
+        padding: 10px 0 0;
+        word-wrap: break-word;
+        letter-spacing: -0.5px;
+    }
+    &:after{
+        content: '';
+        width: 0;
+        height: 0;
+        border-width: 0 10px 10px 10px;
+        border-style: solid;
+        border-color: transparent transparent #2f3032 transparent;
+        position: absolute;
+        top: -6px;
+        left: 195px;
+    }
+
+}

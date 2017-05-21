@@ -1,0 +1,203 @@
+<span class="arrow top arrow-info"></span>
+<div class="editor-pop editor-source wrapper-md text-left">
+
+    <!-- 选择数据源 Start-->
+    <div class="source-box step-a"
+         ng-class="{'source-box-pass': myOptions.ds.dsId, 'source-box-active': myOptions.other.currentStep == 'source'}">
+        <div class="source-box-hd pos-rlt">
+            <span class="block pos-abt text-center text-xs">1</span>
+            <button class="no-border no-bg editor-font-title"
+                ng-click="tab('source')"
+                ng-class="{'active': myOptions.other.currentStep == 'source'}">
+                {{ 'WIDGET.EDITOR.ACCOUNT.SOURCE' | translate}}
+                <i class="selected-ds"
+                   ng-class="{'no-selected': myOptions.ds.dsId == 0}"
+                   title="{{showSelectedDs(myOptions.ds.dsId)}}">
+                    {{showSelectedDs(myOptions.ds.dsId)}}
+                </i>
+            </button>
+            <i class="fa fa-angle-right text-black-600"
+               ng-class="{'fa-angle-down': myOptions.other.currentStep == 'source'}"></i>
+        </div>
+        <div class="source-box-bd m-l-xs animated fadeIn m-t-sm ng-hide"
+             ng-show="myOptions.other.currentStep == 'source'">
+
+            <div class="m-l text-green-50" ng-if="!myOptions.other.isHasPermission">
+                <span ng-bind-html=" 'WIDGET.EDITOR.ACCOUNT.NO_DS_PERMISSION' | translate:productConfigs "></span>
+            </div>
+            <div class="clearfix" ng-if="myOptions.other.isHasPermission">
+                <a class="ds-logo m-t-sm active"
+                   title="{{myOptions.ds.current.name}}"
+                   ng-click="selectDs(myOptions.ds.current)">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{'#icon-ds-'+myOptions.ds.dsCode.toLowerCase()}}"></use>
+                    </svg>
+                    <span class="padder-l-xs">{{myOptions.ds.current.name}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- 选择数据源 End-->
+
+    <!-- 选择授权账户 Start -->
+    <div class="source-box step-b ng-hide"
+         ng-class="{'source-box-pass': myOptions.ds.dsId, 'source-box-active': myOptions.other.currentStep == 'account', 'no-border': !myOptions.other.showStep}"
+         ng-show="myOptions.other.isHasPermission">
+        <div class="source-box-hd pos-rlt">
+            <span class="block pos-abt text-center text-xs ">2</span>
+            <button class="no-border no-bg editor-font-title"
+                ng-click="tab('account')"
+                ng-disabled="!myOptions.ds.dsId"
+                ng-class="{'active': myOptions.other.currentStep == 'account'}">
+                <!-- 第二步名称 -->
+                <em ng-show="myOptions.ds.config.editor.source.account">
+                    {{ 'WIDGET.EDITOR.ACCOUNT.ACCOUNT' | translate}}
+                </em>
+                <em ng-show="myOptions.ds.config.editor.source.connection">
+                    {{ 'WIDGET.EDITOR.ACCOUNT.CONNECTION' | translate }}
+                </em>
+
+                <!-- 账户名称 -->
+                <i class="selected-ds"
+                   title="{{myOptions.account.current.name}}"
+                   ng-if="myOptions.account.current.name && myOptions.account.current.name != ''"
+                    >
+                    {{myOptions.account.current.name}}
+                </i>
+            </button>
+            <i class="fa fa-angle-right text-black-600"
+               ng-class="{'fa-angle-down': myOptions.other.currentStep == 'account'}"></i>
+        </div>
+        <div class="source-box-bd animated fadeIn padder-v-md ng-hide"
+             ng-show="myOptions.other.currentStep == 'account'">
+            <span class="text-black-400 block text-left source-account-title">{{myOptions.ds.current.name}}</span>
+
+            <div ng-if="myOptions.account.list.length > 0">
+                <div style="max-height:90px;overflow:auto;"
+                     ng-scrollbar
+                     scrollbar-x="false"
+                     scrollbar-config="{show:true, autoResize: true, dragSpeed: 1.2}">
+                    <a class="ds-logo m-b-sm btn-source text-ellipsis"
+                       title="{{account.name}}"
+                       ng-repeat="account in myOptions.account.list"
+                       ng-class="{'active': account.connectionId == myOptions.account.current.connectionId}"
+                       ng-click="selectAccount(account)">
+                        {{account.name}}
+                    </a>
+                </div>
+
+                <a class="text-black-400 block m-t-sm m-t-xs link-source add-account text-center"
+                   ng-if="myOptions.ds.config.editor.source.open_blank && myOptions.ds.config.editor.source.addAuthorAccount"
+                   ng-click="accredit()">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                    </svg>
+                    <em translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">Add an account</em>
+                </a>
+
+                <a class="text-black-400 block m-t-sm m-t-xs link-source add-account text-center"
+                   ng-if="!myOptions.ds.config.editor.source.open_blank"
+                   ng-click="goToDsManage()">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                    </svg>
+
+                    <em ng-show="!myOptions.ds.config.editor.source.addNewDB"
+                        translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">
+                        Add an account
+                    </em>
+                    <em ng-show="myOptions.ds.config.editor.source.addNewDB"
+                        translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DB">
+                        Add connection
+                    </em>
+                </a>
+            </div>
+
+            <div ng-if="myOptions.account.list.length==0">
+                <a class="ds-logo m-t-sm btn-source"
+                   ng-if="myOptions.ds.config.editor.source.open_blank && myOptions.ds.config.editor.source.addAuthorAccount"
+                   ng-click="accredit()"
+                   translate="WIDGET.ADD_AUTHOR_ACCOUNT"></a>
+
+                <a class="ds-logo m-t-sm btn-source"
+                   ng-if="!myOptions.ds.config.editor.source.open_blank"
+                   ng-click="goToDsManage()">
+                    <span ng-show="!myOptions.ds.config.editor.source.addNewDB"
+                        translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">
+                        Add an account
+                    </span>
+                    <span ng-show="myOptions.ds.config.editor.source.addNewDB"
+                        translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DB">
+                        Add connection
+                    </span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <!-- 选择授权账户 End -->
+
+    <!-- 选择档案 Start -->
+    <div class="source-box step-c ng-hide"
+        ng-show="myOptions.other.showStep && myOptions.other.isHasPermission"
+        ng-class="{'source-box-pass': myOptions.account.current.name, 'source-box-active': myOptions.other.currentStep == 'profile'}">
+        <div class="source-box-hd pos-rlt">
+            <span class="block pos-abt text-center text-xs">
+                {{myOptions.ds.config.editor.source.secondStepIsHide ? 2 : 3}}
+            </span>
+
+            <button class="no-border no-bg editor-font-title"
+                    ng-click="tab('profile')"
+                    ng-class="{'active': myOptions.other.currentStep == 'profile'}"
+                    ng-disabled="!myOptions.account.current.name && !myOptions.ds.config.editor.source.secondStepIsHide ">
+                <em translate="WIDGET.EDITOR.ACCOUNT.PROFILE"
+                    ng-show="myOptions.ds.config.editor.source.profileName">Profile</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.FILE"
+                    ng-show="myOptions.ds.config.editor.source.fileName">File</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.TABLE"
+                    ng-show="myOptions.ds.config.editor.source.tableName">Table</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.ACCOUNT_CLIENT"
+                    ng-show="myOptions.ds.config.editor.source.accountClientName">Account(Client)</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.AD_ACCOUNT"
+                    ng-show="myOptions.ds.config.editor.source.adAccountName">Ad Account</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.PAGES"
+                    ng-show="myOptions.ds.config.editor.source.pagesName">Pages</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.OBJECT_REPORT"
+                    ng-show="myOptions.ds.config.editor.source.ObjectReportName">Object/Report</em>
+                <em translate="WIDGET.EDITOR.ACCOUNT.REPORTTYPE"
+                    ng-show="myOptions.ds.config.editor.source.reportType">reportType</em>
+            </button>
+
+            <i class="fa fa-angle-right text-black-600" ng-class="{'fa-angle-down': myOptions.other.currentStep == 'profile'}"></i>
+        </div>
+        <div class="source-box-bd animated fadeIn" ng-show="myOptions.other.currentStep == 'profile'">
+            <span class="text-black-400 block m-t-xs">{{myOptions.ds.current.name}}</span>
+
+            <div class="profile-list">
+                <div class="querying" ng-if="myOptions.profile.query !== 'success'">
+                    <span ng-if="myOptions.profile.query === 'querying'" translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">数据请求中</span>
+                    <span compile="myOptions.profile.messageCode" ng-if="myOptions.profile.query === 'error'"></span>
+                </div>
+
+                <div class="querying" ng-if="myOptions.profile.query === 'success' && myOptions.profile.list.length === 0">
+                    <span translate="WIDGET.EDITOR.ACCOUNT.NO_PROFILE">没有数据</span>
+                </div>
+
+                <search-list
+                    ng-if="myOptions.profile.list && myOptions.profile.list.length > 0"
+                    tree-list="myOptions.profile.list"
+                    selected-id="modal.editorNow.variables[0].profileId"
+                    empty-tip="{{'WIDGET.EDITOR.ACCOUNT.NO_PROFILE' | translate}}"
+                    on-select="selectProfile(data)"
+                >
+                </search-list>
+            </div>
+        </div>
+    </div>
+    <!-- 选择档案 End -->
+
+    <footer class="clearfix padder-t ng-hide" ng-show="myOptions.other.isHasPermission">
+        <button class="text-center block btn-filter-common btn-filter-apply pull-right m-l ng-scope" ng-disabled="myOptions.other.btnDisabled" ng-click="save()" translate="COMMON.APPLY">apply</button>
+        <button class="text-center block btn-filter-common btn-filter-cancel pull-right ng-scope" ng-click="close()" translate="COMMON.CANCEL">cancel</button>
+    </footer>
+</div>

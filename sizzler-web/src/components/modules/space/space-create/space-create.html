@@ -1,0 +1,104 @@
+<div class="space-create-wrap">
+    <div class="block modal fade in" ng-if="!$ctrl.isPhone">
+
+        <!--Create Space-->
+        <div class="popup-content space-create clearfix"
+             ng-if="$ctrl.state.dialogType == 'createSpace'">
+            <header>
+                <h2 translate="SPACE.CREATE.STEP_A.TITLE">Create you Space</h2>
+            </header>
+
+            <div class="clearfix pos-rlt popup-content-bd">
+                <div class="forms pos-rlt">
+                    <form name="$ctrl.spaceForm" ng-submit="$ctrl.saveSpace()" novalidate>
+                        <dl class="forms-dl">
+                            <dt>
+                                <small></small>
+                                <span translate="SPACE.CREATE.STEP_A.SPACE_DOMAIN">Space domain</span>
+                            </dt>
+                            <dd>
+                                <span>{{$ctrl.state.space.host}}</span>
+
+                                <input name="domain"
+                                       type="text"
+                                       class="pt-ipt"
+                                       maxLength="30"
+                                       id="create-ipt-domain"
+                                       ng-model="$ctrl.state.space.domain"
+                                       ng-class="{'error': $ctrl.hasErrors('domain')}"
+                                       ng-blur="$ctrl.check('domain')"
+                                       ng-focus="$ctrl.clearErrors('domain')"
+                                       placeholder="{{'SPACE.CREATE.STEP_A.PLACEHOLDER_DOMAIN' | translate:productConfigs}}"
+                                       ui-Focus="true"
+                                >
+                            </dd>
+                            <dd ng-show="$ctrl.errors.domain" ng-messages="$ctrl.errors.domain">
+                                <span ng-message="required"
+                                      translate="SPACE.CREATE.STEP_A.ERROR_DOMAIN_EMPTY">
+                                </span>
+                                <span ng-message="reg"
+                                    translate="SPACE.CREATE.STEP_A.ERROR_DOMAIN_ERROR">
+                                </span>
+                                <span ng-message="unique"
+                                    translate="SPACE.CREATE.STEP_A.ERROR_DOMAIN_ALREADY">
+                                </span>
+                            </dd>
+                        </dl>
+                        <dl class="forms-dl">
+                            <dt>
+                                <small></small>
+                                <span translate="SPACE.CREATE.STEP_A.SPACE_NAME">Space name</span>
+                            </dt>
+                            <dd>
+                                <input name="name"
+                                       type="text"
+                                       class="pt-ipt"
+                                       maxLength="30"
+                                       id="create-ipt-name"
+                                       ng-model="$ctrl.state.space.name"
+                                       ng-class="{'error': $ctrl.hasErrors('name')}"
+                                       ng-blur="$ctrl.check('name')"
+                                       ng-focus="$ctrl.clearErrors('name')"
+                                       placeholder="{{'SPACE.CREATE.STEP_A.PLACEHOLDER_NAME' | translate}}"
+                                >
+                            </dd>
+                            <dd ng-show="$ctrl.errors.name.required">
+                                <span translate="SPACE.CREATE.STEP_A.ERROR_NAME_EMPTY"></span>
+                            </dd>
+                        </dl>
+                        <footer class="clearfix">
+                            <button type="submit" class="pt-btn pt-btn-success">
+                                <span translate="SPACE.CREATE.STEP_A.BUTTON_CREATE">Create</span>
+                            </button>
+                        </footer>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Invites-->
+        <send-invite-email-dialog
+            ng-if="$ctrl.state.dialogType == 'inviteUser'"
+            subtitle="{{'SPACE.CREATE.STEP_B.SUB_TITLE' | translate}}"
+            space-id="{{$ctrl.state.space.spaceId}}"
+            btn-cancel-class="btn-skip"
+            btn-cancel-local="{{'SPACE.CREATE.STEP_B.BUTTON_SKIP' | translate}}"
+            on-cancel="$ctrl.closeDialog()"
+            on-success="$ctrl.onSuccess(emailList)"
+        ></send-invite-email-dialog>
+    </div>
+
+    <!-- bg -->
+    <div class="modal-backdrop fade in  {{productConfigs.alias}}"
+         ng-class="{'pt-phone-space-tips': $ctrl.isPhone}">
+        <div ng-if="pt.settings.isPhone" class="no-space">
+            <p translate="GUIDE.WIDGET.PT_PHONE_SPACE_EMPTY1">你暂时还没有空间。</p>
+            <p translate="GUIDE.WIDGET.PT_PHONE_SPACE_EMPTY2">请通过PC端创建你的空间。</p>
+            <p>
+                <a ng-click="logout()">
+                    <span  translate="HEADER.PROFILE.SIGNOUT">Logout</span>
+                </a>
+            </p>
+        </div>
+    </div>
+</div>

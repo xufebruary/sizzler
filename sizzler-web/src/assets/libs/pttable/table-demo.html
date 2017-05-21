@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <title>Table</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="./pttable.css" />
+</head>
+
+<body>
+    <div style="width:400px" id="example">
+
+    </div>
+
+    <div style="width:400px" id="example02">
+
+    </div>
+
+    <script src="./pttable.js"></script>
+    <script>
+        var instance = null,
+            container = document.getElementById('example');
+
+        var options = {
+            features: {
+                pagination: true,
+                sortable: true
+            },
+            columns: [{
+                name: 'skill',
+                width: '50px'
+            },{
+                name: 'year',
+                width: '30%',
+                formatter: function(value){
+                    return value+"年";
+                }
+            },{
+                name: 'method',
+                width: '50px',
+                sortable: false
+            },{
+                name: 'popularation',
+                width: '40%'
+            },{
+                name: 'difficulty',
+                width: '30%',
+                comparator: function(a, b, direction){
+                    var order = ['easy', 'normal', 'hard'];
+                    if(a === b) return 0;
+                    return direction > 0 ? order.indexOf(a) - order.indexOf(b) : order.indexOf(b) - order.indexOf(a);
+                },
+                sortByColumnIndex: 5
+            },{
+                name: 'hidden',
+                isHidden: true
+            }],
+            orders: [[4, 'desc']],
+            pagination: {
+                currentPage: 1,
+                pageLength: 5
+            }
+        };
+
+        instance = new pttable(container);
+
+        options.data = [
+            ['java', '1990', 'fivxvnd', '1', 'normal1', 1],
+            ['c', '1993', 'fisfndssf', '3', 'hard2', 2],
+            ['c', '1992', 'a', '3', 'hard3', 3],
+            ['css', '1992', 'a', '4', 'easy4', 4]
+        ];
+
+        instance.setOptions(options);
+        instance.render();
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!-- <div class="dom-table-cell text-center"> -->
+    <div class="chart-progressbars-wrap"  ng-show="widget.widgetDrawing == 'success'">
+        <div class="text-center chart-progressbars-data">
+            <span class="line-height">{{getPercent(data.y, widget.baseWidget.targetValue)}}</span>
+            <small class="line-height" ng-hide="getPercent(data.y, widget.baseWidget.targetValue)=='---'">%</small>
+        </div>
+
+        <div class="clear chart-progressbars-bg m-t-sm">
+            <div class="chart-progressbars-bar" style="width:{{getPercent(data.y, widget.baseWidget.targetValue)}}%;"></div>
+        </div>
+        <div class="text-right chart-progressbars-target m-t line-height" title="{{formatNumber(data.y, data.unit, 'thousands')}}">
+            {{formatNumber(data.y, data.unit, 'short')}}
+        </div>
+
+        <div class="text-right text-xs chart-progressbars-info text-ellipsis line-height" title="{{metricAmount.showTitle}}">
+            {{data.name}}
+        </div>
+    </div>
+<!-- </div> -->

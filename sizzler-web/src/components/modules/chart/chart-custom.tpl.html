@@ -1,0 +1,21 @@
+<div pt-resize drag>
+    <div class="multi-widget-body" drag-handle>
+        <div ng-if="child.variables[0].metrics.length > 0 && (child.baseWidget.graphName == 'pie' || child.baseWidget.graphName == 'bar' || child.baseWidget.graphName == 'column' || child.baseWidget.graphName == 'line')" class="chart-thumb-div">
+            <div highchart></div>
+        </div>
+        <div ng-if="child.variables[0].metrics.length > 0 && child.baseWidget.graphName == 'number'" class="chart-number-div">
+            <div number class="chart-number"></div>
+        </div>
+        <svg class="chart" ng-if="child.variables[0].metrics.length == 0 && child.baseWidget.graphName == 'pie'"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chart-pie"></use></svg>
+        <svg class="chart" ng-if="child.variables[0].metrics.length == 0 && child.baseWidget.graphName == 'bar'"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chart-bar"></use></svg>
+        <svg class="chart" ng-if="child.variables[0].metrics.length == 0 && child.baseWidget.graphName == 'column' "><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chart-column"></use></svg>
+        <svg class="chart" ng-if="child.variables[0].metrics.length == 0 && child.baseWidget.graphName == 'line'"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chart-line"></use></svg>
+        <svg class="chart" ng-if="child.variables[0].metrics.length == 0 && child.baseWidget.graphName == 'number'"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chart-number"></use></svg>
+        <div ng-if="child.baseWidget.widgetType == 'tool' && child.toolData.value == '' && customSetting.toolDefaultText" class="no-value-tool">双击编辑</div>
+        <div class="custom-tinymce-{{$index}}"
+             data-name="custom-tinymce-{{$index}}"
+             ng-if="child.baseWidget.widgetType == 'tool'"
+             ng-dblclick="rootPage.dashboardMode == 'EDIT' ? initialize($index) : 1"
+             ng-bind-html="bindHtml(child.toolData.value)"></div>
+    </div>
+</div>

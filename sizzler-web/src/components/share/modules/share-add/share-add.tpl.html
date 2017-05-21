@@ -1,0 +1,62 @@
+<div class="pt-popup">
+    <div class="pt-popup-content" ng-if="errorSpace === null">
+        <header class="pt-popup-hd">
+            <span class="pt-popup-title" translate="SHARE.ADD_DASHBOARD.TITLE">Add this Dashboard</span>
+            <a class="pt-popup-close" ng-click="closePopup('showSpaceList')">
+                <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+            </a>
+        </header>
+        <div clss="pt-popup-bd">
+            <div class="popup-ipt">
+                <span class="block text-md" translate="SHARE.ADD_DASHBOARD.CHOOSE">Choose your Space which you what to add to</span>
+
+                <div class="pt-select m-t-sm" dropdown>
+                    <a class="pt-ipt pt-selectIpt block text-md clearfix" dropdown-toggle>
+                        <span class="pull-left text-ellipsis" title="{{sltSpace.name}}">
+                            {{sltSpace.name}}
+                        </span>
+                        <svg class="pull-right">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-triangle-down"></use>
+                        </svg>
+                    </a>
+                    <ul class="pt-dropdown-menu pt-ipt animated fadeInDown no-padder no-border" style="max-height: 200px; overflow: auto;">
+                        <li ng-repeat="space in myOptions.space.list"
+                            ng-hide="panel.shareSourceId"
+                            ng-class="{'active': space.spaceId == sltSpace.spaceId}"
+                            ng-click="selectSpace(space)">
+                            <a class="padder-sm text-md text-ellipsis" title="{{space.name}}">{{space.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <footer class="pt-popup-footer">
+            <button class="pt-btn pt-btn-default m-r-md" ng-click="closePopup('showSpaceList')">
+                <span translate="COMMON.CANCEL">Cancel</span>
+            </button>
+            <button class="pt-btn pt-btn-success"
+                    ng-click="addDashboadToSpace()"
+                    ng-disabled="myOptions.page.isAlreadyAdd === null">
+                <span translate="SHARE.ADD_DASHBOARD.BTN_ADD">Add</span>
+            </button>
+        </footer>
+    </div>
+
+    <div class="pt-popup-content" ng-if="errorSpace !== null">
+        <header class="pt-popup-hd">
+            <a class="pt-popup-close" ng-click="closePopup('showSpaceList')">
+                <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+            </a>
+        </header>
+        <h2 class="m-n text-center text-black-700 text-md padder-t-xxl padder-b-xxl"
+            ng-if="errorType == 'spaceAddError'">{{errorSpace}}</h2>
+
+        <a class="block text-center text-black-700 text-md padder-t-xxl padder-b-xxl"
+           ng-if="errorType == 'spaceEmpty'" ng-click="goToCreateSpace()">
+            {{errorSpace}}
+        </a>
+    </div>
+</div>
+
+<!-- bg -->
+<div class="modal-backdrop fade in"></div>

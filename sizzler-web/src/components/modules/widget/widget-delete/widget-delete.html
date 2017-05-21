@@ -1,0 +1,25 @@
+<div class="fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <span class="pt-popup-title" translate="WIDGET.DELETE_WIDGET.TITLE"></span>
+                <a class="pt-popup-close" ng-click="onCancel()">
+                    <svg><use xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd padder-v-sm text-md">
+                <span class="ng-scope" translate="WIDGET.DELETE_WIDGET.TIPS"></span>
+            </div>
+            <footer class="pt-popup-footer text-right m-t-sm">
+                <button class="pt-btn pt-btn-danger m-r-md" ng-click="deleteWidget()">
+                    <span translate="COMMON.DELETE"></span>
+                </button>
+                <button class="pt-btn pt-btn-default" ng-click="onCancel()">
+                    <span translate="COMMON.CANCEL"></span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

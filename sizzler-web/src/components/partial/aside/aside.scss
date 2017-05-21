@@ -1,0 +1,91 @@
+@import "compass";
+@import "../../../assets/sass/framework/varibles";
+@import "../../../assets/sass/framework/mixin-ui";
+@import "../../../assets/sass/framework/mixin-basic";
+.pt-aside-folded{
+  .bd > .pt-aside{
+    left: -220px;
+  }
+  &.fold-aside-all{
+    .bd > .pt-aside{
+      left: -240px;
+      display: none;
+      @include box-shadow(none);
+    }
+  }
+}
+
+.bd > .pt-aside{
+  position: fixed;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  z-index: 1025;
+  background: $bgGray1;
+  //@include transition(left .3s linear);
+  @include box-shadow(0 0 15px rgba(0,0,0,.33));
+
+  .aside-wrap {
+    width: 240px;
+    height: 100%;
+    position: relative;
+
+    .aside-brand{
+      height: 220px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      .logo{
+        position: absolute;
+        left: 30px;
+        top: 30px;
+        width: 50px;
+        height: 15px;
+        svg{
+          width: 50px;
+          height: 15px;
+        }
+      }
+      img{
+        width: 240px;
+        height: 220px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: -1;
+      }
+      .brand-text{
+        font-size: $fontBiger2;
+        color: $white;
+        padding-top: 112px;
+        max-width: 140px;
+        @include text-ellipsis();
+        display: inline-block;
+        em{
+          display: inline-block;
+          font-style: normal;
+        }
+      }
+    }
+    .aside-fold{
+      height: 24px;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+      svg{
+        float: right;
+        width: 16px;
+        height: 16px;
+        vertical-align: middle;
+        margin-left: -10px;
+        margin-top: 14px;
+        fill: $textGray5;
+      }
+      &:hover{
+        svg{
+          fill: $textGray8;
+        }
+      }
+    }
+  }
+}

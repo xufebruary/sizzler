@@ -1,0 +1,38 @@
+<div class="fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content" ng-if="tips.type == 'query'">
+            <header class="pt-popup-hd">
+                <span class="pt-popup-title" ng-hide="tips.hdHide != 'false'">{{tips.title}}</span>
+                <a class="pt-popup-close"  ng-click="closeEvent()">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd">
+                <span compile="tips.info"></span>
+            </div>
+            <footer class="pt-popup-footer">
+                <button class="pt-btn m-r-md {{tips.btnLeftClass}}" ng-click="btnLeftEvent()" ng-hide="tips.btnLeftHide != 'false'">
+                    <span>{{tips.btnLeftText}}</span>
+                </button>
+                <button class="pt-btn {{tips.btnRightClass}}" ng-click="btnRightEvent()" ng-hide="tips.btnRightHide && tips.btnRightHide!= 'false'">
+                    <span>{{tips.btnRightText}}</span>
+                </button>
+            </footer>
+        </div>
+
+        <!--无标题纯提示的弹出框-->
+        <div class="pt-popup-content" ng-if="tips.type == 'tips'">
+            <header class="pt-popup-hd">
+                <a class="pt-popup-close" ng-click="closeEvent()">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <h2 class="m-n text-center text-black-700 text-md padder-t-xxl padder-b-xxl">
+                <span ng-bind-html="tips.info"></span>
+            </h2>
+        </div>
+    </div>
+
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

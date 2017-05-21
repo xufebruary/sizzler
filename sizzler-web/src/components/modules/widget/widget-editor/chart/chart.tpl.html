@@ -1,0 +1,406 @@
+<div class="editor-pop editor-chart wrapper-md">
+    <div ng-if="modal.editorNow.baseWidget.widgetType == 'custom'">
+        <!-- chart list -->
+        <div class="editor-chart-list">
+            <ul class="clearfix list-unstyled m-b-none">
+                <li class="pull-left"
+                    ng-repeat="grap in rootCommon.grapList"
+                    ng-show="grap.id !== 800 && grap.id !== 720 && grap.id !== 900 && ((chartSettings.dbAxisToggle && grap.id == 100) || (chartSettings.dbAxisToggle && grap.id == 300) || !chartSettings.dbAxisToggle ) &&
+                 (
+                 	modal.editorNow.variables[0].ptoneDsInfoId == 1 ||
+                 	modal.editorNow.variables[0].ptoneDsInfoId == 3 ||
+                 	modal.editorNow.variables[0].ptoneDsInfoId == 13 ||
+                 	modal.editorNow.variables[0].ptoneDsInfoId == 12 ||
+                 	modal.editorNow.variables[0].ptoneDsInfoId == 28 || grap.id !== 900 ||
+                 	modal.editorNow.variables[0].ptoneDsInfoId == 29
+                 	) && (modal.editorNow.variables[0].ptoneDsInfoId != 21 || (grap.id!=620 && grap.id!=720))">
+                    <a class="block icon-{{grap.name}}"
+                       title="{{grap.name}}"
+                       ng-click="selectGraph(grap)">{{grap.name}}-{{grap.id}}</a>
+                </li>
+                <li class="pull-left">
+                    <a class="block special" ng-click="selectToolGraph()">
+                        <svg class="">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chart-pencil"></use>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div ng-if="modal.editorNow.baseWidget.widgetType == 'chart'">
+        <div class="pt-loading hide" ng-show="loadSetting.widget">
+            <!-- ng-show="loadSetting.widget || modal.editorNow.widgetDrawing == 'drawing'" -->
+            <span class="pt-center pt-loading-box">
+                <svg class="load-s btnloads white">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+                </svg>
+                <svg class="load-m btnloadm white">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+                </svg>
+            </span>
+        </div>
+        <!-- 2-Axis swtich -->
+        <div class="clearfix"
+             ng-show="modal.editorNow.variables[0].variableGraphId == 100 || modal.editorNow.variables[0].variableGraphId == 300">
+            <a class="text-black-400 pull-left dbAxis-swtich block" ng-click="toggleDbAxis()">
+                <!-- ng-class="{'active': chartSettings.dbAxisToggle}" -->
+                <!-- <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-out"></use>
+                </svg> -->
+                <span translate="WIDGET.EDITOR.CHART.TWO_AXIS" class="Axis-text">2-Axis</span>
+                <label class="widget-switch-style">
+                    <input class="hide" type="radio" name="switch" value="db" ng-model="chartSettings.dbMod">
+                    <i></i>
+                </label>
+            </a>
+
+        <span class="pull-right btn-dbAxis"
+              ng-class="{'btn-dbAxis-y2': chartSettings.dbAxis==1}"
+              ng-show="chartSettings.dbAxisToggle"
+              ng-click="changeDbAxis()"></span>
+        </div>
+        <div class="text-black-400 editor-font-title"
+             ng-show="modal.editorNow.variables[0].variableGraphId != 100 && modal.editorNow.variables[0].variableGraphId != 300"
+             translate="WIDGET.EDITOR.CHART.CHOOSE_CHART">Choose Chart
+        </div>
+
+        <!-- chart list -->
+        <div class="editor-chart-list">
+            <ul class="clearfix list-unstyled m-b-none">
+                <li class="pull-left"
+                    ng-repeat="grap in rootCommon.grapList"
+                    ng-show="showChart(grap)">
+                    <a class="block icon-{{grap.name}}"
+                       title="{{grap.name}}"
+                       ng-class="{'active': (!chartSettings.dbAxisToggle && grap.id == modal.editorNow.variables[0].variableGraphId) || (chartSettings.dbAxisToggle && chartSettings.dbGraph[chartSettings.dbAxis] == grap.code)}"
+                       ng-click="selectGraph(grap)">{{grap.name}}-{{grap.id}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Stack -->
+        <div class="clearfix animated fadeInDown m-b-xs"
+             ng-show="modal.editorNow.baseWidget.graphName == 'line' || modal.editorNow.baseWidget.graphName == 'column' || modal.editorNow.baseWidget.graphName == 'bar'">
+            <div>
+                <label class="check-box m-b-none"
+                       ng-show="(!chartSettings.dbAxisToggle && modal.editorNow.baseWidget.graphName == 'column' || modal.editorNow.baseWidget.graphName == 'bar') || (chartSettings.dbAxisToggle && chartSettings.dbGraph[chartSettings.dbAxis] == 'column')">
+                    <input type="checkbox" ng-model="chartSettings.stackedChart" ng-click="setStack('stackedChart')">
+                    <i></i>
+                    <span class="text-black-400" translate="WIDGET.EDITOR.CHART.STACK">Stack</span>
+                </label>
+            </div>
+            <div>
+                <label class="check-box m-b-none"
+                       ng-show="(!chartSettings.dbAxisToggle && modal.editorNow.baseWidget.graphName == 'line') || (chartSettings.dbAxisToggle && chartSettings.dbGraph[chartSettings.dbAxis] == 'line')">
+                    <input type="checkbox" ng-model="chartSettings.areaChart" ng-click="setStack('areaChart')"> <i></i>
+                    <span class="text-black-400" translate="WIDGET.EDITOR.CHART.AREA">Area</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- DatePeriod -->
+        <!-- 时间粒度生效规则： -->
+        <!-- 1、ga、ptengine数据源，图形为line -->
+        <!-- 2、双轴规则：Y1、Y2同为line|column和不开启双轴的line|column图形一致 -->
+        <!-- 3、双轴规则：Y1、Y2一个line一个column时，如果用户没有选择维度默认增加时间维度DatePeriod生效, -->
+        <!--    用户选择维度后，x轴按用户选择的维度作为x轴，DatePeriod不生效 -->
+        <div class="clearfix animated fadeInDown m-b-xs axis-value axis-datePeriod"
+             ng-show="(modal.editorNow.variables[0].ptoneDsInfoId == 1 || modal.editorNow.variables[0].ptoneDsInfoId == 13) && ( (modal.editorNow.baseWidget.graphName == 'line' && !chartSettings.dbAxisToggle) || (chartSettings.dbAxisToggle && ((modal.editorNow.baseWidget.graphName == 'line' || modal.editorNow.baseWidget.graphName == 'column') && ((chartSettings.dbGraph[0] == 'line' && chartSettings.dbGraph[1] == 'line') || ((chartSettings.dbGraph[0] == 'line' || chartSettings.dbGraph[1] == 'line') && modal.editorNow.variables[0].dimensions.length == 0)))))">
+            <span class="m-r-sm pull-left" translate="WIDGET.EDITOR.CHART.DATE_PERIOD">Group by:</span>
+
+            <div class="pull-left pos-rlt editor-dropdown" dropdown>
+                <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                    <span class="block padder-xs pull-left padder-lineheight">{{chartSettings.selectedDatePeriod}}</span>
+
+                    <div class="pull-right editor-dropdown-caret text-center"><b class="caret m-l-none"></b></div>
+                </div>
+
+                <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                    <li ng-repeat="item in chartSettings.datePeriodList"
+                        ng-click="changeDatePeriod(item)">
+                        <a class="padder">{{item.name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Target -->
+        <!-- 只有百分比图形显示目标值-->
+        <div class="clearfix m-b-xs axis-value"
+             ng-show="modal.editorNow.baseWidget.graphName == 'progressbar' && modal.editorNow.baseWidget.graphName != 'pie' && modal.editorNow.baseWidget.graphName != 'hollowpie' && modal.editorNow.baseWidget.graphName != 'simplenumber' && modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+            <span class="m-r-sm" translate="WIDGET.EDITOR.CHART.TARGET_VALUE"
+                  translate="WIDGET.EDITOR.CHART.TARGET_VALUE">Target</span>
+            <input type="text"
+                   class="ng-pristine ng-valid text-success ng-touched"
+                   maxlength="20"
+                   ng-class="{'text-danger': chartSettings.targetError, 'text-success': !chartSettings.targetError}"
+                   ng-model="chartSettings.modelTarget"
+                   ng-keyup="targetSet(chartSettings.modelTarget)"></div>
+
+        <!-- map country-->
+        <div ng-if="modal.editorNow.baseWidget.graphName == 'map'">
+            <header class="data-hd sl-item m-b-sm">
+                <label class="check-box block m-t-xs">
+                    <input type="radio"
+                           ng-click="chartSettings.mapCountrySearch = false;"
+                           name="countryRadio" value="worldSelected" ng-model="countryRadio" ng-change="worldChecked()">
+                    <i></i>
+                    <span class="text-black-400" translate="WIDGET.EDITOR.CHART.WORLD">World</span>
+                </label>
+                <label class="check-box block m-t-xs">
+                    <input type="radio" name="countryRadio" value="countrySelected"
+                           ng-model="countryRadio">
+                    <i></i>
+                    <span class="text-black-400" translate="WIDGET.EDITOR.CHART.COUNTRY">Country</span>
+                </label>
+
+                <div dropdown 
+                    auto-close="outsideClick"
+                    is-open="chartSettings.mapCountrySearch">
+
+                    <label dropdown-toggle
+                        class="check-box block m-t-xs" 
+                        style="margin-left: 7px;"
+                        ng-click="toggleMapList();">
+                        <span class="text-black-400"
+                              ng-if="modal.editorNow.baseWidget.mapCode == 'world' && countryRadio == 'countrySelected'">
+                            <span translate="WIDGET.EDITOR.CHART.SELECT_COUNTRY"></span> <b class="caret"></b>
+                        </span>
+                        <span class="text-black-400"
+                              ng-if="modal.editorNow.baseWidget.mapCode != 'world'">
+                            {{modal.editorNow.baseWidget.mapCode | mapCodeFilter:rootUser.settingsInfo.locale}}
+                            <b class="caret"></b>
+                        </span>
+                    </label>
+
+                    <search-list
+                        class="dropdown-menu map-list-search"
+                        ng-if="chartSettings.mapList && chartSettings.mapList.length > 0"
+                        tree-list="chartSettings.mapList"
+                        selected-id="modal.editorNow.baseWidget.mapCode"
+                        empty-tip="{{'COMMON.NO_DATA' | translate}}"
+                        on-select="changeMapCode(data)"
+                        >
+                    </search-list>
+                </div>
+            </header>
+        </div>
+
+        <!-- axis data -->
+        <div class="clearfix animated fadeInDown axis-data"
+             ng-show="chartSettings.dbAxisToggle && modal.editorNow.baseWidget.graphName != 'pie' && modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+            <!-- <div class="line hidden-folded m-t m-b"></div>-->
+            <div ng-repeat="metrics in chartSettings.metricsList">
+
+                <label class="check-box text-black-400">
+                    <input type="checkbox"
+                           ng-model="chartSettings.modelMetrics[metrics.code + '-' + metrics.uuid]"
+                           ng-click="sltMetrics(metrics.code + '-' + metrics.uuid, $index)">
+                    <i></i>
+                    <span ng-if="metrics.type=='compoundMetrics'">
+                        {{metrics.name}}
+                    </span>
+                    <span ng-if="metrics.type!='compoundMetrics'">
+                        {{ [1,3,12,13].indexOf(+editor.dsId) >= 0 ? (metrics.i18nCode | translate) : metrics.name}}
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <!-- axis settings -->
+        <div class="axis-setting"
+             ng-show="modal.editorNow.baseWidget.graphName != 'pie' && modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+            <div class="dk hidden-folded m-b"></div>
+
+            <a class="block btn-axis editor-a text-left-xs"
+               ng-class="{'show active': chartSettings.axisSet}"
+               ng-click="set('axisSet')">
+                <span ng-show="chartSettings.dbAxisToggle">值(Y{{chartSettings.dbAxis+1}})</span>
+                <span translate="WIDGET.EDITOR.CHART.AXIS_SETTINGS">Axis Settings</span>
+        <span class="text-muted">
+            <i class="fa fa-fw fa-angle-right text chart-set-right" ng-show="!chartSettings.axisSet"></i>
+            <i class="fa fa-fw fa-angle-down chart-set-right" ng-show="chartSettings.axisSet"></i>
+        </span>
+            </a>
+
+            <div class="animated fadeInDown" ng-show="chartSettings.axisSet">
+
+                <div class="axis-value">
+                    <span class="m-r-sm" translate="WIDGET.EDITOR.CHART.AXIS_MAX">Axis Max</span>
+                    <input type="text" ng-model="chartSettings.modelMax"
+                           ng-blur="chartSettings.modelMax = chartSettings.modelMax == '' ? 'auto' : chartSettings.modelMax"
+                           ng-focus="chartSettings.modelMax = chartSettings.modelMax == 'auto' ? '' : chartSettings.modelMax"
+                           ng-class="{'text-danger': chartSettings.axisError[1] && chartSettings.modelMax != 'auto', 'text-success': !chartSettings.axisError[1] && chartSettings.modelMax != 'auto'}"
+                           ng-keyup="axisSet(chartSettings.modelMax, 'max', 1)"></div>
+
+                <div class="axis-value">
+                    <span class="m-r-sm" translate="WIDGET.EDITOR.CHART.AXIS_MIN">Axis Min</span>
+                    <input type="text"
+                           ng-blur="chartSettings.modelMin = chartSettings.modelMin == '' ? 'auto' : chartSettings.modelMin"
+                           ng-focus="chartSettings.modelMin = chartSettings.modelMin == 'auto' ? '' : chartSettings.modelMin"
+                           ng-class="{'text-danger': chartSettings.axisError[0] && chartSettings.modelMin != 'auto', 'text-success': !chartSettings.axisError[0] && chartSettings.modelMin != 'auto'}"
+                           ng-model="chartSettings.modelMin"
+                           ng-keyup="axisSet(chartSettings.modelMin, 'min', 0)"></div>
+
+                <label class="check-box block m-t-xs">
+                    <input type="radio" name="axis" value="auto" ng-click="axisSet('auto')"
+                           ng-model="chartSettings.modelAxis">
+                    <i></i>
+                    <span class="text-black-400" translate="COMMON.AUTO">Auto</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- dispaly settings -->
+        <div class="dispaly-setting">
+            <a class="block btn-axis editor-a text-left-xs"
+               ng-class="{'show active': chartSettings.displaySet}"
+               ng-click="set('displaySet')">
+                <span translate="WIDGET.EDITOR.CHART.DISPLAY_SETTINGS">Display Settings</span>
+                <span class="text-muted">
+                    <i class="fa fa-fw fa-angle-right text chart-set-right" ng-show="!chartSettings.displaySet"></i>
+                    <i class="fa fa-fw fa-angle-down chart-set-right" ng-show="chartSettings.displaySet"></i>
+                </span>
+            </a>
+
+            <div class="clearfix animated fadeInDown" ng-show="chartSettings.displaySet">
+                <ul class="clearfix list-unstyled">
+                    <li class="clearfix"
+                        ng-show="modal.editorNow.baseWidget.graphName == 'map' ">
+                        <label class="pull-left check-box m-b-none">
+                            <input type="checkbox" ng-click="displaySet('showMapName')"
+                                   ng-checked="chartSettings.showMapName">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.MAP_NAME"></span>
+                        </label>
+                    </li>
+                    <li class="clearfix"
+                        ng-show="modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'pie' ">
+                        <label class="pull-left check-box m-b-none">
+                            <input type="checkbox" ng-click="displaySet('showMetricAmount')"
+                                   ng-checked="chartSettings.showMetricAmount">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.METRIC_AMOUNT"></span>
+                        </label>
+
+                        <div class="pull-left pos-rlt editor-dropdown m-l-xs" dropdown
+                             ng-hide="modal.editorNow.baseWidget.graphName == 'map'">
+                            <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                                <span class="block padder-xs pull-left text-ellipsis padder-lineheight"
+                                      title="{{chartSettings.selectedMetricAmount | translate}}">
+                                    {{chartSettings.selectedMetricAmount}}
+                                </span>
+
+                                <div class="pull-right editor-dropdown-caret text-center">
+                                    <b class="caret m-l-none"></b>
+                                </div>
+                            </div>
+                            <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                                <li ng-repeat="item in chartSettings.metricAmountItem"
+                                    ng-click="changeMetricAmoutSelect(item)">
+                                    <a class="padder" ng-show="item.type == 'compoundMetrics'">
+                                        <span>{{item.name}}</span>
+                                    </a>
+                                    <a class="padder" ng-show="item.type != 'compoundMetrics'">
+                                        <span>
+                                            {{editor.dsId == 1 ? (item.i18nCode | translate) : item.name}}
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="btn-help pull-left">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                            </svg>
+                            <p class="ng-binding" translate="WIDGET.EDITOR.CHART.SLT_METRIC_TIP"></p>
+                        </div>
+                        <!--
+                            <select class="axis-value m-l"
+                                ng-model="chartSettings.selectedMetricAmount"
+                                ng-show="chartSettings.showMetricAmount && modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'pie' && modal.editorNow.baseWidget.graphName != 'map'"
+                                ng-disabled="!chartSettings.metricAmountItem"
+                                ng-change="changeMetricAmoutSelect(chartSettings.selectedMetricAmount)"
+                                ng-options="item.name for item in chartSettings.metricAmountItem"></select>
+                        -->
+                    </li>
+                    <li ng-show="modal.editorNow.baseWidget.graphName != 'pie' && modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox" ng-click="displaySet('xAxis')" ng-checked="chartSettings.xAxis">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.X_AXIS_LABELS">X Axis Labels</span>
+                        </label>
+                    </li>
+                    <li ng-show="modal.editorNow.baseWidget.graphName != 'pie' && modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox" ng-click="displaySet('yAxis')" ng-checked="chartSettings.yAxis">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.Y_AXIS_LABELS">Y Axis Labels</span>
+                        </label>
+                    </li>
+                    <li ng-show="modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox" ng-click="displaySet('showLegend')"
+                                   ng-checked="modal.editorNow._ext.widgetShowLegend">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.LEGEND">Legend</span>
+                        </label>
+                    </li>
+                    <li ng-show="modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'table' && modal.editorNow.baseWidget.graphName != 'map' ">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox" ng-click="displaySet('showDataLabels')"
+                                   ng-checked="chartSettings.showDataLabels">
+                            <i class="m-r-none"></i>
+                        <span class="text-black-400 m-l-xs-m"
+                              translate="WIDGET.EDITOR.CHART.SHOWDATALABELS">ShowData</span>
+                        </label>
+                    </li>
+                    <li ng-show="!editor.disabled[2]">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox"
+                                   ng-click="displaySet('showTimePeriod')"
+                                   ng-checked="chartSettings.showTimePeriod">
+                            <i class="m-r-none"></i>
+                        <span class="text-black-400 m-l-xs-m"
+                              translate="WIDGET.EDITOR.CHART.TIME_PERIOD">Time Period</span>
+                        </label>
+                    </li>
+
+                    <li has-sys-role="cig-media-smart"
+                        ng-show="modal.editorNow.baseWidget.graphName != 'number' && modal.editorNow.baseWidget.graphName != 'progressbar' && modal.editorNow.baseWidget.graphName != 'pie' ">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox"
+                                   ng-click="displaySet('hideDetail')"
+                                   ng-checked="chartSettings.hideDetail">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.HIDE_DETAIL">Hide Detail</span>
+                        </label>
+                    </li>
+                    <li ng-show="modal.editorNow.baseWidget.graphName == 'progressbar'">
+                        <label class="check-box m-b-none">
+                            <input type="checkbox"
+                                   ng-click="displaySet('reverseTarget')"
+                                   ng-checked="chartSettings.reverseTarget">
+                            <i class="m-r-none"></i>
+                            <span class="text-black-400 m-l-xs-m" translate="WIDGET.EDITOR.CHART.REVERSE_TARGET">Reverse Target</span>
+                        </label>
+                        <div class="btn-help hide-calculate-name-tips">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                            </svg>
+                            <p class="ng-binding" translate="WIDGET.EDITOR.CHART.REVERSE_TARGET_TIP"></p>
+                        </div>
+                    </li>
+                </ul>
+                <!--
+                    <label class="check-box pull-right">
+                    <input type="radio" name="display" value="auto" ng-click="displaySet('auto')" ng-model="chartSettings.modelDisplay">
+                    <i></i>
+                    <span translate="COMMON.AUTO">Auto</span>
+                    </label>
+                -->
+            </div>
+        </div>
+    </div>
+</div>

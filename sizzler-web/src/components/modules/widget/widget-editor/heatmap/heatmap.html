@@ -1,0 +1,28 @@
+<div class="editor-pop editor-title wrapper-md text-black-400 editor-heatmap">
+	<header class="filter-hd clearfix">
+	    <span class="pull-left" translate="WIDGET.EDITOR.HEATMAP.TITLE"></span>
+
+        <div class="btn-help pull-left">
+            <svg><use xlink:href="#icon-ask"></use></svg>
+            <p translate="WIDGET.EDITOR.HEATMAP.HELP_TIPS"
+                translate-values="{'moreUrl': myOptions.productConfigs.link.heatmapHelp}"></p>
+        </div>
+	</header>
+
+   <textarea class="pt-ipt pt-popup-textarea"
+        translate
+        translate-attr-placeholder="WIDGET.EDITOR.HEATMAP.PLACEHOLDER"
+   		ng-model="myOptions.modUrl"
+   		ng-change="showCancel()"></textarea>
+
+   <footer class="clearfix">
+        <button class="text-center block btn-filter-common btn-filter-apply pull-right m-l" 
+        	ng-click="apply()"
+        	ng-disabled="myOptions.modUrl == ''" 
+        	translate="COMMON.APPLY"></button>
+        <!-- <a class="pt-btn pt-btn-default pull-right m-r"
+        	ng-if="myOptions.showCancel"
+        	ng-click="cancel()" 
+        	translate="COMMON.CANCEL"></a> -->
+    </footer>
+</div>

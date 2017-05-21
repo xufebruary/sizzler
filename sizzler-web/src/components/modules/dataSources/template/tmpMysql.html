@@ -1,0 +1,812 @@
+﻿<!-- 通用头部 -->
+<div dataType = "head"
+     class="pt-ds-header pos-rlt ng-hide"
+     ng-show=" ['connectionPost', 'fileList'].indexOf(myOptions.current.mod)<0">
+
+    <!-- 路径-账户列表 -->
+    <div class="ds-header-breadcrumb text-black-900"
+         ng-show=" ['noData', 'tableList'].indexOf(myOptions.current.mod)>=0 ">
+        <a class="text-black-900"
+           ui-sref="pt.dataSources"
+           translate="DATA_SOURCE.MANAGEMENT.TITLE">
+            Data Source Management
+        </a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" href="javascript:">
+            {{myOptions.i18n.hdTitleManage}}
+        </span>
+    </div>
+
+    <!-- 数据源默认介绍 -->
+    <div class="pt-ds-header-introduce clearfix"
+         ng-if="['noData', 'tableList'].indexOf(myOptions.current.mod)>=0">
+
+        <div class="pt-ds-header-introduce-logo">
+            <span class="img">
+                <img ng-src="/assets/images/ds/set-{{myOptions.currentDs.code}}.jpg" alt="{{myOptions.currentDs.name}}"/>
+            </span>
+        </div>
+        <div class="pt-ds-header-introduce-detail">
+            <p ng-bind-html="myOptions.i18n.hdIntroduce"></p>
+            <p class="pt-ds-header-introduce-website">
+                <a ng-href="myOptions.link.webSiteHref[rootUser.settingsInfo.locale]" target="_blank">
+                    {{myOptions.currentDs.name}} &gt;
+                </a>
+            </p>
+        </div>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="getFileList('ptoneRootFolderID::connection', 'selectNewTable')"
+           ng-show="myOptions.account.currentAddBtnType == 'owner' && myOptions.account.list.length != 0 && checkHasPermission()">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span>
+                {{myOptions.i18n.btnConnectNewFile}}
+            </span>
+        </a>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="eventDistribute('addAccount', ['save', 'tableList'])"
+           ng-show="myOptions.account.currentAddBtnType == 'view' && myOptions.account.list.length != 0 && checkHasPermission()" >
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span>
+                {{myOptions.i18n.btnConnectNewAccount}}
+            </span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--无数据时提示层  -->
+<div dataType="noData"
+     class="ds-no-binding m-t-xxl ng-hide"
+     ng-show=" myOptions.current.mod == 'noData' && checkHasPermission() ">
+    <div class="description">
+        <p ng-bind-html="myOptions.i18n.tipsAddAccount"></p>
+    </div>
+    <p>
+        <a class="pt-btn pt-btn-success pt-btn-add text-base" href="javascript:"
+           ng-click="eventDistribute('addAccount', ['save', 'noData'])">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span>{{myOptions.i18n.btnConnectNewAccount}}</span>
+        </a>
+    </p>
+</div>
+
+
+
+<!-- database编辑&新增 -->
+<div dataType="connectionPost"
+     class="add-database pos-rlt padder-b-xxl ng-hide"
+     ng-show=" myOptions.current.mod == 'connectionPost' ">
+
+    <!-- 数据源路径 -->
+    <div class="ds-header-breadcrumb text-black-900 m-b-none">
+        <a class="text-black-900" ui-sref="pt.dataSources"
+           translate="DATA_SOURCE.MANAGEMENT.TITLE">
+            Data Source Management
+        </a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <a class="text-black-900" href="javascript:"
+           ng-click="myOptions.current.mod = myOptions.connection.from">
+            {{myOptions.i18n.hdTitleManage}}
+        </a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000"
+              ng-if=" myOptions.connection.operateType == 'save' ">
+            {{myOptions.i18n.hdConnectFile}}
+        </span>
+        <span class="text-black-1000"
+              ng-if=" ['edit', 'edit_save'].indexOf(myOptions.connection.operateType)>=0 ">
+            {{myOptions.i18n.hdEditFile}}
+        </span>
+    </div>
+
+    <header class="add-database-hd padder-l padder-b-lg">
+        <h2 class="text-xl text-black-800 m-n">
+            <span ng-if=" myOptions.connection.operateType == 'save' ">
+                {{myOptions.i18n.tipsAddConnection}}
+            </span>
+            <span ng-if=" ['edit', 'edit_save'].indexOf(myOptions.connection.operateType)>=0 ">
+                {{myOptions.i18n.tipsEditConnection}}
+            </span>
+        </h2>
+        <p class="m-b-none"
+           ng-if=" myOptions.connection.operateType == 'save' "
+           ng-bind-html="myOptions.i18n.tipsAddConnectionSub">
+        </p>
+        <p class="m-b-none"
+           ng-if=" ['edit', 'edit_save'].indexOf(myOptions.connection.operateType)>=0 "
+           ng-bind-html="myOptions.i18n.tipsEditConnectionSub">
+        </p>
+        <p ng-bind-html="myOptions.i18n.hdTitleSub"></p>
+    </header>
+
+    <div class="add-database-bd pos-rlt">
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span>
+                    {{myOptions.i18n.tableConnectionName}}
+                </span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    maxlength="30"
+                    name="connection name"
+                    autocomplete="off"
+                    ng-keydown="panelCopyKeyup($event)"
+                    class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                    ng-model="myOptions.connection.modConnectionName"
+                    ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span class="js_empty">
+                        {{myOptions.i18n.tableErrorEmptyCName}}
+                    </span>
+                    <!-- <span class="js_exists">已存在</span> -->
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span>
+                    {{myOptions.i18n.tableHostName}}
+                </span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    name="host name"
+                    autocomplete="off"
+                    ng-keydown="panelCopyKeyup($event)"
+                    class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                    ng-model="myOptions.connection.modHostName"
+                    ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span>
+                        {{myOptions.i18n.tableErrorEmptyHostName}}
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span>
+                    {{myOptions.i18n.tablePort}}
+                </span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    name="port"
+                    autocomplete="off"
+                    ng-keydown="panelCopyKeyup($event)"
+                    class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                    ng-model="myOptions.connection.modPort"
+                    ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span>
+                        {{myOptions.i18n.tableErrorEmptyPort}}
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span>
+                    {{myOptions.i18n.tableUserName}}
+                </span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    name="user name"
+                    autocomplete="off"
+                    ng-keydown="panelCopyKeyup($event)"
+                    class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                    ng-model="myOptions.connection.modUserName"
+                    ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span>
+                        {{myOptions.i18n.tableErrorEmptyUserName}}
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span>
+                    {{myOptions.i18n.tablePassword}}
+                </span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="password"
+                    name="password"
+                    autocomplete="off"
+                    ng-keydown="panelCopyKeyup($event)"
+                    class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                    ng-model="myOptions.connection.modPassword"
+                    ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span>
+                        {{myOptions.i18n.tableErrorEmptyPassword}}
+                    </span>
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span>
+                    {{myOptions.i18n.tableDatabase}}
+                </span>:
+            </dt>
+            <dd class="clearfix">
+                <span class="text-success padder-r-xs text-md">{{['postgre', 'redshift', 'standardRedshift', 'sqlserver'].indexOf(myOptions.currentDs.code)>=0 ? '*' : '&nbsp;'}}</span>
+                <input type="text"
+                    name="database"
+                    autocomplete="off"
+                    ng-keydown="panelCopyKeyup($event)"
+                    class="pt-ipt pt-mysql-ipt"
+                    ng-class="{'js_connection_ipt': ['postgre', 'redshift', 'sqlserver'].indexOf(myOptions.currentDs.code)>=0}"
+                    ng-model="myOptions.connection.modDatabase"
+                    ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span>
+                        {{myOptions.i18n.tableErrorEmptyDatabase}}
+                    </span>
+                </div>
+            </dd>
+        </dl>
+
+        <!-- SSH -->
+        <label class="i-checks i-checks-sm text-md m-b-none m-l-sm"
+               ng-class="{'m-t-lg': myOptions.connection.sshModSwitch}">
+            <input type="checkbox"
+                ng-model="myOptions.connection.sshModSwitch"
+                class="ng-pristine ng-untouched ng-valid"
+                ng-change="sshSwitch()">
+            <i class="m-r-none"></i>
+            <span class="ng-scope">
+                {{myOptions.i18n.tableSSH}}
+            </span>
+        </label>
+
+        <div class="m-t-lg" ng-if="myOptions.connection.sshModSwitch">
+            <dl class="clearfix m-b ds-mysql-dl">
+                <dt class="font-normal padder-l text-black-600">
+                    <span>
+                        {{myOptions.i18n.tableSSHHostName}}
+                    </span>:</dt>
+                <dd>
+                    <span class="text-success padder-r-xs text-md">*</span>
+                    <input type="text"
+                        name="ssh host name"
+                        autocomplete="off"
+                        ng-keydown="panelCopyKeyup($event)"
+                        class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                        ng-model="myOptions.connection.sshModHostName"
+                        ng-blur="blurVerify($event)">
+                    <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                        <span>
+                            {{myOptions.i18n.tableErrorEmptySSHHostName}}
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="clearfix m-b ds-mysql-dl">
+                <dt class="font-normal padder-l text-black-600">
+                    <span>
+                        {{myOptions.i18n.tableSSHPort}}
+                    </span>:</dt>
+                <dd>
+                    <span class="text-success padder-r-xs text-md">*</span>
+                    <input type="text"
+                        name="ssh port"
+                        autocomplete="off"
+                        ng-keydown="panelCopyKeyup($event)"
+                        class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                        ng-model="myOptions.connection.sshModPort"
+                        ng-blur="blurVerify($event)">
+                    <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                        <span>
+                            {{myOptions.i18n.tableErrorEmptySSHPort}}
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="clearfix m-b ds-mysql-dl">
+                <dt class="font-normal padder-l text-black-600">
+                    <span>
+                        {{myOptions.i18n.tableSSHUserName}}
+                    </span>:</dt>
+                <dd>
+                    <span class="text-success padder-r-xs text-md">*</span>
+                    <input type="text"
+                        name="ssh user name"
+                        autocomplete="off"
+                        ng-keydown="panelCopyKeyup($event)"
+                        class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                        ng-model="myOptions.connection.sshModUserName"
+                        ng-blur="blurVerify($event)">
+
+                    <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                        <span>
+                            {{myOptions.i18n.tableErrorEmptySSHUserName}}
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="clearfix m-b ds-mysql-dl">
+                <dt class="font-normal padder-l text-black-600">
+                    <span>
+                        {{myOptions.i18n.tableSSHAuthMethod}}
+                    </span>:
+                </dt>
+                <dd class="clearfix">
+                    <span class="text-success padder-r-xs text-md">*</span>
+                    <div class="pt-select ds-mysql-dropdown pull-right" dropdown>
+                        <a class="pt-ipt pt-selectIpt" dropdown-toggle>
+                            <span>
+                                {{ myOptions.connection.sshModAuthMethod | translateFilter: {code: myOptions.connection.sshModAuthMethod, path: 'DATA_SOURCE.MYSQL.SSH_AUTH_'} }}
+                            </span>
+                            <svg class="pull-right m-r-xs">
+                              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-triangle-down"></use>
+                            </svg>
+                        </a>
+                        <ul class="pt-dropdown-menu pt-ipt animated fadeInDown">
+                            <li ng-class="{'active': myOptions.connection.sshModAuthMethod == 'password' }">
+                                <a  ng-click="myOptions.connection.sshModAuthMethod = 'password' ">
+                                    {{myOptions.i18n.tableSSHAuthPassword}}
+                                </a>
+                            </li>
+                            <li ng-class="{'active': myOptions.connection.sshModAuthMethod == 'private_key' }">
+                                <a ng-click="myOptions.connection.sshModAuthMethod = 'private_key' ">
+                                    {{myOptions.i18n.tableSSHAuthPrivateKey}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </dd>
+            </dl>
+            <dl class="clearfix m-b ds-mysql-dl" ng-if=" myOptions.connection.sshModAuthMethod == 'password' ">
+                <dt class="font-normal padder-l text-black-600">
+                    <span>
+                        {{myOptions.i18n.tableSSHAuthPassword}}
+                    </span>:
+                </dt>
+                <dd>
+                    <span class="text-success padder-r-xs text-md">*</span>
+                    <input type="password"
+                        name="ssh password"
+                        autocomplete="off"
+                        ng-keydown="panelCopyKeyup($event)"
+                        class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                        ng-model="myOptions.connection.sshModPassword"
+                        ng-blur="blurVerify($event)">
+
+                    <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                        <span>
+                            {{myOptions.i18n.tableSSHErrorEmptyPassword}}
+                        </span>
+                    </div>
+                </dd>
+            </dl>
+            <div ng-if=" myOptions.connection.sshModAuthMethod == 'private_key' ">
+                <dl class="clearfix m-b ds-mysql-dl">
+                    <dt class="font-normal padder-l text-black-600">
+                        <span>
+                            {{myOptions.i18n.tableSSHAuthPrivateKey}}
+                        </span>:
+                    </dt>
+                    <dd>
+                        <span class="text-success padder-r-xs text-md">*</span>
+                        <textarea class="pt-ipt pt-mysql-ipt js_connection_ipt"
+                            ng-model="myOptions.connection.sshModPrivateKey"></textarea>
+
+                        <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                            <span>
+                                {{myOptions.i18n.tableSSHErrorEmptyPrivateKey}}
+                            </span>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="clearfix m-b ds-mysql-dl">
+                    <dt class="font-normal padder-l text-black-600">
+                        <span>
+                            {{myOptions.i18n.tableSSHAuthPassPhrase}}
+                        </span>:
+                    </dt>
+                    <dd class="clearfix">
+                        <input type="password"
+                            name="ssh passphrase"
+                            autocomplete="off"
+                            class="pt-ipt pt-mysql-ipt pull-right"
+                            ng-model="myOptions.connection.sshModPassphrase">
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <footer class="ds-mysql-ft m-t-xl clearfix text-right">
+            <a class="pull-left m-l"
+               ng-click="connectionPost('test')">
+                {{myOptions.i18n.btnTestConnection}}
+            </a>
+            <button type="button"
+                    class="pt-btn pt-btn-default m-r-md"
+                    ng-click="connectionHide()">
+                {{myOptions.i18n.btnCancelConnection}}
+            </button>
+            <button type="button"
+                    class="pt-btn pt-btn-success"
+                    ng-click="connectionPost(myOptions.connection.operateType)">
+                {{myOptions.i18n.btnConnection}}
+            </button>
+        </footer>
+    </div>
+</div>
+
+
+
+<!-- 已存文件列表 -->
+<div dataType="tableList"
+     class="ds-table-list m-t-xxl ng-hide"
+     ng-show=" myOptions.current.mod == 'tableList' && checkHasPermission()">
+    <div class="ds-binding-hd clearfix">
+        <div class="ds-binding-hd-select pt-select" dropdown>
+            <button type="button" class="pt-btn pt-btn-dropdown" ng-click="chooseConnection()" dropdown-toggle>
+                {{myOptions.account.currentAccount.name}}
+                <b class="pt-caret text-green-400"></b>
+            </button>
+            <ul class="pt-dropdown-menu">
+                <li ng-click="selectAccountName('all')"
+                    ng-hide="myOptions.current.mod == 'fileList' || myOptions.account.list.length==1">
+                    <a href="javascript:">
+                        {{myOptions.i18n.btnAllAccount}}
+                    </a>
+                </li>
+                <li ng-repeat="account in myOptions.account.list"
+                    ng-click="selectAccountName(account)">
+                    <a href="javascript:">{{account.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-setting pt-select" dropdown
+             ng-hide=" myOptions.account.currentAccountCid=='all' ">
+            <a href="javascript:"
+               class="pt-icon-share pt-selectIcon"
+                tooltip-placement="top"
+                tooltip="{{ 'COMMON.SETTINGS' | translate}}"
+                ng-click="setConnection()"
+                dropdown-toggle>
+                <svg><use xlink:href="#icon-set" /></svg>
+            </a>
+            <ul class="pt-dropdown-menu dropdown-menu-ds"
+                ng-if="myOptions.account.currentAddBtnType == 'owner'">
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="getFileList('ptoneRootFolderID::connection', 'settingSelectNewTable')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+                        <span>
+                            {{myOptions.i18n.btnConnectNewFile}}
+                        </span>
+                    </a>
+                </li>
+                <li ng-if="!myOptions.currentDs.config.dataSource.ds.isAccountType">
+                    <!--非账号型数据源才有编辑选项-->
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="eventDistribute('addAccount', ['edit', 'tableList'])">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                        </svg>
+                        <span>
+                            {{myOptions.i18n.btnAccountEdit}}
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       id="noBindingAccount"
+                       ng-click="removeAccountShow()">
+                        <svg>
+                            <use xlink:href="#icon-del" />
+                        </svg>
+                        <span>
+                            {{myOptions.i18n.btnRemoveAccount}}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pt-dropdown-menu dropdown-menu-ds"
+                ng-if="myOptions.account.currentAddBtnType == 'view'">
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="eventDistribute('addAccount', ['save', 'tableList'])">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+                        <span>{{myOptions.i18n.btnConnectNewAccount}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:"
+                       class="pt-btn-add pt-menu"
+                       ng-click="removeAccountShow()">
+                        <svg>
+                            <use xlink:href="#icon-del" />
+                        </svg>
+                        <span>
+                            {{myOptions.i18n.btnRemoveAccount}}
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-owner pull-left" ng-hide=" myOptions.account.currentAccountCid=='all' ">
+            <span>
+                {{myOptions.i18n.tipsOwner}}
+            </span>
+            <span>: &nbsp;</span>
+            {{myOptions.account.currentAccount.userName}}
+        </div>
+        <form class="ds-binding-hd-search form-inline inline ng-hide">
+            <div class="form-group-sm">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Amount">
+                    <div class="input-group-addon"><svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                        </svg></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="pt-ds-table-list-bd">
+        <div class="pt-ds-table clearfix text-center text-black-500"
+             ng-if="myOptions.file.queryStatus == 'success' && myOptions.file.allList.length == 0 && myOptions.account.currentAccountCid=='all'">
+            <p class="ds-table-nodata">
+                <span>
+                    {{myOptions.i18n.tipsNoFile}}
+                </span>
+            </p>
+        </div>
+        <div class="pt-ds-table clearfix text-center text-black-500"
+             ng-if="myOptions.file.queryStatus == 'success' && myOptions.file.list.length == 0 && myOptions.account.currentAccountCid != 'all'">
+            <p class="ds-table-nodata">
+                <span>
+                    {{myOptions.i18n.tipsAccountNoFile}}
+                </span>
+            </p>
+        </div>
+        <div class="pt-ds-table clearfix"
+             ng-repeat="file in myOptions.file.list">
+            <div class="pt-ds-table-info ds-table-info">
+                <div class="pt-file-title clearfix">
+                    <p class="pt-text-ellipsis" title="{{file.name}}">{{file.name}}</p>
+
+                    <span ng-if=" file.remoteStatus != 1 "
+                         class="chart-tips-trigger m-l-xs pull-left"
+                         chart-tips-trigger>
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                        </svg>
+                        <div class="tips-wrap">
+                            <div class="inner">
+                                <div class="arrows"></div>
+                                <div class="tips-content">
+                                    {{ 'DATA_SOURCE.MYSQL.'+file.remoteStatus | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="clearfix pt-file-path">
+                    <p class="pt-text-ellipsis" title="{{ file.remotePath | replaceFilter }}">{{ file.remotePath | replaceFilter }}</p>
+                </div>
+            </div>
+            <div class="pt-ds-table-date">
+                <p class="pt-ds-table-date-list">
+                    <span>
+                        {{myOptions.i18n.tipsConnected}}
+                    </span>
+                    {{file.createTime | date:'yyyy/MM/dd'}}
+                </p>
+            </div>
+            <div class="pt-ds-table-set">
+                <div class="pt-btn-group pt-select" dropdown>
+                    <a class="pt-block m-t-xs pt-btn-more" href="javascript:" dropdown-toggle>
+                        <span class="more"></span>
+                    </a>
+                    <ul class="pt-dropdown-menu pt-mysql-dropdowm">
+                        <!--<li ng-if="!myOptions.currentDs.config.dataSource.ds.isAccountType">-->
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="editFile(file, $index)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                                </svg>
+                                <span>
+                                    {{myOptions.i18n.btnEditFile}}
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="refreshFile(file, $index)">
+                                <svg>
+                                    <use xlink:href="#icon-refresh"></use>
+                                </svg>
+                                <span>
+                                    {{myOptions.i18n.btnRefreshFile}}
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="setTimezone(file,$index)">
+                                <svg>
+                                    <use xlink:href="#icon-timezone" />
+                                </svg>
+                                <span translate="DATA_SOURCE.TIMEZONE.BUTTON"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="removeFileShow(file,$index)">
+                                <svg>
+                                    <use xlink:href="#icon-del" />
+                                </svg>
+                                <span>
+                                    {{myOptions.i18n.btnRemoveAccount}}
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 远端文件目录 -->
+<div dataType="fileList"
+     class="ds-file-list pos-rlt ng-hide"
+     ng-show=" myOptions.current.mod == 'fileList' ">
+     <!-- 路径-添加文件 -->
+    <div class="ds-header-breadcrumb text-black-900" >
+        <a class="text-black-900" ui-sref="pt.dataSources"
+           translate="DATA_SOURCE.MANAGEMENT.TITLE">
+            Data Source Management
+        </a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <a class="text-black-900" href="javascript:"
+           ng-click="myOptions.current.mod = 'tableList'">
+            {{myOptions.i18n.hdTitleManage}}
+        </a>
+        <svg ng-show=" myOptions.current.mod == 'fileList' "><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000"
+              ng-show=" myOptions.current.mod == 'fileList' ">
+            {{myOptions.i18n.remoteConnectFile}}
+        </span>
+    </div>
+     <!-- 数据源添加界面提示 -->
+    <div class="ds-header-add-tips" ng-if=" myOptions.current.mod == 'fileList' ">
+        <h2 class="text-xl text-black-800">
+            {{myOptions.i18n.remoteAddFileTipsTitle}}
+        </h2>
+        <p ng-bind-html="myOptions.i18n.remoteAddFileTipsInfo"></p>
+    </div>
+    <div class="ds-binding-hd  m-t-xxl clearfix">
+        <div class="ds-binding-hd-select pt-select" dropdown>
+            <button type="button" class="pt-btn pt-btn-dropdown" dropdown-toggle>
+                {{myOptions.account.currentAccount.name}}
+                <b class="pt-caret"></b>
+            </button>
+            <ul class="pt-dropdown-menu">
+                <li ng-repeat="account in myOptions.account.list"
+                    ng-click="selectAccountName(account)"
+                    ng-if="userInfo.ptId == account.uid">
+                    <a href="javascript:">{{account.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-add pull-left">
+            <a class="pt-btn pt-btn-success  pt-btn-add" href="javascript:"
+               ng-click="eventDistribute('addAccount', ['save', 'tableList'])">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+                </svg>
+                <span>{{myOptions.i18n.btnConnectNewAccount}}</span>
+            </a>
+        </div>
+        <div class="ds-binding-hd-refresh pull-left">
+            <a href="javascript:" ng-click="getFileList(myOptions.current.directory, 'refresh')"
+                tooltip-placement="top"
+                tooltip="{{myOptions.i18n.tipsRefresh}}">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh-bg"></use>
+                </svg>
+            </a>
+        </div>
+        <form class="ds-binding-hd-search form-inline inline ng-hide">
+            <div class="form-group-sm">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Amount">
+                    <div class="input-group-addon"><svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                        </svg></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="ds-file-list-bd pos-rlt">
+        <div class="ds-file-hd">
+            <div class="ds-file-breadcrumb clearfix"></div>
+        </div>
+
+        <div class="ds-file-bd clearfix pos-rlt">
+            <div class="ds-file ds-file-empty" ng-show="myOptions.account.dataCopy.child.length == 0">
+                <span>
+                    {{myOptions.i18n.tipsEmptyFolder}}
+                </span>
+            </div>
+
+            <div class="ds-file clearfix padder-r-lg ds-mysql-file"
+                ng-show="myOptions.account.dataCopy.child.length > 0"
+                ng-repeat="file in myOptions.account.dataCopy.child"
+                ng-click="addFile(file,file.extra.isDirectory)" id="{{file.id}}">
+                <div class="pull-left ds-file-name text-ellipsis padder-md" title="{{file.name}}">
+                    <svg class="m-r-xs filelist-icon" ng-show="file.extra.isDirectory">
+                        <use xlink:href="#icon-datasource" />
+                    </svg>
+                    <svg class="m-r-xs svg-file" ng-hide="file.extra.isDirectory">
+                        <use xlink:href="#icon-table" />
+                    </svg>
+                    {{file.name}}
+                </div>
+                <div class="pull-left text-black-600 ds-file-connect text-right" ng-hide="file.extra.isDirectory">
+                    <span class="m-r-sm">
+                        {{myOptions.i18n.btnConnection}}
+                    </span>
+                    <svg class="v-middle">
+                        <use xlink:href="#icon-link" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 提示模板 -->
+<div tips-two-btn tips-options="{{myOptions.tips.options}}" ng-if="myOptions.tips.show"></div>
+
+<!-- 时区 -->
+<timezone 
+    ng-if="myOptions.timezone.show"
+    fieds="myOptions.timezone.fieds"
+    tips-code="{{myOptions.i18n.tipsTimezoneCode}}"
+    hide-timezone="hideTimezone()"
+></timezone>

@@ -1,0 +1,56 @@
+<!-- dateRange -->
+<div class="chart-dateRange"
+    ng-style="{'visibility': widget.baseWidget.showTimePeriod == 1 ? 'visible':'hidden'}">
+    <span>{{localDate(widget)}}</span>
+</div>
+
+<!-- chart-->
+<div class="chart"
+     ng-class="{'value-hide': widget.baseWidget.graphName=='number' || widget.baseWidget.graphName=='progressbar' || widget.baseWidget.showMetricAmount != 1, 'chart-pie': widget.baseWidget.graphName=='pie', 'drawing': widget.widgetDrawing == 'drawing'}"
+     ng-style="{'top':elementHeight.chartDateRange || elementHeight.chartDateRange == 0 ? elementHeight.chartDateRange + 'px' : '20px'}"
+     ng-hide="data.showError">
+
+    <!-- value -->
+    <div class="chart-value" ng-show="widget.widgetDrawing == 'success'">
+        <span title="{{formatNumber(data.metricAmount.value, data.metricAmount.unit, 'thousands')}}" ng-bind="formatNumber(data.metricAmount.value, data.metricAmount.unit, 'short')"></span>
+        <small title="{{data.metricAmount.showTitle}}" ng-bind="data.metricAmount.showName"></small>
+    </div>
+
+    <div class="chart-bd"
+         ng-class="returnChartBDClass(widget)">
+        <div pttable
+            ng-if="widget.baseWidget.graphName=='table'"
+            class="chart-table"></div>
+
+        <div number
+            ng-if="widget.baseWidget.graphName=='number'"
+            class="chart-number"></div>
+
+        <div progressbars
+            ng-if="widget.baseWidget.graphName=='progressbar'"
+            class="chart-progressbars"></div>
+
+        <div highchart
+            ng-if="isHighchart()"
+            class="chart-highchart"></div>
+
+        <div highmaps
+            ng-if="widget.baseWidget.graphName=='map'"
+            class="chart-highmap"></div>
+
+        <!--
+        <div simplenumber
+            ng-if="widget.baseWidget.graphName=='simplenumber'"
+            widget="widget"
+            is-in-editor="isInEditor"
+            type="type"
+            widgetid='widgetid'></div>
+
+        <div circlepercent
+            ng-if="widget.baseWidget.graphName=='circlepercent'"
+            widget="widget"
+            is-in-editor="isInEditor"
+            widgetid='widgetid'></div>
+        -->
+    </div>
+</div>

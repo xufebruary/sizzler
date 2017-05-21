@@ -1,0 +1,89 @@
+<html>
+<head>
+    <link rel="stylesheet" href="./search-list.css">
+    <meta charset="utf-8"/>
+</head>
+<body>
+
+<div ng-controller="TestController" ng-init="init()">
+    <h2>angular demo</h2>
+    <search-list
+        tree-list="treeList"
+        on-select="choose(data)"
+    ></search-list>
+
+    <h2>another angular demo</h2>
+    <search-list
+        tree-list="treeList"
+        selected-id="{{selectedId}}"
+        on-select="choose(data)"
+    ></search-list>
+</div>
+
+<script src="./search-list.js"></script>
+<script src="../../../../node_modules/angular/angular.js"></script>
+<script src="./search-list.angular.js"></script>
+<script>
+    console.log(angular)
+    angular.module('app', ['pt.search-list'])
+    .controller('TestController', function($scope, $timeout){
+
+        // 异步获取数据
+        $scope.init = function(){
+            $timeout(function(){
+                $scope.selectedId = 13;
+                $scope.treeList = [{
+                    id: 1,
+                    name: '前端',
+                    child: [{
+                        id: 2,
+                        name: 'javascript'
+                    }, {
+                        id: 3,
+                        name: 'react',
+                        child: [{
+                            id: 12,
+                            name: 'react',
+                            child: [{
+                                id: 15,
+                                name: 'dom'
+                            }]
+                        }, {
+                            id: 13,
+                            name: 'reactNative'
+                        }]
+                    }, {
+                        id: 4,
+                        name: 'angularJS'
+                    }]
+                }, {
+                    id: 5,
+                    name: '服务器端',
+                    child: [{
+                        id: 6,
+                        name: 'java'
+                    }, {
+                        id: 7,
+                        name: 'spring',
+                        child: [{
+                            id: 8,
+                            name: 'spring mvc'
+                        }]
+                    }]
+                }];
+            },1000);
+        };
+
+        // 回调函数
+        $scope.choose = function(data){
+            alert(JSON.stringify(data));
+        };
+    });
+
+    angular.bootstrap(document, ['app']);
+
+</script>
+
+<script></script>
+</body>
+</html>

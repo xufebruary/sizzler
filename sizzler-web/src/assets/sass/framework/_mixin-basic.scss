@@ -1,0 +1,58 @@
+//mixin basic
+
+@mixin text-ellipsis{
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+//linear gradient
+@mixin linear-gradient($start,$end) {
+  	background: -webkit-linear-gradient( top,$start,$end);
+	background: -moz-linear-gradient( top,$start,$end);
+	background: -o-linear-gradient( top,$start,$end);
+	background: -ms-linear-gradient( top,$start,$end);
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr=#{$start},endColorStr=#{$end},gradientType='0');
+	background: linear-gradient( top,$start,$end);
+}
+
+//
+@mixin vertical-center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%)
+}
+
+//add
+//border-radius
+@mixin border-radius($radius){
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+}
+//transition
+@mixin transition($transtion){
+  -webkit-transition: $transtion;
+  -moz-transition: $transtion;
+  -o-transition: $transtion;
+  -ms-transition: $transtion;
+  transition: $transtion;
+}
+//shadow
+@mixin box-shadow($box-shadow) {
+  box-shadow: $box-shadow;/*opera\ie9*/
+  -moz-box-shadow:$box-shadow;/*firefox*/
+  -webkit-box-shadow:$box-shadow;/*webkit*/
+}
+
+@mixin button-variant($col, $bg, $bd) {
+  color: $col;
+  background-color: $bg;
+  border-color: $bd;
+}

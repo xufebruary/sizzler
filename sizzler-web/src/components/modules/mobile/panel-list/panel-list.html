@@ -1,0 +1,114 @@
+<!-- list.html -->
+<script type="text/ng-template" id="list-phone.html">
+    <ul class="dashboard-ul">
+        <li ng-repeat="item in list" ng-include="item.type + '-phone' + '.html'">
+        </li>
+    </ul>
+</script>
+
+<!-- container.html -->
+<script type="text/ng-template" id="container-phone.html">
+    <div class="dashboard-container">
+        <div class="pos-rlt clearfix dashboard-menu-single">
+            <span class="dashboard-menu-icon block pull-left" ng-click="mobileDashboardClick(item)">
+                <svg>
+                    <use ng-if="item.fold" xlink:href="#icon-folder"></use>
+                    <use ng-if="!item.fold" xlink:href="#icon-folder-open"></use>
+                </svg>
+            </span>
+            <p class="dashboard-menu-title text-over m-b-none pos-rlt" title="{{item.containerName}}">
+                <span class="block text-ellipsis" ng-if="!item.editing" ng-click="mobileDashboardClick(item)">{{item.containerName}}</span>
+            </p>
+        </div>
+        <div class="dashboard-container-list" ng-hide="item.fold" ng-repeat="list in item.columns" ng-include="'list-phone.html'"></div>
+    </div>
+</script>
+
+<!-- item.html -->
+<script type="text/ng-template" id="panel-phone.html">
+    <div class="dashboard-menu-single pos-rlt" 
+        attr-dashboard-id="{{item.panelId}}" 
+        ng-class="{'active': rootPanel.now.panelId == item.panelId}">
+
+        <span class="dashboard-menu-icon block pull-left" 
+            ng-hide="panel.shareSourceId" 
+            ng-click="mobileDashboardClick(item)">
+            <svg ng-if="!mobileIsShare(item.panelId)">
+                <use xlink:href="#icon-panel"></use>
+            </svg>
+            <svg ng-if="mobileIsShare(item.panelId)" style="margin-top: 2px;">
+                <use xlink:href="#icon-share"></use>
+            </svg>
+        </span>
+        
+        <p class="dashboard-menu-title text-over m-b-none" 
+            title="{{item.panelTitle}}" 
+            ng-click="mobileDashboardClick(item)">
+            <span has-sys-role="!ptone-admin-user">
+                 {{item.panelTitle}}
+            </span>
+                <span has-sys-role="ptone-admin-user">
+                {{listFunc.adminTitle(item.panelTitle)}}
+            </span>
+        </p>
+    </div>
+</script>
+
+
+<a href="javascript:" 
+    class="lines-button" 
+    ng-click="ptPhone.menuBtn = !ptPhone.menuBtn" 
+    ng-class="{'lines-button-close':ptPhone.menuBtn}">
+    <span class="lines"></span>
+</a>
+
+<p class="dashboard-name" 
+    ng-if="ptPhone.menuBtn" 
+    translate="HEADER.PROFILE.DASHBOARD_LIST"></p>
+
+<!-- 导航 -->
+<div class="pt-phone-nav" 
+    ng-class="{'show':ptPhone.menuBtn}">
+    <div class="dashboard-nav-list">
+        <ul class="dashboard-ul" dnd-list="rootPanel.layout.panelLayout">
+            <li ng-repeat="item in rootPanel.layout.panelLayout" 
+                ng-include="item.type + '-phone' + '.html'"></li>
+        </ul>
+        <p class="pt-phone-logout">
+            <a ng-click="logout()">
+                <span translate="HEADER.PROFILE.SIGNOUT"></span>
+            </a>
+        </p>
+    </div>
+</div>
+
+<!-- 标题 -->
+<div class="dashboard-title text-ellipsis m-l-sm clearfix" ng-class="{'color-green':rootPanel.now.status != 1}" title="{{rootPanel.now.panelTitle}}" ng-hide="toggleValue">
+    <span ng-if="!ptPhone.menuBtn" class="pt-phone-title" title="{{rootPanel.now.panelTitle}}">
+        {{rootPanel.now.panelTitle}}
+        <span title="{{rootPanel.now.shareSourceUsername}}" ng-if="rootPanel.now.shareSourceId && rootPanel.now.shareSourceStatus == 2">
+            (&nbsp;by&nbsp;{{rootPanel.now.spaceName}}&nbsp;)
+        </span>
+    </span>
+    <span ng-if="ptPhone.menuBtn && rootSpace.list.length == 1" class="pt-phone-title">
+        {{rootSpace.current.name}}
+    </span>
+    <span ng-if="ptPhone.menuBtn && rootSpace.list.length > 1" class="pt-phone-title" dropdown>
+        <span dropdown-toggle>{{rootSpace.current.name}}</span>
+            <svg class="icon-down" ng-if="rootSpace.list.length>1">
+                <use xlink:href="#icon-chevron-down"></use>
+            </svg>
+        <ul class="dropdown-menu dropdown-menu-ds">
+            <li>
+                <p class="switch-to">
+                    <span translate="HEADER.SPACE.SWITCH">Switch to</span>
+                </p>
+            </li>
+            <li ng-repeat="space in rootSpace.list | orderBy:'name'" ng-hide="rootSpace.current.spaceId == space.spaceId">
+                <a ng-click="switchSpace(space)">{{space.name}}</a>
+            </li>
+        </ul>
+    </span>
+</div>
+
+

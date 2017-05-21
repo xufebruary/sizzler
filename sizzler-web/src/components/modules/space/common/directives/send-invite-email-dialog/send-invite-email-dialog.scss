@@ -1,0 +1,156 @@
+@import "compass";
+@import "../../../../../../assets/sass/framework/varibles";
+@import "../../../../../../assets/sass/framework/mixin-ui";
+@import "../../../../../../assets/sass/framework/mixin-basic";
+
+.send-invite-email-dialog{
+    width:900px;
+    padding:0;
+    margin: 110px auto 30px;
+    height: 500px;
+    overflow: hidden;
+
+    header {
+        height: 140px;
+        background-color: $bgGreen4;
+        padding: 60px 90px 40px;
+        color: $white;
+
+        h2{
+            font-size:32px;
+            line-height: 1em;
+            margin: 0;
+        }
+        span{
+            font-size:14px;
+        }
+    }
+
+    .forms{
+        width: 600px;
+        margin: 0 auto;
+        padding-top: 36px;
+        float: none;
+        left: auto;
+        position: relative;
+
+        h3 {
+            font-size: 14px;
+            color: $textGray7;
+            line-height: 1em;
+            margin: 0 0 10px;
+        }
+
+        .invites-tags {
+            border-radius: 4px;
+
+            &.error {
+                border: 1px solid #ee6e66;
+            }
+            .host {
+                margin: 0;
+
+                .tags {
+                    -webkit-appearance: initial;
+                    box-shadow: none;
+                    width: 100%;
+                    height: 100px;
+                    padding: 5px 10px;
+                    color: $textGray8;
+                    font-size: 14px;
+                    background-color: $bgGray1;
+                    border: 1px solid $bgGray1;
+                    border-radius: 4px;
+                    overflow-y: auto;
+
+                    .tag-item {
+                        background: #6FBD7F;
+                        color: $white;
+                        border: none;
+
+                        span {
+                            display: inline-block;
+                            max-width: 200px;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            vertical-align: middle;
+                        }
+
+                        .remove-button {
+                            color: $white;
+                            opacity: .6;
+                        }
+                    }
+
+                    & > input {
+                        background: transparent;
+                    }
+
+                    & > input.noPlaceholad:not(.invalid-tag) {
+                        width: 50px !important;
+                    }
+
+                    &.focused > input.noPlaceholad:not(.invalid-tag) {
+                        width: auto !important;
+                    }
+                }
+            }
+        }
+
+        p{
+            font-size:14px;
+            color: $textGray6;
+            margin: 20px 0 0;
+        }
+
+        footer{
+            margin-top:50px;
+            right: auto;
+            text-align: right;
+
+            button {
+                margin-left: 20px;
+
+                &.btn-skip{
+                    font-size: 16px;
+                    color: $textGray7;
+                    line-height: 30px;
+                    margin-right: 50px;
+                    text-decoration: underline;
+                    border: none;
+                    background: transparent;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: $textGray9;
+                    }
+                }
+            }
+        }
+
+        h4 {
+            text-align: center;
+            padding: 120px 0 0;
+            margin: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #fff;
+
+            span {
+                font-size: 14px;
+                color: $textGray7;
+            }
+
+            p {
+                font-size: 24px;
+                color: $textGray8;
+                line-height: 1em;
+                margin: 0 0 20px 0;
+            }
+        }
+    }
+}

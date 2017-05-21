@@ -1,0 +1,40 @@
+<div class="fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <span class="pt-popup-title" translate="PANEL.SET_UP.COPY_PANEL.TITLE"></span>
+                <a class="pt-popup-close" ng-click="onCancel()">
+                    <svg>
+                        <use xlink:href="#icon-close"></use>
+                    </svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd">
+                <span class="block" translate="PANEL.SET_UP.COPY_PANEL.SUB_TITLE"></span>
+                <input type="text" 
+                    class="pt-ipt pt-ipt-success pt-popup-ipt" 
+                    maxlength="50"
+                    ng-model="myOptions.titleMode"
+                    ui-input
+                    ui-input-options = "{
+                        'autoFocus': 'true',
+                        'onEnter': 'copyPanel()',
+                        'onBlur': 'eventBlur()'
+                    }">
+            </div>
+            <footer class="pt-popup-footer">
+                <button class="pt-btn pt-btn-default m-r-md" 
+                    ng-click="onCancel()">
+                    <span translate="COMMON.CANCEL"></span>
+                </button>
+                <button class="pt-btn pt-btn-success" 
+                    ng-click="copyPanel()"
+                    ng-disabled="!myOptions.titleMode || myOptions.titleMode == ''">
+                    <span translate="COMMON.SAVE"></span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

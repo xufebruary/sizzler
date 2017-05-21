@@ -1,0 +1,147 @@
+<div class="space-member">
+    <header class="space-member-hd">
+        <h2 translate="SPACE.MEMBER.TITLE">Space members management</h2>
+    </header>
+
+    <div class="space-member-bd clearfix">
+
+        <!--邀请用户按钮-->
+        <header class="clearfix">
+            <button class="pt-btn pt-btn-success" 
+                ng-click="$ctrl.showDialog('invite')"
+                pt-log="{
+                    'where': 'space_member',
+                    'what': 'invite_member',
+                    'value':'{{$ctrl.state.space.spaceId}}'
+                }">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-user-invitation"></use>
+                </svg>
+                <span translate="SPACE.MEMBER.BTN_INVITE">Invite people</span>
+            </button>
+        </header>
+
+        <!--用户列表-->
+        <div class="space-member-list">
+            <div class="space-member-box clearfix" ng-repeat="member in $ctrl.state.memberList">
+                <span class="space-member-svg">
+                    <dom-svg-func
+                        data-svgid="{{'#icon-'+ (member.userEmail.toLocaleLowerCase() | limitTo: 1)}}"></dom-svg-func>
+                </span>
+                <div class="space-member-email clearfix">
+                    <!--邮箱显示-->
+                    <span class="text-ellipsis">{{member.userEmail}}</span>
+                    <span ng-if="member.type == 'owner'">
+                        &nbsp;&nbsp;(&nbsp; {{"SPACE.MEMBER.OWNER" | translate}} &nbsp;)
+                    </span>
+
+                    <!--重发按钮-->
+                    <a ng-click="$ctrl.resend(member)"
+                        ng-if="member.type != 'owner' && member.status == 'inviting'"
+                        translate="SPACE.MEMBER.BTN_RESEND"
+                        pt-log="{
+                            'where': 'space_member',
+                            'what': 'resend_invite',
+                            'value':'{{$ctrl.state.space.spaceId}}'
+                        }">resend</a>
+                </div>
+
+                <!--删除按钮-->
+                <a class="pos-rlt"
+                    ng-click="$ctrl.showDialog('delete'); $ctrl.state.currentMember=member;"
+                    ng-if="member.type != 'owner' && $ctrl.state.space.type == 'owner'"
+                    pt-log="{
+                        'where': 'space_member',
+                        'what': 'delete_member',
+                        'value':'{{$ctrl.state.space.spaceId}}'
+                    }">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-del"></use>
+                    </svg>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!--弹窗-->
+
+    <!--邀请用户-->
+    <div class="space-member-wrap" ng-if="$ctrl.state.dialogType == 'invite'">
+        <div class="block modal fade in">
+            <send-invite-email-dialog
+                space-id="{{$ctrl.state.space.spaceId}}"
+                on-cancel="$ctrl.closeDialog('cancel_invites')"
+                on-success="$ctrl.onSuccess(emailList)"
+            ></send-invite-email-dialog>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in"></div>
+    </div>
+
+    <!--删除提示-->
+    <div class="space-member-wrap" ng-if="$ctrl.state.dialogType == 'delete'">
+        <div class="block modal fade in">
+            <div class="pt-popup">
+                <div class="pt-popup-content">
+                    <header class="pt-popup-hd">
+                        <span class="popup-title" translate="SPACE.MEMBER.DELETE_MEMBER">Delete space member</span>
+                        <a class="pt-popup-close" ng-click="$ctrl.closeDialog('cancel_delete_member')">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+                            </svg>
+                        </a>
+                    </header>
+                    <div class="pt-popup-bd">
+                        <span translate="SPACE.MEMBER.DELETE_MEMBER_TIPS1"></span>
+                        <span>{{$ctrl.state.currentMember.userEmail}}</span>
+                        <span translate="SPACE.MEMBER.DELETE_MEMBER_TIPS2"></span>
+                    </div>
+                    <footer class="pt-popup-footer">
+                        <button class="pt-btn m-r-md pt-btn-danger"
+                                ng-click="$ctrl.deleteMember($ctrl.state.currentMember)">
+                            <span translate="SPACE.MEMBER.BTN_DELETE_MEMBER">Delete</span>
+                        </button>
+                        <button class="pt-btn pt-btn-default" ng-click="$ctrl.closeDialog('cancel_delete_member')">
+                            <span translate="COMMON.CANCEL">Cancel</span>
+                        </button>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in"></div>
+    </div>
+
+    <!--发送成功提示-->
+    <div class="space-member-wrap" ng-if="$ctrl.state.dialogType == 'resend'">
+        <div class="block modal fade in">
+            <div class="pt-popup">
+                <div class="pt-popup-content">
+                    <header class="pt-popup-hd">
+                        <a class="pt-popup-close" ng-click="$ctrl.closeDialog('resend_invite_ok')">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+                            </svg>
+                        </a>
+                    </header>
+                    <div class="pt-popup-bd padder-v-sm">
+                        <span translate="SPACE.MEMBER.RESEND_MEMBER_TIPS">发送邀请已完成!</span>
+                    </div>
+                    <footer class="pt-popup-footer">
+                        <button class="pt-btn pt-btn-success m-l-md" ng-click="$ctrl.closeDialog('resend_invite_ok')">
+                            <span translate="COMMON.OK">OK</span>
+                        </button>
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in"></div>
+    </div>
+</div>
+

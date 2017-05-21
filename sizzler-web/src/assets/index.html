@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="pt">
+<head>
+	<meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+	<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+	<meta name="description" content="/>
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Standard iPhone -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicon/new-touch-icon-iphone-114.png" />
+    <!-- Retina iPhone -->
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicon/new-touch-icon-iphone-114.png" />
+    <!-- Standard iPad -->
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicon/new-touch-icon-iphone-144.png" />
+    <!-- Retina iPad -->
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicon/new-touch-icon-iphone-144.png" />
+	<link rel="shortcut icon"/>
+
+	<!--BASE-->
+	<script>
+		var BASE_VERSION = "20160908121953";
+	</script>
+	
+</head>
+
+<body ng-controller="bodyCtrl" ng-style="{'min-width': rootPage.windowMinWidth+'px'}">
+
+<div class="hide">
+	<svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-loading" viewBox="-31.25 -31.249 62.5 62.497"><g transform="matrix(1 0 0 -1 0 0)"><path d="M0-9.207c-5.08,0-9.213,4.133-9.213,9.213S-5.08,9.219,0,9.219s9.213-4.133,9.213-9.213S5.081-9.207,0-9.207z M0,6.219 c-3.426,0-6.213-2.787-6.213-6.213S-3.425-6.207,0-6.207c3.426,0,6.213,2.787,6.213,6.213S3.427,6.219,0,6.219z"></path></g><g transform="matrix(1 0 0 -1 0 0)"><path d="M-12.964-0.494c-0.828,0-1.5,0.672-1.5,1.5c0,7.424,6.039,13.463,13.463,13.463c0.828,0,1.5-0.672,1.5-1.5 s-0.672-1.5-1.5-1.5c-5.77,0-10.463-4.693-10.463-10.463C-11.464,0.178-12.135-0.494-12.964-0.494z"></path></g><g transform="matrix(1 0 0 -1 0 0)"><path d="M0-31.248c-3.136,0-5.688,2.65-5.688,5.908v3.346c-2.055,0.529-4.012,1.34-5.843,2.422l-2.368-2.367 c-1.143-1.143-2.649-1.771-4.243-1.771c-1.509,0-2.914,0.572-3.956,1.615c-2.217,2.219-2.146,5.896,0.156,8.199l2.367,2.367 C-20.657-9.697-21.47-7.74-22-5.686h-3.343c-3.257,0-5.907,2.551-5.907,5.686c0,3.137,2.65,5.688,5.907,5.688H-22 c0.528,2.057,1.34,4.016,2.422,5.846l-2.363,2.363c-2.303,2.303-2.373,5.98-0.157,8.199c1.044,1.043,2.449,1.615,3.957,1.615 c1.571,0,3.117-0.645,4.243-1.771l2.361-2.361c1.833,1.084,3.792,1.896,5.85,2.426v3.338c0,3.258,2.552,5.906,5.688,5.906 c3.136,0,5.687-2.648,5.687-5.906v-3.338c2.058-0.527,4.017-1.342,5.849-2.424l2.361,2.361c1.144,1.143,2.65,1.771,4.244,1.771 c1.509,0,2.913-0.574,3.955-1.615c2.217-2.219,2.146-5.896-0.156-8.199l-2.362-2.363C20.66,9.701,21.473,7.744,22,5.688h3.343 C28.6,5.688,31.25,3.137,31.25,0c0-3.135-2.65-5.686-5.907-5.686H22c-0.529-2.057-1.342-4.014-2.426-5.844l2.366-2.367 c2.304-2.303,2.373-5.98,0.156-8.199c-1.043-1.041-2.446-1.615-3.956-1.615c-1.593,0-3.1,0.629-4.243,1.771l-2.369,2.369 c-1.83-1.082-3.787-1.893-5.841-2.422v-3.348C5.688-28.598,3.137-31.248,0-31.248z M-11.745-16.166 c0.288,0,0.578-0.082,0.831-0.25c2.144-1.43,4.507-2.408,7.022-2.912c0.7-0.139,1.205-0.756,1.205-1.471v-4.541 c0-1.604,1.206-2.908,2.688-2.908s2.687,1.305,2.687,2.908v4.543c0,0.715,0.505,1.33,1.205,1.471 c2.515,0.502,4.877,1.48,7.021,2.91c0.595,0.395,1.387,0.316,1.892-0.189l3.214-3.213c1.084-1.084,2.957-1.158,3.957-0.156 c1.047,1.047,0.977,2.822-0.156,3.957l-3.212,3.213c-0.506,0.504-0.584,1.297-0.188,1.893c1.43,2.143,2.411,4.506,2.915,7.021 c0.141,0.701,0.756,1.205,1.471,1.205h4.538c1.604,0,2.907,1.207,2.907,2.688s-1.305,2.688-2.907,2.688h-4.537 c-0.715,0-1.331,0.504-1.472,1.205c-0.502,2.518-1.481,4.881-2.91,7.025c-0.396,0.596-0.317,1.387,0.188,1.893l3.208,3.207 c1.133,1.135,1.202,2.91,0.155,3.957c-1.001,1-2.875,0.926-3.957-0.158l-3.207-3.207c-0.508-0.506-1.3-0.582-1.893-0.188 c-2.144,1.43-4.507,2.408-7.025,2.914c-0.701,0.141-1.206,0.756-1.206,1.471v4.533c0,1.604-1.205,2.906-2.687,2.906 s-2.688-1.303-2.688-2.906v-4.531c0-0.715-0.505-1.332-1.205-1.473c-2.519-0.504-4.884-1.484-7.028-2.914 c-0.596-0.396-1.388-0.318-1.893,0.188l-3.206,3.207c-1.081,1.082-2.956,1.158-3.957,0.156c-1.047-1.047-0.977-2.822,0.156-3.957 l3.208-3.207c0.506-0.506,0.584-1.297,0.188-1.893c-1.428-2.145-2.406-4.508-2.91-7.023c-0.14-0.701-0.756-1.207-1.471-1.207 h-4.537c-1.604,0-2.907-1.205-2.907-2.688c0-1.48,1.304-2.686,2.907-2.686h4.54c0.715,0,1.33-0.504,1.471-1.205 c0.504-2.516,1.484-4.877,2.913-7.021c0.396-0.596,0.318-1.387-0.188-1.893l-3.213-3.213c-1.133-1.133-1.203-2.908-0.156-3.957 c1.001-1,2.874-0.926,3.957,0.156l3.213,3.213C-12.515-16.314-12.131-16.166-11.745-16.166z"></path></g></symbol></svg>
+</div>
+<div class="pt-loading" data-loading-area="body">
+    <span class="pt-center pt-loading-box-sm">
+        <svg class="load-s btnloads">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+        </svg>
+        <svg class="load-m btnloadm">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+        </svg>
+    </span>
+    <div class="pt-center padder-t-xxl m-t-md none" ng-class="{'inline': pt.loadFinish.bodyTimeout}"><span translate="COMMON.LOADING_ERROR">网络可能发生异常，请</span><a href="javascript:window.location.reload();"  translate="COMMON.RETRY">重试</a></div>
+</div>
+<div id="pt" class="pt" ng-class="{'pt-full-screen': pt.settings.fullScreen,'pt-phone': pt.settings.isPhone,'pt-aside-folded':pt.settings.asideFolded || pt.settings.isPhone,'pt-hd-folded':pt.settings.headFolded || pt.settings.isPhone,'fold-aside-all': pt.settings.asideFoldAll || pt.settings.isPhone,'pt-edit-model': pt.settings.editModel}" ui-view></div>
+
+
+
+<img id="favicon_ptone" src="/assets/images/favicon/favicon_ptone.ico" style="display: none">
+<img id="favicon_datadeck" src="/assets/images/favicon/favicon_datadeck.ico" style="display: none">
+<img id="favicon_uzai" src="/assets/images/favicon/favicon_uzai.ico" style="display: none">
+<img id="cig" src="/assets/images/favicon/cig.ico" style="display: none">
+
+<!-- 这些插件暂时先直接引入，后续webpack -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/assets/libs/tinymce/tinymce.min.js"></script>
+<script src="/assets/libs/highcharts/highcharts.min.js"></script>
+<script src="/assets/libs/highcharts/highmaps.min.js"></script>
+<script src="/assets/libs/highcharts/map/custom_world.js"></script>
+<script src="/assets/libs/highcharts/map/jp_all.js"></script>
+<script src="/assets/libs/highcharts/mapdata.js"></script>
+
+</body>
+</html>

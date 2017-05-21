@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>metamodel</artifactId>
+        <groupId>com.ptmind.ptone</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ptmind.ptone</groupId>
+    <artifactId>metamodel-googlead</artifactId>
+
+    <properties>
+        <adwords-axis.version>3.2.0</adwords-axis.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-saas</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+        </dependency>
+
+        <!--Google Adwords-->
+        <dependency>
+            <groupId>com.google.api-ads</groupId>
+            <artifactId>adwords-axis</artifactId>
+            <version>${adwords-axis.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>

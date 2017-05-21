@@ -1,0 +1,62 @@
+<div>
+    <div >
+
+        <!--邀请用户-->
+        <div class="popup-content send-invite-email-dialog clearfix">
+            <header>
+                <h2 translate="SPACE.CREATE.STEP_B.TITLE">Send Invites</h2>
+                <span ng-if="$ctrl.subtitle">{{$ctrl.subtitle}}</span>
+            </header>
+            <div class="forms">
+                <h3 translate="SPACE.CREATE.STEP_B.SLOGAN">您可以邀请朋友一起开管理空间,查看数据!</h3>
+
+                <tags-input
+                    class="invites-tags"
+                    ng-model="$ctrl.state.emails"
+                    ng-class="{'error': $ctrl.state.errors.required}"
+                    placeholder="{{'SPACE.CREATE.STEP_B.PLACEHOLDER_EMAIL' | translate}}"
+                    allowed-tags-pattern="^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
+                    on-tag-added="$ctrl.check()"
+                    on-tag-removed="$ctrl.check()"
+                >
+                </tags-input>
+
+                <p translate="SPACE.CREATE.STEP_B.TIPS">
+                    Tips: Copy and post a list of contacts from your email.Please separte multiple address with
+                    commas!
+                </p>
+
+                <!--按钮-->
+                <footer class="clearfix">
+                    <button class="{{$ctrl.btnCancelClass}}" ng-click="$ctrl.onCancel()">
+                        <span>{{$ctrl.btnCancelLocal}}</span>
+                    </button>
+                    <button class="pt-btn pt-btn-success" ng-click="$ctrl.inviteMembers()">
+                        <span translate="SPACE.CREATE.STEP_B.BUTTON_SEND">Send Invites</span>
+                    </button>
+                </footer>
+
+                <!--发送中-->
+                <h4 ng-if="$ctrl.state.sendStatus == 'sending'">
+                    <span translate="SPACE.CREATE.STEP_B.INVITES_SENDING">正在发送邀请,请耐心等待...</span>
+                </h4>
+
+                <!--发送成功-->
+                <h4 ng-if="$ctrl.state.sendStatus == 'success'">
+                    <p translate="SPACE.CREATE.STEP_B.INVITES_SUCCESS">邀请邮件发送成功<p>
+                    <span translate="SPACE.CREATE.STEP_B.INVITES_SUCCESS_TIPS">系统将会自动跳转到空间首页...</span>
+                </h4>
+
+                <!--发送失败-->
+                <h4 ng-if="$ctrl.state.sendStatus == 'error'">
+                    <p translate="SPACE.CREATE.STEP_B.INVITES_ERROR">邀请邮件发送失败<p>
+                    <span ng-click="$ctrl.inviteMembers()" translate="SPACE.CREATE.STEP_B.INVITES_ERROR_TIPS">请点击重新发送...</span>
+                </h4>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- bg -->
+    <!--<div class="modal-backdrop fade in"></div>-->
+</div>

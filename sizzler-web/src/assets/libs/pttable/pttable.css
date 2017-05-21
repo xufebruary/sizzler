@@ -1,0 +1,79 @@
+.pt-table-wrapper table{
+    table-layout: fixed;
+    width: 100%;
+    box-sizing: content-box;
+    border: 1px solid #e0e0e0;
+    border-right: none;
+    border-bottom: 2px solid #9e9e9e;
+    margin: 0 auto;
+    clear: both;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 0!important;
+}
+
+.pt-table-wrapper table thead th{
+    font-weight: 700;
+}
+
+.pt-table-wrapper table thead th, .pt-table-wrapper table thead td{
+    cursor: pointer;
+    padding: 5px 16px 5px 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-bottom: 2px solid #9e9e9e;
+    border-right: 1px solid #e0e0e0;
+    color: #757575;
+    box-sizing: content-box;
+}
+
+.pt-table-wrapper table tbody td, .pt-table-wrapper table tbody th{
+    white-space: nowrap;
+    padding: 10px 8px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-top: 1px solid #eaeff0;
+    border-right: 1px solid #e0e0e0;
+    height: 10px;
+    line-height: 1em;
+    color: #757575!important;
+    box-sizing: content-box;
+}
+
+.pt-table-wrapper table tbody tr:nth-child(2n){
+    background-color: #fff;
+}
+
+.pt-table-wrapper table tbody tr:nth-child(2n+1){
+    background-color: #f5f5f5;
+}
+
+
+.pt-table-wrapper .pagination {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pt-table-wrapper .pagination a{
+    font-size: 14px;
+    color: #757575 !important;
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
+}
+.pt-table-wrapper .pagination a.disable{
+    cursor: default;
+    color: #ccc;
+}
+
+.pt-table-wrapper .pagination a.active{
+    color: #9ccc65!important;
+}
+
+.pt-table-wrapper .empty{
+    text-align: center;
+}
+
+
+

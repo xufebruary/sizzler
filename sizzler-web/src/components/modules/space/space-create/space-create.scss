@@ -1,0 +1,325 @@
+@import "compass";
+@import "../../../../assets/sass/framework/varibles";
+@import "../../../../assets/sass/framework/mixin-ui";
+@import "../../../../assets/sass/framework/mixin-basic";
+
+.space-create-wrap{
+  .modal-open .modal{
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+  .space-create{
+    width:900px;
+    padding:0;
+    margin: 110px auto 30px;
+    height: 500px;
+    overflow: hidden;
+
+    header {
+      height: 140px;
+      background-color: $bgGreen4;
+      padding: 60px 90px 40px;
+      color: $white;
+
+      h2{
+        font-size:32px;
+        line-height: 1em;
+        margin: 0;
+      }
+      span{
+        font-size:14px;
+      }
+    }
+
+    .forms{
+      margin-top: 60px;
+      float: left;
+      position: relative;
+      left: 50%;
+
+      dl{
+        margin-bottom:20px;
+        position: relative;
+        right: 50%;
+      }
+      dt{
+        font-weight: normal;
+        display: inline-block;
+        width: 140px;
+        line-height: 40px;
+        text-align: right;
+        margin-right: 20px;
+
+        small{
+          color: $textGreen4;
+          margin-right:6px;
+          line-height: 45px;
+          vertical-align: top;
+        }
+        span{
+          color: $textGray7;
+        }
+      }
+      dd{
+        display: inline-block;
+        vertical-align: top;
+
+        &:nth-of-type(1){
+          span{
+            display: inline-block;
+            width: 120px;
+            line-height: 40px;
+            color: $textGray8;
+            font-size:14px;
+
+            & ~ input[type='text']{
+              width: 306px;
+            }
+          }
+        }
+
+        &:nth-of-type(2){
+          display: block;
+          color: #ee6e66;
+          font-size:14px;
+          margin: 0 0 0 164px;
+          max-width: 430px;
+        }
+
+        input[type='text'] {
+            width: 430px;
+            &.error {
+              border: 1px solid #ee6e66;
+            }
+        }
+        textarea{
+          width: 430px;
+          height: 40px;
+          padding: 0 10px;
+          line-height: 40px;
+          color: $textGray8;
+          font-size:14px;
+          background-color: $bgGray1;
+          border: 1px solid $bgGray1;
+          border-radius: 4px;
+
+          &:focus{
+            border: 1px solid #9ccc65;
+          }
+
+          &.error{
+            border: 1px solid #ee6e66;
+          }
+        }
+        textarea{
+          height: 90px;
+          padding: 10px;
+          resize: none;
+          line-height: 1.2em;
+        }
+      }
+
+      footer {
+        clear: both;
+        text-align: right;
+        position: relative;
+        right: 50%;
+        margin-top: 40px;
+
+        button{
+          display: inline-block;
+        }
+      }
+      & > div {
+        margin-bottom: 20px;
+        position: relative;
+        right: 50%;
+        padding-left: 66px;
+        color: #9e9e9e;
+      }
+
+    }
+  }
+
+  .invites-send{
+
+    .forms{
+      width: 600px;
+      margin: 0 auto;
+      padding-top: 36px;
+      float: none;
+      left: auto;
+
+      h3 {
+        font-size: 14px;
+        color: $textGray7;
+        line-height: 1em;
+        margin: 0 0 10px;
+      }
+
+      .invites-tags {
+        border-radius: 4px;
+
+        &.error {
+          border: 1px solid #ee6e66;
+        }
+        .host {
+          margin: 0;
+
+          .tags {
+            -webkit-appearance: initial;
+            box-shadow: none;
+            width: 100%;
+            height: 100px;
+            padding: 5px 10px;
+            color: $textGray8;
+            font-size: 14px;
+            background-color: $bgGray1;
+            border: 1px solid $bgGray1;
+            overflow-y: auto;
+            border-radius: 4px;
+
+            .tag-item {
+              background: #6FBD7F;
+              color: $white;
+              border: none;
+
+              span {
+                display: inline-block;
+                max-width: 200px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                vertical-align: middle;
+              }
+
+              .remove-button {
+                color: $white;
+                opacity: .6;
+              }
+            }
+
+            & > input {
+              background: transparent;
+            }
+
+            & > input.noPlaceholad:not(.invalid-tag) {
+              width: 50px !important;
+            }
+
+            &.focused > input.noPlaceholad:not(.invalid-tag) {
+              width: auto !important;
+            }
+          }
+        }
+      }
+
+      p{
+        font-size:14px;
+        color: $textGray6;
+        margin: 20px 0 0;
+      }
+
+      footer{
+        margin-top:50px;
+        right: auto;
+
+        a {
+          font-size: 16px;
+          color: $textGray7;
+          line-height: 30px;
+          margin-right:50px;
+          text-decoration: underline;
+
+          &:hover {
+            color: $textGray9;
+          }
+        }
+      }
+
+      h4 {
+        text-align: center;
+        padding: 100px 0 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+
+        span {
+          font-size: 14px;
+          color: $textGray7;
+        }
+
+        p {
+          font-size: 24px;
+          color: $textGray8;
+          line-height: 1em;
+          margin: 0 0 20px 0;
+        }
+      }
+    }
+
+  }
+
+  .modal-backdrop.in.ptone,
+  .modal-backdrop.in.datadeck,
+  .modal-backdrop.in.uzai {
+    opacity: 1;
+    background: transparent;
+
+    &:before,
+    &:after{
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: rgba(58, 79, 81, 0.8);
+      z-index: 2;
+    }
+    &:after {
+      background:
+              url("/assets/images/space/create-bg-left-ptone.png") left top no-repeat,
+              url("/assets/images/space/create-bg-right.png") right top no-repeat;
+              z-index: 1;
+    }
+  }
+  .modal-backdrop.in.datadeck{
+    &:after {
+      background:
+              url("/assets/images/space/create-bg-left-datadeck.png") left top no-repeat,
+              url("/assets/images/space/create-bg-right.png") right top no-repeat;
+      z-index: 1;
+    }
+  }
+  .modal-backdrop.in.uzai{
+    &:after {
+      background:
+      url("/assets/images/space/create-bg-left-uzai.png") left top no-repeat,
+      url("/assets/images/space/create-bg-right.png") right top no-repeat;
+      z-index: 1;
+    }
+  }
+  .pt-phone-space-tips{
+    background: #e0e0e0;
+    opacity: 1;
+    &.modal-backdrop.in {
+      &:after,
+      &:before{
+        display: none;
+      }
+    }
+    .no-space{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      text-align: center;
+      line-height: 2;
+      @include transform(translate(-50%,-50%));
+    }
+  }
+}

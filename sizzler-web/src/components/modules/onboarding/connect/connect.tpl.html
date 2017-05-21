@@ -1,0 +1,144 @@
+<div class="onboarding-connect ng-hide" ng-show="myOptions.currentPageIsShow">
+    <div class="profile-header">
+        <h2 translate="ONBOARDING.CONNECT.TITLE">{{myOptions.other.titleLocal}}</h2>
+        <div class="profile-header-search">
+            <input type="text"
+                   ng-model="myOptions.search.dsSearchKey"
+                   ng-change="searchProfile()">
+            <a ng-click="searchProfile()">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+    <div class="profile-body">
+        <div class="profile-body-title">{{myOptions.dsAccount.name}}</div>
+
+        <div class="profile-body-list"
+             ng-scrollbar
+             scrollbar-x="false"
+             scrollbar-config="{show:true, autoResize: true, dragSpeed: 1.2}">
+
+            <div class="profile-body-list-tips"
+                 ng-if="myOptions.profile.query != 'querying'">
+                <p ng-if="myOptions.profile.query == 'success' && myOptions.profile.list.length == 0"
+                   translate="WIDGET.EDITOR.ACCOUNT.NO_PROFILE"></p>
+
+                <p ng-if="myOptions.profile.query != 'success' && myOptions.ds.dsCode != 'facebookad'"
+                   ng-bind-html="myOptions.profile.messageCode"></p>
+
+                <p ng-if="myOptions.profile.query != 'success' && myOptions.ds.dsCode == 'facebookad'">
+                    <span translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_1"></span>
+                    <a class="text-black-400 text-u-l"
+                       translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_2" ng-click="goToDs()"></a>
+                    <span translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_3"></span>
+                </p>
+            </div>
+
+            <div class="profile-body-list-tips"
+                 ng-if="myOptions.profile.query == 'querying'">
+                <p translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">请求数据中...</p>
+            </div>
+
+
+            <ul>
+
+                <!--非mysql和ga账户-->
+                <div ng-repeat="profile in myOptions.profile.list"
+                     ng-if="['mysql','googleanalysis'].indexOf(myOptions.profile.type)<0"
+                     on-finish-render-filters>
+                    <li class="text-over source-li-search-children"
+                        ng-click="selectProfile(profile, $event)"
+                        ng-class="{'profile-active':profile.id == myOptions.profile.current.id}">
+                        <a href="javascript:"
+                           title="{{profile.name}}">
+                            <svg>
+                                <use xlink:href="#icon-table-new"></use>
+                            </svg>
+                            <span world-high
+                                  data-searchKey="{{myOptions.search.dsSearchKey}}"
+                                  title="{{profile.name}}"
+                                  name="{{profile.name}}"
+                                  type="gaSource"></span>
+                        </a>
+                    </li>
+                </div>
+
+                <!--ga账户-->
+                <div ng-repeat="gaAccount in myOptions.profile.list"
+                     ng-if="myOptions.profile.type == 'googleanalysis'"
+                     ng-init="ai = $index"
+                     on-finish-render-filters>
+                    <li class="text-over"
+                        ng-click="myOptions.ga.propertieList[ai].t = !myOptions.ga.propertieList[ai].t">
+                        <a href="javascript:void(0);" title="{{gaAccount.accountName}}">
+                            <svg>
+                                <use ng-if="myOptions.ga.propertieList[ai].t" xlink:href="#icon-folder-open"></use>
+                                <use ng-if="!myOptions.ga.propertieList[ai].t" xlink:href="#icon-folder"></use>
+                            </svg>
+                            <span>{{gaAccount.accountName}}</span>
+                        </a>
+                    </li>
+                    <ul ng-show="myOptions.ga.propertieList[ai].t">
+                        <div ng-repeat="propertie in gaAccount.webproperties">
+                            <li class="text-over"
+                                ng-click="myOptions.ga.propertieList[ai].p[$index] = !myOptions.ga.propertieList[ai].p[$index]">
+                                <a href="javascript:void(0);" title="{{propertie.webpropertyName}}">
+                                    <svg>
+                                        <use ng-if="myOptions.ga.propertieList[ai].p[$index]" xlink:href="#icon-folder-open"></use>
+                                        <use ng-if="!myOptions.ga.propertieList[ai].p[$index]" xlink:href="#icon-folder"></use>
+                                    </svg>
+                                    <span>{{propertie.webpropertyName}}</span>
+                                </a>
+                                <em class="text-black-500">
+                                    (<span>{{propertie.webpropertyId}}</span>)
+                                </em>
+                            </li>
+                            <ul ng-show="myOptions.ga.propertieList[ai].p[$index]">
+                                <div ng-repeat="profile in propertie.profiles">
+                                    <li class="text-over"
+                                        ng-class="{'profile-active': profile.profileId == myOptions.profile.current.profileId}"
+                                        ng-click="selectProfile(profile, $event)">
+                                        <a href="javascript:void(0);">
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-table-new"></use>
+                                            </svg>
+                                            <span world-high
+                                                  data-searchKey="{{myOptions.search.dsSearchKey}}"
+                                                  title="{{profile.profileName}}"
+                                                  name="{{profile.profileName}}"
+                                                  type="gaSource"></span>
+                                        </a>
+                                    </li>
+                                </div>
+                            </ul>
+                        </div>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+    </div>
+
+    <div class="profile-footer">
+        <a class="pt-a-underline-lg" href="#none"
+           ng-click="changeAccount()">
+            <span translate="ONBOARDING.CONNECT.BTN_CHANGE_ACCOUNT"></span>
+        </a>
+        <span>
+            <button class="pt-btn pt-btn-default m-r-md"
+                    ng-click="back()"
+                    translate="ONBOARDING.CONNECT.BTN_BACK">
+            </button>
+            <button class="pt-btn pt-btn-success"
+                    ng-class="{'disabled': myOptions.other.btnDisabled}"
+                    ng-click="confirm()"
+                    translate="ONBOARDING.CONNECT.BTN_CONFIRM">
+            </button>
+        </span>
+
+        <div class="error-tips fade" ng-class="{'in': myOptions.other.errorTips}">
+            <span translate="ONBOARDING.CONNECT.TIPS_SELECT"></span>
+        </div>
+    </div>
+</div>

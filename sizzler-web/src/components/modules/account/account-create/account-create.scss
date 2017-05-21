@@ -1,0 +1,373 @@
+.reset-password {
+    padding-top: 80px;
+    .login-bd {
+        margin-top: 17px;
+    }
+    .user-email {
+        font-size: 30px;
+        line-height: 1em;
+        padding: 6px 0;
+        text-align: center;
+        word-break: break-word;
+        color: #fff;
+    }
+    .tips-info {
+        font-size: 22px;
+        line-height: 1.1em;
+        margin-bottom: 30px;
+        text-align: center;
+        color: #fff;
+    }
+    .ipt-tips {
+        font-size: 18px;
+        margin: 0;
+        text-align: left;
+        color: #fff;
+    }
+    .ipt-login {
+        margin-bottom: 20px;
+        padding: 0 12px;
+        &.ipt-space-domain {
+            &.ipt-space-domain-jp {
+                span.space-host {
+                    width: 140px;
+                }
+                input {
+                    width: 170px;
+                }
+            }
+            span.space-host {
+                font-size: 18px;
+                display: inline-block;
+                width: 155px;
+                color: #74ae35;
+            }
+            input {
+                width: 155px;
+            }
+        }
+        .popover.right {
+            top: 50%;
+            left: 100%;
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-left: 15px;
+            padding: 0;
+            transform: translate(0, -50%);
+            border: none;
+            background: transparent;
+            background-clip: inherit;
+            box-shadow: none;
+            .popover-inner {
+                float: left;
+                max-width: 100%;
+                margin-left: -1px;
+                padding: 1px;
+                white-space: normal;
+                border: 1px solid rgba(0, 0, 0, .2);
+                border-radius: 6px;
+                background-color: #fff;
+                -webkit-background-clip: padding-box;
+                background-clip: padding-box;
+                -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+            }
+            .popover-content span {
+                font-size: 13px;
+            }
+        }
+    }
+    .error-tips {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        margin: 30px 0 0;
+        padding: 20px;
+        color: #fff;
+        border: 1px solid #fff;
+        background-color: #ee6e66;
+        a {
+            margin: 0 2px;
+            text-decoration: underline;
+            color: #fff;
+        }
+    }
+}
+
+.account-create {
+    position: relative;
+    background: #fff;
+    &:after {
+        position: fixed;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        content: '';
+        background: #fff;
+    }
+    &:before {
+        position: fixed;
+        z-index: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        width: 460px;
+        content: '';
+        background-image: -webkit-radial-gradient(circle at left top, #8b61aa 0%, #4d4c93 100%);
+        background-image: radial-gradient(circle at left top, #8b61aa 0%, #4d4c93 100%);
+    }
+    .main-box {
+        margin-right: 460px;
+        text-align: center;
+        .inner {
+            position: relative;
+            width: 340px;
+            margin: 0 auto;
+            text-align: left;
+            .login-bd {
+                margin-top: 0;
+                padding-top: 30px;
+                .ipt-login {
+                    padding: 1px 12px 1px 10px;
+                    border: 1px solid #e0e0e0;
+                    background-color: #fff;
+                    input {
+                        color: #424242;
+                    }
+                    #space-host {
+                        width: 160px;
+                    }
+                    .space-host {
+                        font-size: 18px;
+                        color: #bbb;
+                    }
+                    input[type=email]:-webkit-autofill,
+                    input[type=password]:-webkit-autofill,
+                    input[type=text]:-webkit-autofill {
+                        -webkit-box-shadow: 0 0 0 1000px #fff inset;
+                        -webkit-text-fill-color: #000;
+                    }
+                    &.disable {
+                        background-color: #ececec;
+                        input {
+                            font-size: 18px;
+                        }
+                    }
+                }
+                .btn-login,
+                .btn-login-google {
+                    font-size: 18px;
+                    cursor: pointer;
+                    background-color: #9ccc65;
+                }
+                .ipt-tips {
+                    font-size: 18px;
+                    margin: 0;
+                    padding: 15px 0 4px 0;
+                    color: #424242;
+                    &:first-child {
+                        padding-top: 0;
+                    }
+                }
+                .popover.right {
+                    top: 50%;
+                    left: 100%;
+                    display: block;
+                    width: 100%;
+                    height: auto;
+                    margin-left: 15px;
+                    padding: 0;
+                    transform: translate(0, -50%);
+                    border: none;
+                    background: transparent;
+                    background-clip: inherit;
+                    box-shadow: none;
+                    .popover-inner {
+                        float: left;
+                        max-width: 100%;
+                        margin-left: -1px;
+                        padding: 1px;
+                        white-space: normal;
+                        border: 1px solid rgba(0, 0, 0, .2);
+                        border-radius: 6px;
+                        background-color: #fff;
+                        -webkit-background-clip: padding-box;
+                        background-clip: padding-box;
+                        -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+                        box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+                    }
+                    .popover-content span {
+                        font-size: 13px;
+                    }
+                }
+            }
+            .domain-tips {
+                position: absolute;
+                top: 12px;
+                left: 100%;
+                margin-left: 10px;
+                svg {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 18px;
+                    height: 18px;
+                    cursor: pointer;
+                    fill: #bbb;
+                    &:hover {
+                        fill: #52b2f2;
+                    }
+                }
+                .tip-box {
+                    font-size: 14px;
+                    position: absolute;
+                    top: auto;
+                    bottom: 8px;
+                    left: -355px;
+                    visibility: hidden;
+                    box-sizing: border-box;
+                    width: 382px;
+                    padding: 10px;
+                    transition: all .3s ease;
+                    opacity: 0;
+                    color: #fff;
+                    border-radius: 4px;
+                    background-color: #52b2f2;
+                    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+                    p {
+                        line-height: 20px;
+                        margin: 0;
+                        letter-spacing: -.03em;
+                    }
+                    em {
+                        position: absolute;
+                        right: 13px;
+                        bottom: -5px;
+                        width: 0;
+                        height: 0;
+                        border-width: 5px 5px 0 5px;
+                        border-style: solid;
+                        border-color: #52b2f2 transparent transparent transparent;
+                    }
+                }
+                &:hover {
+                    .tip-box {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+        .error-tips {
+            position: relative;
+            display: inline-block;
+            min-width: 340px;
+            max-width: 50%;
+            margin: 60px 0 0;
+            padding: 20px 20px 10px;
+            color: #fff;
+            border: 1px solid #fff;
+            background-color: #ee6e66;
+            a {
+                margin: 0 2px;
+                text-decoration: underline;
+                color: #fff;
+            }
+        }
+        .user-logo {
+            font-size: 30px;
+            line-height: 31px;
+            min-height: 31px;
+            padding-top: 85px;
+            text-align: center;
+            color: #424242;
+            svg {
+                width: 200px;
+                height: 30px;
+            }
+        }
+        .tips-info {
+            font-size: 22px;
+            line-height: 42px;
+            min-height: 23px;
+            text-align: center;
+            color: #424242;
+        }
+    }
+}
+
+.introduce-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 460px;
+    height: 100%;
+    min-height: 700px;
+    .big-img {
+        margin: 0 auto;
+        padding-top: 90px;
+        text-align: center;
+    }
+    .title {
+        font-size: 22px;
+        font-weight: bold;
+        margin-top: -20px;
+        text-align: center;
+        color: #fff;
+    }
+    .introduce {
+        padding-top: 30px;
+        padding-right: 10px;
+        padding-left: 55px;
+        p {
+            font-size: 14px;
+            position: relative;
+            margin: 0;
+            padding-bottom: 16px;
+            letter-spacing: -.06em;
+            color: #fff;
+            i {
+                position: absolute;
+                top: 4px;
+                left: -15px;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #fff;
+            }
+        }
+    }
+    .cooperation {
+        position: absolute;
+        bottom: 40px;
+        width: 460px;
+        text-align: center;
+        p {
+            font-size: 13px;
+            color: #b192db;
+        }
+        img {
+            width: 297px;
+            height: 52px;
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    .account-create {
+        &:before {
+            display: none;
+        }
+        .main-box {
+            margin-right: 0;
+        }
+    }
+    .introduce-box {
+        display: none;
+    }
+}

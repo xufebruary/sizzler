@@ -1,0 +1,33 @@
+<div class="aside-wrap">
+    <div class="aside-fold" data-jian="{{pt.settings.asideFolded}}" ng-click="pt.settings.asideFolded = !pt.settings.asideFolded">
+        <svg>
+            <use ng-if="!pt.settings.asideFolded" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-left"></use>
+            <use ng-if="pt.settings.asideFolded" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use>
+        </svg>
+        <svg>
+            <use ng-if="!pt.settings.asideFolded" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-left"></use>
+            <use ng-if="pt.settings.asideFolded" xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use>
+        </svg>
+    </div>
+    <!-- panel list -->
+    <div panel-list></div>
+
+    <!-- dashboard-loading" -->
+    <div class="pt-loading" data-loading-area="aside">
+        <span class="pt-center pt-loading-box-sm">
+            <svg class="load-s btnloads"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+            <svg class="load-m btnloadm"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+        </span>
+    </div>
+</div>
+
+<!--show btn-->
+<div class="aside-toggle hide">
+    <div class="aside-dot-group">
+        <span class="block aside-dot"></span>
+        <span class="block aside-dot"></span>
+        <span class="block aside-dot"></span>
+    </div>
+</div>
+
+

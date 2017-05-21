@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 开启AOP -->
+    <aop:aspectj-autoproxy />
+
+    <bean id="serviceLogAspect" class="com.sizzler.system.aop.ServiceLogAspect" />
+    <aop:config>
+        <!-- 配置aspect切面类 -->
+        <aop:aspect ref="serviceLogAspect">
+            <!-- 配置pointcut,即切入点，对哪些类的哪些方法起到AOP的作用 -->
+            <aop:pointcut id="allServiceMethod"
+                expression="execution(* com.sizzler.service.impl.*.*(..))
+                          or (execution(* com.sizzler.common.base.service.ServiceBaseInterfaceImpl.*(..)))" />
+            <!-- 配置advice，这里采用在业务方法执行前后进行拦截 -->
+            <aop:around method="methodExecuteTime"
+                pointcut-ref="allServiceMethod" />
+        </aop:aspect>
+    </aop:config>
+
+</beans>

@@ -1,0 +1,172 @@
+<div widget-publish class="fade in" ng-if="modal.publishWidgetShow"></div>
+<header class="content-hd b-b">
+        <strong>Templet Manager</strong>
+        <!--<span style="margin: 10px;">
+            [
+            <a class="ng-binding" style="margin: 10px;"
+                ng-click="switchStatus(null)" 
+                ng-class="{'btn-success': !selectStatus}">
+                {{'COMMON.ALL' | translate}}
+            </a>
+            <a class="ng-binding" style="margin: 10px;"
+                ng-click="switchStatus(2)" 
+                ng-class="{'btn-success': selectStatus == 2}">
+                {{'COMMON.STATUS.PUBLISHED' | translate}}
+            </a>
+            <a class="ng-binding" style="margin: 10px;"
+                ng-click="switchStatus(1)" 
+                ng-class="{'btn-success': selectStatus == 1}">
+                {{'COMMON.STATUS.UNPUBLISHED' | translate}}
+            </a>
+            ]
+        </span>-->
+
+        <!--Template Add-->
+        <button class="dashboard-addWidget" translate="WIDGET.ADD_WIDGET" ng-click="add()" ng-disabled="adminAddWidget"></button>
+</header>
+
+
+<div class="content-bd page-w">
+    <br/>
+    <div class="col-md-5 m-b-sm input-group">
+        <input type="text" class="form-control" maxlength="20" placeholder="Title | Description | Metrics | Dimensions | Graph type" ng-model="keyword">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="getWidgetTemplet()">Search</button>
+        </span>
+    </div>
+    <div class="m-b-sm">
+        <div class="btn-group">
+            <label ng-change="pageChanged()" class="btn btn-sm btn-default" ng-model="publishStatus" btn-radio="'all'"><i class="fa fa-check text-active"></i> {{'COMMON.STATUS.PUBLISHED' | translate}}</label>
+            <label ng-change="pageChanged()" class="btn btn-sm btn-default" ng-model="publishStatus" btn-radio="1"><i class="fa fa-check text-active"></i> {{'COMMON.STATUS.UNPUBLISHED' | translate}}</label>
+        </div>
+    </div>
+    <div class="m-b-sm" ng-show="publishStatus != 1">
+        <div class="btn-group">
+            <label ng-change="pageChanged()" class="btn btn-sm btn-default" ng-model="publishArea" btn-radio="'all'"><i class="fa fa-check text-active"></i>Published All</label>
+            <label ng-change="pageChanged()" class="btn btn-sm btn-default" ng-model="publishArea" btn-radio="5"><i class="fa fa-check text-active"></i>CN</label>
+            <label ng-change="pageChanged()" class="btn btn-sm btn-default" ng-model="publishArea" btn-radio="6"><i class="fa fa-check text-active"></i>EN</label>
+            <label ng-change="pageChanged()" class="btn btn-sm btn-default" ng-model="publishArea" btn-radio="7"><i class="fa fa-check text-active"></i>JP</label>
+        </div>
+    </div>
+    <pagination total-items="totalItems" items-per-page="pageSize" ng-change="pageChanged()"
+                ng-model="page" max-size="5" class="pagination-sm m-t-none m-b" boundary-links="true" rotate="false" num-pages="numPages"></pagination>
+    <!--Widget List-->
+    <div class="col">
+        <div class="row" id="widgt-list">
+            <div gridster="gridsterOptions">
+                <ul>
+                    <!-- repeat widget -->
+                    <li gridster-item="widget"
+                        ng-repeat="widget in modal.templatesList | orderBy:'-baseWidget.status'"
+                        ng-if="!selectStatus || widget.baseWidget.status == selectStatus"
+                        on-finish-render-filters
+                        class="li-widget"
+                        ng-class="{'clear': !rootWidget.drawChart}">
+                        <div class="widget" id="{{widget.baseWidget.widgetId}}">
+                            <div class="widget-hd gridster-hand" ng-controller="updateWidgetTitleCtrl">
+                                <div class="widget-title">
+                                    <strong class="text-ellipsis" ng-class="{'color-green':widget.baseWidget.status !=1}"
+                                        title="{{widget.baseWidget.widgetTitle}}"
+                                        ng-hide="toggleValue">
+                                        <span ng-if="widget.baseWidget.status != 1">[{{ 'COMMON.STATUS.PUBLISHED' | translate}}]</span>
+                                        {{widget.baseWidget.widgetTitle[rootUser.settingsInfo.locale]}}
+                                    </strong>
+                                    <!--onBlurEvent样式不能去-->
+                                    <input class="onBlurEvent"
+                                      maxlength="50"
+                                      type="text"
+                                      ng-if="toggleValue"
+                                      ui-Focus="true"
+                                      ng-blur="updateWidgetTitleByBlur(widget.baseWidget.widgetId,widget.baseWidget.widgetTitle)"
+                                      ng-keydown="updateWidgetTitleByKeydown($event,widget.baseWidget.widgetId,widget.baseWidget.widgetTitle)"
+                                      ng-model="widget.baseWidget.widgetTitle"/>
+                                </div>
+
+                                <div dropdown dropdown-toggle title="{{ 'COMMON.SETTINGS' | translate}}" class="btn-group pull-right widget-set">
+                                    <span class="block widget-more"></span>
+
+                                    <!-- dropdown -->
+                                    <ul class="dropdown-menu animated fadeInRight" style="min-width: 100px;">
+                                        <!--widget edit btn-->
+                                        <!--<li>
+                                            <a title="{{ 'COMMON.EDIT' | translate}}" ng-click="edit(widget.baseWidget.widgetId)">
+                                                 <i class="fa fa-edit fa-fw"></i>
+                                                <span translate="COMMON.EDIT"></span>
+                                            </a>
+                                        </li>-->
+                                        <li>
+                                            <a title="{{ 'COMMON.EDIT' | translate}}" ng-click="edit(widget, $index, 'edit')">
+                                                <i class="fa fa-edit fa-fw"></i>
+                                                <span translate="COMMON.EDIT"></span>
+                                            </a>
+                                        </li>
+                                        <!--widget copy btn-->
+                                        <li>
+                                            <a title="{{ 'COMMON.COPY' | translate}}"
+                                                ng-click="copy(widget.baseWidget.widgetId, widget.baseWidget.widgetTitle[rootUser.settingsInfo.locale])">
+                                                <i class="fa fa-copy fa-fw"></i>
+                                                <span translate="COMMON.COPY"></span>
+                                            </a>
+                                        </li>
+                                        <!--widget delete btn-->
+                                        <li>
+                                            <a title="{{ 'COMMON.DELETE' | translate}}"
+                                                ng-click="delete(widget.baseWidget.widgetId, widget.baseWidget.widgetTitle[rootUser.settingsInfo.locale], $index, widget)"
+                                                >
+                                                <i class="fa fa-times fa-fw"></i>
+                                                <span translate="COMMON.DELETE"></span>
+                                            </a>
+                                        </li>
+                                        <!-- 发布按钮 status 由1变为2 -->
+                                        <li ng-if="widget.baseWidget.status == 1 ">
+                                            <a title="{{ 'COMMON.PUBLISH' | translate}}"
+                                                ng-click="publishWidgetTemplet(widget.baseWidget.widgetId, widget.baseWidget.widgetTitle[rootUser.settingsInfo.locale], 2)"
+                                                >
+                                                <i class="fa fa-times fa-fw icon-action-redo"></i>
+                                                <span translate="COMMON.PUBLISH"></span>
+                                            </a>
+                                        </li>
+                                        <!-- 撤销发布按钮 status 由2变为1 -->
+                                        <li ng-if="widget.baseWidget.status != 1">
+                                            <a title="{{'COMMON.CANCEL' | translate}}{{ 'COMMON.PUBLISH' | translate}}"
+                                                ng-click="publishWidgetTemplet(widget.baseWidget.widgetId, widget.baseWidget.widgetTitle[rootUser.settingsInfo.locale], 1)"
+                                                >
+                                                <i class="fa fa-times fa-fw icon-action-undo"></i>
+                                                <span>{{'COMMON.CANCEL' | translate}}{{ 'COMMON.PUBLISH' | translate}}</span>
+                                            </a>
+                                        </li>
+                                        <!--widget edit title btn-->
+                                        <!--<li>
+                                            <a title="editTitle" ng-click="editWidgetTitleStatus()">
+                                                <i class="fa fa-edit fa-fw"></i>
+                                                <span translate="CONTENT.WIDGET.EDIT_TITLE"></span>
+                                            </a>
+                                        </li>-->
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!--Chart-->
+                            <div ptnonechart
+                                widget="widget"
+                                is-in-editor="false"
+                                widgetid="widget.baseWidget.widgetId"
+                                show-thumb="true"
+                                class="widget-bd"
+                                ng-if="rootWidget.drawChart">
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--Widget Add-->
+    <div class="pt-add-widget w-md bg-white-only b-l bg-auto no-border-xs animated fadeInRight" ng-if="modal.asideShow">
+        <div class="h-full" data-ng-include=" 'tpls/widget/widget-add.html' "></div>
+    </div>
+</div>
+<!-- 外部编辑器   -->
+<widgeteditor ng-if="modal.editorShow"></widgeteditor>

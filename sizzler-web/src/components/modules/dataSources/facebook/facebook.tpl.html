@@ -1,0 +1,92 @@
+<!-- 通用头部 -->
+<div class="ds-header pos-rlt">
+    <!-- 数据源路径 -->
+    <div class="ds-header-breadcrumb text-black-900">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" translate="DATA_SOURCE.GA.GA_MANAGE">My sql</span>
+    </div>
+
+    <!-- 数据源默认介绍 -->
+    <div class="ds-header-introduce clearfix m-b-md">
+        <div class="ds-header-introduce-logo"><span class="img"><img src="/assets/images/ds/googleanalysis.jpg" alt="google analysis"/></span></div>
+        <div class="ds-header-introduce-detail">
+            <p ng-bind-html="'DATA_SOURCE.GA.INTRODUCE' | translate"></p>
+            <p class="ds-header-introduce-website m-b-none"><a href="https://www.google.com/intl/ja/analytics/" target="_blank">Google Analysis &gt;</a></p>
+        </div>
+    </div>
+</div>
+
+
+<!--无数据时提示层 -->
+<div class="ds-no-binding m-t-xxl" ng-if="dsCtrl.dsDataTep.googleanalysis.accountList.length == 0 && dsBinding.pageLoad">
+    <div class="description">
+        <p ng-bind-html="'DATA_SOURCE.GA.ADD_ACCOUNT_TIPS' | translate"></p>
+    </div>
+    <p>
+        <button class="btn btn-success ds-add-btn text-base" href="javascript:" ng-click="addAccount()">
+            <svg>
+                <use xlink:href="#icon-add-solid" />
+            </svg>
+            <span translate="WIDGET.ADD_AUTHOR_ACCOUNT">Connect New Account</span>
+        </button>
+    </p>
+</div>
+
+
+<div class="ds-binding m-t-xxl" ng-if="dsCtrl.dsDataTep.googleanalysis.accountList.length > 0 && dsBinding.pageLoad">
+    <div class="ds-add-account padder-b text-right">
+        <a class="btn btn-success ds-add-btn mini text-base" href="javascript:" ng-click="addAccount()">
+            <svg>
+                <use xlink:href="#icon-add-solid" />
+            </svg>
+            <span translate="WIDGET.ADD_AUTHOR_ACCOUNT">Connect New Account</span>
+        </a>
+    </div>
+
+    <div class="ds-ga-content">
+        <ul class="list-unstyled ds-account-list">
+            <li class="clearfix wrapper-md" ng-repeat="account in dsCtrl.dsDataTep.googleanalysis.accountList">
+                <div class="pull-left text-ellipsis ds-account-name text-base" title="{{account.name}}">{{account.name}}</div>
+                <div class="pull-left text-ellipsis ds-account-owner" title="{{dsCtrl.dsDataTep.mysql.currentAccount.userName}}">
+                    <span translate="DATA_SOURCE.MYSQL.OWNER">owner</span>
+                    <span>: &nbsp;</span>
+                    {{account.userName}}
+                </div>
+                <div class="pull-left btn-group ds-account-set" dropdown>
+                    <a class="block m-t-n-sm pos-rlt ds-table-more" href="javascript:" dropdown-toggle>
+                        <span class="block widget-more"class="block widget-more"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-ds">
+                        <li>
+                            <a class="text-base text-black-700" href="javascript:" ng-click="removeAccountShow(account, $index)">
+                                <svg>
+                                    <use xlink:href="#icon-del" />
+                                </svg>
+                                <span translate="DATA_SOURCE.MANAGEMENT.BTN_REMOVE">Remove</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<div tips-two-btn
+    tips-options="{
+        title:'{{dsBinding.tips.options.title}}',
+        info:'{{dsBinding.tips.options.info}}',
+        hdHide:'{{dsBinding.tips.options.hdHide}}',
+        btnLeftText: '{{dsBinding.tips.options.btnLeftText}}',
+        btnRightText: '{{dsBinding.tips.options.btnRightText}}',
+        btnLeftClass: '{{dsBinding.tips.options.btnLeftClass}}',
+        btnRightClass: '{{dsBinding.tips.options.btnRightClass}}',
+        btnLeftEvent: '{{dsBinding.tips.options.btnLeftEvent}}',
+        btnRightEvent: '{{dsBinding.tips.options.btnRightEvent}}',
+        closeEvent: '{{dsBinding.tips.options.closeEvent}}',
+        btnLeftHide: '{{dsBinding.tips.options.btnLeftHide}}'
+    }"
+    ng-if="dsBinding.tips.show"></div>

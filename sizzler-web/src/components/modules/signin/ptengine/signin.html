@@ -1,0 +1,85 @@
+<div class="login-ptengine" ng-class="{'big':!showSigninDiv}">
+    <header ng-class="{'big':!showSigninDiv}">
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ptengine-logo"></use>
+        </svg>
+        <p ng-if="showSigninDiv" translate="LOGIN.PTENGINE.LOGIN_TIPS">Sign in with your Ptengine Account</p>
+    </header>
+    <!-- dashboard-loading" -->
+    <div class="pt-loading" ng-show="loadSetting.signin">
+        <span class="pt-center pt-loading-box-lg">
+            <svg class="load-s btnloads"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+            <svg class="load-m btnloadm"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+        </span>
+    </div>
+    <div ng-show="showSigninDiv" class="form-box">
+        <p class="icon">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-account"></use>
+            </svg>
+        </p>
+        <div class="login-bd">
+            <form name="form" class="form-validation">
+                <div class="popover right text-danger" style="top: -7px; left: 260px; display: block;width:100%;" ng-show="errorMessage">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <div class="popover-content">
+                            <span ng-bind="errorMessage">Please check your password or email</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ipt-login">
+                    <input id="login-signin-email"
+                           type="email"
+                           ng-attr-placeholder="{{'LOGIN.EMAIL' | translate}}"
+                           ng-model="userEmail" ng-required="true" ng-maxlength="100" autofocus name="email" ng-keydown="enterKeyUp($event,login);errorMessage=''">
+                    <div class="popover right text-danger" style="top: -7px; left: 260px; display: block;width:100%;" ng-show="form.email.$dirty && form.email.$invalid">
+                        <div class="arrow"></div>
+                        <div class="popover-inner">
+                            <div class="popover-content">
+                                <span ng-show="form.email.$error.required" translate="LOGIN.ERROR_TIP.EMAIL_NULL">Email is required.</span>
+                                <span ng-show="form.email.$error.email" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT">Invalid email address.</span>
+                                <span ng-show="form.email.$error.maxlength" translate="LOGIN.ERROR_TIP.EMAIL_LENGTH">Max length 100.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ipt-login">
+                    <input id="login-signin-password" type="password"
+                            ng-attr-placeholder="{{'LOGIN.PASSWORD' | translate}}"
+                           ng-minlength="6" ng-keydown="enterKeyUp($event,login);errorMessage=''" ng-maxlength="20" name="userPassword" ng-model="userPassword" ng-required="true">
+                    <div class="popover right text-danger" style="top: 3px; left: 260px; display: block;width:100%;" ng-show="form.userPassword.$dirty && form.userPassword.$invalid">
+                        <div class="arrow"></div>
+                        <div class="popover-inner">
+                            <div class="popover-content">
+                                <span ng-show="form.userPassword.$error.required" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                                <span ng-show="form.userPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Min length 6.</span>
+                                <span ng-show="form.userPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Max length 20.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="login-signin-submit"
+                    class="btn-login"
+                    type="button"
+                    ng-click="login()"
+                    translate="LOGIN.SIGNIN">Log in</button>
+            </form>
+        </div>
+        <footer>
+            <a href="javascript:" translate="LOGIN.SIGNUP_PTENGINE" ng-click="signup()">Sign Up</a>
+        </footer>
+    </div>
+    <div class="form-box big" ng-if="!showSigninDiv">
+        <h3 translate="LOGIN.PTENGINE.AUTHORIZE_1">Pt One would like to</h3>
+        <p class="list" translate="LOGIN.PTENGINE.AUTHORIZE_2">Know who you are on Ptengine</p>
+        <p class="list" translate="LOGIN.PTENGINE.AUTHORIZE_3">View your email address</p>
+        <p class="list last" translate="LOGIN.PTENGINE.AUTHORIZE_4">View your Google Analytics data</p>
+        <p translate="LOGIN.PTENGINE.AUTHORIZE_5">点击允许，您允许此应用和Ptengine根据各自的服务条款和隐私权政策来使用您的信息。</p>
+        <p class="btns">
+            <a href="javascript:" class="btn deny" ng-click="notAuthorize()" translate="LOGIN.PTENGINE.AUTHORIZE_6">不允许</a>
+            <a href="javascript:" class="btn allow" ng-click="authorizeFun()" translate="LOGIN.PTENGINE.AUTHORIZE_7">允许</a>
+        </p>
+    </div>
+
+</div>

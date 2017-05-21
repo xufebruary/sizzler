@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+	">
+
+    <!-- 内容协商管理器 -->
+    <!--<bean id="contentNegotiationManager" -->
+    <!--class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean"> -->
+    <!--<property name="favorPathExtension" value="false"/> -->
+    <!--</bean> -->
+    <!--如要开启，可以手动 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射 -->
+    <!--<mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/> -->
+
+    <context:annotation-config />
+    <!-- 启动包扫描功能，以便注册带有@Controller、@Service、@repository、@Component等注解的类成为spring的bean -->
+    <context:component-scan base-package="com.sizzler" />
+
+    <!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 -->
+    <bean
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+        p:prefix="/WEB-INF/view/" p:suffix=".html" />
+
+    <bean class="com.sizzler.common.utils.SpringContextUtil" />
+
+    <bean id="multipartResolver"
+        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 单位b，当前限制为50MB -->
+        <property name="maxUploadSize">
+            <!-- 10MB <value>10485760</value> -->
+            <value>52428800</value>
+        </property>
+        <property name="defaultEncoding">
+            <value>UTF-8</value>
+        </property>
+    </bean>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.sizzler.system.auth.AuthInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--为了支持cache -->
+    <aop:aspectj-autoproxy />
+
+    <bean id="queryDataBaseUtil" class="com.sizzler.provider.common.query.QueryDataBaseUtil">
+        <property name="queryDataBaseHost" value="${queryDataBaseHost}" />
+        <property name="queryDataBasePort" value="${queryDataBasePort}" />
+        <property name="queryDataBaseUser" value="${queryDataBaseUser}" />
+        <property name="queryDataBasePassword" value="${queryDataBasePassword}" />
+    </bean>
+
+    <bean id="dataSourceBase" class="com.alibaba.druid.pool.DruidDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+        <property name="maxActive" value="${jdbc.maxActive}" />
+        <property name="initialSize" value="${jdbc.initialSize}" />
+        <property name="maxWait" value="${jdbc.maxWait}" />
+        <property name="minIdle" value="${jdbc.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${jdbc.validationQuery}" />
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+        <property name="testOnReturn" value="${jdbc.testOnReturn}" />
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+            value="${jdbc.maxPoolPreparedStatementPerConnectionSize}" />
+        <property name="filters" value="${jdbc.filters}" />
+        <property name="connectionProperties" value="${jdbc.connectionProperties}" />
+        <property name="useGloalDataSourceStat" value="${jdbc.useGloalDataSourceStat}" />
+    </bean>
+
+
+    <bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+        <constructor-arg ref="dataSourceBase" />
+        <property name="logFormatter">
+            <bean class="net.sf.log4jdbc.tools.Log4JdbcCustomFormatter">
+                <!--<property name="loggingType" value="MULTI_LINE"/> -->
+                <property name="sqlPrefix" value="SQL:::" />
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+        <property name="fetchSize">
+            <value>500</value>
+        </property>
+    </bean>
+
+    <bean id="namedParameterJdbcTemplate"
+        class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+        <constructor-arg type="javax.sql.DataSource"
+            ref="dataSource" />
+    </bean>
+
+    <bean id="jdbcDao" class="com.sizzler.dexcoder.persistence.JdbcDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"
+        proxy-target-class="true" />
+
+    <bean id="txManager"
+        class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <!-- 查询连接池 -->
+    <bean id="queryDataBase" class="com.alibaba.druid.pool.DruidDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${queryDataBaseUrl}" />
+        <property name="username" value="${queryDataBaseUser}" />
+        <property name="password" value="${queryDataBasePassword}" />
+        <property name="maxActive" value="${queryDataBaseMaxActive}" />
+        <property name="initialSize" value="${jdbc.initialSize}" />
+        <property name="maxWait" value="${jdbc.maxWait}" />
+        <property name="minIdle" value="${jdbc.minIdle}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+        <property name="validationQuery" value="${jdbc.validationQuery}" />
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow}" />
+        <property name="testOnReturn" value="${jdbc.testOnReturn}" />
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}" />
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+            value="${jdbc.maxPoolPreparedStatementPerConnectionSize}" />
+        <property name="filters" value="${jdbc.filters}" />
+        <property name="connectionProperties" value="${jdbc.connectionProperties}" />
+        <property name="useGloalDataSourceStat" value="${jdbc.useGloalDataSourceStat}" />
+    </bean>
+
+    <bean id="springContextSetter"
+        class="com.sizzler.common.extension.spring.SpringContextSetter">
+    </bean>
+    
+    
+    <!-- Jvm 监控统计  -->
+    <bean id="jvmMonitorSchedule" class="com.sizzler.common.monitor.jvm.JvmMonitorSchedule"
+        init-method="start">
+        <property name="applicateName" value="${module.name}"/>
+        <property name="logPath" value="${log.path.home}"/>
+    </bean>
+    
+    <bean class="com.sizzler.common.utils.SpringContextUtil"/>
+    <!-- Druid数据库连接池基本配置 -->
+    <bean id="druidDataSourceConfig" class="com.sizzler.provider.common.query.connection.pool.DruidDataSourceConfig">
+        <property name="initialSize" value="${jdbc.initialSize}"/>
+        <property name="maxWait" value="${jdbc.maxWait}"/>
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <property name="timeBetweenEvictionRunsMillis"
+            value="${jdbc.timeBetweenEvictionRunsMillis}"/>
+        <property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/>
+        <property name="validationQuery" value="${jdbc.validationQuery}"/>
+        <property name="testWhileIdle" value="${jdbc.testWhileIdle}"/>
+        <property name="testOnBorrow" value="${jdbc.testOnBorrow}"/>
+        <property name="testOnReturn" value="${jdbc.testOnReturn}"/>
+        <property name="poolPreparedStatements" value="${jdbc.poolPreparedStatements}"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize"
+            value="${jdbc.maxPoolPreparedStatementPerConnectionSize}"/>
+        <property name="filters" value="${jdbc.filters}"/>
+        <property name="connectionProperties" value="${jdbc.connectionProperties}"/>
+        <property name="useGloalDataSourceStat" value="${jdbc.useGloalDataSourceStat}"/>
+        <property name="maxActive" value="5"/>
+        <!--连接池超时销毁，24h,单位毫秒>-->
+        <property name="destroyTime" value="86400000"/>
+        <!--任务线程首次启动偏移时间，单位分钟-->
+        <property name="initialDelay" value="1"/>
+        <!--任务线程执行周期，单位分钟-->
+        <property name="delay" value="10"/>
+        <!--连接池阈值-->
+        <property name="conectionPoolMapMaxSize" value="100"/>
+        <!--当达到超过连接池阈值，强制销毁最后活跃时间大于1小时的 单位为毫秒-->
+        <property name="mandatoryDestroyTime" value="3600000"/>
+        <!--是否使用连接池-->
+        <property name="isUseConectionPool" value="true"/>
+    </bean>
+    
+    
+
+    <!-- import -->
+    <import resource="applicationContext_aop.xml" />
+    <import resource="constant.xml" />
+    <import resource="modelDataUtil.xml" />
+    <import resource="standardModelDataUtil.xml" />
+
+</beans>

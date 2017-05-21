@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+      http://www.springframework.org/schema/context  
+      http://www.springframework.org/schema/context/spring-context.xsd  
+      http://www.springframework.org/schema/mvc  
+      http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
+
+
+    <bean id="Constants" class="com.sizzler.system.Constants">
+        <property name="hdfsClusterPath" value="${hdfs.cluster.path}" />
+        <property name="productDomain" value="${product.domain}" />
+        <property name="ftpServerDomain" value="${ftp.serverDomain}" />
+        <property name="collectServerUrl" value="${collect.server.url}" />
+    </bean>
+
+    <!-- <bean id="hdfsConstants" class="com.sizzler.system.HdfsConstants"> -->
+    <!-- <property name="hdfsPath" value="${hdfs.cluster.path}"/> -->
+    <!-- <property name="ha" value="${ha}"/> -->
+    <!-- <property name="defaultFS" value="${fs.defaultFS}"/> -->
+    <!-- <property name="nameservices" value="${dfs.nameservices}"/> -->
+    <!-- <property name="nodeConfigList" value="${nodeConfigList}"/> -->
+    <!-- </bean> -->
+
+
+    <!-- ftp client -->
+    <!-- <bean id="ftpClient" class="com.sizzler.common.utils.FtpClient"> -->
+    <!-- <property name="server" value="${ftp.server}"/> -->
+    <!-- <property name="port" value="${ftp.port}"/> -->
+    <!-- <property name="user" value="${ftp.user}"/> -->
+    <!-- <property name="password" value="${ftp.password}"/> -->
+    <!-- </bean> -->
+
+
+</beans>

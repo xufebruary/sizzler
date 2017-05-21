@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[${module.name}] [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{20} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- 全部日志 -->
+    <appender name="ALL"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>${logger.level}</level>
+        </filter>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/${module.name}/all/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[${module.name}] [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{20} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- debug 级别日志 -->
+    <appender name="DEBUG"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/${module.name}/debug/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[${module.name}] [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{20} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- info 级别日志 -->
+    <appender name="INFO"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/${module.name}/info/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[${module.name}] [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{20} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- warn级别日志 -->
+    <appender name="WARN"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/${module.name}/warn/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[${module.name}] [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{20} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+    <!-- error级别日志 -->
+    <appender name="ERROR"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/${module.name}/error/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>[${module.name}] [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %logger{20} - %msg%n</pattern>
+        </layout>
+    </appender>
+
+
+    <!--增加用于打印ELK日志的appender -->
+    <appender name="ELK_FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/elk/${module.name}/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg%n</pattern>
+        </layout>
+    </appender>
+    <logger name="com.sizzler.common.log.ElkLogUtil" level="INFO"
+        additivity="false">
+        <appender-ref ref="ELK_FILE" />
+    </logger>
+
+    <root level="${logger.level}">
+        <appender-ref ref="ALL" level="${logger.level}" />
+        <appender-ref ref="DEBUG" />
+        <appender-ref ref="INFO" />
+        <appender-ref ref="WARN" />
+        <appender-ref ref="ERROR" />
+        <appender-ref ref="CONSOLE" />
+    </root>
+</configuration>  

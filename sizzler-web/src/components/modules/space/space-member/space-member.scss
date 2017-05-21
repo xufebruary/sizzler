@@ -1,0 +1,311 @@
+@import "compass";
+@import "../../../../assets/sass/framework/varibles";
+@import "../../../../assets/sass/framework/mixin-ui";
+@import "../../../../assets/sass/framework/mixin-basic";
+
+
+.space-member{
+    padding-top: 150px;
+    margin-top: -100px;
+  &:after {
+    content: "";
+    position: fixed;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: $white;
+  }
+
+  .space-member-hd {
+    height: 120px;
+    padding: 48px 0 0 0;
+    background-color: $bggray;
+
+    h2{
+      width: 800px;
+      font-size:32px;
+      line-height: 1em;
+      margin: 0 auto;
+      color: $textGray9;
+
+    }
+    span{
+      font-size: 14px;
+      color: $textGray7;
+    }
+  }
+
+  .space-member-bd {
+    width: 800px;
+    margin: 22px auto 40px;
+
+    header {
+
+      div {
+        float: left;
+        width: 500px;
+
+        h2 {
+          font-size: 20px;
+          color: $textGray9;
+          line-height: 1em;
+          margin: 0;
+        }
+        span {
+          font-size: 14px;
+          color: $textGray7;
+        }
+      }
+      button {
+        float: right;
+        border-radius: 14px;
+        padding: 5px 20px 4px;
+        height: 28px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+          fill: $white;
+          vertical-align: top;
+          margin: -4px 5px 0 -5px;
+        }
+        span {
+          line-height: 1em;
+          font-size: 16px;
+        }
+      }
+    }
+
+    .space-member-list {
+      margin-top: 10px;
+      border: 1px solid $bgGray2;
+
+      .space-member-box {
+        height: 50px;
+        border-top: 1px solid $bgGray2;
+
+        &:nth-of-type(1){
+          background-color: $bgGray2;
+
+          .space-member-svg {
+            background-color: $bgGray7;
+          }
+        }
+
+        .space-member-svg {
+          width: 30px;
+          height: 30px;
+          margin: 10px 20px;
+          padding: 7px;
+          background-color: $bgGray5;
+          border-radius: 15px;
+          float: left;
+
+          svg {
+            width: 16px;
+            height: 16px;
+            fill: $white;
+            overflow: hidden;
+          }
+        }
+
+        .space-member-email {
+          float: left;
+          width: 660px;
+          line-height: 50px;
+
+          span {
+            max-width: 520px;
+            float: left;
+            font-size: 16px;
+          }
+          a {
+            color: $textGreen4;
+            font-size: 16px;
+            text-decoration: underline;
+            margin-left: 50px;
+            float: left;
+
+            &:hover {
+              color: $textGreen7;
+            }
+          }
+        }
+
+        & > a {
+          width: 30px;
+          height: 30px;
+          display: block;
+          float: right;
+          margin: 10px 20px 0 0;
+          padding: 7px;
+          border-radius: 15px;
+          position: relative;
+          &::after {
+            content: "";
+            width: 30px;
+            height: 30px;
+            background: transparent;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+          &:hover {
+            background-color: $bgGray4;
+
+            svg {
+              fill: $white;
+            }
+          }
+
+          svg {
+            width: 16px;
+            height: 16px;
+            fill: $bgGrayLight;
+          }
+        }
+      }
+    }
+
+
+  }
+
+  .space-member-invites{
+    width:900px;
+    padding:0;
+    margin: 110px auto 30px;
+    height: 500px;
+    overflow: hidden;
+
+    header {
+      height: 140px;
+      background-color: $bgGreen4;
+      padding: 60px 90px 40px;
+      color: $white;
+
+      h2{
+        font-size:32px;
+        line-height: 1em;
+        margin: 0;
+      }
+      span{
+        font-size:14px;
+      }
+    }
+
+    .forms{
+      width: 600px;
+      margin: 0 auto;
+      padding-top: 36px;
+      float: none;
+      left: auto;
+      position: relative;
+
+      h3 {
+        font-size: 14px;
+        color: $textGray7;
+        line-height: 1em;
+        margin: 0 0 10px;
+      }
+
+      .invites-tags {
+        border-radius: 4px;
+
+        &.error {
+          border: 1px solid #ee6e66;
+        }
+        .host {
+          margin: 0;
+
+          .tags {
+            -webkit-appearance: initial;
+            box-shadow: none;
+            width: 100%;
+            height: 100px;
+            padding: 5px 10px;
+            color: $textGray8;
+            font-size: 14px;
+            background-color: $bgGray1;
+            border: 1px solid $bgGray1;
+            border-radius: 4px;
+            overflow-y: auto;
+
+            .tag-item {
+              background: #6FBD7F;
+              color: $white;
+              border: none;
+
+              span {
+                display: inline-block;
+                max-width: 200px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                vertical-align: middle;
+              }
+
+              .remove-button {
+                color: $white;
+                opacity: .6;
+              }
+            }
+
+            & > input {
+               background: transparent;
+            }
+
+            & > input.noPlaceholad:not(.invalid-tag) {
+              width: 50px !important;
+            }
+
+            &.focused > input.noPlaceholad:not(.invalid-tag) {
+              width: auto !important;
+            }
+          }
+        }
+      }
+
+      p{
+        font-size:14px;
+        color: $textGray6;
+        margin: 20px 0 0;
+      }
+
+      footer{
+        margin-top:50px;
+        right: auto;
+        text-align: right;
+
+        button {
+          margin-left: 20px;
+        }
+      }
+
+      h4 {
+        text-align: center;
+        padding: 120px 0 0;
+        margin: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+
+        span {
+          font-size: 14px;
+          color: $textGray7;
+        }
+
+        p {
+          font-size: 24px;
+          color: $textGray8;
+          line-height: 1em;
+          margin: 0 0 20px 0;
+        }
+      }
+    }
+  }
+}

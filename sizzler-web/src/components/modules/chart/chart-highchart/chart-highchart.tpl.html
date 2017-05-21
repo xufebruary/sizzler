@@ -1,0 +1,15 @@
+<div class="chart-thumb-div chart-highchart-bd"></div>
+
+<div class="text-center dom-table chart-pie-data" ng-if="widget.baseWidget.graphName == 'pie' && !widget.children">
+	<div class="chart-pie-info">
+        <span class="block line-height" title="{{formatNumber(data.metricAmount.value, data.metricAmount.unit, 'thousands', 1000)}}" ng-bind="formatNumber(data.metricAmount.value, data.metricAmount.unit, 'short', 1000)"></span>
+	    <small class="block line-height text-ellipsis" title="{{data.metricAmount.showTitle}}">{{data.metricAmount.showName}}</small>
+	</div>
+</div>
+
+<div class="text-center dom-table chart-pie-data chart-pie-data-top" ng-if="widget.baseWidget.graphName == 'pie'  && !widget.children">
+	<div class="chart-pie-info">
+	    <span class="block line-height" title="{{formatNumber(data.metricAmount.value, '', 'thousands', 1000)}}">&nbsp;</span>
+	    <small class="block line-height text-ellipsis" title="{{data.metricAmount.showTitle}}">&nbsp;</small>
+	</div>
+</div>

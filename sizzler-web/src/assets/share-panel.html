@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="description" content="DataDeck">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Standard iPhone -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/images/favicon/new-touch-icon-iphone-114.png" />
+    <!-- Retina iPhone -->
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/images/favicon/new-touch-icon-iphone-114.png" />
+    <!-- Standard iPad -->
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/images/favicon/new-touch-icon-iphone-144.png" />
+    <!-- Retina iPad -->
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/images/favicon/new-touch-icon-iphone-144.png" />
+    <link rel="shortcut icon"/>
+    <!--BASE-->
+    <script>
+        var BASE_VERSION = "20160908121953";
+    </script>
+
+    
+
+    <meta property="og:site_name" content="">
+    <meta property="og:title" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="">
+    <meta property="og:image" content=""/>
+</head>
+
+<body class="pos-rlt" ng-controller="shareCtrl" ng-style="{'min-width': pt.settings.isPhone ? 'auto' : rootPage.contentWidth+'px'}">
+
+<!-- svg -->
+<div class="hide">
+    <svg xmlns="http://www.w3.org/2000/svg"><symbol id="icon-loading" viewBox="-31.25 -31.249 62.5 62.497"><g transform="matrix(1 0 0 -1 0 0)"><path d="M0-9.207c-5.08,0-9.213,4.133-9.213,9.213S-5.08,9.219,0,9.219s9.213-4.133,9.213-9.213S5.081-9.207,0-9.207z M0,6.219 c-3.426,0-6.213-2.787-6.213-6.213S-3.425-6.207,0-6.207c3.426,0,6.213,2.787,6.213,6.213S3.427,6.219,0,6.219z"></path></g><g transform="matrix(1 0 0 -1 0 0)"><path d="M-12.964-0.494c-0.828,0-1.5,0.672-1.5,1.5c0,7.424,6.039,13.463,13.463,13.463c0.828,0,1.5-0.672,1.5-1.5 s-0.672-1.5-1.5-1.5c-5.77,0-10.463-4.693-10.463-10.463C-11.464,0.178-12.135-0.494-12.964-0.494z"></path></g><g transform="matrix(1 0 0 -1 0 0)"><path d="M0-31.248c-3.136,0-5.688,2.65-5.688,5.908v3.346c-2.055,0.529-4.012,1.34-5.843,2.422l-2.368-2.367 c-1.143-1.143-2.649-1.771-4.243-1.771c-1.509,0-2.914,0.572-3.956,1.615c-2.217,2.219-2.146,5.896,0.156,8.199l2.367,2.367 C-20.657-9.697-21.47-7.74-22-5.686h-3.343c-3.257,0-5.907,2.551-5.907,5.686c0,3.137,2.65,5.688,5.907,5.688H-22 c0.528,2.057,1.34,4.016,2.422,5.846l-2.363,2.363c-2.303,2.303-2.373,5.98-0.157,8.199c1.044,1.043,2.449,1.615,3.957,1.615 c1.571,0,3.117-0.645,4.243-1.771l2.361-2.361c1.833,1.084,3.792,1.896,5.85,2.426v3.338c0,3.258,2.552,5.906,5.688,5.906 c3.136,0,5.687-2.648,5.687-5.906v-3.338c2.058-0.527,4.017-1.342,5.849-2.424l2.361,2.361c1.144,1.143,2.65,1.771,4.244,1.771 c1.509,0,2.913-0.574,3.955-1.615c2.217-2.219,2.146-5.896-0.156-8.199l-2.362-2.363C20.66,9.701,21.473,7.744,22,5.688h3.343 C28.6,5.688,31.25,3.137,31.25,0c0-3.135-2.65-5.686-5.907-5.686H22c-0.529-2.057-1.342-4.014-2.426-5.844l2.366-2.367 c2.304-2.303,2.373-5.98,0.156-8.199c-1.043-1.041-2.446-1.615-3.956-1.615c-1.593,0-3.1,0.629-4.243,1.771l-2.369,2.369 c-1.83-1.082-3.787-1.893-5.841-2.422v-3.348C5.688-28.598,3.137-31.248,0-31.248z M-11.745-16.166 c0.288,0,0.578-0.082,0.831-0.25c2.144-1.43,4.507-2.408,7.022-2.912c0.7-0.139,1.205-0.756,1.205-1.471v-4.541 c0-1.604,1.206-2.908,2.688-2.908s2.687,1.305,2.687,2.908v4.543c0,0.715,0.505,1.33,1.205,1.471 c2.515,0.502,4.877,1.48,7.021,2.91c0.595,0.395,1.387,0.316,1.892-0.189l3.214-3.213c1.084-1.084,2.957-1.158,3.957-0.156 c1.047,1.047,0.977,2.822-0.156,3.957l-3.212,3.213c-0.506,0.504-0.584,1.297-0.188,1.893c1.43,2.143,2.411,4.506,2.915,7.021 c0.141,0.701,0.756,1.205,1.471,1.205h4.538c1.604,0,2.907,1.207,2.907,2.688s-1.305,2.688-2.907,2.688h-4.537 c-0.715,0-1.331,0.504-1.472,1.205c-0.502,2.518-1.481,4.881-2.91,7.025c-0.396,0.596-0.317,1.387,0.188,1.893l3.208,3.207 c1.133,1.135,1.202,2.91,0.155,3.957c-1.001,1-2.875,0.926-3.957-0.158l-3.207-3.207c-0.508-0.506-1.3-0.582-1.893-0.188 c-2.144,1.43-4.507,2.408-7.025,2.914c-0.701,0.141-1.206,0.756-1.206,1.471v4.533c0,1.604-1.205,2.906-2.687,2.906 s-2.688-1.303-2.688-2.906v-4.531c0-0.715-0.505-1.332-1.205-1.473c-2.519-0.504-4.884-1.484-7.028-2.914 c-0.596-0.396-1.388-0.318-1.893,0.188l-3.206,3.207c-1.081,1.082-2.956,1.158-3.957,0.156c-1.047-1.047-0.977-2.822,0.156-3.957 l3.208-3.207c0.506-0.506,0.584-1.297,0.188-1.893c-1.428-2.145-2.406-4.508-2.91-7.023c-0.14-0.701-0.756-1.207-1.471-1.207 h-4.537c-1.604,0-2.907-1.205-2.907-2.688c0-1.48,1.304-2.686,2.907-2.686h4.54c0.715,0,1.33-0.504,1.471-1.205 c0.504-2.516,1.484-4.877,2.913-7.021c0.396-0.596,0.318-1.387-0.188-1.893l-3.213-3.213c-1.133-1.133-1.203-2.908-0.156-3.957 c1.001-1,2.874-0.926,3.957,0.156l3.213,3.213C-12.515-16.314-12.131-16.166-11.745-16.166z"></path></g></symbol></svg>
+</div>
+
+<div class="pt-loading" ng-if="myOptions.page.load == 'loading' || rootWidget.queryStatus === null">
+    <span class="pt-center pt-loading-box-sm">
+        <svg class="load-s btnloads">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+        </svg>
+        <svg class="load-m btnloadm">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+        </svg>
+    </span>
+    <div class="pt-center padder-t-xxl m-t-md none" ng-class="{'inline': loadFinish.bodyTimeout}"><span translate="COMMON.LOADING_ERROR">网络可能发生异常，请</span><a href="javascript:window.location.reload();"  translate="COMMON.RETRY">重试</a></div>
+</div>
+
+<div class="pt-share">
+    <div id="js_shareContent" class="hide">
+        <div class="header-share clearfix" ng-class="{'fullScreen': rootPage.shareFullScreen,'pt-phone': pt.settings.isPhone}" ng-hide="pt.settings.isPhone">
+            <div class="logo {{productConfigs.logoClass.header}}">
+                <svg has-sys-role="!cig-media-smart">
+                    <use xlink:href="{{productConfigs.logo}}"></use>
+                </svg>
+                <svg has-sys-role="cig-media-smart">
+                    <use xlink:href="#icon-logo-mediasmart"></use>
+                </svg>
+            </div>
+
+            <div class="space">
+                <div class="space-btn">
+                    <span title="{{rootPanel.now.spaceName}}">{{rootPanel.now.spaceName}}</span>
+                </div>
+            </div>
+
+            <a ui-fullscreen
+               class="full-screen"
+               ng-class="{'fullScreen': rootPage.shareFullScreen}"
+               ng-hide="sharePanelMsg.panelShareOff">
+                <i class="fa fa-expand fa-fw text"></i>
+                <i class="fa fa-compress fa-fw text-active"></i>
+            </a>
+
+            <div class="social-share ng-hide" ng-show="!isDomain('datadeck.cn') && !sharePanelMsg.panelShareOff">
+                <span class="social-share-btn">
+                    <svg>
+                        <use xlink:href="#icon-share"></use>
+                    </svg>
+                </span>
+
+            </div>
+
+            <div class="account hd-dropdown-wrap">
+                <a class="account-btn"
+                   ng-class="{'visibility':userInfo.userEmail}"
+                   ng-if="userInfo.userEmail">
+                    <p>
+                        <span class="header-user">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{userInfo.fistLetterSvg}}"></use>
+                            </svg>
+                        </span>
+                        <span class="header-userName" title="{{userInfo.emailName}}">{{userInfo.emailName | limitTo: 30}}</span>
+                        <svg class="icon-down">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-down"></use>
+                        </svg>
+                    </p>
+                </a>
+
+                <div class="hd-dropdown-bd">
+                    <ul class="list-unstyled">
+                        <li>
+                            <a ng-click="loginOut()" >
+                                <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-out"></use></svg>
+                                <span translate="HEADER.PROFILE.SIGNOUT">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="add-dashboard" ng-if="!sharePanelMsg.panelShareOff">
+                <a href="javascript:"
+                   ng-show="userInfo.userEmail"
+                   class="pt-btn pt-btn-success"
+                   ng-click="showPopup('showSpaceList')"
+                   ng-class="{'visibility':userInfo.userEmail}"
+                   translate="SHARE.HEADER.ADD" translate-values="{{productConfigs}}"></a>
+                <a href="javascript:"
+                   ng-show="!userInfo.userEmail"
+                   class="pt-btn pt-btn-success"
+                   ng-click="showPopup('showLogin')"
+                   ng-class="{'visibility':!userInfo.userEmail}"
+                   translate="SHARE.HEADER.LOGIN" translate-values="{{productConfigs}}"></a>
+            </div>
+        </div>
+        <div class="header-share clearfix" ng-class="{'fullScreen': rootPage.shareFullScreen,'pt-phone': pt.settings.isPhone}" ng-if="pt.settings.isPhone">
+            <div class="inner clearfix">
+                <p class="pull-left share-header-logo" data-jian="{{userInfo}}">
+                    <svg ng-style="productConfigs.name=='DataDeck' ? {'height': '28px'} : ''">
+                        <use xlink:href="{{productConfigs.smallLogo}}"></use>
+                    </svg>
+                    <span class="space-name" ng-show="shareUser.userName && !pt.settings.isPhone" title="{{shareUser.userName}}" ng-bind="shareUser.userName"></span>
+                </p>
+                <div class="pt-phone-title" ng-if="pt.settings.isPhone">
+                    <p ng-bind="rootPanel.now.panelTitle"></p>
+                    <p class="small" ng-bind="'(by&nbsp;&nbsp;'+rootPanel.now.spaceName + ')'"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content"
+             ng-style="{'width': pt.settings.isPhone ? '100%' :rootPage.contentWidth+'px'}"
+             ng-class="{'fullScreen': rootPage.shareFullScreen, 'padder-t-xxl': sharePanelMsg.panelShareOff,'pt-phone': pt.settings.isPhone}">
+            <div class="content-head padder-l-sm" 
+                ng-class="{'hasLastLoadTime': myOptions.widgetLastLoadTime}"
+                ng-if="!sharePanelMsg.panelShareOff"
+            >
+                <div class="dashboard-title pull-left text-ellipsis" title="{{rootPanel.now.panelTitle}}" ng-if="!pt.settings.isPhone">
+                    <span ng-bind="rootPanel.now.panelTitle"></span>
+                </div>
+                <div class="dashboard-title pull-left text-ellipsis" title="{{rootPanel.now.panelTitle}}" ng-if="!pt.settings.isPhone">
+                    <span>
+                        <small>(&nbsp;by&nbsp;{{rootPanel.now.spaceName}}&nbsp;)</small>
+                    </span>
+                </div>
+                <div class="dashboard-title-help  pull-left" ng-show="rootPanel.now.description && !pt.settings.isPhone">
+                    <span class="pt-tooltip">
+                       <svg>
+                           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-info"></use>
+                       </svg>
+                       <div class="pt-inner pt-inner-bottom">
+                           <div class="pt-arrows pt-arrows-left"> </div>
+                           <div class="pt-content">
+                               <p>{{rootPanel.now.description}}</p>
+                           </div>
+                       </div>
+                    </span>
+                </div>
+
+                <!-- dashboard globalTime -->
+                <div class="dashboard-time pull-left pos-rlt" ng-class="{'active': !sharePanelMsg.panelShareOff}">
+                    <a class="content-hd-a" ng-click="modal.dashboardTime.isOpen = !modal.dashboardTime.isOpen">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-dashboard-time"></use>
+                        </svg>
+                        <span ng-show="localDate(modal.dashboardTime.dateKey).indexOf('TIME') < 0" ng-bind="localDate(modal.dashboardTime.dateKey)"></span>
+                    </a>
+
+                    <!--全局时间-->
+                    <dashboard-time ng-if="modal.dashboardTime.isOpen && !pt.settings.isPhone"></dashboard-time>
+                </div>
+
+                <!-- Widget Last Load Time -->
+                <div class="widget-last-load-time"
+                    ng-if="myOptions.widgetLastLoadTime"
+                    translate="PANEL.REFRESH.TIPS_3"
+                    translate-values="{'time': (myOptions.widgetLastLoadTime | date:'MM/dd/HH:mm')}"
+                ></div>
+            </div>
+            <div class="content-bd hide" ng-class="{'hide': !rootWidget.drawChart || sharePanelMsg.panelShareOff}">
+
+                <div gridstack
+                     class="grid-stack"
+                     options="gridstackOptions"
+                     gridstack-handler = "gridstackOptions.handler"
+                     on-change="onChange(event,items)"
+                     on-drag-start="onDragStart(event,ui)"
+                     on-drag-stop="onDragStop(event,ui)"
+                     on-resize-start="onResizeStart(event,ui)"
+                     on-resize-stop="onResizeStop(event,ui)"
+                     ng-class="{'read-mode':sharePanelFlag, 'mobile': pt.settings.isPhone}">
+                    <div gridstack-item
+                         ng-repeat="widget in rootWidget.list track by widget.baseWidget.widgetId"
+                         class="grid-stack-item li-widget"
+                         gs-item-widget-id="widget.baseWidget.widgetId"
+                         gs-item-x="widget.col"
+                         gs-item-y="widget.row"
+                         gs-item-width="widget.sizeX"
+                         gs-item-height="widget.sizeY"
+                         gs-item-min-width="widget.minSizeX"
+                         gs-item-min-height="widget.minSizeY"
+                         gs-item-autopos="widget.autoPos"
+                         on-item-added="onItemAdded(item)"
+                         on-item-removed="onItemRemoved(item)"
+                         ng-class="{'draggableDisabled': gridstackOptions.disableDrag}"
+                         on-repeat-finish="widgetRepeatFinish()">
+                        <div widget-direction
+                             class="grid-stack-item-content"
+                             data-dsCode="{{widget.variables[0].dsCode}}"
+                             ng-class="{'clear': ['drawing', 'waiting'].indexOf(widget.widgetDrawing) >= 0 || !rootWidget.drawChart }">
+
+                            <!-- 图表类 -->
+                            <div class="widget"
+                                ng-class="{'widget-custom': widget.baseWidget.widgetType =='custom'}"
+                                id="{{widget.baseWidget.widgetId}}"
+                                ng-if="['chart', 'custom'].indexOf(widget.baseWidget.widgetType) != -1 || widget.baseWidget.graphName=='heatmap'">
+                                <div class="widget-hd clearfix">
+                                    <div class="widget-title">
+                                        <span class="text-ellipsis"
+                                            title="{{widget.baseWidget.widgetTitle}}"
+                                            ng-hide="toggleValue"
+                                            ng-bind="widget.baseWidget.widgetTitle"></span>
+                                        <!--onBlurEvent样式不能去-->
+                                        <input class="onBlurEvent"
+                                          maxlength="100"
+                                          type="text"
+                                          ng-if="toggleValue"
+                                          ui-Focus="true"
+                                          ng-model="widget.baseWidget.widgetTitle"/>
+                                    </div>
+                                </div>
+
+                                <!--Chart-->
+                                <div ptnonechart
+                                    widget="widget"
+                                    is-in-editor="false"
+                                    widgetid="widget.baseWidget.widgetId"
+                                    show-thumb="true"
+                                    class="widget-bd"
+                                    modal="modal"
+                                    ng-if="rootWidget.drawChart && ((widget.variables[0].metrics.length > 0 && dsConfig.editor.data.drewChartNeedMetrics) || ( !dsConfig.editor.data.drewChartNeedMetrics && (widget.variables[0].metrics.length > 0 || (widget.variables[0].dimensions.length > 0 && widget.variables[0].metrics.length <= 0 && widget.baseWidget.graphName == 'table') )))"></div>
+
+                                <!-- 热图 -->
+                                <div heatmap
+                                    ng-if="widget.baseWidget.graphName=='heatmap'"
+                                    class="chart-heatmap"
+                                    is-full-screen="rootPage.shareFullScreen"
+                                    is-phone="pt.settings.isPhone"
+                                    heatmap-url="widget.toolData.value"
+                                    widget-id="widget.baseWidget.widgetId"
+                                    widget-title="widget.baseWidget.widgetTitle"
+                                    chart-drawing="widget.widgetDrawing"
+                                    chart-min-size="rootChart.rowHeight"
+                                    chart-size-x="widget.sizeX"
+                                    chart-size-y="widget.sizeY"
+                                    chart-is-title-update="widget.baseWidget.isTitleUpdate"
+                                    locale="myOptions.page.locale"
+                                    on-update-title="updateWidgetTitle(sendData, 'heatmap')"></div>
+
+                                <!--Tools-->
+                                <div class="widget-tools" ng-if="widget.baseWidget.widgetType =='chart'">
+                                    <!-- chart-error-tips -->
+                                    <div class="chart-tips">
+                                        <span chart-tips-trigger
+                                              class="chart-tips-trigger"
+                                              ng-if="widget.baseWidget.isExample == 1">
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-example-ds"></use>
+                                            </svg>
+                                            <div class="tips-wrap">
+                                                <div class="inner">
+                                                    <div class="arrows"></div>
+                                                    <div class="tips-content">
+                                                        {{'CHART.MSG.MSG_EXAMPLE_DATA1' | translate}}<br>
+
+                                                        <span>{{'CHART.MSG.MSG_EXAMPLE_DATA2' | translate}}</span>
+                                                        <a ng-if="rootPage.dashboardMode == 'EDIT'" href="javascript:" ng-click="widgetEdit(widget, $index, 'edit')" class="text-warning">{{'CHART.MSG.MSG_EXAMPLE_DATA2' | translate}}</a>
+                                                        {{'CHART.MSG.MSG_EXAMPLE_DATA3' | translate}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <!--没有时间维度则提示-->
+                                        <span ng-if="dimensionsCheck(widget) && !data.showError"
+                                              class="chart-tips-trigger"
+                                              chart-tips-trigger>
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                                            </svg>
+                                            <div class="tips-wrap">
+                                                <div class="inner">
+                                                    <div class="arrows"></div>
+                                                    <div class="tips-content" translate="WIDGET.ERROR.NO_TIME_DIMENSIONS"></div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <span ng-if="data.showError"
+                                              class="chart-tips-trigger"
+                                              chart-tips-trigger>
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                                            </svg>
+                                            <div class="tips-wrap">
+                                                <div class="inner">
+                                                    <div class="arrows"></div>
+                                                    <div class="tips-content" ng-bind-html="bindHtml(data.errorMsg)"></div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                        <span chart-tips-trigger
+                                              ng-show="widget.variables[0].ptoneDsInfoId != 0"
+                                              class="dsIcon padder-l-xs chart-tips-trigger">
+                                            <svg>
+                                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{'#icon-ds-'+widget.variables[0].dsCode.toLowerCase()}}"></use>
+                                            </svg>
+                                            <div class="tips-wrap" ng-hide="!data || data.showError">
+                                                <div class="inner">
+                                                    <div class="arrows"></div>
+                                                    <div class="tips-content">
+                                                        <p ng-show="[6,20].indexOf(+widget.variables[0].ptoneDsInfoId) > -1">
+                                                            <span> {{'CHART.MSG.UPDATE' | translate}}</span>:
+                                                            {{data.widgetExtInfo.dataUpdateTime | date}}
+                                                        </p>
+
+                                                        <!-- widget左下角的指标维度显示 -->
+                                                        <!-- 指标 -->
+                                                        <p ng-show="widget.variables[0].metrics.length > 0">
+                                                            <span ng-show="widget.dsConfig.editor.data.metrics" translate="WIDGET.EDITOR.DATA.METRICS"></span>
+                                                            <span ng-show="widget.dsConfig.editor.data.value" translate="WIDGET.EDITOR.DATA.VALUE"></span>
+                                                            <span>: </span>
+
+                                                            <span>
+                                                                {{chartTips(widget, 'metrics', widget.dsConfig)}}
+                                                            </span>
+                                                        </p>
+
+                                                        <!-- 维度 -->
+                                                        <p ng-show="widget.variables[0].dimensions.length > 0">
+                                                            <span ng-show="widget.dsConfig.editor.data.dimensions" translate="WIDGET.EDITOR.DATA.DIMENSIONS"></span>
+                                                            <span ng-show="widget.dsConfig.editor.data.attributes" translate="WIDGET.EDITOR.DATA.ATTRIBUTES"></span>
+                                                            <span>: </span>
+
+                                                            <span>
+                                                                {{chartTips(widget, 'dimensions', widget.dsConfig)}}
+                                                            </span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- chart-loading" -->
+                                <div class="pt-loading" ng-show="widget.widgetDrawing == 'drawing'">
+                                    <span class="new-widget-loading">
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh-outside"></use>
+                                        </svg>
+                                    </span>
+                                </div>
+
+                                <!-- custom widget -->
+                                <div class="custom-widget"
+                                     ng-repeat="child in widget.children"
+                                     ng-if="widget.baseWidget.widgetType == 'custom' && widget.children.length > 0"
+                                     id="{{child.baseWidget.widgetId}}"
+                                     custom-widget
+                                     ng-mousedown="getEdit()"
+                                     ng-mouseup="removeEdit()"
+                                     data-index = {{$index}}></div>
+                                <div ng-repeat="child in widget.children"
+                                     ng-if="widget.baseWidget.widgetType == 'custom' && widget.children.length > 0">
+                                    <div ng-show="child.widgetDrawing == 'drawing'" class="new-widget-loading" >
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh-outside"></use>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 工具类 -->
+                            <div class="widget gridster-hand"
+                                 id="{{widget.baseWidget.widgetId}}"
+                                 widget-tool
+                                 on-finish-render-filters
+                                 data-index="{{$index}}"
+                                 ng-if="widget.baseWidget.widgetType == 'tool' && widget.baseWidget.graphName == 'text' ">
+                                <div class="gridster-hand widget-hd widget-hd-tool">
+
+                                </div>
+                                <div class="widget-bd-tool js-mCustomScrollbar">
+                                    <div class="ptone-tinymce-{{$index}}"
+                                         data-name="ptone-tinymce-{{$index}}"
+                                         ng-if="widget.toolData.value"
+                                         ng-bind-html="bindHtml(widget.toolData.value)"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="padder-v padder-sm m-t-sm clearfix" ng-show="sharePanelMsg.panelShareOff">
+                <div class="cancel-msg">
+                    <span class="pre" translate="SHARE.CANCEL_SHARE_MSG.PRE"></span>
+                    <br/>
+                    <span translate="SHARE.CANCEL_SHARE_MSG.DETAIL"></span>
+                </div>
+            </div>
+            <div class="share-password" ng-show="sharePanelMsg.passwordError " ng-class="{'phone':pt.settings.isPhone}">
+                <div class="inner">
+                    <svg>
+                        <use xlink:href="{{productConfigs.logo}}"></use>
+                    </svg>
+                    <h2 translate="PANEL.SHARE.TITLE_1">This link is password protected</h2>
+                    <p translate="PANEL.SHARE.TITLE_2">Enter the password below to view the project</p>
+                    <form name="share-password">
+                        <div class="input">
+                            <input class="pt-ipt"
+                                   type="password"
+                                   translate
+                                   translate-attr-placeholder='PANEL.SHARE.PASSWORD'
+                                   ng-model="sharePanelMsg.sharePassword"
+                                   maxlength="20" />
+                            <div class="popover right text-danger" ng-if="sharePanelMsg.confirmPasswordMsg && !pt.settings.isPhone">
+                                <div class="arrow"></div>
+                                <div class="popover-inner">
+                                    <div class="popover-content">
+                                        <span ng-if="sharePanelMsg.passWordOfNull" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                                        <span ng-if="sharePanelMsg.passWordError" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT">password is incorrect.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="pt-btn pt-btn-success" ng-click="confirmPassword(sharePanelMsg.sharePassword)"  translate="PANEL.SHARE.CONFIRM">Confirm</button>
+                        <div class="login-tips-phone animated fadeInDown"
+                             ng-if="sharePanelMsg.confirmPasswordMsg && pt.settings.isPhone">
+                            <div class="login-tips-phone-info">
+                                <div>
+                                    <span ng-if="sharePanelMsg.passWordOfNull" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                                    <span ng-if="sharePanelMsg.passWordError" translate="LOGIN.ERROR_TIP.PASSWORD_NOT_RIGHT">password is incorrect.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<img id="favicon_ptone" src="/assets/images/favicon/favicon_ptone.ico" style="display: none">
+<img id="favicon_datadeck" src="/assets/images/favicon/favicon_datadeck.ico" style="display: none">
+<img id="favicon_uzai" src="/assets/images/favicon/favicon_uzai.ico" style="display: none">
+<img id="cig" src="/assets/images/favicon/cig.ico" style="display: none">
+
+<!-- 这些插件暂时先直接引入，后续webpack -->
+<script src="/assets/libs/jquery/jquery.min.js"></script>
+<script src="/assets/libs/tinymce/tinymce.min.js"></script>
+<script src="/assets/libs/highcharts/highcharts.min.js"></script>
+<script src="/assets/libs/highcharts/highmaps.min.js"></script>
+<script src="/assets/libs/highcharts/map/custom_world.js"></script>
+<script src="/assets/libs/highcharts/map/jp_all.js"></script>
+<script src="/assets/libs/highcharts/mapdata.js"></script>
+</body>
+</html>

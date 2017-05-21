@@ -1,0 +1,3 @@
+editorDataProviderAdaptive=com.sizzler.provider.adaptive.EditorDataProviderAdaptive
+upload=com.sizzler.provider.service.upload.UploadProviderImpl
+mysql=com.sizzler.provider.service.database.DataBaseProviderImpl

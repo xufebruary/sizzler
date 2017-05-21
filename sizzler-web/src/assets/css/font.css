@@ -1,0 +1,94 @@
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Source Sans Pro Light'), local('SourceSansPro-Light'), url('/assets/fonts/sourcesanspro/sourcesanspro-light.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url('/assets/fonts/sourcesanspro/sourcesanspro.woff') format('woff');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'), url('/assets/fonts/sourcesanspro/sourcesanspro-bold.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: 'MyriadPro-Bold';
+  src: url('/assets/fonts/myriadpro/MyriadPro-Bold.eot');
+  src: url('/assets/fonts/myriadpro/MyriadPro-Bold.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/myriadpro/MyriadPro-Bold.woff2') format('woff2'),
+  url('/assets/fonts/myriadpro/MyriadPro-Bold.woff') format('woff'),
+  url('/assets/fonts/myriadpro/MyriadPro-Bold.ttf') format('truetype'),
+  url('/assets/fonts/myriadpro/MyriadPro-Bold.svg#MyriadPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MyriadPro-It';
+  src: url('/assets/fonts/myriadpro/MyriadPro-It.eot');
+  src: url('/assets/fonts/myriadpro/MyriadPro-It.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/myriadpro/MyriadPro-It.woff2') format('woff2'),
+  url('/assets/fonts/myriadpro/MyriadPro-It.woff') format('woff'),
+  url('/assets/fonts/myriadpro/MyriadPro-It.ttf') format('truetype'),
+  url('/assets/fonts/myriadpro/MyriadPro-It.svg#MyriadPro-It') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Myriad Set Pro';
+  src: url('/assets/fonts/myriadpro/MyriadPro-Regular.eot');
+  src: url('/assets/fonts/myriadpro/MyriadPro-Regular.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/myriadpro/MyriadPro-Regular.woff2') format('woff2'),
+  url('/assets/fonts/myriadpro/MyriadPro-Regular.woff') format('woff'),
+  url('/assets/fonts/myriadpro/MyriadPro-Regular.ttf') format('truetype'),
+  url('/assets/fonts/myriadpro/MyriadPro-Regular.svg#MyriadPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OpenSans-Regular';
+  src: url('/assets/fonts/opensans/OpenSans-Regular.eot');
+  src: url('/assets/fonts/opensans/OpenSans-Regular.eot?#iefix') format('embedded-opentype'),
+  url('/assets/fonts/opensans/OpenSans-Regular.woff2') format('woff2'),
+  url('/assets/fonts/opensans/OpenSans-Regular.woff') format('woff'),
+  url('/assets/fonts/opensans/OpenSans-Regular.ttf') format('truetype'),
+  url('/assets/fonts/opensans/OpenSans-Regular.svg#MyriadPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'AppleTP-Text';
+  src: url('/assets/fonts/apptp/AppleTP-Text.eot');
+  src: url('/assets/fonts/apptp/AppleTP-Text.eot?#iefix') format('embedded-opentype'),
+       url('/assets/fonts/apptp/AppleTP-Text.woff') format('woff'),
+       url('/assets/fonts/apptp/AppleTP-Text.ttf') format('truetype'),
+       url('/assets/fonts/apptp/AppleTP-Text.svg#AppleTP-Text') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'AppleTP-Thin';
+  src: url('/assets/fonts/apptp/AppleTP-Thin.eot');
+  src: url('/assets/fonts/apptp/AppleTP-Thin.eot?#iefix') format('embedded-opentype'),
+       url('/assets/fonts/apptp/AppleTP-Thin.woff') format('woff'),
+       url('/assets/fonts/apptp/AppleTP-Thin.ttf') format('truetype'),
+       url('/assets/fonts/apptp/AppleTP-Thin.svg#AppleTP-Thin') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+
+

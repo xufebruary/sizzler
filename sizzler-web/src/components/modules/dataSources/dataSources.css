@@ -1,0 +1,1008 @@
+@charset "utf-8";
+
+/*
+  Name:    DataSources
+  Explain: Mod-DataSources style
+  Author:  Dawn
+  Date:    2015-12-3
+*/
+
+/* =10 Aside
+-------------------------------------------------- */
+.data-source-aside {
+    width: 200px;
+}
+.wrapper-xxxl{
+    padding:40px 80px;
+}
+.pt-main .content.ds-manage{
+    padding-top: 140px;
+    margin-top: -50px;
+}
+.data-source-aside a.back-dashboard {
+    min-width: 80%;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #616161;
+    font-size: 14px;
+}
+
+.data-source-aside a.back-dashboard svg {
+    width: 16px;
+    height: 16px;
+    fill: #616161;
+    vertical-align: -3px;
+}
+
+.data-source-aside ul.nav a {
+    height: 40px;
+    line-height: 40px;
+    border-left: 6px solid transparent;
+    padding: 0;
+    font-size: 14px;
+    color: #616161;
+    display: inline-block;
+    width: 100%;
+    text-indent: 2em;
+}
+
+.data-source-aside ul.nav a:hover {
+    background-color: #dddfe3;
+}
+
+.data-source-aside ul.nav a.active {
+    border-left: 6px solid #96cc65;
+    background-color: #fff;
+}
+
+.data-source-aside ul.nav a svg {
+    width: 16px;
+    height: 16px;
+    fill: #616161;
+    vertical-align: top;
+}
+
+.data-source-aside ul.nav a.active svg {
+    fill: #9ccc65;
+}
+
+/* =10 Aside
+-------------------------------------------------- */
+.ds-title {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+    margin-bottom: 20px;
+}
+
+.ds-title-acronym {
+    width: 20%;
+    height: 80px;
+    background: #ccc;
+    font-size: 2em;
+    line-height: 3em;
+    margin-right: 10px;
+}
+
+.ds-title-info {
+    width: 70%;
+}
+
+.ds-list-single {
+    border: 1px solid #ccc;
+}
+
+.single-title {
+
+}
+
+.single-more {
+    visibility: visible;
+    margin: 25px 20px 0;
+    height: 40px;
+}
+
+.single-more .widget-set-dropdown {
+    z-index: 1;
+}
+
+/*data-source management*/
+
+/* =20 DS Manage content
+-------------------------------------------------- */
+.ds-manage {
+    min-width: 600px;
+}
+
+.content.ds-manage:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #fff;
+    top: 50px;
+    left: 0;
+    z-index: -2;
+}
+
+.ds-manage-header {
+    box-sizing: content-box;
+}
+
+.ds-manage-header h1 {
+    margin: 0 0 2px 0;
+}
+
+.ds-manage-header p {
+}
+
+.ds-group {
+    /*width: 940px;*/
+}
+
+.ds-group ul {
+    padding: 0;
+    margin: 0;
+}
+
+.ds-group ul li {
+    /*display: inline-block;*/
+    float: left;
+    list-style: none;
+    width: 200px;
+    height: 80px;
+    line-height: 80px;
+    font-size: 0;
+    background-color: #fff;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    margin: 30px 20px 0 0;
+    -webkit-transition: box-shadow .3s ease-in-out;
+    -moz-transition: box-shadow .3s ease-in-out;
+    -o-transition: box-shadow .3s ease-in-out;
+    transition: box-shadow .3s ease-in-out;
+    border: 1px solid #e0e0e0;
+    box-sizing: content-box;
+}
+
+.ds-group ul li .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #fff;
+    background-color: #ee6e66;
+    padding: 2px 3px 3px;
+    display: inline-block;
+    min-width: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 10px;
+}
+
+.ds-group ul li.comingsoon {
+    cursor: default;
+}
+
+.ds-group ul li.comingsoon:before,
+.ds-group ul li.comingsoon:after {
+    content: "Coming soon";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-color: #fff;
+    color: #bdbdbd;
+    font-size: 22px;
+}
+
+.ds-group ul li.comingsoon:hover {
+    box-shadow: none;
+}
+
+.ds-group ul li.comingsoon:after {
+    content: '';
+    opacity: 1;
+    background-color: rgba(255, 255, 255, .8);
+}
+
+.ds-group ul li.comingsoon:hover:before {
+    opacity: 1;
+    z-index: 1;
+    -webkit-transition: opacity .3s ease-in-out;
+    -moz-transition: opacity .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out;
+}
+
+.ds-group ul li:hover {
+    box-shadow: 0 0 20px rgba(0, 0, 0, .19), 0 0 6px rgba(0, 0, 0, .23);
+}
+
+.ds-group ul li:hover .box-hover-dom {
+    opacity: 1;
+}
+.ds-group ul li .box-hover-dom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+}
+.ds-group ul li .box-hover-dom .box-hover {
+    border-radius: 4px;
+    background-color: #9bcb64;
+    display: table-cell;
+    vertical-align: middle;
+    height: 80px;
+    width: 200px;
+    text-align: center;
+    word-wrap: normal;
+    padding: 0 20px;
+    line-height: 17px;
+    color: #fff;
+    font-size: 14px;
+}
+
+
+.ds-group ul li img {
+    width: 200px;
+    height: 80px;
+}
+
+.ds-group ul:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    border: none;
+}
+
+.ds-group .img {
+    display: table-cell;
+    text-align: center;
+    width: 200px;
+    height: 80px;
+    vertical-align: middle;
+}
+
+.ds-user-source {
+    padding-top: 60px;
+}
+
+.ds-user-source h2 {
+    font-size: 20px;
+    margin: 0 0 2px 0;
+    font-weight: normal;
+    box-sizing: content-box;
+}
+
+.ds-user-source h2 span {
+    font-size: 14px;
+    color: #9e9e9e;
+    font-weight: 100;
+}
+
+.ds-user-source ul {
+    margin: 0;
+}
+
+.ds-user-source ul li {
+    height: 50px;
+    box-sizing: content-box;
+    margin-top: -1px;
+    border: 1px solid #eee;
+}
+
+.ds-user-source ul li:hover {
+    border-color: #e8f2dd;
+    background-color: #e8f2dd;
+    cursor: pointer;
+}
+
+.ds-user-source ul li .ds-name {
+    float: left;
+    width: 230px;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+    padding-left: 17px;
+}
+
+.ds-user-source ul li .ds-name .img {
+    margin-right: 14px;
+}
+
+.ds-user-source ul li .ds-name .img svg {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+}
+
+.ds-user-source ul li .ds-name:after {
+    content: '';
+    width: 1px;
+    height: 30px;
+    background-color: #eee;
+    right: 0;
+    top: 10px;
+    position: absolute;
+}
+
+.ds-user-source ul li:hover .ds-name:after {
+    background-color: #9e9e9e;
+}
+
+.ds-user-source ul li .ds-name img {
+    width: 75px;
+    height: 30px;
+}
+
+.ds-user-source ul li .ds-name .ds-name-middle {
+    vertical-align: middle;
+    display: inline-block;
+    max-width: 150px;
+    overflow: hidden;
+    height: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ds-user-source ul li .ds-file-cont {
+    float: left;
+    padding-left: 30px;
+    line-height: 50px;
+    font-size: 14px;
+    color: #757575;
+    width: 230px;
+    height: 100%;
+    overflow: hidden;
+    border: none;
+}
+
+.ds-user-source ul li:hover .ds-file {
+    color: #616161;
+}
+
+.ds-user-source ul li .ds-detail {
+    float: right;
+    margin-top: 18px;
+    margin-right: 20px;
+}
+
+.ds-user-source ul li .ds-detail svg {
+    fill: #9e9e9e;
+    width: 16px;
+    height: 16px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    transform-origin: 30% 40%;
+}
+
+.ds-user-source ul li:hover .ds-detail svg {
+    fill: #616161;
+}
+
+.ds-manage .ds-content {
+    margin-top: 50px;
+}
+
+/*数据源按钮*/
+.ds-manage .ds-add-btn {
+    line-height: 1.4em;
+    border-radius: 12px;
+    background-color: #96cc65;
+    box-sizing: content-box;
+    padding: 4px 20px 1px;
+    margin: 0;
+    border: none;
+}
+
+.ds-manage .ds-add-btn:hover {
+    border: none;
+}
+
+.ds-manage .ds-add-btn .glyphicon,
+.ds-manage .ds-add-btn svg {
+    top: 0;
+    margin: 0px 10px 0 -10px;
+    fill: #fff;
+    width: 16px;
+    height: 16px;
+    vertical-align: top;
+    position: relative;
+}
+
+.ds-manage .ds-add-btn:hover {
+    background-color: #8bc34a;
+}
+
+.ds-manage .ds-add-btn.mini {
+    /*height: 24px;*/
+    /*line-height: 1.8em;*/
+}
+
+/*数据源下拉菜单*/
+.dropdown-menu-ds {
+    top: 100%;
+    min-width: inherit;
+}
+
+.dropdown-menu-ds {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 15px 0;
+}
+
+.dropdown-menu-ds > li > a {
+    color: #616161;
+    padding: 5px 30px 5px 20px;
+}
+
+.dropdown-menu-ds > li > a:hover {
+    color: #757575;
+    background-color: #eee !important;
+}
+
+.dropdown-menu-ds > li > a > svg {
+    width: 16px;
+    height: 16px;
+    fill: #757575;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+/* =30 Single DS
+-------------------------------------------------- */
+
+/* ds-顶部 */
+.ds-header {
+    border-bottom: 1px solid #eee;
+}
+
+.ds-header-breadcrumb {
+    padding: 12px 30px 8px;
+    background-color: #96cc65;
+    border-radius: 4px;
+    margin: 0;
+    margin-bottom: 60px;
+}
+
+.ds-header-breadcrumb a:hover,
+.ds-header-breadcrumb a:focus {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.ds-header-breadcrumb span {
+}
+
+.ds-header-breadcrumb svg {
+    width: 20px;
+    height: 20px;
+    fill: #212121;
+    vertical-align: top;
+}
+
+.ds-header-introduce {
+    margin-bottom: 20px;
+}
+
+.ds-header-introduce-logo {
+    float: left;
+    background-color: #fff;
+    border: 1px solid #bdbdbd
+}
+
+.ds-header-introduce-logo .img {
+    display: table-cell;
+    text-align: center;
+    width: 200px;
+    height: 80px;
+    vertical-align: middle;
+}
+
+.ds-header-introduce-logo .img img {
+    width: 200px;
+    height: 80px;
+}
+
+.ds-header-introduce-detail {
+    padding-left: 230px;
+    color: #616161;
+}
+
+.ds-header-introduce-detail p {
+    line-height: 18px;
+    min-width: 500px;
+}
+
+.ds-header-introduce-detail p a {
+    display: none;
+}
+
+.ds-header-introduce-website {
+    margin-bottom: 0px;
+    font-size: 12px;
+}
+
+.ds-header-introduce-website a {
+    color: #616161;
+    text-decoration: underline;
+    text-indent: 10px;
+}
+
+.ds-header-introduce-website a:hover {
+    color: #96cc65;
+}
+
+.ds-header-introduce .ds-add-btn {
+    position: absolute;
+    right: 0;
+    bottom: -14px;
+}
+
+.ds-header-add-tips {
+}
+.ds-gd-add-btn,
+.pt-btn-success.ds-gd-add-btn{
+    position: absolute;
+    right: 0;
+    bottom: -14px;
+}
+
+/* ds-无数据时提示层 */
+.ds-no-binding {
+    margin: 0 auto;
+    padding-left: 230px;
+}
+
+.ds-no-binding .description {
+    padding: 60px 0;
+}
+
+/* ds-已存文件列表 */
+.ds-table-list {
+}
+
+.ds-table-list-bd {
+    border: 1px solid #eee;
+}
+
+.ds-table {
+    height: 80px;
+}
+
+.ds-table:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.ds-table-nodata {
+    line-height: 80px;
+}
+
+.ds-table-info {
+    width: -ms-calc(100% - 310px - 40px);
+    width: -moz-calc(100% - 310px - 40px);
+    width: -webkit-calc(100% - 310px - 40px);
+    width: calc(100% - 310px - 40px);
+}
+
+.ds-table-info svg {
+    width: 16px;
+    height: 16px;
+    fill: #9e9e9e;
+    vertical-align: middle;
+}
+
+.ds-table-date {
+    width: 310px;
+}
+
+.ds-table-set {
+    width: 40px;
+}
+
+.ds-table-more {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.ds-table-more:hover {
+    background-color: #bdbdbd;
+}
+
+.ds-table-more:hover .widget-more,
+.ds-table-more:hover .widget-more:before,
+.ds-table-more:hover .widget-more:after {
+    background-color: #fff;
+}
+
+/*远端文件列表*/
+.ds-file-list {
+}
+
+.ds-file-list-bd {
+
+}
+
+.ds-file-list-bd svg {
+    width: 20px;
+    height: 20px;
+    fill: #9e9e9e;
+    vertical-align: middle;
+}
+
+.ds-file-list-bd svg.svg-file {
+    fill: #9ccc65;
+}
+
+.ds-file-list-bd .pt-loading {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.ds-file-hd {
+
+}
+
+.ds-file-hd-tab {
+}
+
+.ds-file-hd-tab button {
+    min-width: 160px;
+    line-height: 1em;
+    text-align: left;
+    margin-right: 1px;
+    background-color: #fff;
+    border: 1px solid #ecedf0;
+    padding-top: 6px;
+}
+
+.ds-file-hd-tab button.active {
+    background-color: #ecedf0;
+}
+
+.ds-file-hd-tab button svg {
+    fill: #616161;
+    vertical-align: top;
+}
+
+.ds-file-hd-tab button span {
+    line-height: 1.5em;
+}
+
+.ds-file-breadcrumb {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 24px;
+    background-color: #ecedf0;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+}
+
+.ds-file-breadcrumb svg {
+    width: 30px;
+    fill: #757575;
+    vertical-align: middle;
+}
+
+.ds-file-title {
+    background-color: #f7f7f9;
+    height: 30px;
+    line-height: 34px;
+}
+
+.ds-file-title .ds-file-name {
+    padding-left: 46px;
+}
+
+.ds-file-bd {
+    border-bottom: 1px solid #eee;
+}
+
+/*loading*/
+.ds-file-bd .pt-loading {
+    background-color: rgba(0, 0, 0, .2);
+}
+
+.ds-file {
+    cursor: pointer;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #eee;
+    border-bottom: none;
+}
+
+.ds-file-name {
+    color: #424242;
+    height: 100%;
+    width: -ms-calc(100% - 100px);
+    width: -moz-calc(100% - 100px);
+    width: -webkit-calc(100% - 100px);
+    width: calc(100% - 100px);
+}
+
+.ds-file-owner,
+.ds-file-modified,
+.ds-file-connect {
+    width: 100px;
+    height: 100%;
+}
+
+.ds-file:not(.ds-file-empty):hover {
+    background-color: #dcedc8;
+}
+
+.ds-file:hover .ds-file-owner,
+.ds-file:hover .ds-file-modified,
+.ds-file:hover .ds-file-connect {
+    color: #424242;
+}
+
+.ds-file-connect {
+    visibility: hidden;
+}
+
+.ds-file-connect svg {
+    width: 16px;
+    fill: #616161;
+}
+
+.ds-file-list-connect {
+    visibility: hidden;
+}
+
+.ds-file:hover .ds-file-connect {
+    visibility: visible;
+}
+
+.ds-file-empty {
+    padding-left: 46px;
+    cursor: default;
+}
+
+/*ds-下拉框*/
+.ds-binding-hd {
+    height: 24px;
+    padding-bottom: 16px;
+    box-sizing: content-box;
+}
+
+.ds-binding-hd-select {
+    float: left;
+}
+
+.ds-binding-hd-select button.btn {
+    border: 1px solid #96cc65;
+    background-color: #fff;
+    border-radius: 16px;
+    padding: 0 10px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.ds-binding-hd-select button span {
+    color: #96cc65;
+}
+
+/*ds-设置*/
+.ds-binding-hd-setting {
+    float: left;
+    margin: 4px 0 0 20px;
+}
+
+.ds-binding-hd-setting svg {
+    fill: #757575;
+    width: 20px;
+    height: 20px;
+    vertical-align: top;
+}
+
+.ds-binding-hd-setting:hover svg {
+    fill: #757575;
+}
+
+.ds-binding-hd-setting > a svg:hover {
+    fill: #9ccc65;
+}
+
+.ds-binding-hd .ds-order {
+    float: right;
+    margin: 6px 30px 0 0;
+}
+
+/*ds-增加者*/
+.ds-binding-hd-owner {
+    float: left;
+    line-height: 24px;
+    margin: 3px 0 0 20px;
+}
+
+/*ds-搜索*/
+.ds-binding-hd-search {
+    float: right;
+}
+
+.ds-binding-hd-add,
+.ds-binding-hd .ds-refresh {
+    margin-left: 20px;
+}
+
+.ds-binding-hd-search input {
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
+    border-color: #96cc65;
+    padding: 0 10px;
+    height: 24px;
+    line-height: 24px;
+}
+
+.ds-binding-hd-search .input-group-addon {
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
+    border-color: #96cc65;
+    background-color: #96cc65;
+    padding: 0 10px;
+}
+.ds-binding-hd-search .input-group-addon svg {
+    width: 18px;
+    height: 18px;
+    fill:#bdbdbd;
+}
+.ds-binding-hd-search .glyphicon-search:before {
+    color: #fff;
+}
+
+.ds-binding-hd .ds-add-account .ds-add-btn {
+    float: right;
+}
+
+/*ds-刷新*/
+.ds-binding-hd-refresh {
+    margin: 5px 0 0 20px;
+}
+
+.ds-binding-hd-refresh svg {
+    width: 20px;
+    height: 20px;
+    fill: #9ccc65;
+    vertical-align: bottom;
+}
+
+.ds-binding-hd-refresh:hover svg {
+    fill: #8bc34a;
+}
+
+/* tips */
+.ds-table-info .chart-tips-trigger {
+    position: relative;
+}
+
+.ds-table-info .tips-wrap {
+    position: absolute;
+    top: auto;
+    bottom: 130%;
+    left: -10px;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+    z-index: -100;
+}
+
+.ds-table-info .tips-wrap .inner {
+    width: 320px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.ds-table-info .chart-tips-trigger:hover .tips-wrap {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+.ds-table-info .chart-tips-trigger:hover .tips-wrap a {
+    text-decoration: underline;
+}
+
+.ds-table-info .tips-wrap .inner .arrows {
+    position: absolute;
+    bottom: -10px;
+    left: 6px;
+    margin: 0;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 11px;
+    border-bottom-width: 0;
+    border-top-color: #999;
+    border-top-color: rgba(0, 0, 0, .25);
+    box-sizing: border-box;
+}
+
+.ds-table-info .tips-wrap .inner .arrows:after {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    width: 0;
+    height: 0;
+    margin-left: -10px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 10px;
+    border-bottom-width: 0;
+    border-top-color: #fff;
+    box-sizing: border-box;
+}
+
+.ds-table-info .tips-wrap .inner .tips-content {
+    padding: 9px 14px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.ds-table-info .tips-wrap .inner .tips-content p {
+    margin: 1em 0;
+}
+
+.ds-table-info .tips-wrap .inner .tips-content p span:last-child i {
+    display: none;
+}
+
+
+/*账号型(ga,gad..)-账号列表*/
+.ds-account-list {
+    border: 1px solid #eee;
+}
+
+.ds-account-list > li {
+    height: 50px;
+    padding: 18px 20px 0;
+}
+
+.ds-account-list > li:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.ds-account-list > li .row div:first-child {
+    padding-left: 20px;
+    line-height: 50px;
+    color: #424242;
+    font-size: 14px;
+}
+
+.ds-account-list .ds-account-name {
+    width: -ms-calc(100% - 310px - 40px);
+    width: -moz-calc(100% - 310px - 40px);
+    width: -webkit-calc(100% - 310px - 40px);
+    width: calc(100% - 310px - 40px);
+}
+.ds-account-list .ds-account-owner {
+    width: 310px;
+}
+.ds-account-list .ds-account-set {
+    margin-top: 2px;
+}

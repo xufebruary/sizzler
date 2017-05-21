@@ -1,0 +1,110 @@
+<!-- content -->
+<div class="content ds-manage wrapper-xl no-padding" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000">指标维度管理&nbsp;->&nbsp;新数据源指标维度添加设置</span>
+        </ol>
+    </header>
+   
+    <div class="clearfix m-t-xl" ng-show="!editModel">
+    	<div class="userTitle">
+    		<a class="btn btn-success" ng-click="importCsv()">导入csv文件</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    		<!-- <a class="btn btn-success" ng-click="addDimensionMetrics(category)">生成csv文件</a>&nbsp;&nbsp;&nbsp;&nbsp; -->
+    		<a class="btn btn-success" ng-click="createSql()">生成sql语句</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    		<a class="btn btn-success" ng-click="createJSON()">生成国际化文案JSON</a>
+    	</div>
+    	<div class="userTitle" ng-show="uploader.getNotUploadedItems().length">
+    		<form id="csvFileForm" ng-show="false" name="csvFileForm">
+    			<input type="file" accept="text/csv"  nv-file-select="" uploader="uploader" id="csvFile" />
+    		</form>
+    		已导入文件：{{setting.nowFile.name}}
+    		&nbsp;&nbsp;&nbsp;&nbsp;
+    		<a class="btn btn-danger" ng-click="cleanFile()">删除</a>
+    	</div>
+    	<div class="userTitle">
+    		<span>全局设置（以下设置产品添加时不需要管）</span>
+    	</div>
+    	<table class="userTable">
+    		<thead>
+        		<tr>
+        			<th >数据源ID：<input type="text" ng-model="setting.dsId" value=""/></th>
+        			<th >数据源CODE：<input type="text"  ng-model="setting.dsCode" value=""/></th>
+        			<th >{{setting.type==0?'指标':'维度'}}分类起始ID：<input type="text"  ng-model="setting.startCategoryId" value=""/></th>
+        			<th >{{setting.type==0?'指标':'维度'}}起始ID：<input type="text"  ng-model="setting.startValueId" value=""/></th>
+        		</tr>
+        	</thead>
+    	</table>
+    	<div class="userTitle">
+    		<span>设置类型（指标\维度）：</span>
+    		<select ng-model="setting.type">
+  				<option value="0" ng-selected="setting.type == 0">指标</option>
+  				<option value="1" ng-selected="setting.type == 1">维度</option>
+  			</select>
+    	</div>
+        <div class="userTitle">
+    		<span><strong>{{setting.type==0?'指标':'维度'}}</strong>&nbsp;分类：</span>
+    		<a class="btn btn-success" ng-click="addCategory()">添加</a>
+    	</div>
+    	<div ng-repeat="category in setting.categorys">
+	    	<table class="userTable redLine">
+	        	<tr >
+	        		<td>分类ID:<input ng-model="category.id" value="{{category.id}}" type="text" /></td>
+	        		<td>中文名称:<input ng-model="category.zh_name" value="{{category.zh_name}}" type="text" /></td>
+	        		<td>英文名称:<input ng-model="category.en_name" value="{{category.en_name}}" type="text" /></td>
+	        		<td>日文名称:<input ng-model="category.jp_name" value="{{category.jp_name}}" type="text" /></td>
+	        		<td>Code:<input ng-model="category.code" value="{{category.code}}" type="text" /></td>
+	        		<td>描述:<input ng-model="category.desc" value="{{category.desc}}" type="text" /></td>
+	        		<td><a class="btn btn-success" ng-click="addDimensionMetrics(category)">添加{{setting.type==0?'指标':'维度'}}</a></td>
+	        		<td><a class="btn btn-danger" ng-click="delItem(category, setting.categorys)">删除</a></td>
+	        	</tr>
+	        	<tr ng-repeat="dimensionMetrics in category.dimensionMetricsList" ng-show="!category.isPackup">
+	        		<td colspan="8">
+	        			<table class="userTable">
+	        				<tr class="greenLine">
+	        					<td>中文名称:<input ng-model="dimensionMetrics.zh_name" value="{{dimensionMetrics.zh_name}}" type="text" /></td>
+				        		<td>英文名称:<input ng-model="dimensionMetrics.en_name" value="{{dimensionMetrics.en_name}}" type="text" /></td>
+				        		<td>日文名称:<input ng-model="dimensionMetrics.jp_name" value="{{dimensionMetrics.jp_name}}" type="text" /></td>
+				        		<td>Code:<input ng-model="dimensionMetrics.code" value="{{dimensionMetrics.code}}" type="text" /></td>
+				        		<td>描述:<input ng-model="dimensionMetrics.desc" value="{{dimensionMetrics.desc}}" type="text" /></td>
+				        		<td><a class="btn btn-danger" ng-click="delItem(dimensionMetrics, category.dimensionMetricsList)">删除</a></td>
+	        				</tr>
+	        			</table>
+	        		</td>
+	        	</tr>
+	        	<tr ng-show="category.dimensionMetricsList.length > 0" style="text-align:center;">
+	        		<td colspan="8">
+	        			<a class="btn {{category.isPackup?'btn-danger':'btn btn-success'}}" ng-click="packup(category)">{{category.isPackup?'展开':'收起'}}</a>
+	        		</td>
+	        	</tr>
+	        </table>
+	        <div class="h10"></div>
+        </div>
+        <div class="userTitle" ng-show="setting.categorySqlList.length>0">
+    		<span>{{setting.type==0?'指标':'维度'}}分类SQL语句列表：</span>
+    	</div>
+        <div ng-repeat="sql in setting.categorySqlList">
+        	{{sql}}
+        </div>
+        <div class="userTitle" ng-show="setting.valueSqlList.length>0">
+    		<span>{{setting.type==0?'指标':'维度'}}SQL语句列表：</span>
+    	</div>
+        <div ng-repeat="sql in setting.valueSqlList">
+        	{{sql}}
+        </div>
+        <div class="userTitle" ng-show="setting.categoryJsonList.length>0">
+    		<span>{{setting.type==0?'指标':'维度'}}分类国际化：</span>
+    	</div>
+        <div ng-repeat="json in setting.categoryJsonList">
+        	{{json}}
+        	<div class="h10"></div>
+        </div>
+        <div class="userTitle" ng-show="setting.valueJsonList.length>0">
+    		<span>{{setting.type==0?'指标':'维度'}}国际化：</span>
+    	</div>
+        <div ng-repeat="json in setting.valueJsonList">
+        	{{json}}
+        	<div class="h10"></div>
+        </div>
+        <div class="h300"></div>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+<!-- content -->
+<div class="content ds-manage wrapper-xl no-padding" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000">用户管理&nbsp;->&nbsp;用户列表</span>
+        </ol>
+    </header>
+   
+    <div class="clearfix m-t-xl" ng-show="showList">
+    	<div class="userTitle">
+    		<span>Users in waiting list：{{userList.length}}</span>
+    		<span style="margin-left:20px;">Search email：</span>
+    		<input type="text" ng-model="userEmail"/>
+    		<a class="btn btn-success" ng-click="getUserList(userEmail)">Search</a>
+    	</div>
+        <table class="userTable">
+        	<thead>
+        		<tr>
+        			<th width="10%">UserID</th>
+        			<th width="15%">Email</th>
+        			<th width="20%">Register Time	</th>
+        			<th width="10%">ActiviteStatus</th>
+        			<th width="25%">Operation</th>
+        		</tr>
+        	</thead>
+        	<tr ng-repeat="user in userList | orderBy:'-ptId'">
+        		<td width="10%" ng-bind="user.ptId"></td>
+        		<td width="15%" ng-bind="user.userEmail"></td>
+        		<td width="20%" ng-bind="user.createDate"></td>
+        		<td width="10%"><span ng-show="user.isPreRegistration==0" style="color:red">Not Activite</span><span  ng-show="user.isPreRegistration==1" style="color:green;">Activited</span></td>
+        		<td width="25%">
+        			<a class="btn btn-danger" ng-show="user.status==1"  ng-click="updateUser(user, 0)">Delete</a>
+        			<a class="btn btn-success" ng-show="user.status==0" ng-click="updateUser(user, 1)">Restore</a>
+        			<a class="btn btn-success" ng-click="showPanel(user, 1)">Set Access</a>
+        		</td>
+        	</tr>
+        </table>
+    </div>
+    
+    <div class="clearfix m-t-xl" ng-if="showSettingUser">
+    	<div class="userTitle">
+    		<span>Setting User：<strong>{{settingUser.userEmail}}</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;
+    		<a class="btn btn-black" ng-click="showPanel(null, 0)">Back</a>&nbsp;&nbsp;&nbsp;&nbsp;
+    		<a class="btn btn-success" ng-click="saveAccess(userEmail)">Save</a>
+    	</div>
+    	<div class="userTitle">
+    		All access list：
+    	</div>
+    	<table class="userTable">
+        	<thead>
+        		<tr>
+        			<th width="20%">AccessCode</th>
+        			<th width="50%">AccessDesc</th>
+        		</tr>
+        	</thead>
+        	<tr ng-repeat="access in allAccessList" >
+        		<td width="20%"><input type="checkbox" ng-disabled="access.code=='ptone-admin-user'" ng-checked="userHasAccess(access)" name="accessCode" value="{{access.roleId}}"/>&nbsp;&nbsp;&nbsp;&nbsp;{{access.roleId}}</td>
+        		<td width="50%" ng-bind="access.description"></td>
+        	</tr>
+        </table>
+    </div>
+</div>

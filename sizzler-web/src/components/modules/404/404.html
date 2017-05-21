@@ -1,0 +1,21 @@
+<div class="main" ng-class="{'phone': pt.settings.isPhone}">
+    <svg>
+        <use xlink:href="{{productConfigs.logo}}"></use>
+    </svg>
+    <h1>{{"404.TITLE" | translate}}</h1>
+    <h2>{{"404.INFO" | translate}}</h2>
+    <div class="inner">
+        <ul>
+            <li>{{"404.REASONS.TITLE" | translate}}</li>
+            <li>{{"404.REASONS.ONE" | translate}}</li>
+            <li>{{"404.REASONS.TWO" | translate}}</li>
+        </ul>
+        <ul>
+            <li>{{"404.SUGGESTS.TITLE" | translate}}</li>
+            <li>1. {{"404.SUGGESTS.ONE" | translate}}</li>
+            <li>2. {{"404.SUGGESTS.TWO" | translate}}</li>
+            <li>3. <a href="javascript:" ng-click="$ctrl.callIntercom()">{{"404.SUGGESTS.THREE" | translate}}</a></li>
+        </ul>
+    </div>
+    <button ng-click="$ctrl.goToDefaultPage();" class="pt-btn btn-success">{{"404.BACK" | translate}}</button>
+</div>

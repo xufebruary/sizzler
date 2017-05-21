@@ -1,0 +1,332 @@
+<div class="content-hd clearfix ng-hide"
+     ng-show="isShowHead()"
+     ng-class="{'editMode': rootPage.dashboardMode == 'EDIT'}"
+     ng-style="{'min-width': rootPage.dashboardMode == 'EDIT' ? rootPage.contentWidth+'px' : 'inherit'}">
+    <div class="content-hd-wrap clearfix"
+         ng-style="{'width': rootPage.dashboardMode == 'READ' ? pt.settings.isPhone ? '100%' : rootPage.contentWidth+'px' : 'auto'}"
+         pt-phone-nav>
+
+        <!--移动端-面板列表-->
+        <mobile-panel-list ng-if="pt.settings.isPhone"></mobile-panel-list>
+
+	    <!-- 只读模式 -->
+	    <div class="panel-mode-read clearfix" ng-if="rootPage.dashboardMode == 'READ'">
+	    	<!-- 面板标题 -->
+	    	<div class="panel-title text-ellipsis" ng-show="!pt.settings.isPhone">
+	        	<span class="block text-ellipsis pull-left pannel-name">
+	        		{{rootPanel.now.panelTitle}}
+	        	</span>
+	        	<small class="block text-ellipsis pull-left"
+	                   style="margin-top: 6px;"
+	                   title="{{rootPanel.now.shareSourceUsername}}"
+	                   ng-if="rootPanel.now.shareSourceId && rootPanel.now.shareSourceStatus == 2">
+	                (&nbsp;by&nbsp;{{rootPanel.now.spaceName}}&nbsp;)
+	            </small>
+		    </div>
+
+		    <!-- 全局时间 -->
+		    <div class="dashboard-time active ng-hide" ng-show="!rootWidget.noData && !pt.settings.isPhone">
+		        <a class="content-hd-a"
+		            ng-click="modal.dashboardTime.isOpen = !modal.dashboardTime.isOpen"
+		            pt-log="{
+		                'where': 'panel_header',
+		                'what': 'panel_global_time',
+		                'value': '{{rootPanel.now.panelId}}'
+		            }">
+		            <svg>
+		                <use xlink:href="#icon-dashboard-time"></use>
+		            </svg>
+		            <span>
+		                {{ localDate(modal.dashboardTime.dateKey) }}
+		            </span>
+		        </a>
+		        <dashboard-time ng-if="modal.dashboardTime.isOpen"></dashboard-time>
+		    </div>
+
+	    	<!-- 右侧工具条 -->
+		    <div class="panel-header-right">
+
+		    	<!-- 模式切换(编辑/只读) -->
+			    <div class="panel-header-team dashboard-mode" ng-if="!rootPanel.now.shareSourceId && !pt.settings.fullScreen">
+			        <a class="content-hd-a"
+			            ng-click="toggleDashboardMode('EDIT')"
+			            id="dashboard-mode"
+			            ng-if="rootPage.dashboardMode == 'READ'"
+			            pt-log="{
+			                'where': 'panel_header',
+			                'what': 'edit_mode',
+			                'value': '{{rootPanel.now.panelId}}'
+			            }">
+			            <svg>
+			                <use xlink:href="#icon-edit"></use>
+			            </svg>
+			            <span translate="PANEL.MODE.EDIT">Edit</span>
+			        </a>
+
+			        <!--onboarding 功能介绍(dashboard编辑)-->
+<!-- 			        <func-tips
+			        	ng-if="rootUser.settingsInfo.showTips.dashboardEdit == 0 && rootPage.dashboardMode == 'READ'"
+			            tips-area="dashboardEdit"
+			            tips-code="ONBOARDING.TIPS.FUNC_TIPS.DASHBOARD_EDIT"
+			            tips-user-info="rootUser.settingsInfo.showTips"
+			            on-ok="toggleDashboardMode('EDIT')"></func-tips> -->
+			    </div>
+
+			    <!-- 分割线 -->
+			    <div class="panel-header-halving" ng-if="!rootPanel.now.shareSourceId && !pt.settings.fullScreen && !pt.settings.isPhone"></div>
+
+		    	<!-- 全局刷新 -->
+			    <div class="panel-header-team dashboard-refresh ng-hide" ng-show="modal.dashboardRefresh.isShow && !pt.settings.isPhone">
+			        <a href="javascript:"
+			           	ng-class="{'active': modal.dashboardRefresh.status == 'ing'}"
+			           	ng-click="globalRefresh()"
+			           	tooltip-template="'refreshTemplate.html'"
+			           	tooltip-placement="bottom-left"
+			            pt-log="{
+			                'where': 'panel_header',
+			                'what': 'panel_refresh',
+			                'value': '{{rootPanel.now.panelId}}'
+			            }">
+			            <svg ng-class="{'fa-spin': modal.dashboardRefresh.status == 'ing'}">
+			                <use xlink:href="#icon-refresh-outside"></use>
+			            </svg>
+			        </a>
+			        <script type="text/ng-template" id="refreshTemplate.html">
+				    	<div class="text-ellipsis" translate="PANEL.REFRESH.TIPS_1"
+				    		translate-values="{'time': (modal.dashboardRefresh.showTime | date:'HH:mm')}"></div>
+				    </script>
+			    </div>
+
+			    <!-- 分享 -->
+			    <div class="panel-header-team dashboard-share" ng-class="{'pos-rlt': !pt.settings.fullScreen}" ng-if="!rootPanel.now.shareSourceId && !pt.settings.fullScreen">
+			        <a class="content-hd-a"
+			           ng-click="showPanelOperation('share')"
+			           id="panel-share"
+			           site-event-analytics
+			           tooltip-placement="bottom"
+			           tooltip="{{ 'PANEL.SHARE.TITLE' | translate}}"
+			            pt-log="{
+			                'where': 'panel_header',
+			                'what': 'panel_share',
+			                'value': '{{rootPanel.now.panelId}}'
+			            }">
+			            <svg>
+			                <use xlink:href="#icon-share"></use>
+			            </svg>
+			        </a>
+
+			        <!--onboarding 功能介绍(分享面板入口)-->
+			        <!-- <func-tips
+			        	ng-if="rootUser.settingsInfo.showTips.dashboardShareEntry == 0"
+			            tips-area="dashboardShareEntry"
+			            tips-code="ONBOARDING.TIPS.FUNC_TIPS.DASHBOARD_SHARE_ENTRY"
+			            tips-user-info="rootUser.settingsInfo.showTips"
+			            on-ok="showPanelOperation('share')"></func-tips> -->
+			    </div>
+
+		    	<!-- 二维码 -->
+                <!-- <div dropdown class="panel-header-team panel-mobile"
+                     auto-close="outsideClick"
+                     ng-if="!pt.settings.fullScreen && !pt.settings.isPhone">
+                    <a class="content-hd-a" 
+                       dropdown-toggle
+                       tooltip-placement="bottom"
+                       tooltip="{{'PANEL.QRCODE.TITLE' | translate }}"
+                       pt-log="{'where': 'panel_header','what': 'view_on_phone','value': '{{rootPanel.now.panelId}}'}">
+                        <svg>
+                            <use xlink:href="#icon-phone"></use>
+                        </svg>
+                    </a>
+                    <view-on-phone
+                    	class="dropdown-menu"
+                        current-panel-id="rootPanel.now.panelId"
+                        space-domain="rootSpace.current.domain">
+                    </view-on-phone>
+                </div> -->
+
+		    	<!-- more -->
+		    	<div dropdown class="panel-header-team dashboard-more" ng-if="!pt.settings.fullScreen && !pt.settings.isPhone">
+		    		<a class="content-hd-a" 
+		    			dropdown-toggle
+		    			tooltip-placement="bottom-left"
+                       	tooltip="{{'PANEL.MORE' | translate }}">
+			            <svg>
+			                <use xlink:href="#icon-more-dot"></use>
+			            </svg>
+			        </a>
+
+			        <ul class="dropdown-menu">
+			        	<!-- 面板信息 -->
+			            <li>
+			            	<a href="javascript:"
+			            		ng-click="showPanelOperation('edit', rootPanel.now)"
+					            pt-log="{
+					                'where': 'panel_header_more',
+					                'what': 'edit_dashboard',
+					                'value': '{{rootPanel.now.panelId}}'
+					            }">
+				                <svg>
+				                	<use xlink:href="#icon-info"></use>
+				                </svg>
+				                <span translate="PANEL.SET_UP.EDIT_PANEL.BUTTON"></span>
+			                </a>
+			            </li>
+
+			            <!-- 进入全屏 -->
+			            <li>
+			            	<a href="javascript:"
+			            		pt-full-screen
+			            		pt-log="{
+					                'where': 'panel_header_more',
+					                'what': 'full_screen',
+					                'value': '{{rootPanel.now.panelId}}'
+					            }">
+				            	<i class="fa fa-expand fa-fw"></i>
+				                <span translate="PANEL.FULL_SCREEN.TIPS"></span>
+				            </a>
+			            </li>
+
+			            <!-- 面板复制 -->
+			            <li ng-if="!rootPanel.now.shareSourceId">
+			            	<a href="javascript:"
+			            		ng-click="showPanelOperation('copy', rootPanel.now)"
+					            pt-log="{
+					                'where': 'panel_header_more',
+					                'what': 'copy_dashboard',
+					                'value': '{{rootPanel.now.panelId}}'
+					            }">
+				                <svg>
+				                	<use xlink:href="#icon-copy"></use>
+				                </svg>
+				                <span translate="PANEL.SET_UP.COPY_PANEL.BUTTON"></span>
+			                </a>
+			            </li>
+
+			            <!-- 面板删除 -->
+			            <li>
+			            	<a href="javascript:"
+			            		ng-click="showPanelOperation('delete', rootPanel.now)"
+					            pt-log="{
+					                'where': 'panel_header_more',
+					                'what': 'delete_dashboard',
+					                'value': '{{rootPanel.now.panelId}}'
+					            }">
+				                <svg>
+				                	<use xlink:href="#icon-del"></use>
+				                </svg>
+				                <span translate="PANEL.SET_UP.DELETE_PANEL.BUTTON"></span>
+			                </a>
+			            </li>
+			        </ul>
+		    	</div>
+
+		    	<!-- 退出全屏 -->
+		    	<div class="panel-header-team panel-header-fullScreen" ng-if="pt.settings.fullScreen">
+		    		<a href="javascript:"
+		    			pt-full-screen
+		    			tooltip-placement="bottom"
+                        tooltip="{{ 'PANEL.FULL_SCREEN.TIPS' | translate}}"
+	            		pt-log="{
+			                'where': 'panel_header',
+			                'what': 'full_screen',
+			                'value': '{{rootPanel.now.panelId}}'
+			            }">
+		            	<i class="fa fa-compress fa-fw"></i>
+		            </a>
+		    	</div>
+		    </div>
+	    </div>
+
+	    <!-- 编辑模式 -->
+	    <div class="panel-mode-edit clearfix" ng-if="rootPage.dashboardMode == 'EDIT'">
+
+	    	<!-- 面板标题编辑 -->
+	    	<div class="panel-title">
+	    		<span class="text-black-800 pull-left" translate="PANEL.MODE.EDITING"></span>
+	    		<div class="pull-left pos-rlt dashboard-title-editing">
+			        <div class="text-black-800 block text-ellipsis dashboard-title-span"
+			        	ng-click="dashboardTitleEdit()">
+			            {{rootPanel.now.panelTitle}}
+			        </div>
+			        <input type="text"
+			               class="text-black-800 no-border dashboard-title-ipt"
+			               ng-if="modal.title.editing"
+			               ng-blur="dashboardTitleEditDone()"
+			               maxlength="50"
+			               ng-model="modal.title.nameMod"
+			               ng-keydown="dashboardTitleEditByKeydown($event)"
+			               ui-focus="modal.title.editing">
+			    </div>
+	    	</div>
+
+	    	<!-- 编辑完成 -->
+		    <div class="panel-editDone">
+		    	<button class="btn btn-success" ng-click="toggleDashboardMode('READ', 'editDone')">
+		            <span translate="PANEL.MODE.EDIT_SUCCESS"></span>
+		        </button>
+		    </div>
+
+	    	<!-- 添加widget -->
+		    <div class="panel-addWidget">
+		        <div class="panel-addWidget-wrap">
+		            <a class="content-hd-a">
+		                <svg class="content-hd-svg">
+		                    <use xlink:href="#icon-add-solid"></use>
+		                </svg>
+		                <span translate="WIDGET.ADD_WIDGET"></span>
+		            </a>
+		            <ul class="dropdown-menu dropdown-menu-panelSet" style="z-index: 1080;">
+		                <li>
+		                    <a ng-click="widgetCreate('chart', 'table')">
+		                        <svg class="content-hd-svg">
+		                            <use xlink:href="#icon-chart"></use>
+		                        </svg>
+		                        <span translate="WIDGET.ADD_WIDGET_OF_CHART"></span>
+		                    </a>
+		                </li>
+		                <li>
+		                    <a ng-click="widgetCreate('tool', 'text')">
+		                        <svg class="content-hd-svg">
+		                            <use xlink:href="#icon-rich-text"></use>
+		                        </svg>
+		                        <span translate="WIDGET.ADD_WIDGET_OF_TOOL"></span>
+		                    </a>
+		                </li>
+		                <li ng-show="hasPtengineAccount()">
+                            <a ng-click="widgetCreate('tool', 'heatmap')">
+                                <svg class="content-hd-svg">
+                                    <use xlink:href="#icon-heatmap"></use>
+                                </svg>
+                                <span translate="WIDGET.ADD_WIDGET_OF_HEATMAP">Ptengine Heatmap</span>
+                            </a>
+                        </li>
+		                <li has-sys-role="ptone-test">
+		                    <a ng-click="widgetCreate('custom', 'table')">
+		                        <svg class="content-hd-svg">
+		                            <use xlink:href="#icon-custom-widget"></use>
+		                        </svg>
+		                        <span translate="WIDGET.ADD_WIDGET_OF_CUSTOM"></span>
+		                    </a>
+		                </li>
+		                <li class="dashboard-addGallery">
+		                    <a ui-sref="pt.dashboard.widgetGallery" href="javascript:">
+		                        <svg class="content-hd-svg">
+		                            <use xlink:href="#icon-gallery"></use>
+		                        </svg>
+		                        <span translate="WIDGET.ADD_WIDGET_OF_GALLERY"></span>
+		                    </a>
+		                </li>
+		            </ul>
+		        </div>
+
+		        <!-- 无数据时提示 -->
+		        <p class="widget-noData text-center"
+		           ng-if="rootWidget.noData && $state.current.name == 'pt.dashboard'">
+		                <span class="text-base" translate="GUIDE.WIDGET.NO_WIDGET_3">
+		                    Click here to add a widget
+		                </span>
+		        </p>
+		    </div>
+	    </div>
+    </div>
+</div>

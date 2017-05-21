@@ -1,0 +1,119 @@
+@charset "utf-8";
+/*
+  Name:    mysql
+  Explain: DataSources - mysql
+  Author:  Dawn
+  Date:    2016-1-13
+*/
+
+
+
+.ds-mysql-file .ds-file-name {
+    color: #424242;
+    height: 100%;
+    width: -ms-calc(100% - 100px);
+    width: -moz-calc(100% - 100px);
+    width: -webkit-calc(100% - 100px);
+    width: calc(100% - 100px);
+}
+
+.ds-file-name .filelist-icon{
+    fill:#757575;
+}
+
+
+    /*add*/
+.add-database {}
+.add-database-hd {
+    margin-top: 60px;
+}
+.add-database-bd {width: 435px;}
+.ds-mysql-dl {}
+.ds-mysql-dl dt {
+    line-height: 20px;
+}
+.ds-mysql-dl dd {
+
+}
+.ds-mysql-dl dd:nth-child(3) {
+    width: auto;
+    position: absolute;
+    top: 20px;
+    right: -20px;
+}
+.ds-mysql-ipt,
+.ds-mysql-textarea {
+    width: 420px;
+    height: 40px;
+    line-height: 40px;
+    color: #424242;
+    background-color: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    border-radius: 4px;
+}
+.ds-mysql-textarea {
+    height: 80px;
+    resize: none;
+}
+.ds-mysql-ipt:focus,
+.ds-mysql-textarea:focus {
+    border: 1px solid #9ccc65;
+}
+.pt-mysql-ipt.error,
+.ds-mysql-ipt.error,
+.ds-mysql-textarea.error {
+    border: 1px solid #ee6e66;
+}
+.ds-mysql-ipt svg {
+    width: 16px;
+    height: 16px;
+    fill: #9E9E9E;
+}
+.pt-mysql-ipt.pt-ipt {
+    width: 420px;
+}
+
+.ds-mysql-ft a,
+.ds-mysql-ft a:hover {
+    text-decoration: underline;
+}
+.ds-mysql-error {
+    line-height: 1em;
+}
+
+
+.ds-mysql-dropdown {
+    width: 420px;
+}
+.ds-mysql-dropdown:hover .ds-mysql-ipt {
+    color: initial;
+    background-color: #e0e0e0;
+}
+.pt-select .pt-dropdown-menu.pt-mysql-dropdowm {
+    left: auto;!important;
+    right: 0;
+}
+.ds-mysql-dropdown .dropdown-menu {
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 0 0 4px 4px;
+    top: 100%;
+}
+.ds-mysql-dropdown .dropdown-menu > li > a {
+    color: #616161;
+    padding: 9px 10px;
+}
+.ds-mysql-dropdown .dropdown-menu > li > a:hover,
+.ds-mysql-dropdown .dropdown-menu > li > a:focus,
+.ds-mysql-dropdown .dropdown-menu > .active > a,
+.ds-mysql-dropdown .dropdown-menu > .active > a:hover,
+.ds-mysql-dropdown .dropdown-menu > .active > a:focus {
+    background-color: #9ccc65 !important;
+    width: 100%;
+    color: #fff;
+    box-shadow: none;
+}
+.ds-mysql-dropdown .dropdown-menu > .active > a {
+    background: none !important;
+    color: #9ccc65;
+}

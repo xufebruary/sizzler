@@ -1,0 +1,380 @@
+<header class="filter-hd clearfix">
+    <span class="pull-left" ng-if="dataSettings.filterScope == 'filters'"
+          translate="WIDGET.EDITOR.FILTER.ADD_FILTERS">Add a filter</span>
+    <span class="pull-left" ng-if="dataSettings.filterScope == 'segment'"
+          translate="WIDGET.EDITOR.FILTER.ADD_SEGMENT">Add a segment</span>
+
+    <div class="btn-help pull-left m-t-none">
+        <svg>
+            <use xlink:href="#icon-ask"></use>
+        </svg>
+        <p>
+            <span ng-if="dataSettings.filterScope == 'filters'"
+                  translate="WIDGET.EDITOR.FILTER.ADD_FILTERS_TIPS"></span>
+            <span ng-if="dataSettings.filterScope == 'segment'"
+                  translate="WIDGET.EDITOR.FILTER.ADD_SEGMENT_TIPS"></span>
+        </p>
+    </div>
+    <span class="pull-left block text-ellipsis" title="{{dataSettings.metricsNow.i18nCode | translate}}"
+          style="max-width: 50%;" ng-if="dsConfig.editor.filter.translateMetricName">: {{dataSettings.metricsNow.i18nCode | translate}}</span>
+    <span class="pull-left block text-ellipsis" title="{{dataSettings.metricsNow.name}}" style="max-width: 50%;"
+          ng-if="!dsConfig.editor.filter.translateMetricName">: {{dataSettings.metricsNow.name}}</span>
+    <a class="pull-right btn-filter-common btn-filter-remove text-center"
+       ng-click="remove()"
+       ng-show="dataSettings.filterType == 'edit'">
+        <span ng-if="dataSettings.filterScope == 'filters'" translate="WIDGET.EDITOR.FILTER.FILTER_REMOVE"></span>
+        <span ng-if="dataSettings.filterScope == 'segment'" translate="WIDGET.EDITOR.FILTER.SEGMENT_REMOVE"></span>
+        <i class="fa fa-filter text-xs"></i>
+    </a>
+</header>
+
+<div class="pt-loading" ng-show="loadSetting.widget || loadSetting.widget1">
+    <!-- ng-show="loadSetting.widget || loadSetting.widget1 || modal.editorNow.widgetDrawing == 'drawing'" -->
+    <span class="pt-center pt-loading-box">
+        <svg class="load-s btnloads white">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+        </svg>
+        <svg class="load-m btnloadm white">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+        </svg>
+    </span>
+</div>
+
+<div class="filter-bd">
+    <div class="m-t-xs m-b" ng-if="dataSettings.filterScope == 'segment' && dsConfig.editor.filter.savedFilters">
+        <label class="check-box" ng-click="setGtm('query_saved_filter')">
+            <input type="radio" name="filter" value="saved" ng-model="filter.type"> <i></i>
+            <span translate="WIDGET.EDITOR.FILTER.SEGMENT_ALREADY">Saved Filter</span>
+        </label>
+        <div class="m-l pos-rlt editor-dropdown" ng-show="filter.type == 'saved'" dropdown id="segmentsSearch">
+            <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                <input type="text" style="width: 295px;"
+                       ui-Focus="dataSettings.metricsSearchFocus"
+                       placeholder="{{'WIDGET.EDITOR.FILTER.SEGMENT_SELECT_ALREADY' | translate}}"
+                       class="block padder-xs pull-left no-border no-bg"
+                       ng-model="myOptions.segmentsSearchKey"
+                       ng-click="resetSegmentsList(filter.segmentsList)"
+                       ng-change="search(myOptions.segmentsSearchKey,'segment')">
+
+                <div class="pull-right editor-dropdown-caret text-center">
+                    <svg class="m-l-none editor-dropdown-search">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <div style="max-height: 200px; padding-right:10px;" class="dropdown-menu animated fadeInDown w-full">
+                <div style="max-height: 200px;"
+                     ui-jq="slimScroll"
+                     ui-options="{
+                        size:'4px',
+                        allowPageScroll: false,
+                        alwaysVisible:true
+                    }">
+                    <ul class="w-full dropdown-ul list-unstyled animated fadeInDown padder-v-sm no-border"
+                        ng-show="segmentsList.length > 0">
+                        <li ng-repeat="pro in segmentsList"
+                            ng-class="{'active': filter.segment == pro}"
+                            ng-click="changeFilterSegment(pro)">
+                            <a class="text-ellipsis padder block"
+                               title="{{pro.name}}"
+                               world-high
+                               type="segment"
+                               name="{{pro.name}}"
+                               data-searchKey="{{myOptions.segmentsSearchKey}}"></a>
+                        </li>
+                    </ul>
+                    <ul class="w-full dropdown-ul list-unstyled animated fadeInDown padder-v-sm no-border"
+                        ng-show="segmentsList.length == 0">
+                        <li><a class="padder block" translate="COMMON.NO_DATA">no data</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-class="{'saved-filter': filter.type !== 'new'}">
+        <div class="clearfix m-r m-t-xs m-b-xs">
+            <label class="check-box m-b-n"
+                   ng-click="setGtm('click_create_filter')"
+                   ng-show="dataSettings.filterScope == 'segment'">
+                <input type="radio" name="filter" value="new"
+                       ng-model="filter.type"
+                       ng-if="dsConfig.editor.filter.createNewFilterRadio">
+                <i ng-if="dsConfig.editor.filter.createNewFilterRadio"></i>
+                <span translate="WIDGET.EDITOR.FILTER.SEGMENT_CREATE"
+                      ng-if="dsConfig.editor.filter.createNewFilter">Create a new segment</span>
+            </label>
+            <div class="text-right clearfix" ng-show="dataSettings.filterScope == 'segment' && filter.type == 'new'">
+                <div class="pull-right m-l-md pos-rlt editor-dropdown" dropdown
+                     ng-if="dsConfig.editor.filter.containerListOfShow">
+                    <a class="editor-a" dropdown-toggle>
+                        <span>{{filter.newData[0].onlyShow ? containerShowList[0].name : containerShowList[1].name}}</span>
+                        <b class="caret"></b>
+                    </a>
+
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu animated fadeInDown">
+                        <li ng-repeat="show in containerShowList">
+                            <a ng-click="filter.newData[0].onlyShow = show.code">{{show.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="pull-right pos-rlt editor-dropdown" dropdown
+                     ng-if="dsConfig.editor.filter.containerListOfType">
+                    <a class="editor-a" dropdown-toggle>
+                        <span>{{filter.newData[0].type == 'user' ? containerTypeList[0].name : containerTypeList[1].name}}</span>
+                        <b class="caret"></b>
+                    </a>
+                    <!-- dropdown -->
+                    <ul class="dropdown-menu animated fadeInDown">
+                        <li ng-repeat="type in containerTypeList">
+                            <a ng-click="filter.newData[0].type = type.code;changeFilterBigType(type.code);">{{type.name}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div ui-jq="slimScroll"
+             ui-options="{
+                size:'4px',
+                height: '180px',
+                allowPageScroll: false,
+                alwaysVisible:false
+            }">
+            <div class="m-t-xs m-b-md"
+                 ng-repeat="box in filter.newData"
+                 ng-show="filter.type == 'new'">
+                <!-- 单个过滤器 -->
+                <div ng-repeat="f in box.condition" class="clearfix" my-var="userIndex = $index">
+                    <div class="filter-slt-a pull-left pos-rlt editor-dropdown"
+                         ng-init="dimensionIndex[userIndex] = false" dropdown auto-close="outsideClick"
+                         is-open="dimensionIndex[userIndex]">
+                        <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                            <input type="text"
+                                   title="{{translateSearchKey(filter.searchKey[userIndex],userIndex)}}"
+                                   class="block padder-xs pull-left no-border no-bg"
+                                   ng-model="filter.searchKey[userIndex]"
+                                   placeholder="{{myOptions.searchPlaceholder}}"
+                                   ng-click="searchIptClick()"
+                                   ng-change="search(filter.searchKey[userIndex], 'dimension');dimensionIndex[userIndex]=true">
+                            <!--ng-click="resetDimensionsList(filter.dimensionsOriginalList); filter.searchKey[userIndex]; collapseAllItem(false)"-->
+
+                            <div class="pull-right editor-dropdown-caret text-center" ng-click="searchIptClick()">
+                                <svg class="m-l-none editor-dropdown-search" ng-if="dsConfig.editor.filter.search"s>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                                </svg>
+                                <b class="caret m-l-none" ng-if="!dsConfig.editor.filter.search"></b>
+                            </div>
+                        </div>
+                        <!-- ng-show="dimensionIndex[f.index]" -->
+                        <div style="max-height: 200px;"
+                             class="dropdown-menu animated fadeInDown editor-search-bd wrapper-sm clearfix">
+                            <div style="max-height: 200px;"
+                                 ui-jq="slimScroll"
+                                 ui-options="{
+                                    size:'4px',
+                                    height: '140px',
+                                    allowPageScroll: false,
+                                    alwaysVisible:true
+                                }">
+                                <ul class="list-unstyled editor-search-ul">
+                                    <div ng-repeat="content in dimensionsList">
+                                        <div ng-if="content.type != 'spliter'">
+                                            <li class="text-ellipsis"
+                                                title="{{content.i18nCode | translate}}"
+                                                ng-init="dimensionExpansionIndex[$index] = false"
+                                                ng-click="dimensionExpansionIndex[$index] = !dimensionExpansionIndex[$index];
+                                                isCustomVariable(content.i18nCode,dimensionExpansionIndex[$index],$index,'itemList');"
+                                                ng-if="dsConfig.editor.filter.twoLayer">
+                                                <a href="javascript:void(0);">
+                                                    <i class="fa fa-caret-down text-black-600"
+                                                       ng-class="{'fa-caret-right': !dimensionExpansionIndex[$index]}"></i>
+                                                    <span>{{content.i18nCode | translate}}</span>
+                                                </a>
+                                            </li>
+                                            <!-- 一级的时候用的 -->
+                                            <li class="text-ellipsis"
+                                                ng-show="dsConfig.editor.filter.oneLayer"
+                                                ng-click="selectGDDataType(content,box,userIndex,+modal.editorNow.variables[0].ptoneDsInfoId,$index);
+                                                        changeFilterDimensionsDs(content, userIndex , box);
+                                                        dimensionIndex[userIndex] = !dimensionIndex[userIndex]">
+                                                <a href="javascript:" title="{{content.name}}"
+                                                   world-high
+                                                   data-searchkey="{{filter.searchKey[userIndex]}}"
+                                                   name="{{content.name}}">
+                                                    {{content.name}}
+                                                </a>
+                                            </li>
+                                            <!-- 目前提供给ga使用 -->
+                                            <div class="div-search"
+                                                 ng-show="dimensionExpansionIndex[$index] && +modal.editorNow.variables[0].ptoneDsInfoId!=19">
+                                                <div ng-repeat="dim in content.itemList">
+                                                    <li class="text-over source-li-search-children">
+                                                        <a href="javascript:void(0);"
+                                                           class="text-ellipsis font-thin block padder-l-md"
+                                                           title="{{dim.i18nCode | translate}}"
+                                                           world-high
+                                                           data-searchkey="{{filter.searchKey[userIndex]}}"
+                                                           ng-click="selectGDDataType(dim,box,userIndex,+modal.editorNow.variables[0].ptoneDsInfoId,$index);
+                                                                    changeFilterDimensionsDs(dim, userIndex , box);
+                                                                    dimensionIndex[userIndex] = !dimensionIndex[userIndex]"
+                                                           name="{{dim.i18nCode | translate}}">
+                                                            <!--ng-click="changeFilterDimensions(dim, userIndex , box);dimensionIndex[userIndex] = !dimensionIndex[userIndex]"-->
+                                                        </a>
+                                                    </li>
+                                                </div>
+                                            </div>
+
+                                            <!-- 目前提供给salesforce使用 -->
+                                            <div class="div-search"
+                                                 ng-show="dimensionExpansionIndex[$index] &&  (+modal.editorNow.variables[0].ptoneDsInfoId==19 || +modal.editorNow.variables[0].ptoneDsInfoId==23)">
+                                                <div ng-repeat="dim in content.dimensionList">
+                                                    <li class="text-over source-li-search-children">
+                                                        <a href="javascript:void(0);"
+                                                           class="text-ellipsis font-thin block padder-l-md"
+                                                           title="{{dim.i18nCode | translate}}"
+                                                           world-high
+                                                           data-searchkey="{{filter.searchKey[userIndex]}}"
+                                                           ng-click="selectGDDataType(dim,box,userIndex,+modal.editorNow.variables[0].ptoneDsInfoId,$index);
+                                                   changeFilterDimensions(dim, userIndex , box);dimensionIndex[userIndex] = !dimensionIndex[userIndex]"
+                                                           name="{{dim.i18nCode | translate}}">
+                                                        </a>
+                                                    </li>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--指标维度分割线-->
+                                        <div class="b-t m-t-sm m-b-sm" style="border-top: 1px solid #656565;" ng-if="content.type == 'spliter'"></div>
+                                    </div>
+
+                                    <!--
+                                    <div ng-if="!dsConfig.editor.data.calculatedValueScopeShowAll && dataSettings.filterScope == 'filters'">
+                                        <li class="search-line"
+                                            style="margin: 5px 0;"
+                                            ng-if="myOptions.calculatedValueList.length>0 && dimensionsList.length>0">
+                                        </li>
+                                        <li class="text-ellipsis"
+                                            ng-repeat="calculatedValue in myOptions.calculatedValueList | orderBy: 'createTime'">
+                                            <a class="clearfix"
+                                               href="javascript:void(0);"
+                                               ng-click="selectGDDataType(calculatedValue,box,userIndex,+modal.editorNow.variables[0].ptoneDsInfoId,$index);
+                                                    changeFilterDimensionsDs(calculatedValue, userIndex , box);
+                                                    dimensionIndex[userIndex] = !dimensionIndex[userIndex]">
+                                                <span class="text-ellipsis" title="{{calculatedValue.name}}">{{calculatedValue.name}}</span>
+                                            </a>
+                                        </li>
+                                    </div>
+                                    -->
+
+                                    <div ng-show="dimensionsList.length == 0 && myOptions.calculatedValueList.length == 0">
+                                        <li translate="COMMON.NO_DATA">no data</li>
+                                    </div>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="filter-slt-b pull-left pos-rlt editor-dropdown" dropdown
+                         ng-show="(dsConfig.editor.filter.isShowOfCondition|| filter.dsDateTypeSelected[userIndex] || box.condition[userIndex].dataType) && (!dsConfig.editor.filter.neverShowCondition || !filter.googleAdwordsStringFilter[userIndex])">
+                        <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                            <span class="block padder-xs pull-left text-ellipsis"
+                                  title="{{filter.gaContainerList[userIndex].name}}">{{filter.gaContainerList[userIndex].name}}</span>
+                            <div class="pull-right editor-dropdown-caret text-center"><b class="caret m-l-none"></b>
+                            </div>
+                        </div>
+                        <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                            <li ng-repeat="pro in containerList"
+                                ng-click="changeFilterContainer(pro, userIndex, box)"
+                                ng-show="showRegExp($index,box.condition[userIndex])">
+                                <a class="text-ellipsis padder" title="{{pro.name}}">{{pro.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- 控制是否显示下拉框的，加入自己接的数据源的判断 -->
+                    <div class="filter-slt-b-big pull-left pos-rlt"
+                         ng-class="{'small':(modal.editorNow.variables[0].ptoneDsInfoId == 13)}"
+                         ng-show="((modal.editorNow.variables[0].ptoneDsInfoId == 3  || modal.editorNow.variables[0].ptoneDsInfoId == 12) && filter.googleAdwordsStringFilter[userIndex]) || modal.editorNow.variables[0].ptoneDsInfoId == 13 || modal.editorNow.variables[0].ptoneDsInfoId == 21 || modal.editorNow.variables[0].ptoneDsInfoId == 22">
+                        <div class="editor-dropdown-toggle clear" dropdown-toggle>
+                            <input class="block padder-xs pull-left text-ellipsis"
+                                   title="{{filter.valueList[$index] ? filter.valueList[$index] : myOptions.searchPlaceholder }}"
+                                   placeholder="{{myOptions.searchPlaceholder}}"
+                                   value="{{filter.valueList[$index]}}" type="text"/>
+                            <div class="pull-right editor-dropdown-caret text-center"><b class="caret m-l-none"></b>
+                            </div>
+
+                        </div>
+
+                        <div class="outer">
+                            <ul class="list-unstyled animated fadeInDown filter-dropdown-big" style="max-height: 200px;"
+                                ng-if="f.name"
+                                ui-jq="slimScroll"
+                                ui-options="{
+                                size:'4px',
+                                height: '145px',
+                                width: '250px',
+                                allowPageScroll: false
+                            }">
+                                <li ng-repeat="item in filter.filterItemList[filter.googleAdwordsItem[userIndex]]">
+                                    <label class="check-box m-b-none">
+                                        <input type="checkbox"
+                                               ng-model="filter.googleAdwordsCheckBox[userIndex][$index]"
+                                               ng-change="selectGoogleAdwordsFilter(box,userIndex)">
+                                        <i class="m-r-none"></i>
+                                        <span class="text-black-400 m-l-xs-m" title="{{item.name}}">{{item.name}}</span>
+                                    </label>
+                                </li>
+                                <li class="no-data" ng-show="filter.filterItemList[filter.googleAdwordsItem[userIndex]].length === 0" translate="WIDGET.EDITOR.FILTER.NO_DATA"></li>
+                                <li class="no-data" ng-show="filter.getCheckboxState" translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING"></li>
+                                <li class="no-data" ng-show="filter.getDataError" translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING"></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- 控制是否显示输入文本框的，加入自己接的数据源的判断 -->
+                    <div class="filter-slt-c pull-left"
+                         ng-show="showIptStep(box,userIndex)">
+                        <input type="text" class="btn-filter-common ipt-filter-value"
+                               ng-model="filter.valueList[$index]"
+                               ng-change="changeFilterValue(filter.valueList[$index], $index, box)"></div>
+                    <div class="filter-slt-d pull-left" ng-hide="box.condition.length<=1">
+                        <i class="fa fa-times-circle text-black-600" ng-click="delFilter($index, box)"></i>
+                    </div>
+                    <div class="filter-rel" ng-show="f.rel">
+                        <button class="btn-filter-common btn-filter-apply" ng-show="+modal.editorNow.variables[0].ptoneDsInfoId != 12"
+                                ng-click="changeFilterRel(f.rel, $index, box,modal.editorNow.variables[0].ptoneDsInfoId)">
+                            {{f.rel}}
+                        </button>
+                        <!-- facebookad只有and连接符，只有facebookad显示这个，后续抽取出配置用于控制操作符的显示 -->
+                        <button class="btn-filter-common btn-filter-apply"  ng-show="+modal.editorNow.variables[0].ptoneDsInfoId == 12">
+                            and
+                        </button>
+                    </div>
+                </div>
+
+                <div class="pull-none m-t-md clear filter-add-more">
+                    <a class="text-black-200" ng-click="createFilter('and', box);scrollCondition();"
+                       translate="COMMON.AND">and</a>
+                    <span ng-hide="!dsConfig.editor.filter.isNeedOr">|</span>
+                    <a class="text-black-200"
+                       ng-hide="!dsConfig.editor.filter.isNeedOr"
+                       ng-click="createFilter('or', box)" translate="COMMON.OR">or</a>
+                    ({{box.condition.length}})
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="clearfix">
+        <button class="text-center block btn-filter-common btn-filter-apply pull-right m-l"
+                ng-click="save()"
+                ng-disabled="validateEmptyFilter()"
+                translate="COMMON.APPLY">
+            <!--ng-disabled="(filter.type=='saved' && filter.savedData.length<=0) || (filter.type=='new' && (filter.newData[0].condition.length<=0 || validateEmptyFilter()))"-->
+            Apply
+        </button>
+        <a class="text-center block btn-filter-common btn-filter-cancel pull-right" ng-click="close()"
+           translate="COMMON.CANCEL">Cancel</a>
+    </footer>
+</div>

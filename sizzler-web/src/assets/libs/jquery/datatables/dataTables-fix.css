@@ -1,0 +1,13 @@
+/*
+ * Table styles fix
+ */
+
+
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline; 
+  min-width: 0;
+  padding: 0; 
+  margin-left: 0;
+}

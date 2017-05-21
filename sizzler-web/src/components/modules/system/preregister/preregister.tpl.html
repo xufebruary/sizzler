@@ -1,0 +1,63 @@
+<!-- content -->
+<div class="content ds-manage wrapper-xl no-padding" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000">预注册用户管理&nbsp;->&nbsp;预注册用户列表</span>
+        </ol>
+    </header>
+   
+    <div class="clearfix m-t-xl">
+		<div class="userTable clearfix">
+			<p class="pull-left">
+				<span>Users in waiting list：{{preUserList.length}}</span>
+				<span style="margin-left:20px;">Search email：</span>
+				<input type="text" ng-model="userEmail"/>
+			</p>
+
+			<!--<p class="pull-left" ng-show="isDomain('datadeck.com') || isDomain('datadeck.jp')">-->
+				<!--<span style="margin-left:20px;">new password：</span>-->
+				<!--<input type="text" ng-model="update.newPassword"/>-->
+			<!--</p>-->
+		</div>
+
+        <table class="userTable">
+        	<thead>
+        		<tr>
+        			<!--<th width="10%"><input type="checkbox" ng-model="selectAll"><span ng-hide="selectAll">Select All</span><span ng-show="selectAll">Deselect all</span></th>-->
+        			<th>UserID</th>
+        			<th>Email</th>
+        			<th>Register Time</th>
+        			<th>Numbers of Sharing</th>
+        			<th>Name</th>
+        			<th>Company</th>
+        			<th>Department</th>
+        			<th>Title</th>
+        			<th>Phone</th>
+        			<th>Phone Country</th>
+        			<th>Operation</th>
+        			<!--<th ng-show="isDomain('datadeck.jp')" width="15%">Reset</th>-->
+        		</tr>
+        	</thead>
+        	<tr ng-repeat="user in preUserList | orderBy:'-totalCount'" ng-show="user.userEmail.indexOf(userEmail)>=0">
+        		<!--<td width="10%"><input ng-checked="selectAll" ng-disabled="user.isPreRegistration == 1" name="preUserIds" type="checkbox" value="{{user.ptId}}" /></td>-->
+        		<td ng-bind="user.ptId"></td>
+        		<td ng-bind="user.userEmail"></td>
+        		<td ng-bind="user.createDate"></td>
+        		<td ng-bind="user.totalCount"></td>
+				<td ng-bind="user.name"></td>
+				<td ng-bind="user.company"></td>
+				<td ng-bind="user.department"></td>
+				<td ng-bind="user.title"></td>
+				<td ng-bind="user.phone"></td>
+				<td ng-bind="user.phoneCountry"></td>
+        		<td >
+					<a class="btn btn-success" ng-show="user.isPreRegistration == 0" ng-click="activity(user);user.isPreRegistration = 1">Activate</a>
+					<span class="btn btn-default" ng-show="user.isPreRegistration == 1">已激活</span></td>
+        		<!--<td width="15%" ng-show="isDomain('datadeck.jp')"><a class="btn btn-success"  ng-click="preUserUpdatePassword(user.ptId);user['type']=false;">Reset Password</a></td>-->
+        	</tr>
+        </table>
+    </div>
+    <!--<div class="activityList" >
+    	<a class="btn btn-success" href="javascript:void(0)" ng-click="activityList()">Activate all selected users</a>
+    </div>-->
+</div>

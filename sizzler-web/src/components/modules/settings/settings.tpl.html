@@ -1,0 +1,124 @@
+<div class="mod-setting">
+    <div class="mod-setting-bd">
+        <header class="clearfix text-center m-b-xl">
+            <strong class="block">
+                <dom-svg-func class="" data-svgid="{{userInfo.fistLetterSvg}}"></dom-svg-func>
+            </strong>
+            <span class="text-lg" translate="HEADER.PROFILE.SETTINGS.USERINFO" translate-cloak></span>
+        </header>
+        <form name="form" class="form-validation">
+            <div class="mod-setting-content" ng-if="rootUser.settingsInfo !== null">
+                <dl class="clearfix m-b mod-setting-dl">
+                    <dt class="font-normal" translate="HEADER.PROFILE.SETTINGS.ACCOUNT" translate-cloak></dt>
+                    <dd>
+                        <span class="block m-t-xs text-md">{{settings.userEmail}}</span>
+                    </dd>
+                </dl>
+                <dl class="clearfix m-b mod-setting-dl">
+                    <dt class="font-normal" translate="HEADER.PROFILE.SETTINGS.USERNAME" translate-cloak></dt>
+                    <dd>
+                        <input type="text" name="username" autocomplete="off" ng-maxlength="30" ng-class="{'pt-ipt-error':form.username.$error.maxlength}" class="pt-ipt padder-sm text-md font-thin no-border w-full" ng-model="settings.userName">
+                        <div class="text-danger mod-setting-error m-t-xs" ng-show="form.username.$dirty && form.username.$invalid">
+                            <span ng-show="form.username.$error.maxlength" translate="LOGIN.ERROR_TIP.USER_NAME_LENGTH">Max length 30.</span>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="clearfix m-b mod-setting-dl">
+                    <dt class="font-normal" translate="HEADER.PROFILE.SETTINGS.PASSWORD" translate-cloak></dt>
+                    <dd>
+                        <input type="password" ng-class="{'pt-ipt-error':form.oldPassword.$error.minlength||form.oldPassword.$error.maxlength||form.oldPassword.$error.passwordAvailable}" class="pt-ipt padder-sm text-md font-thin no-border w-full" name="oldPassword" autocomplete="off" ng-model="settings.oldPassword" ng-maxlength="80" translate translate-attr-placeholder="COMMON.OLD_PASSWORD" validate-password>
+                        <div class="text-danger mod-setting-error m-t-xs">
+                            <span ng-show="form.oldPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">min length 6.</span>
+                            <span ng-show="form.oldPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Max length 80.</span>
+                            <span ng-show="form.oldPassword.$error.passwordAvailable" translate="COMMON.PASSWORD_NOT_RIGHT">password not right.</span>
+                        </div>
+                        <input type="password" translate translate-attr-placeholder="COMMON.NEW_PASSWORD" ng-class="{'pt-ipt-error':form.newPassword.$error.minlength||form.newPassword.$error.maxlength}" class="pt-ipt padder-sm text-md font-thin no-border w-full" name="newPassword" autocomplete="off" ng-model="settings.newPassword" ng-minlength="6" ng-maxlength="20">
+                        <div class="text-danger mod-setting-error m-t-xs">
+                            <span ng-show="form.newPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">min length 6.</span>
+                            <span ng-show="form.newPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">max length 20.</span>
+                        </div>
+                        <input type="password" translate translate-attr-placeholder="COMMON.CONFIRM_PASSWORD" ng-class="{'pt-ipt-error':form.confirmPassword.$error.minlength||form.confirmPassword.$error.maxlength||form.confirmPassword.$error.validator}" class="pt-ipt padder-sm text-md font-thin no-border w-full" name="confirmPassword" autocomplete="off" ng-model="confirmPassword" ng-minlength="6" ng-maxlength="20" ui-validate=" '$value==settings.newPassword' " ui-validate-watch=" 'settings.newPassword' ">
+                        <div class="text-danger mod-setting-error m-t-xs">
+                            <span ng-show="form.confirmPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">min length 6.</span>
+                            <span ng-show="form.confirmPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">max length 20.</span>
+                            <span ng-show='form.confirmPassword.$error.validator' translate="FORGOT_PASSWORD.RESET_PASSWORD.TIP_2">passwords do not match!</span>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="clearfix m-b mod-setting-dl">
+                    <dt class="font-normal" translate="HEADER.PROFILE.SETTINGS.LANG" translate-cloak></dt>
+                    <dd>
+                        <div class="pt-select mod-setting-dropdown" dropdown>
+                            <a class="pt-ipt pt-selectIpt" dropdown-toggle>
+                                <span>{{settings.modLocale}}</span>
+                                <svg class="pull-right m-r-xs">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-triangle-down"></use>
+                                </svg>
+                            </a>
+                            <ul class="pt-dropdown-menu pt-ipt animated fadeInDown">
+                                <li ng-class="{'active': settings.locale == 'ja_JP'}">
+                                    <a class="padder-sm text-base" ng-click="sltLocale('日本語', 'ja_JP')">日本語</a>
+                                </li>
+                                <li ng-class="{'active': settings.locale == 'en_US'}">
+                                    <a class="padder-sm text-base" ng-click="sltLocale('English', 'en_US')">English</a>
+                                </li>
+                                <li ng-class="{'active': settings.locale == 'zh_CN'}">
+                                    <a class="padder-sm text-base" ng-click="sltLocale('中文', 'zh_CN')">中文</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </dd>
+                </dl>
+                <dl class="clearfix m-b-sm mod-setting-dl" has-permission="ptone-widget-demo">
+                    <dt class="pull-left text-right font-normal">Demo Data Switch:</dt>
+                    <dd class="pull-left">
+                        <label class="i-switch m-t-xs m-r m-t-none m-l-xs">
+                            <input type="checkbox" ng-checked="settings.demoSwitch == '0'?false:true" ng-model="settings.pageDemoSwitch">
+                            <i></i>
+                        </label>
+                    </dd>
+                </dl>
+            </div>
+        </form>
+        <!-- dashboard-loading" -->
+        <div class="pt-loading" ng-show="loadSetting.settings">
+            <span class="pt-center pt-loading-box">
+                <svg class="load-s btnloads"><use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#icon-loading"></use></svg>
+                <svg class="load-m btnloadm"><use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                  xlink:href="#icon-loading"></use></svg>
+            </span>
+        </div>
+        <div class="animated fadeIn loading" ng-if="settings.showLoding" ng-class="{'fadeOut': !settings.showLoding}">
+            <span class="text-danger  m-t-xs loading-text">
+                <span translate="COMMON.SAVE" translate-cloak></span><span translate="COMMON.SUCCESS" translate-cloak></span>...
+            </span>
+        </div>
+        <footer class="mod-setting-ft m-t-xl">
+            <span translate="COMMON.SUCCESS" translate-cloak class="font-save-success">Save Successfull!</span>
+            <button id="settings-save" class="pt-btn pt-btn-success pull-right" ng-disabled="form.$invalid" ng-click="saveData()" translate="COMMON.SAVE" translate-cloak pt-log="{
+                    'where': 'account_settings',
+                    'what': 'save_settings'
+                }">Save
+            </button>
+        </footer>
+    </div>
+</div>
+
+
+<div class="fade in" ng-if="settings.passwordIsChange">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <div class="pt-popup-bd padder-v-sm text-md">
+                <span class="ng-scope" translate="ACCOUNT_SETTING.CHANGE_PASSWORD_TIP"></span>
+            </div>
+            <footer class="pt-popup-footer">
+                <button class="pt-btn pt-btn-success" ng-click="logout()">
+                    <span translate="COMMON.OK"></span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

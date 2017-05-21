@@ -1,0 +1,38 @@
+<div class="widget-hd widget-hd-tool">
+    <div class="btn-group widget-set" ng-if="rootPanel.now.status == 1 && !rootPanel.now.shareSourceId && !pt.settings.fullScreen">
+        <span class="block widget-more"></span>
+        <div class="widget-set-dropdown fadeIn">
+            <a class="block" 
+                ng-click="widget.toolData.value ? initialize() : initialize('placeholder')" 
+                tooltip-placement="left" 
+                tooltip="{{ 'WIDGET.EDIT_WIDGET.TITLE' | translate}}">
+                <svg>
+                    <use xlink:href="#icon-edit"></use>
+                </svg>
+            </a>
+            <a class="block" 
+                ng-click="showWidgetOperation('copy', widget)"
+                tooltip-placement="left" 
+                tooltip="{{ 'WIDGET.COPY_WIDGET.TITLE' | translate}}">
+                <svg>
+                    <use xlink:href="#icon-copy"></use>
+                </svg>
+            </a>
+            <a class="block" 
+                ng-click="showWidgetOperation('delete', widget.baseWidget.widgetId)"
+                tooltip-placement="left" 
+                tooltip="{{ 'WIDGET.DELETE_WIDGET.TITLE' | translate}}">
+                <svg>
+                    <use xlink:href="#icon-del"></use>
+                </svg>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="widget-bd-tool js-mCustomScrollbar" ng-dblclick="widget.toolData.value ? initialize() : initialize('placeholder')">
+    <div class="ptone-tinymce-{{$index}}" data-name="ptone-tinymce-{{$index}}" ng-if="widget.toolData.value" ng-bind-html="bindHtml(widget.toolData.value)"></div>
+    <div class="ptone-tinymce-{{$index}}  default-text" data-name="ptone-tinymce-{{$index}}" ng-if="!widget.toolData.value && !rootPanel.now.shareSourceId">{{'WIDGET.EDITOR.TOOL.PLACEHOLDER' | translate}}</div>
+    <form class="upload_form_{{$index}}" style="width:0;height:0;overflow:hidden">
+        <input name="image" style="width:0;height:0;overflow:hidden" nv-file-select uploader="uploader" accept="image/jpeg,image/png,image/gif" type="file">
+    </form>
+</div>

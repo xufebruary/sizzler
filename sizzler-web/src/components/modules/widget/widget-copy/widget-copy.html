@@ -1,0 +1,50 @@
+<div class="widget-copy fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <span class="popup-title" translate="WIDGET.COPY_WIDGET.TITLE"></span>
+                <a class="popup-btnClose" ng-click="onCancel()">
+                    <svg>
+                        <use xlink:href="#icon-close"></use>
+                    </svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd">
+                <div class="pt-popup-ipt">
+                    <span class="block text-md" translate="WIDGET.COPY_WIDGET.TIPS"></span>
+                    <div dropdown class="widget-copy-list-wrap">
+                        <a dropdown-toggle class="mod-popup-ipt block text-md clearfix">
+                            <span class="pull-left text-ellipsis" title="{{myOptions.currentPanel.panelTitle}}">
+                                {{myOptions.currentPanel.panelTitle}}
+                            </span>
+                            <b class="caret pull-right m-t-sm"></b>
+                        </a>
+                        <ul class="dropdown-menu widget-copy-list">
+                            <li ng-repeat="panel in myOptions.panels"
+                                ng-if="!isShare(panel.panelId)"
+                                ng-click="selectPanel(panel)">
+
+                                <a title="{{panel.panelTitle}}"
+                                    class="padder-sm text-md text-ellipsis" 
+                                    ng-class="{'active': panel.panelId == myOptions.currentPanel.panelId}" >
+                                    {{panel.panelTitle}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <footer class="pt-popup-footer text-right m-t-sm">
+                <button class="pt-btn pt-btn-default m-r-md" ng-click="onCancel()">
+                    <span translate="COMMON.CANCEL"></span>
+                </button>
+                <button class="pt-btn pt-btn-success" ng-click="widgetCopy()">
+                    <span translate="WIDGET.COPY_WIDGET.BUTTON"></span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

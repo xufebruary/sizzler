@@ -1,0 +1,96 @@
+<div class="popup share-login">
+    <div class="popup-content">
+        <a class="popup-btnClose" ng-click="closePopup('showLogin')">
+            <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+        </a>
+        <header class="popup-hd">
+            <svg style="fill:#fff;">
+                <use xlink:href="{{productConfigs.logo}}"></use>
+            </svg>
+        </header>
+        <div class="pt-loading login-bd m-t-lg" ng-show="login.loadSetting.signIn">
+            <span class="pt-center pt-loading-box-lg">
+                <svg class="load-s btnloads white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+                <svg class="load-m btnloadm white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+            </span>
+        </div>
+        <div class="popup-bd">
+            <form name="form" class="form-validation">
+                <!--<div class="popover right text-danger" style="top: -4px; left: 348.25px; display: block;width:100%;" ng-show="login.errorMessage">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <div class="popover-content">
+                            <span ng-bind="login.errorMessage">Please check your password or email</span>
+                        </div>
+                    </div>
+                </div>-->
+                <div class="ipt-login m-b-xs">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-email"></use></svg>
+                    <input id="login-signin-email"
+                           class="no-bg no-border text-lg" type="text" placeholder="{{'LOGIN.EMAIL' | translate}}"
+                           ng-pattern="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/"
+                           ng-input-focus
+                           ng-model="login.userEmail" ng-required="true" ng-maxlength="100" autofocus name="email"
+                           ng-keydown="enterKeyUp($event,login,form.email);login.emailErrorMessage=''">
+                    <div class="popover right text-danger" style="top: -4px; left: 330px; display: block;width:100%;"
+                         ng-show="(form.email.$dirty && form.email.$invalid || login.emailErrorMessage) && !form.email.$focused">
+                        <div class="arrow"></div>
+                        <div class="popover-inner">
+                            <div class="popover-content">
+                                <div ng-show="form.email.$error.required" translate="LOGIN.ERROR_TIP.EMAIL_NULL">Email is required.</div>
+                                <!--<div ng-show="form.email.$error.email" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT">Invalid email address.</div>-->
+                                <div ng-show="form.email.$error.pattern" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT">Invalid email address.</div>
+                                <div ng-show="form.email.$error.maxlength" translate="LOGIN.ERROR_TIP.EMAIL_LENGTH">Max length 100.</div>
+                                <div ng-show="login.emailErrorMessage" ng-bind="login.emailErrorMessage"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ipt-login m-b-xs">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-pwd"></use></svg>
+                    <input id="login-signin-password" class="no-bg no-border text-lg" type="password" placeholder="{{'LOGIN.PASSWORD' | translate}}" ng-input-focus
+                           ng-minlength="6" ng-keydown="enterKeyUp($event,login,form.userPassword);login.passwordErrorMessage=''" ng-maxlength="20" name="userPassword" ng-model="login.userPassword" ng-required="true">
+                </div>
+                <div class="popover right text-danger" style="top: 45px; left: 330px; display: block;width:100%;"
+                     ng-show="(form.userPassword.$dirty && form.userPassword.$invalid || login.passwordErrorMessage) && !form.userPassword.$focused">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <div class="popover-content">
+                            <span ng-show="form.userPassword.$error.required" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                            <span ng-show="form.userPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Min length 6.</span>
+                            <span ng-show="form.userPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Max length 20.</span>
+                            <div ng-show="login.passwordErrorMessage" ng-bind="login.passwordErrorMessage"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix padder-v check-login login-default-color">
+                    <label class="i-checks i-checks-sm pull-left text-md m-b-none">
+                        <input id="login-signin-remember" type="checkbox" ng-model="userCookieTime">
+                        <i class="m-r-none"></i>
+                        <span translate="LOGIN.REMEMBER_ME"></span>
+                    </label>
+                    <a id="login-signin-forgot"
+                       ng-href="{{BACK_UI_URL}}/forgotPassword"
+                       class="pull-right text-md login-default-color login-a login-forgot-link"
+                       translate="LOGIN.FORGOT_PASSWORD">Forgot you password?</a>
+                </div>
+                <button id="login-signin-submit"
+                        class="text-xl no-border block text-center btn-login"
+                        type="button"
+                        ng-click="login()">
+                    <span translate="LOGIN.SIGNIN">Log in</span>
+                </button>
+                <!--<a class="text-md block m-t-md m-b-md text-center login-default-color login-link" href="#">注册账户</a>-->
+            </form>
+        </div>
+        <footer ng-if="productConfigs.link.signup">
+            <a id="login-signin-signup"
+               class="text-lg block text-center text-white login-link m-t-md login-signup-link"
+               ng-href="{{productConfigs.link.signup}}"
+               translate="LOGIN.SIGNUP">Create new account</a>
+
+            <small class="text-md block m-t-lg text-center login-default-color" translate="LOGIN.NO_ACCOUNT">Don't have an account yet?</small>
+        </footer>
+    </div>
+</div>
+<div class="modal-backdrop fade in"></div>

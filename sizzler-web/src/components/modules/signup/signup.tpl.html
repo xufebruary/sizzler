@@ -1,0 +1,122 @@
+<div class="login"  ng-class="{'pt-phone': pt.settings.isPhone}">
+    <svg class="login-bg" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" login-svg-bg>
+        <polygon  points="" style="fill:#8bc34a;"/>
+        <polygon  points="" style="fill:#689f38;opacity:0.3"/>
+    </svg>
+
+    <header>
+        <svg>
+            <use xlink:href="{{productConfigs.logo}}"></use>
+        </svg>
+    </header>
+
+    <div class="login-bd m-t-lg">
+        <form name="form" class="form-validation">
+            <div class="ipt-login m-b-xs">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-email"></use>
+                </svg>
+                <input id="login-signup-email" class="no-bg no-border text-lg"
+                       type="text"
+                       ng-pattern="/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/"
+                       ng-attr-placeholder="{{'LOGIN.SIGNUP_INFO.EMAIL' | translate}}"
+                       ng-model="myOptions.user.userEmail" name="email" autocomplete="off"
+                       ng-keydown="enterKeyUp($event,signup,form.email);myOptions.authError = false;"
+                       ng-input-focus
+                       ng-required="true" ng-maxlength="100" autofocus>
+                <div class="popover right text-danger" style="top: -4px; left: 348.25px; display: block;width:100%;"
+                     ng-show=" (form.email.$dirty && form.email.$invalid || myOptions.authError) && !form.email.$focused">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <div class="popover-content">
+                            <div ng-show="form.email.$error.required " translate="LOGIN.ERROR_TIP.EMAIL_NULL">Email is
+                                required.
+                            </div>
+                            <div ng-show="form.email.$error.maxlength " translate="LOGIN.ERROR_TIP.EMAIL_LENGTH">Max
+                                length 100.
+                            </div>
+                            <div ng-show="form.email.$error.pattern" translate="LOGIN.ERROR_TIP.EMAIL_FORMAT">Invalid
+                                email address.
+                            </div>
+                            <div ng-show="myOptions.authError " ng-bind="myOptions.errorMessage"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="text-danger m-b m-l-xl" ng-show="form.email.$dirty && form.email.$invalid">
+                <span ng-show="form.email.$error.required">Email is required.</span>
+                <span ng-show="form.email.$error.email">Invalid email address.</span>
+                <span ng-show="form.email.$error.maxlength">Max length 100.</span>
+            </div>-->
+
+            <div class="ipt-login m-b-xs">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-pwd"></use>
+                </svg>
+                <input id="login-signup-password" class="no-bg no-border text-lg" type="password" ng-minlength="6"
+                       ng-keydown="enterKeyUp($event,signup,form.userPassword)"
+                       ng-attr-placeholder="{{'LOGIN.SIGNUP_INFO.PASSWORD' | translate}}"
+                       ng-input-focus
+                       ng-maxlength="20" name="userPassword" ng-model="userPassword" ng-required="true">
+                <div class="popover right text-danger" style="top: -4px; left: 348.25px; display: block;width:100%;"
+                     ng-show="form.userPassword.$dirty && form.userPassword.$invalid && !form.userPassword.$focused">
+                    <div class="arrow"></div>
+                    <div class="popover-inner">
+                        <div class="popover-content">
+                            <div ng-show="form.userPassword.$error.required " translate="LOGIN.ERROR_TIP.PASSWORD_NULL">
+                                password is required.
+                            </div>
+                            <div ng-show="form.userPassword.$error.minlength "
+                                 translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Min length 6.
+                            </div>
+                            <div ng-show="form.userPassword.$error.maxlength "
+                                 translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Max length 20.
+                            </div>
+                            <!--<div ng-show="form.userPassword.$error.containsBlankAvailable">password not contains blank.</div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--<div class="text-danger m-b m-l-xl" ng-show="form.userPassword.$dirty && form.userPassword.$invalid">
+                <span ng-show="form.userPassword.$error.required" translate="LOGIN.ERROR_TIP.PASSWORD_NULL">password is required.</span>
+                <span ng-show="form.userPassword.$error.minlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Min length 6.</span>
+                <span ng-show="form.userPassword.$error.maxlength" translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH">Max length 20.</span>
+            </div>-->
+
+
+            <div class="signup-info" ng-if="productConfigs.link.signupTreaty">
+                <div class="text-center text-over text-md text-center">
+                    <a  class="login-default-color login-a" ng-href="{{productConfigs.link.signupTreaty}}" target="_blank">
+                        <span translate="REGISTER.TIP_1" translate-cloak translate-values="{{productConfigs}}"></span>
+                        <span translate="REGISTER.TIP_2" translate-cloak></span>
+                    </a>
+                </div>
+            </div>
+
+            <button id="login-signup-submit"
+                    id="pt-signupButton"
+                    class="text-xl no-border block text-center btn-login"
+                    type="button"
+                    ng-click="signup()"
+                    ripple-svg="default">
+                <span translate="LOGIN.SIGNUP" translate-cloak></span>
+            </button>
+
+        </form>
+
+        <a id="login-signup-return" class="text-md block text-center text-white m-t-xxl login-link login-signup-return"
+           translate="LOGIN.RETURN_TO_SIGNIN" translate-cloak ui-sref="signin"></a>
+    </div>
+
+    <!-- dashboard-loading" -->
+    <div class="pt-loading login-bd m-t-lg" ng-show="myOptions.loadSetting.signin">
+        <span class="pt-center pt-loading-box-lg">
+            <svg class="load-s btnloads white">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+            </svg>
+            <svg class="load-m btnloadm white">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+            </svg>
+        </span>
+    </div>
+</div>

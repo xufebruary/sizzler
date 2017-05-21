@@ -1,0 +1,149 @@
+.ds-gd-content {
+    min-height: 80px;
+}
+.ds-gd-content > ul{
+    border: 1px solid #eee;
+}
+.ds-gd-content > ul > li{
+    height: 50px;
+}
+.ds-gd-content > ul.manage > li{
+    height: 80px;
+    padding: 22px 10px 18px;
+}
+.ds-gd-content > ul > li:not(:last-child){
+    border-bottom: 1px solid #eee;
+}
+.file-title {color: #424242;}
+.file-title p {
+    max-width: 90%;
+}
+.file-path p {
+    max-width: 45%;
+}
+.ds-gd-content svg{
+    width: 16px;
+    height: 16px;
+    fill: #bdbdbd;
+}
+
+
+
+
+.ds-gd-file {}
+.ds-gd-file svg{
+    width: 20px;
+    height: 20px;
+    /*fill: #9e9e9e;*/
+    vertical-align: middle;
+}
+.ds-gd-file svg.svg-file {fill: #9ccc65;}
+.ds-gd-file-hd {
+
+}
+.ds-gd-file-hd-tab {}
+.ds-gd-file-hd-tab button {
+    min-width: 160px;
+    line-height: 1em;
+    text-align: left;
+    margin-right: 1px;
+    background-color: #fff;
+    border: 1px solid #ecedf0;
+    padding-top: 6px;
+    cursor: pointer;
+}
+.ds-gd-file-hd-tab button.active {
+    background-color: #ecedf0;
+}
+.ds-gd-file-hd-tab button svg {
+    fill: #616161;
+    vertical-align: top;
+}
+.ds-gd-file-hd-tab button span {
+    line-height: 1.5em;
+}
+.ds-gd-file-breadcrumb{
+    height: 40px;
+    line-height: 40px;
+    padding-left: 24px;
+    background-color: #ecedf0;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.ds-gd-file-breadcrumb svg{
+    width: 30px;
+    fill: #757575;
+    vertical-align: middle;
+}
+.ds-gd-file-title {
+    background-color: #f7f7f9;
+    height: 30px;
+    line-height: 34px;
+}
+.ds-gd-file-title .ds-gd-file-name {
+    padding-left: 26px;
+}
+.ds-gd-file-bd {
+    border-bottom: 1px solid #eee;
+}
+
+.ds-gd-file-list {
+    cursor: pointer;
+    height: 50px;
+    line-height: 50px;
+    border: 1px solid #eee;
+    border-bottom: none;
+}
+.ds-gd-file-name {
+    color: #424242;
+    height: 100%;
+    width: -ms-calc(100% - 100px*3);
+    width: -moz-calc(100% - 100px*3);
+    width: -webkit-calc(100% - 100px*3);
+    width: calc(100% - 100px*3);
+}
+.ds-gd-file-name .filelist-icon{
+    fill:#757575;
+}
+.ds-gd-file-owner,
+.ds-gd-file-modified,
+.ds-gd-file-connect {
+    width: 100px;
+    height: 100%;
+}
+.ds-gd-file-list:not(.ds-gd-file-empty):hover {
+    background-color: #dcedc8;
+}
+.ds-gd-file-list:hover .ds-gd-file-owner,
+.ds-gd-file-list:hover .ds-gd-file-modified,
+.ds-gd-file-list:hover .ds-gd-file-connect {
+    color: #424242;
+}
+.ds-gd-file-connect span {
+    /*visibility: hidden;*/
+}
+.ds-gd-file-connect svg {
+    width: 16px;
+    fill: #616161;
+}
+.ds-gd-file-connect {
+    visibility: hidden;
+}
+.ds-gd-file-list:hover .ds-gd-file-connect {
+    visibility: visible;
+}
+
+.ds-gd-file-empty {
+    padding-left: 46px;
+    cursor: default;
+}
+
+
+/*loading*/
+.ds-gd-file-bd .pt-loading {
+    background-color: rgba(0,0,0, .2);
+}
+

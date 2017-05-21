@@ -1,0 +1,30 @@
+<div class="modal fade ng-isolate-scope in block">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">
+                    <span translate="TEMPLET.TEMPLET_PUBLISH"></span>
+                </h3>
+            </div>
+            <div class="modal-body form-horizontal" ng-if="modal.isPublished != 1">
+                <label class="i-checks i-checks-sm pull-left text-md m-b-none m-r-md" ng-repeat="lang in rootCommon.langList" on-finish-render-filters>
+                    <input type="checkbox" value="{{lang.id}}" class="js_langList">
+                    <i class="m-r-none"></i>
+                    {{lang.name}}
+                </label>
+                <p class="text-warning" ng-if="showAreaTip">Please select area.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" ng-click="close()">
+                    <span translate="COMMON.CANCEL"></span>
+                </button>
+                <button class="btn btn-primary" ng-click="publish()">
+                    <span translate="COMMON.OK"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- bg -->
+<div class="modal-backdrop fade in"></div>

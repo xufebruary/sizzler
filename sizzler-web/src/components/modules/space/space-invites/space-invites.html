@@ -1,0 +1,65 @@
+
+<!--type如果为dashboard就不显示下面页面,避免屏幕出现闪动现象-->
+<div class="space-invites" ng-if="$ctrl.info && $ctrl.info.type != 'dashboard'">
+    <header class="space-invites-hd">
+        <div class="logo">
+            <svg>
+                <use xlink:href="{{productConfigs.logo}}"></use>
+            </svg>
+        </div>
+    </header>
+
+    <!--需要用户先注册-->
+    <div class="space-invites-bd clearfix" ng-if="['signup', 'not_active'].indexOf($ctrl.info.type) >= 0">
+        <header>
+            <h2>
+                {{"SPACE.INVITES.TITLE" | translate}}
+                {{$ctrl.info.spaceName}}
+            </h2>
+        </header>
+        <div class="forms">
+            <form name="$ctrl.form" ng-submit="$ctrl.signupAndAcceptInvite()" novalidate>
+
+                <!--邀请邮箱-->
+                <h3>
+                    <span translate="SPACE.INVITES.EMAIL">Email:</span>
+                    {{$ctrl.info.userEmail}}
+                </h3>
+
+                <!--密码输入框-->
+                <input
+                    type="password"
+                    name="password"
+                    maxLength="20"
+                    autofocus
+                    autocomplete="off"
+                    placeholder="{{'LOGIN.PASSWORD' | translate}}"
+                    ng-model="$ctrl.userPassword"
+                    ng-class="{'error': $ctrl.errors.userPassword}"
+                    ng-blur="$ctrl.check('userPassword')"
+                    ng-focus="$ctrl.errors.userPassword=false"
+                />
+
+                <div class="password-tips" ng-show="$ctrl.errors.userPassword">
+                    {{'LOGIN.ERROR_TIP.PASSWORD_LENGTH' | translate}}
+                </div>
+
+                <p ng-if="productConfigs.link.signupTreaty">
+                    <a ng-href="{{productConfigs.link.signupTreaty}}" target="_blank"
+                       translate="SPACE.INVITES.TALK_TIPS" translate-values="{{productConfigs}}"></a>
+                </p>
+
+                <footer class="clearfix">
+                    <button class="pt-btn pt-btn-success" type="submit">
+                        <span translate="SPACE.INVITES.BTN_SIGNUP"></span>
+                    </button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!--链接已失效-->
+    <div class="space-invites-invalidate" ng-if="$ctrl.info.type == 'invalidate'">
+        <h2 translate="SPACE.INVITES.INVALIDATE"></h2>
+    </div>
+</div>

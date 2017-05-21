@@ -1,0 +1,58 @@
+<div class="fade in">
+    <div class="popup pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <span class="pt-popup-title" translate="PANEL.ADD.TIPS_TITLE"></span>
+                <a class="pt-popup-close" ng-click="onCancel()">
+                    <svg>
+                        <use xlink:href="#icon-close"></use>
+                    </svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd">
+                <span class="block" translate="PANEL.ADD.SUB_TITLE"></span>
+                <input type="text" 
+                    class="pt-ipt pt-ipt-success pt-popup-ipt" 
+                    maxlength="50"
+                    ng-model="myOptions.titleMode"
+                    ui-input
+                    ui-input-options = "{
+                        'autoFocus': 'true',
+                        'onEnter': 'addPanel()',
+                        'onBlur': 'eventBlur()'
+                    }">
+                <span class="block padder-v-sm" translate="PANEL.ADD.SUB_DESCRIPTION"></span>
+                <textarea 
+                    class="pt-ipt pt-ipt-success pt-popup-textarea" 
+                    ng-model="myOptions.descriptionMode" 
+                    maxlength="200"></textarea>
+            </div>
+            <footer class="pt-popup-footer clearfix">
+                <a href="javascript:"
+                    class="text-u-l block text-green-400 m-t-xs pull-left"
+                    ui-sref="pt.dashboardTemplate" 
+                    pt-log="{
+                        'where': 'panel',
+                        'what': 'add_panel_with_template'
+                    }">
+                    <span ng-bind="'PANEL.ADD.ADD_TEMPLATE_TIPS' | translate"></span>
+                </a>
+                <button class="pt-btn pt-btn-default m-r-md" 
+                    ng-click="onCancel()"
+                    pt-log="{
+                        'where': 'panel',
+                        'what': 'add_panel_cancel'
+                    }">
+                    <span translate="COMMON.CANCEL">Cancel</span>
+                </button>
+                <button class="pt-btn pt-btn-success" 
+                    ng-click="addPanel();" 
+                    ng-disabled="!myOptions.titleMode || myOptions.titleMode == ''">
+                    <span translate="COMMON.SAVE">Save</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

@@ -1,0 +1,30 @@
+<div class="editor-admin">
+    <header class="editor-admin-hd text-right">
+        <span ng-class="{'active': adminSettings.type == 'zh_CN'}" ng-click="changeType('zh_CN')">中文</span>
+        <span ng-class="{'active': adminSettings.type == 'en_US'}" ng-click="changeType('en_US')" class="m-l-md m-r-md">English</span>
+        <span ng-class="{'active': adminSettings.type == 'ja_JP'}" ng-click="changeType('ja_JP')">日文</span>
+    </header>
+
+    <div class="editor-admin-bd">
+        <div class="editor-admin-title">
+            <span class="block" translate="WIDGET.EDITOR.ADMIN.TITLE">Title</span>
+            <input class="block text-xs" maxlength="30" type="text" ng-model="adminSettings.modelTitle[adminSettings.type]">
+        </div>
+
+        <div class="editor-admin-describe m-t">
+            <span class="block" translate="WIDGET.EDITOR.ADMIN.DESCRIBE">Describe:</span>
+            <textarea maxlength="150" class="block wrapper-md text-xs" ng-model="adminSettings.modelDescribe[adminSettings.type]"></textarea>
+        </div>
+    </div>
+    <div class="clear" ng-if="$state.current.name == 'pt.templates'">
+        <div select-tag></div>
+    </div>
+
+    <footer class="clear m-t editor-admin-ft clearfix">
+        <span class="text-success" ng-if="isSuccess">
+            <span translate="COMMON.SAVE"></span><span translate="COMMON.SUCCESS"></span>
+        </span>
+        <button class="btn btn-success pull-right" ng-click="saveWidgetInfo()" ng-disabled="!adminSettings.modelTitle['zh_CN'] ||
+         !adminSettings.modelTitle['en_US'] || !adminSettings.modelTitle['ja_JP']">save</button>
+    </footer>
+</div>

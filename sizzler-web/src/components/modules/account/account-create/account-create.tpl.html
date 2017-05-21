@@ -1,0 +1,149 @@
+<!-- 非移动端 -->
+<div class="account-create" ng-if="!$ctrl.isPhone">
+    <div class="main-box">
+        <div class="user-logo">
+            <svg>
+                <use xlink:href="#icon-datadeck-logo-new"></use>
+            </svg>
+        </div>
+        <div class="tips-info" translate="DATADECK_SET_PASSWORD.TIP_1"></div>
+        <div class="inner">
+            <div class="login-bd m-t-lg">
+                <!-- email -->
+                <p class="ipt-tips" translate="DATADECK_SET_PASSWORD.USER_EMAIL"></p>
+                <div class="ipt-login m-b-xs disable">
+                    <input class="no-bg no-border text-xxl" 
+                        type="text" 
+                        disabled 
+                        value="{{$ctrl.showEmail}}">
+                </div>
+
+                <!-- password -->
+                <p class="ipt-tips" translate="DATADECK_SET_PASSWORD.NEW_PASSWORD"></p>
+                <div class="ipt-login m-b-xs">
+                    <input type="password" 
+                        name="password"
+                        class="no-bg no-border text-xxl" 
+                        maxlength="20"
+                        ng-model="$ctrl.user.userPassword"
+                        ui-input
+                        ui-input-options="{
+                            'maxLength': '20',
+                            'autoFocus': 'true',
+                            'onEnter': '$ctrl.activate()',
+                            'onFocused': '$ctrl.iptIsFocused(\'password\')',
+                            'onBlur': '$ctrl.iptIsBlur(\'password\')'
+                        }">
+                    <div class="popover right" 
+                        ng-class="{'text-danger': $ctrl.tips.password.isError, 'text-success': $ctrl.tips.password.isFocused}"
+                        ng-show="$ctrl.tips.password.isError || $ctrl.tips.password.isFocused">
+                        <div class="arrow"></div>
+                        <div class="popover-inner">
+                            <div class="popover-content">
+                                <span ng-if="$ctrl.tips.password.isError">
+                                    {{$ctrl.tips.password.errorCode | translate}}
+                                </span>
+                                <span ng-if="$ctrl.tips.password.isFocused" 
+                                    translate="LOGIN.ERROR_TIP.PASSWORD_LENGTH"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- submit -->
+                <button type="button" 
+                    class="text-xl no-border block text-center btn-login m-t-xl" 
+                    ng-click="$ctrl.activate()" 
+                    translate="DATADECK_SET_PASSWORD.SUBMIT"></button>
+            </div>
+        </div>
+        <div class="error-tips" ng-show="$ctrl.tips.send.isError">
+            <span translate="{{$ctrl.tips.send.errorCode}}"></span>
+        </div>
+    </div>
+</div>
+<div class="introduce-box" ng-if="!$ctrl.isPhone">
+    <div class="big-img">
+        <img src="/assets/images/account-create-01.png" alt="Datadeck" />
+    </div>
+    <div class="title" translate="DATADECK_SET_PASSWORD.TIP_2"></div>
+    <div class="introduce">
+        <p><i></i><span translate="DATADECK_SET_PASSWORD.TIP_3"></span></p>
+        <p><i></i><span translate="DATADECK_SET_PASSWORD.TIP_4"></span></p>
+        <p><i></i><span translate="DATADECK_SET_PASSWORD.TIP_5"></span></p>
+        <p><span translate="DATADECK_SET_PASSWORD.TIP_6"></span></p>
+    </div>
+    <div class="cooperation">
+        <p translate="DATADECK_SET_PASSWORD.TIP_7"></p>
+        <div class="small-img">
+            <img src="/assets/images/account-create-02.png?v=20161129001" alt="Datadeck" />
+        </div>
+    </div>
+</div>
+
+<!-- 移动端 -->
+<div class="login reset-password" ng-if="$ctrl.isPhone">
+    <svg class="login-bg" 
+        width="100%" 
+        height="100%" 
+        version="1.1" 
+        xmlns="http://www.w3.org/2000/svg" 
+        login-svg-bg>
+        <polygon points="" style="fill:#8bc34a;" />
+        <polygon points="" style="fill:#689f38; opacity:0.3" />
+    </svg>
+
+    <header>
+        <svg>
+            <use xlink:href="{{productConfigs.logo}}"></use>
+        </svg>
+    </header>
+
+    <div class="main-box">
+        <div class="user-email">
+            <span>{{$ctrl.showEmail}}</span>
+        </div>
+        <div class="tips-info" translate="DATADECK_SET_PASSWORD.TIP_0"></div>
+        <div class="inner">
+            <div class="login-bd m-t-lg">
+
+                <!-- password -->
+                <p class="ipt-tips" translate="DATADECK_SET_PASSWORD.NEW_PASSWORD"></p>
+                <div class="ipt-login m-b-xs">
+                    <input type="password" 
+                        name="password"
+                        class="no-bg no-border text-xxl" 
+                        maxlength="20"
+                        ng-model="$ctrl.user.userPassword"
+                        ui-input
+                        ui-input-options="{
+                            'maxLength': '20',
+                            'autoFocus': 'true',
+                            'onEnter': '$ctrl.activate()',
+                            'onFocused': '$ctrl.iptIsFocused(\'password\')',
+                            'onBlur': '$ctrl.iptIsBlur(\'password\')'
+                        }">
+                </div>
+
+                <!-- submit -->
+                <button type="button" 
+                    class="text-xl no-border block text-center btn-login m-t-xl" 
+                    ng-click="$ctrl.activate()" 
+                    translate="DATADECK_SET_PASSWORD.SUBMIT"></button>
+
+                <!-- error tips -->
+                <div class="login-tips-phone animated fadeInDown" ng-if="$ctrl.tips.password.isError">
+                    <div class="login-tips-phone-info">
+                        <span>
+                            {{$ctrl.tips.password.errorCode | translate}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="error-tips" ng-show="$ctrl.tips.send.isError">
+            <span translate="{{$ctrl.tips.send.errorCode}}"></span>
+        </div>
+    </div>
+</div>

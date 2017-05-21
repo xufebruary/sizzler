@@ -1,0 +1,242 @@
+<div class="dashboard-time-dom">
+    <span class="arrow top hidden-folded arrow-info"></span>
+
+    <div class="dashboard-time-bd text-black-500">
+        <div class="text-lg m-b-sm">
+            <span translate="PANEL.TIME.DASHBOARD_TIME_TITLE"></span>
+        </div>
+
+        <div class="clearfix">
+            <label class="check-box dashboard-time-label pull-left">
+                <input type="radio" name="timeType" value="widgetTime"
+                       ng-change="toggleTimeType()"
+                       ng-model="myOptions.currentTime">
+                <i></i>
+                <span translate="PANEL.TIME.WIDGET_TIME">Widget Time</span>
+            </label>
+
+            <div class="btn-help pull-left">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                </svg>
+                <p translate="PANEL.TIME.WIDGET_TIME_TIPS"></p>
+            </div>
+        </div>
+
+        <div>
+            <div class="clearfix">
+                <label class="check-box dashboard-time-label pull-left">
+                    <input type="radio" name="timeType" value="dashboardTime"
+                           ng-change="toggleTimeType()"
+                           ng-model="myOptions.currentTime">
+                    <i></i>
+                    <span translate="PANEL.TIME.DASHBOARD_TIME">Dashboard Time</span>
+                </label>
+                <div class="btn-help pull-left">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                    </svg>
+                    <p translate="PANEL.TIME.DASHBOARD_TIME_TIPS"></p>
+                </div>
+            </div>
+
+            <div ng-show="myOptions.currentTime == 'dashboardTime'" class="dynamic-time m-t-xs">
+                <span class="block editor-font-title text-black-500" translate="WIDGET.EDITOR.TIME.DYNAMIC_TIME_RANGE">Dynamic Time Range</span>
+                <div class="row m-l-none m-r-none m-t-sm">
+                    <div class="col-sm-6 no-padder" ng-class="{'text-black-400': myOptions.modelTime=='today'}">
+                        <label class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="today"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                            <span translate="WIDGET.EDITOR.TIME.TODAY">Today</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 no-padder" ng-class="{'text-black-400': myOptions.modelTime=='yesterday'}">
+                        <label class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="yesterday"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                            <span translate="WIDGET.EDITOR.TIME.YESTERDAY">Yesterday</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 no-padder" ng-class="{'text-black-400': myOptions.modelTime=='this_week'}">
+                        <label class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="this_week"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                            <span translate="WIDGET.EDITOR.TIME.THIS_WEEK">This week</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 no-padder" ng-class="{'text-black-400': myOptions.modelTime=='last_week'}">
+                        <label class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="last_week"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                            <span translate="WIDGET.EDITOR.TIME.LAST_WEEK">Last week</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 no-padder" ng-class="{'text-black-400': myOptions.modelTime=='this_month'}">
+                        <label class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="this_month"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                            <span translate="WIDGET.EDITOR.TIME.THIS_MONTH">This Month</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 no-padder" ng-class="{'text-black-400': myOptions.modelTime=='last_month'}">
+                        <label class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="last_month"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                            <span translate="WIDGET.EDITOR.TIME.LAST_MONTH">Last Month</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 no-padder text-black-500">
+                        <label for="last_days" ng-class="{'text-black-400': myOptions.modelTime=='last_days'}">
+                            <div class="check-box dashboard-time-label pull-left" style="margin-top: 2px;">
+                                <input type="radio" name="time" id="last_days" value="last_days"
+                                       ng-change="setModedlTime()"
+                                       ng-model="myOptions.modelTime">
+                                <i></i>
+                            </div>
+
+                            <span translate="WIDGET.EDITOR.TIME.LAST">Last</span>
+                            <input type="number"
+                                   min="1"
+                                   max="999"
+                                   id="publicInputTime"
+                                   class="text-center dashboard-time-ipt"
+                                   ng-class="{'text-danger': myOptions.timeError[0] && myOptions.modelTime=='last_days', 'text-success': !myOptions.timeError[0] && myOptions.modelTime=='last_days'}"
+                                   ng-style="{borderBottom: myOptions.modelLastDays == null ? '1px solid red' : ''}"
+                                   ng-model="myOptions.modelLastDays"
+                                   ng-focus="togglePicker('last_days')"
+                                   ng-change="lastDaysSet('change')"
+                                   ng-blur="lastDaysSet('blur')">
+                            <span translate="WIDGET.EDITOR.TIME.DAYS">days</span>
+                        </label>
+
+                        <div class="m-l-md" ng-show="myOptions.modelTime=='last_days'">
+                            <label class="check-box dashboard-time-label block">
+                                <input type="radio" name="today" value="past" ng-model="myOptions.modelToday">
+                                <i></i>
+                                <span translate="WIDGET.EDITOR.TIME.EXCLOUD_TODAY">Excloud today</span>
+                            </label>
+                            <label class="check-box dashboard-time-label">
+                                <input type="radio" name="today" value="last" ng-model="myOptions.modelToday">
+                                <i></i>
+                                <span translate="WIDGET.EDITOR.TIME.INCLOUD_TODAY">Incloud today</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 no-padder text-black-500">
+                        <label for="from_today" ng-class="{'text-black-400': myOptions.modelTime=='from_today'}">
+                            <div class="check-box dashboard-time-label pull-left">
+                                <input type="radio" name="time" id="from_today" value="from_today"
+                                       ng-change="setModedlTime()"
+                                       ng-model="myOptions.modelTime">
+                                <i></i>
+                            </div>
+
+                            <span translate="WIDGET.EDITOR.TIME.FROM">From </span>
+                            <input class="text-center dashboard-time-ipt"
+                                   style="width: 70px;"
+                                   readonly
+                                   ng-model="myOptions.modelFrom"
+                                   ng-class="{'text-success': myOptions.modelTime=='from_today'}"
+                                   ng-focus="togglePicker('from_today')">
+                            <span translate="WIDGET.EDITOR.TIME.TO_TODAY">to today</span>
+                        </label>
+                    </div>
+                    <div class="col-sm-12 no-padder">
+                        <div class="dashboard-time-datePicker padder-sm"
+                             ng-if="myOptions.dpFromShow"
+                             data-picker="picker"
+                             data-deteType="from"
+                             data-changeFun="dateChange"
+                             ui-jq="DatePicker"
+                             ui-options="{
+                                  flat: 'true',
+                                  format: 'm/d/Y',
+                                  date: '{{myOptions.modelFrom}}',
+                                  current: '{{myOptions.nowDate}}',
+                                  calendars: 1,
+                                  starts: 1
+                              }"></div>
+                        <div class="dashboard-time-datePicker-hide" ng-if="myOptions.dpFromShow" ng-click="myOptions.dpFromShow = false; myOptions.datePickerHideClick = true"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-show="myOptions.currentTime == 'dashboardTime'" class="fixed-time m-t">
+                <span class="block editor-font-title text-black-500" translate="WIDGET.EDITOR.TIME.FIXED_TIME_RANGE">Fixed Time Range</span>
+
+                <label for="fixed">
+                    <dl class="sl-item m-b-none text-black-500" ng-class="{'text-black-400': myOptions.modelTime=='fixed'}">
+                        <dt class="pull-left">
+                        <div class="check-box dashboard-time-label">
+                            <input type="radio" name="time" value="fixed" id="fixed"
+                                   ng-change="setModedlTime()"
+                                   ng-model="myOptions.modelTime">
+                            <i></i>
+                        </div>
+                        </dt>
+                        <dd class="pull-left">
+                            <div>
+                                <span class="m-r-xs thumb-xxs" translate="COMMON.FROM">From</span>
+                                <input type="text"
+                                       readonly
+                                       class="text-center dashboard-time-ipt"
+                                       ng-class="{'text-success': myOptions.modelTime=='fixed'}"
+                                       style="width: 70px;"
+                                       ng-value="myOptions.modelFixed[0]"
+                                       ng-focus="togglePicker('fixed')">
+                            </div>
+                            <div>
+                                <span class="m-r-xs thumb-xxs" translate="COMMON.TO">To</span>
+                                <input type="text"
+                                       readonly
+                                       class="text-center dashboard-time-ipt"
+                                       ng-class="{'text-success': myOptions.modelTime=='fixed'}"
+                                       style="width: 70px;"
+                                       ng-value="myOptions.modelFixed[1]"
+                                       ng-focus="togglePicker('fixed')">
+                            </div>
+                        </dd>
+                    </dl>
+                </label>
+                <div class="dashboard-time-datePicker padder-sm"
+                     ng-if="myOptions.dpFixedShow"
+                     data-picker="picker"
+                     data-deteType="fixed"
+                     data-changeFun="dateChange"
+                     ui-jq="DatePicker"
+                     ui-options="{
+                          flat: 'true',
+                          format: 'm/d/Y',
+                          date: {{myOptions.modelFixed}},
+                          current: '{{myOptions.nowDate}}',
+                          calendars: 1,
+                          starts: 1,
+                          mode: 'range'
+                      }"></div>
+                <div class="dashboard-time-datePicker-hide" ng-if="myOptions.dpFixedShow" ng-click="myOptions.dpFixedShow = false; myOptions.datePickerHideClick = true"></div>
+            </div>
+        </div>
+
+
+        <div class="text-right m-t">
+            <button class="btn btn-default m-r-xs" ng-click="cancelDashboardTime()"><span translate="COMMON.CANCEL">Cancel</span></button>
+            <button class="btn btn-success"
+                    ng-disabled="myOptions.applyDisabled"
+                    ng-click="setDashboardTime('time')">
+                <span translate="COMMON.APPLY">Apply</span>
+            </button>
+        </div>
+    </div>
+</div>

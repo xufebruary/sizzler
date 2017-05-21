@@ -1,0 +1,104 @@
+<div id="widget_editor" class="editor" movable move-by=".editor-hd"
+     ng-class="{'admin': hasSysRolesFun('ptone-admin-user')}">
+    <a class="editor-close text-right" ng-click="close()">
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+        </svg>
+    </a>
+
+    <header class="editor-hd">
+        <!-- <span ng-if="userInfo.access != 1" class="text-xs m-l-sm block pull-left text-over">{{modal.editorNow.baseWidget.widgetTitle}}</span>
+        <span ng-if="userInfo.access.indexOf('1') != -1" class="text-xs m-l-sm block pull-left text-over">{{modal.editorNow.baseWidget.widgetTitle[rootUser.settingsInfo.locale]}}</span>
+        <a class="pull-right m-r-xs" ng-click="close()">
+            <i class="fa fa-times fa-fw"></i>
+        </a> -->
+    </header>
+    <section class="editor-bd padder-xs">
+        <ul class="sl-item">
+            <li ng-if="!hasSysRolesFun('ptone-admin-user')">
+                <span step-source class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'title', 'disabled': editor.disabled[4]}"
+                      ng-click="sltStep('title', 0)"
+                      translate="WIDGET.EDITOR.TITLE.TITLE">Title</span>
+            </li>
+            <li ng-if="showStep('source')">
+                <span step-source class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'source', 'disabled': editor.disabled[0]}"
+                      ng-click="sltStep('source', 0)"
+                      translate="WIDGET.EDITOR.ACCOUNT.SOURCE">Source</span>
+            </li>
+            <li ng-if="showStep('data')">
+                <span step-data class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'data', 'disabled': editor.disabled[1]}"
+                      ng-click="sltStep('data', 1)"
+                      translate="WIDGET.EDITOR.DATA.DATA">Metric</span>
+            </li>
+            <li ng-if="showStep('time')">
+                <span step-time class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'time', 'disabled': editor.disabled[2]}"
+                      ng-click="sltStep('time', 2)"
+                      translate="WIDGET.EDITOR.TIME.TIME">Time</span>
+            </li>
+            <li ng-if="showStep('chart')">
+                <span step-chart class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'chart', 'disabled': editor.disabled[3]}"
+                      ng-click="sltStep('chart', 3)"
+                      translate="WIDGET.EDITOR.CHART.CHART">Chart</span>
+            </li>
+            <li ng-if="showStep('heatmap')">
+                <span step-heatmap class="btn-editor text-center block text-center-xs"
+                      ng-click="sltStep('heatmap', 7)"
+                      ng-class="{'active': editor.pop.name == 'heatmap'}"
+                      translate="WIDGET.EDITOR.HEATMAP.HEATMAP_URL">Heatmap Url</span>
+            </li>
+            <li has-sys-role="ptone-admin-user">
+                <span step-admin class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'admin'}"
+                      ng-click="sltStep('admin', 4)"
+                      translate="WIDGET.EDITOR.ADMIN.ADMIN">Admin</span>
+            </li>
+            <li ng-if="modal.editorNow.layout">
+                <span step-chart class="btn-editor text-center block text-center-xs"
+                      ng-class="{'active': editor.pop.name == 'custom', 'disabled': editor.disabled[5]}"
+                      ng-click="sltStep('custom', 5)"
+                      translate="WIDGET.EDITOR.CUSTOM.CUSTOM">Custom</span>
+            </li>
+            <li ng-if="modal.editorNow.layout && rootUser.settingsInfo.demoSwitch == '1'">
+                <span step-chart class="btn-editor text-center block text-center-xs"
+                      ng-click="sltStep('demo', 6)"
+                      ng-class="active">Demo</span>
+            </li>
+        </ul>
+    </section>
+    <div class="complex-dimensions" has-sys-role="ptone-doubleclickCompound-datasource-user"
+         ng-if="modal.editorNow.variables[0].ptoneDsInfoId == 22">
+        <form class="form-inline">
+            <div class="form-group">
+                <label class="sr-only" for="complex-dimensions-1">Email address</label>
+                <input type="text" class="form-control" id="complex-dimensions-1" placeholder="value1">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="complex-dimensions-2">Password</label>
+                <input type="text" class="form-control" id="complex-dimensions-2" placeholder="value2">
+            </div>
+            <button type="submit" class="btn btn-success">Apply</button>
+        </form>
+    </div>
+    <!--特殊对应，数据源为dbclick cgi的时候，编辑器上面会多一个输入框-->
+    <div ng-class="{'top-special':modal.editorNow.variables[0].ptoneDsInfoId == 22}">
+        <editor-title ng-if=" editor.pop.name == 'title'"></editor-title>
+        <editor-source ng-if=" editor.pop.name == 'source' "></editor-source>
+        <editor-data ng-if=" editor.pop.name == 'data' "></editor-data>
+        <editor-time ng-if=" editor.pop.name == 'time' "></editor-time>
+        <editor-chart ng-if=" editor.pop.name == 'chart' "></editor-chart>
+        <editor-admin ng-if=" editor.pop.name == 'admin' "></editor-admin>
+        <editor-custom ng-if=" editor.pop.name == 'custom' "></editor-custom>
+
+        <editor-heatmap 
+            ng-if=" editor.pop.name == 'heatmap' "
+            locale="rootUser.settingsInfo.locale"
+            widget-id="modal.editorNow.baseWidget.widgetId"
+            heatmap-url="modal.editorNow.toolData.value"
+            on-success="save('heatmap', data)"></editor-heatmap>
+    </div>
+</div>

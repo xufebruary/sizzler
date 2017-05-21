@@ -1,0 +1,39 @@
+.editor-heatmap {
+
+	header {
+		font-size: 1.2em;
+
+		.btn-help {
+			font-size: 14px;
+
+			a {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	textarea {
+		margin: 5px 0 20px;
+		border-color: #757575;
+		color: #9c9c9c;
+		resize: none;
+
+		&::-webkit-input-placeholder {
+			color: #6e6e6e;
+		}
+
+		&:-moz-placeholder {
+			color: #6e6e6e;
+			opacity:  1;
+		}
+
+		&::-moz-placeholder {
+		   color: #6e6e6e;
+		   opacity:  1;
+		}
+
+		&:-ms-input-placeholder {
+			color: #6e6e6e;
+		}
+	}
+}

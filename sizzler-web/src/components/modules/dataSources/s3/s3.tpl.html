@@ -1,0 +1,471 @@
+<!-- 通用头部 -->
+<div class="pt-ds-header pos-rlt" ng-show=" ['connectionPost', 'fileList'].indexOf(dsBinding.current.mod)<0">
+    <!-- 路径-账户列表 -->
+    <div class="ds-header-breadcrumb text-black-900" ng-show=" ['noData', 'tableList'].indexOf(dsBinding.current.mod)>=0 ">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" href="javascript:" translate="DATA_SOURCE.S3.HD_TITLE_MANAGE">Amazon S3</span>
+    </div>
+
+    <!-- 数据源默认介绍 -->
+    <div class="pt-ds-header-introduce clearfix" ng-if="['noData', 'tableList'].indexOf(dsBinding.current.mod)>=0">
+        <div class="pt-ds-header-introduce-logo"><span class="pt-img"><img src="/assets/images/ds/set-s3.jpg" alt=""/></span></div>
+        <div class="pt-ds-header-introduce-detail">
+            <p ng-bind-html="'DATA_SOURCE.S3.INTRODUCE' | translate"></p>
+            <p class="pt-ds-header-introduce-website"><a href="https://aws.amazon.com/s3/" target="_blank">{{dsCtrl.editDs.name}} &gt;</a></p>
+        </div>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="dsSrv.getFileList(dsBinding, 'ptoneRootFolderID::connection')"
+           ng-show="dsCtrl.dsDataTep.s3.currentAddBtnType == 'owner' && dsCtrl.dsDataTep.s3.accountList.length != 0">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span translate="DATA_SOURCE.S3.NEW_FILE">Connect New File</span>
+        </a>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="dsSrv.connectionShow(dsBinding, 'save', 'tableList')"
+           ng-show="dsCtrl.dsDataTep.s3.currentAddBtnType == 'view' && dsCtrl.dsDataTep.s3.accountList.length != 0">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span translate="DATA_SOURCE.MANAGEMENT.ADD_CONNECT">Connect New Account</span>
+        </a>
+    </div>
+</div>
+
+
+
+<!--无数据时提示层  -->
+<div dataType="noData" class="ds-no-binding m-t-xxl" ng-show="dsBinding.current.mod == 'noData' ">
+    <div class="description">
+        <p ng-bind-html="'DATA_SOURCE.S3.ADD_ACCOUNT_TIPS' | translate"></p>
+    </div>
+    <p>
+        <a class="pt-btn pt-btn-success pt-btn-add text-base" href="javascript:" ng-click="dsSrv.connectionShow(dsBinding, 'save', 'noData')">
+            <svg>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+            </svg>
+            <span translate="DATA_SOURCE.MANAGEMENT.ADD_CONNECT">Connect New Account</span>
+        </a>
+    </p>
+</div>
+
+<!-- connection编辑&新增 -->
+<div dataType="connectionPost" class="add-database pos-rlt padder-b-xxl" ng-show=" dsBinding.current.mod == 'connectionPost' ">
+    <!-- 数据源路径 -->
+    <div class="ds-header-breadcrumb text-black-900 m-b-none">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <a class="text-black-900" href="javascript:" ng-click="dsBinding.current.mod = dsBinding.connection.from" translate="DATA_SOURCE.S3.HD_TITLE_MANAGE">Amazon S3</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" ng-if=" dsBinding.connection.operateType == 'save' " translate="DATA_SOURCE.S3.CONNECTION_HD_ADD_TIPS">Connect File</span>
+        <span class="text-black-1000" ng-if=" ['edit', 'edit_save'].indexOf(dsBinding.connection.operateType)>=0 " translate="DATA_SOURCE.S3.CONNECTION_HD_EDIT_TIPS">Connect File</span>
+    </div>
+
+    <header class="add-database-hd padder-l padder-b-lg">
+        <h2 class="text-xl text-black-800 m-n">
+            <span ng-if=" dsBinding.connection.operateType == 'save' "  translate="DATA_SOURCE.S3.CONNECTION_TITLE_ADD_INTRODUCE">Add the Connection from Amazon S3</span>
+            <span ng-if=" ['edit', 'edit_save'].indexOf(dsBinding.connection.operateType)>=0 "  translate="DATA_SOURCE.S3.CONNECTION_TITLE_EDIT_INTRODUCE">Edit the Connection from Amazon S3</span>
+        </h2>
+        <p class="m-b-none" ng-if=" dsBinding.connection.operateType == 'save' " ng-bind-html="'DATA_SOURCE.S3.CONNECTION_TITLE_SUB_ADD_INTRODUCE' | translate"></p>
+        <p class="m-b-none" ng-if=" ['edit', 'edit_save'].indexOf(dsBinding.connection.operateType)>=0 " ng-bind-html="'DATA_SOURCE.S3.CONNECTION_TITLE_SUB_EDIT_INTRODUCE' | translate:productConfigs"></p>
+    </header>
+
+    <div class="add-database-bd pos-rlt">
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span translate="DATA_SOURCE.S3.CONNECTION_NAME">Connection Name</span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    maxlength="30"
+                    name="connection name"
+                    autocomplete="off"
+                    ng-keydown="dsSrv.panelCopyKeyup(dsBinding, $event)"
+                    class="ds-mysql-ipt text-black-800 padder-sm text-md font-thin no-border w-full js_connection_ipt"
+                    ng-model="dsBinding.connection.modConnectionName"
+                    ng-blur="dsSrv.blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span class="js_empty" translate="DATA_SOURCE.S3.ERROR_EMPTY_CNAME">Please enter the connection name</span>
+                    <!-- <span class="js_exists">已存在</span> -->
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span translate="DATA_SOURCE.S3.ACCESS_KEY_ID">Access Key ID</span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    name="Access Key ID"
+                    autocomplete="off"
+                    ng-keydown="dsSrv.panelCopyKeyup(dsBinding, $event)"
+                    class="ds-mysql-ipt text-black-800 padder-sm text-md font-thin no-border w-full js_connection_ipt"
+                    ng-model="dsBinding.connection.modAccessKeyId"
+                    ng-blur="dsSrv.blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span translate="DATA_SOURCE.S3.ERROR_EMPTY_ACCESS_KEY_ID">Please enter the Access Key ID</span>
+                </div>
+            </dd>
+        </dl>
+        <dl class="clearfix m-b ds-mysql-dl">
+            <dt class="font-normal padder-l text-black-600">
+                <span translate="DATA_SOURCE.S3.SECRET_ACCESS_KEY">Secret Access Key</span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                    name="Secret Access Key"
+                    autocomplete="off"
+                    ng-keydown="dsSrv.panelCopyKeyup(dsBinding, $event)"
+                    class="ds-mysql-ipt text-black-800 padder-sm text-md font-thin no-border w-full js_connection_ipt"
+                    ng-model="dsBinding.connection.modSecretAccessKey"
+                    ng-blur="dsSrv.blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span translate="DATA_SOURCE.S3.ERROR_EMPTY_SECRET_ACCESS_KEY">Please enter the Secret Access Key</span>
+                </div>
+            </dd>
+        </dl>
+
+        <footer class="ds-mysql-ft m-t-xl clearfix text-right">
+            <!-- <a class="pull-left m-l" translate="DATA_SOURCE.S3.TSET" ng-click="dsSrv.connectionPost(dsBinding, 'test')">Test connection</a> -->
+            <button type="button" class="pt-btn pt-btn-default m-r-md" translate="COMMON.CANCEL" ng-click="dsSrv.connectionHide(dsBinding)">cancel</button>
+            <button type="button" class="pt-btn pt-btn-success" translate="DATA_SOURCE.S3.CONNECT" ng-click="dsSrv.connectionPost(dsBinding, dsBinding.connection.operateType)">Save</button>
+        </footer>
+    </div>
+</div>
+
+
+
+<!-- 已存文件列表 -->
+<div dataType="tableList" class="ds-table-list pos-rlt m-t-xxl" ng-show=" dsBinding.current.mod == 'tableList' ">
+    <div class="ds-binding-hd clearfix">
+        <div class="ds-binding-hd-select pt-select" dropdown>
+            <button type="button" class="pt-btn pt-btn-dropdown" dropdown-toggle>
+                {{dsCtrl.dsDataTep.s3.currentAccount.name}}
+                <b class="pt-caret text-green-400"></b>
+            </button>
+            <ul class="pt-dropdown-menu">
+                <li ng-click="dsSrv.selectAccountName(dsBinding, 'all')" ng-hide="dsBinding.current.mod == 'fileList' || dsCtrl.dsDataTep.s3.accountList.length==1">
+                    <a class="text-base text-black-800" href="javascript:" translate="DATA_SOURCE.S3.ALL_ACCOUNT">All Account</a>
+                </li>
+                <li ng-repeat="account in dsCtrl.dsDataTep.s3.accountList" ng-click="dsSrv.selectAccountName(dsBinding, account)">
+                    <a class="text-base text-black-800" href="javascript:">{{account.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-setting pt-btn-group pt-select" dropdown ng-hide=" dsCtrl.dsDataTep.s3.currentAccountCid=='all' ">
+            <a href="javascript:"
+               class="pt-icon-share pt-selectIcon"
+                tooltip-placement="top"
+                tooltip="{{ 'COMMON.SETTINGS' | translate}}"
+                dropdown-toggle><svg><use xlink:href="#icon-set" /></svg></a>
+            <ul class="pt-dropdown-menu"
+                ng-if="dsCtrl.dsDataTep.s3.currentAddBtnType == 'owner'">
+                <li>
+                    <a href="javascript:" ng-click="dsSrv.getFileList(dsBinding, 'ptoneRootFolderID::connection')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+                        <span translate="DATA_SOURCE.S3.NEW_FILE">New File</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:" ng-click="dsSrv.connectionShow(dsBinding, 'edit', 'tableList')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                        </svg>
+                        <span translate="DATA_SOURCE.S3.ACCOUNT_EDIT">Edit</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:"
+                       id="noBindingAccount"
+                       ng-click="dsSrv.removeAccountShow(dsBinding)">
+                        <svg>
+                            <use xlink:href="#icon-del" />
+                        </svg>
+                        <span translate="DATA_SOURCE.S3.BTN_REMOVE">Remove</span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="pt-dropdown-menu"
+                ng-if="dsCtrl.dsDataTep.s3.currentAddBtnType == 'view'">
+                <li>
+                    <a href="javascript:" ng-click="dsSrv.connectionShow(dsBinding, 'save', 'tableList')">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+                        <span translate="DATA_SOURCE.MANAGEMENT.ADD_CONNECT">Connect New Account</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:"
+                       ng-click="dsSrv.removeAccountShow(dsBinding)">
+                        <svg>
+                            <use xlink:href="#icon-del" />
+                        </svg>
+                        <span translate="DATA_SOURCE.MYSQL.BTN_REMOVE">Remove</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-owner pull-left" ng-hide=" dsCtrl.dsDataTep.s3.currentAccountCid=='all' ">
+            <span translate="DATA_SOURCE.MYSQL.OWNER">owner</span>
+            <span>: &nbsp;</span>
+            {{dsCtrl.dsDataTep.s3.currentAccount.userName}}
+        </div>
+        <form class="ds-binding-hd-search form-inline inline ng-hide">
+            <div class="form-group-sm">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Amount">
+                    <div class="input-group-addon"><svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                        </svg></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="pt-ds-table-list-bd">
+        <div class="pt-ds-table clearfix text-center text-black-500" ng-if="dsCtrl.dsDataTep.s3.fileAllList.length == 0 && dsCtrl.dsDataTep.s3.currentAccountCid=='all'">
+            <p class="ds-table-nodata">
+                <span translate="DATA_SOURCE.S3.NO_FILE">您还没有关联任何文件</span>
+            </p>
+        </div>
+        <div class="pt-ds-table clearfix text-center text-black-500" ng-if="dsCtrl.dsDataTep.s3.fileList.length == 0 && dsCtrl.dsDataTep.s3.currentAccountCid != 'all'">
+            <p class="ds-table-nodata">
+                <span translate="DATA_SOURCE.S3.ACCOUNT_NO_FILE">当前账户下还没有绑定任何文件</span>
+            </p>
+        </div>
+        <div class="pt-ds-table clearfix" ng-repeat="file in dsCtrl.dsDataTep.s3.fileList">
+            <div class="pt-ds-table-info">
+                <div class="pt-file-title clearfix">
+                    <p class="pt-text-ellipsis text-lg text-black-900" title="{{file.name}}">{{file.name}}</p>
+
+                    <span ng-if=" file.remoteStatus != 1 "
+                         class="chart-tips-trigger m-l-xs pull-left"
+                         chart-tips-trigger>
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                        </svg>
+                        <div class="tips-wrap">
+                            <div class="inner">
+                                <div class="arrows"></div>
+                                <div class="tips-content">
+                                    {{ 'DATA_SOURCE.S3.'+file.remoteStatus | translate}}
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+
+
+                    <!-- <span class="m-l-xs pull-left"
+                        tooltip-placement="top"
+                        tooltip="{{ 'DATA_SOURCE.S3.'+file.remoteStatus | translate}}"
+                        ng-if=" file.remoteStatus != 1 ">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+                        </svg>
+                    </span> -->
+                </div>
+                <div class="clearfix pt-file-path">
+                    <!-- <p class="m-n pull-left text-ellipsis" title="{{file.connectionId}}">{{file.accountName}}</p>
+                    <span class="pull-left">&nbsp;&gt;&nbsp;</span> -->
+                    <p class="pt-text-ellipsis" title="{{ file.remotePath | replaceFilter }}">{{ file.remotePath | replaceFilter }}</p>
+                </div>
+            </div>
+            <div class="pt-ds-table-date">
+                <p class="pt-ds-table-date-list">
+                    <span translate="DATA_SOURCE.S3.CONNECTED">connected at</span>
+                    {{file.createTime | date:'yyyy/MM/dd'}}
+                </p>
+                <p class="pt-ds-table-date-list">
+                    <span translate="DATA_SOURCE.S3.UPDATE">update at</span>
+                    {{file.updateTime | date:'yyyy/MM/dd HH:mm:ss'}}
+                </p>
+            </div>
+            <div class="pt-ds-table-set">
+                <div class="pt-btn-group pt-select" dropdown>
+                    <a class="pt-block pt-btn-more" href="javascript:" dropdown-toggle>
+                        <span class="more"></span>
+                    </a>
+                    <ul class="pt-dropdown-menu pt-s3-dropdowm">
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="dsSrv.editFile(dsBinding, file, $index)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                                </svg>
+                                <span translate="DATA_SOURCE.S3.BTN_EDIT">Edit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="refreshFile(file, $index)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh"></use>
+                                </svg>
+                                <span translate="COMMON.REFRESH">Refresh</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="setTimezone(file,$index)">
+                                <svg>
+                                    <use xlink:href="#icon-timezone" />
+                                </svg>
+                                <span translate="DATA_SOURCE.TIMEZONE.BUTTON"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="dsSrv.removeFileShow(dsBinding,file,$index)">
+                                <svg>
+                                    <use xlink:href="#icon-del" />
+                                </svg>
+                                <span translate="DATA_SOURCE.S3.BTN_REMOVE">Remove</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 远端文件目录 -->
+<div dataType="fileList" class="ds-file-list pos-rlt" ng-show=" dsBinding.current.mod == 'fileList' ">
+     <!-- 路径-添加文件 -->
+    <div class="ds-header-breadcrumb text-black-900" >
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <a class="text-black-900" href="javascript:" ng-click="dsBinding.current.mod = 'tableList'" translate="DATA_SOURCE.S3.HD_TITLE_MANAGE">Amazon S3</a>
+        <svg ng-show=" dsBinding.current.mod == 'fileList' "><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" translate="DATA_SOURCE.S3.CONNECT_FILE" ng-show=" dsBinding.current.mod == 'fileList' ">Amazon S3</span>
+    </div>
+     <!-- 数据源添加界面提示 -->
+    <div class="ds-header-add-tips" ng-if=" dsBinding.current.mod == 'fileList' ">
+        <h2 class="text-xl text-black-800" translate="DATA_SOURCE.S3.ADD_FILE_TIPS_TITLE">How to add file from Amazon S3</h2>
+        <p ng-bind-html="'DATA_SOURCE.S3.ADD_FILE_TIPS_INFO' | translate"></p>
+    </div>
+    <div class="ds-binding-hd  m-t-xxl clearfix">
+        <div class="ds-binding-hd-select pt-select" dropdown>
+            <button type="button" class="pt-btn pt-btn-dropdown" dropdown-toggle>
+                {{dsCtrl.dsDataTep.s3.currentAccount.name}}
+                <b class="pt-caret"></b>
+            </button>
+            <ul class="pt-dropdown-menu">
+                <li ng-repeat="account in dsCtrl.dsDataTep.s3.accountList"
+                    ng-click="dsSrv.selectAccountName(dsBinding, account)"
+                    ng-if="userInfo.ptId == account.uid">
+                    <a href="javascript:">{{account.name}}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ds-binding-hd-add pull-left">
+            <a class="pt-btn pt-btn-success pt-btn-add mini text-base" href="javascript:" ng-click="dsSrv.connectionShow(dsBinding, 'save', 'tableList')">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-solid"></use>
+                </svg>
+                <span translate="DATA_SOURCE.MANAGEMENT.ADD_CONNECT">Connect New Connection</span>
+            </a>
+        </div>
+        <div class="ds-binding-hd-refresh pull-left">
+            <a href="javascript:" ng-click="dsSrv.getFileList(dsBinding, dsBinding.current.directory, 'refresh')"
+                tooltip-placement="top"
+                tooltip="{{ 'DATA_SOURCE.S3.REFRESH_TIPS' | translate}}">
+                <svg>
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh-bg"></use>
+                </svg>
+            </a>
+        </div>
+        <form class="ds-binding-hd-search form-inline inline ng-hide">
+            <div class="form-group-sm">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Amount">
+                    <div class="input-group-addon"><svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                        </svg></div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="ds-file-list-bd pos-rlt">
+        <div class="ds-file-hd">
+            <div class="ds-file-breadcrumb clearfix"></div>
+        </div>
+
+        <div class="ds-gd-file-hd">
+
+            <div class="ds-gd-file-title clearfix padder-r-lg">
+                <div class="pull-left ds-gd-file-name text-black-800" translate="DATA_SOURCE.S3.NAME">Name</div>
+                <div class="pull-left ds-gd-file-owner text-black-800">
+                    <span translate="DATA_SOURCE.S3.OWNER">Owner</span>
+                </div>
+                <div class="pull-left ds-gd-file-modified text-black-800">
+                    <span translate="DATA_SOURCE.S3.LAST_MODIFIED">Last modified</span>
+                </div>
+                <div class="pull-left ds-gd-file-connect"></div>
+            </div>
+        </div>
+
+        <div class="ds-file-bd clearfix pos-rlt">
+            <div class="ds-gd-file-list ds-gd-file-empty" ng-show="dsBinding.accountDataCopy.child.length == 0">
+                <span translate="DATA_SOURCE.S3.EMPTY_TIPS">这是一个空文件夹</span>
+            </div>
+
+            <div class="ds-file clearfix padder-r-lg ds-mysql-file"
+                ng-show="dsBinding.accountDataCopy.child.length > 0"
+                ng-repeat="file in dsBinding.accountDataCopy.child"
+                ng-click="dsSrv.addFile(dsBinding,file,file.extra.isDirectory)" id="{{file.id}}">
+                <div class="pull-left ds-gd-file-name text-ellipsis padder-md" title="{{file.name}}">
+                    <svg class="m-r-xs filelist-icon" ng-show="file.extra.isDirectory">
+                        <use xlink:href="#icon-inbox" />
+                    </svg>
+                    <svg class="m-r-xs svg-file" ng-hide="file.extra.isDirectory">
+                        <use xlink:href="#icon-file" />
+                    </svg>
+                    {{file.name}}
+                </div>
+                <div class="pull-left text-black-600 ds-gd-file-owner">
+                    <span>{{file.extra.owner}}</span>
+                </div>
+                <div class="pull-left text-black-600 ds-gd-file-modified">
+                    <span>{{file.extra.lastModifiedDate | date}}</span>
+                </div>
+                <div class="pull-left text-black-600 ds-file-connect text-right" ng-hide="file.extra.isDirectory">
+                    <span class="m-r-sm" translate="DATA_SOURCE.S3.CONNECT">
+                        connect
+                    </span>
+                    <svg class="v-middle">
+                        <use xlink:href="#icon-link" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 提示模板 -->
+<div tips-two-btn tips-options="{{dsBinding.tips.options}}" ng-if="dsBinding.tips.show"></div>
+
+<!-- 时区 -->
+<timezone 
+    ng-if="dsBinding.timezone.show"
+    fieds="dsBinding.timezone.fieds"
+    tips-code="DATA_SOURCE.TIMEZONE.NO_SUPPORT"
+    hide-timezone="hideTimezone()"
+></timezone>

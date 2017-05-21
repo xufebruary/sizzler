@@ -1,0 +1,23 @@
+<div class="editor" movable move-by=".editor-hd">
+    <header class="editor-hd">
+        <span class="text-ellipsis">
+            【{{modal.editorNow.baseWidget.widgetTitle}}】demo data:
+        </span>
+        <a class="editor-close" ng-click="onCancel()">
+            <i class="fa fa-times fa-fw"></i>
+        </a>
+    </header>
+    <div class="editor-admin-bd">
+        <textarea ng-model="showChartData"></textarea>
+    </div>
+
+    <footer class="editor-admin-ft clearfix">
+        <a class="text-center pull-right" ng-click="saveDemoData()">save</a>
+        <a class="text-center pull-right m-r-xs" ng-click="onCancel()">cancel</a>
+        <a class="text-center pull-right m-r-xs" ng-click="removeDemoData()">reset</a>
+    </footer>
+
+    <div class="editor-admin-tips" ng-if="myOptions.isSuccess">
+        <span translate="COMMON.SAVE"></span><span translate="COMMON.SUCCESS"></span>
+    </div>
+</div>

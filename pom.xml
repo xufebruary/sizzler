@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sizzler</groupId>
+    <artifactId>sizzler</artifactId>
+	<version>2.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>sizzler</name>
+	
+	<properties>
+		<buildVersionTimestamp>${maven.build.timestamp}</buildVersionTimestamp>
+        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+        <main.dir>${project.parent.relativePath}/..</main.dir>
+		
+		<!-- 文件拷贝时的编码 -->  
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+		
+		
+		
+		<spring.version>4.1.6.RELEASE</spring.version>
+		
+		
+		<!-- commons-lang -->
+		<commons-lang.version>2.6</commons-lang.version>
+		
+		<!-- ftp -->
+        <commons-net.version>3.5</commons-net.version>
+		
+		<!-- File Upload -->
+		<commons-io.version>2.0.1</commons-io.version>
+        <commons-fileupload.version>1.2.2</commons-fileupload.version>
+        
+		<!-- httpclient -->
+		<httpclient.version>4.3.6</httpclient.version>
+		
+		<!-- aspectjweaver -->
+		<aspectjweaver.version>1.8.2</aspectjweaver.version>
+		<aspectjrt.version>1.6.9</aspectjrt.version>
+		
+        <cglib-nodep.version>2.2.2</cglib-nodep.version>
+			
+		<!-- slf4j -->
+		<slf4j.version>1.7.5</slf4j.version>
+		<slf4j-api.version>1.6.4</slf4j-api.version>
+		<log4j-over-slf4j.version>1.7.6</log4j-over-slf4j.version>
+        <jcl-over-slf4j.version>1.7.2</jcl-over-slf4j.version>        
+        <log4jdbc-remix.version>0.2.7</log4jdbc-remix.version>
+		<!--logback-->
+		<logback-classic.version>1.1.2</logback-classic.version>
+        <logback-core.version>1.1.2</logback-core.version>        
+		
+		<!-- joda-time -->
+		<joda-time.version>2.7</joda-time.version>
+		
+		<!-- fastjson -->
+        <fastjson.version>1.1.28</fastjson.version>		
+					
+		<!-- junit -->
+		<junit.version>4.12</junit.version>
+		
+		<!--mockito-->
+        <mockito.version>1.10.19</mockito.version>
+        
+        <!-- swagger-springmvc  api-docs -->
+        <swagger-springmvc.version>0.9.4</swagger-springmvc.version>
+		
+	</properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>cors-filter</artifactId>
+            <version>2.4</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thetransactioncompany</groupId>
+            <artifactId>java-property-utils</artifactId>
+            <version>1.9.1</version>
+        </dependency>
+		
+			<!-- commons-lang -->
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons-lang.version}</version>
+            </dependency>
+			
+			<!-- ftp -->
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net.version}</version>
+            </dependency>
+		
+			<!-- File Upload -->
+			<dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>  
+
+
+			<!-- http client -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpclient.version}</version>
+            </dependency>	
+
+
+			<!-- aspectjweaver -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectjweaver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectjrt.version}</version>
+            </dependency>
+
+			<dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib-nodep</artifactId>
+                <version>${cglib-nodep.version}</version>
+            </dependency>            
+
+			<!-- slf4j -->
+		   <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>			
+			<!-- 用于将log4j所产生的日志重定向到slf4j -->
+			<!-- 如果项目中同时存在log4j-over-slf4j和slf4j-log4j12，那么日志会在slf4j和log4j之间相互踢来踢去进入死循环 -->
+			<dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${log4j-over-slf4j.version}</version>
+            </dependency>
+			<!-- 用于将slf4j所产生的日志重定向到log4j -->
+			<!-- <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency> -->
+			
+			<!--用于将commons logging里面的Simple Logger 所产生的日志重定向到slf4j-->
+			<dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${jcl-over-slf4j.version}</version>
+            </dependency>
+			<!--用于将Java Util logging所产生的日志重定向到slf4j-->
+			<dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+			
+			<!-- logback -->
+			<dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-core.version}</version>
+            </dependency>
+
+			<!-- spring mvc -->
+			<dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context-support</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-beans</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-webmvc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-websocket</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+			<dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-aop</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+			<dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>      
+
+			<!-- joda-time -->
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
+
+            <!-- fastJson -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+			
+			<dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+			
+			<dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+            
+            <!-- swagger-springmvc  api-docs -->
+            <dependency>
+                <groupId>com.mangofactory</groupId>
+                <artifactId>swagger-springmvc</artifactId>
+                <version>${swagger-springmvc.version}</version>
+            </dependency>        
+
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <deploy.env>local</deploy.env>
+                <deploy.name>sizzler</deploy.name>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>       
+    </profiles>
+
+    <build>
+        <finalName>${deploy.name}</finalName>
+        <filters>
+            <filter>${main.dir}/src/main/resources/filters/${deploy.env}.properties</filter>
+            <filter>src/main/resources/filters/${deploy.env}.properties</filter>
+        </filters>
+		
+		<resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                    <include>META-INF/**/*</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+				<plugin>
+                    <!-- 源码插件 -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>2.1</version>
+                    <configuration>
+                        <attach>true</attach>
+                    </configuration>
+                    <!-- 发布时自动将源码同时发布的配置 -->
+                    <executions>
+                        <execution>
+                            <phase>compile</phase>
+                            <goals>
+                                <goal>jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <!-- 编译插件 -->
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.2</version>
+                    <configuration>
+                        <encoding>UTF-8</encoding>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                    </configuration>
+                </plugin>
+				
+				<!--与单元测试相关的插件-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.18.1</version>
+                    <!--<configuration>
+                        <skip>true</skip>
+                    </configuration>-->
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.maven.surefire</groupId>
+                            <artifactId>surefire-junit4</artifactId>
+                            <version>2.18.1</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+				
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>2.6</version>
+					<configuration>
+						<webResources>
+							<resource>
+								<filtering>true</filtering>
+								<directory>src/main/webapp</directory>
+								<includes>
+									<include>**/web.xml</include>
+									<include>api-docs/**/*</include>
+								</includes>
+							</resource>
+						</webResources>
+						<warSourceDirectory>src/main/webapp</warSourceDirectory>
+						<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+					</configuration>
+				</plugin>
+        </plugins>
+    </build>
+
+</project>

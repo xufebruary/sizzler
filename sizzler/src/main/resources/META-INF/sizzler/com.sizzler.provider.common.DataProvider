@@ -1,0 +1,3 @@
+dataProviderAdaptive=com.sizzler.provider.adaptive.DataProviderAdaptive
+upload=com.sizzler.provider.service.upload.ExcelDataProviderImpl
+mysql=com.sizzler.provider.service.database.DataBaseProviderImpl

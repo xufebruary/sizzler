@@ -1,0 +1,67 @@
+<!-- content -->
+<div class="content ds-manage wrapper-xxxl" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</span>
+        </ol>
+        <h1 class="text-xl padder-t-xl text-black-800" translate="DATA_SOURCE.MANAGEMENT.DS_GROUP_TITLE">The data source to recommend</h1>
+        <p class="m-b-n text-black-700 text-base" translate="DATA_SOURCE.MANAGEMENT.DS_GROUP_SUB_TITLE">
+            Please select a data source that you would like to connect to:
+        </p>
+    </header>
+    <div class="ds-group">
+        <ul>
+            <li ng-repeat="ds in rootCommon.dsList | orderBy:'(orderNumber-0)' "
+                ng-click="sltDs(ds, 'chooseDs')">
+                <!--<span class="badge" ng-if="ds.code == 'upload'">new</span>-->
+                <img ng-src="/assets/images/ds/set-{{ds.code}}.jpg" alt="{{ds.name}}"/>
+            </li>
+        </ul>
+
+        
+    </div>
+
+    <div class="ds-user-source" ng-show="rootCommon.dsAuthList.length >
+    0">
+        <h2 class="text-black-800" translate="DATA_SOURCE.MANAGEMENT.LINKED_DATA_TITLE">Connected Data Sources:</h2>
+        <p class="m-b-md text-black-700 text-base" translate="DATA_SOURCE.MANAGEMENT.LINKED_DATA_SUB_TITLE">You have connected to following data sources</p>
+        <ul class="list-unstyled">
+            <li class="clearfix" ng-repeat="ds in rootCommon.dsAuthList | orderBy:'(dsOrderNumber-0)' "
+                ng-click="sltDs(ds, 'linkData')">
+                <div class="ds-name" title="{{ds.dsName}}">
+                    <span class="img">
+                        <dom-svg-func class="" data-svgid="{{'#icon-ds-'+ds.dsCode.toLowerCase()}}"></dom-svg-func>
+                    </span>
+                    <span class="text-md ds-name-middle">{{ds.dsName}}</span>
+                </div>
+
+                <div class="ds-file-cont clearfix" ng-if="ds.dsCode != 'upload'">
+                    <p class="pull-left">
+                        <span translate="DATA_SOURCE.MANAGEMENT.ACCOUNT">Account</span>
+                        : {{ds.accountNum}}
+                    </p>
+                    <p class="pull-left" ng-if="ds.dsConfig.dataSource.manageTpl.showFile || ds.dsConfig.dataSource.manageTpl.showTable">
+                       &nbsp;|&nbsp;
+                        <span translate="DATA_SOURCE.MANAGEMENT.FILE" ng-if="ds.dsConfig.dataSource.manageTpl.showFile">File</span>
+                        <span translate="DATA_SOURCE.MANAGEMENT.TABEL" ng-if="ds.dsConfig.dataSource.manageTpl.showTable">Tabel</span>
+                        : {{ds.nameNum || 0}}
+                    </p>
+                </div>
+                <div class="ds-file-cont clearfix" ng-if="ds.dsCode == 'upload'">
+                    <p class="pull-left">
+                        <span translate="DATA_SOURCE.MANAGEMENT.FILE">File</span>
+                        : {{ds.nameNum || 0}}
+                    </p>
+                </div>
+                <div class="ds-detail">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-back"></use>
+                    </svg>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- 新增默认空间的提示信息 -->
+    <space-add-tips ng-if="rootUser.settingsInfo.showTips.spaceCreate == 0" tips-user-info="rootUser.settingsInfo.showTips"></space-add-tips>
+</div>

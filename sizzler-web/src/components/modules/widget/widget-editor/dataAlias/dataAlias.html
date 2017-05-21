@@ -1,0 +1,32 @@
+<div class="data-alias">
+	<header class="clearfix">
+	    <span class="pull-left" translate="WIDGET.EDITOR.DATA_ALIAS.NAME"></span>
+	    <span class="pull-left text-ellipsis" title="{{currentDataName}}">: {{currentDataName}}</span>
+	</header>
+
+	<dl class="clearfix">
+	    <dt>
+	    	<span translate="WIDGET.EDITOR.DATA_ALIAS.SHOW_NAME"></span>: 
+	    </dt>
+	    <dd>
+	        <input type="text" 
+	        	ng-model="myOptions.aliasModel" 
+	        	ui-input
+	        	ui-input-options="{
+	        		'maxLength': '50',
+                    'autoFocus': 'true',
+                    'onEnter': 'apply()'
+                }">
+	    </dd>
+	</dl>
+
+	<footer class="clearfix">
+	    <button class="text-center block btn-filter-common btn-filter-apply pull-right m-l"
+            ng-click="apply()" 
+            translate="COMMON.APPLY"></button>
+            
+	    <a class="text-center block btn-filter-common btn-filter-cancel pull-right" 
+	    	ng-click="onCancel()" 
+	    	translate="COMMON.CANCEL"></a>
+	</footer>
+</div>

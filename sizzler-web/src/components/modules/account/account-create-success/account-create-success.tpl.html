@@ -1,0 +1,37 @@
+<div class="login account-create-success">
+    <svg class="login-bg" width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg" login-svg-bg>
+        <polygon  points="" style="fill:#8bc34a;"/>
+        <polygon  points="" style="fill:#689f38;opacity:0.3"/>
+    </svg>
+    <header>
+        <svg>
+            <use xlink:href="{{productConfigs.logo}}"></use>
+        </svg>
+    </header>
+
+    <div class="login-bd m-t-lg">
+        <div class="user-email">
+            <span>{{$ctrl.userEmail}}</span>
+        </div>
+        <div class="tips-info" translate="ACCOUNT_CREATE_SUCCESS.TIPS_1"></div>
+        <ul class="tips-ul">
+            <li translate="ACCOUNT_CREATE_SUCCESS.TIPS_2" translate-values="{host: $ctrl.host}"></li>
+            <li translate="ACCOUNT_CREATE_SUCCESS.TIPS_3"></li>
+        </ul>
+
+        <div class="pos-bot">
+            <button id="login-reset-submit"
+                    class="text-xl no-border block text-center btn-login m-t-xl"
+                    type="button"
+                    ng-click="$ctrl.checkOnboarding()"
+                    translate="ACCOUNT_CREATE_SUCCESS.BTN_JOIN"
+            ></button>
+        </div>
+    </div>
+
+    <!--<div class="onboarding-tips"-->
+         <!--ng-if="$ctrl.checkFailed">-->
+        <!--<p translate="ACCOUNT_CREATE_SUCCESS.TIPS_3"></p>-->
+        <!--<span translate="ACCOUNT_CREATE_SUCCESS.TIPS_4"></span>-->
+    <!--</div>-->
+</div>

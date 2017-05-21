@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>metamodel</artifactId>
+        <groupId>com.ptmind.ptone</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ptmind.ptone</groupId>
+    <artifactId>metamodel-test</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-hadoop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-excel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-csv</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-facebookad</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-googlead</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-jdbc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-ptengine</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ptmind.ptone</groupId>
+            <artifactId>metamodel-ptapp</artifactId>
+        </dependency>
+
+    </dependencies>
+</project>

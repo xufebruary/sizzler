@@ -1,0 +1,81 @@
+<div class="widget-bd">
+    <div class="iframe-wrap">  
+        <iframe name="pt_engine_share"></iframe>
+    </div>
+
+	<!-- error tips -->
+	<div class="heatmap-error-info hide">
+        <!-- 移动端提示 -->
+        <div ng-show="isPhone">
+            <div class="js-error-url hide" 
+                translate="WIDGET.EDITOR.HEATMAP.ERROR_PHONE_URL"
+                translate-values="{'moreUrl': myOptions.productConfigs.link.heatmapHelp}"></div>
+            
+            <div class="js-error-http hide">
+                <header translate="WIDGET.EDITOR.HEATMAP.ERROR_HTTP_PHONE_TIPS1"></header>
+                <ul>
+                    <li translate="WIDGET.EDITOR.HEATMAP.ERROR_HTTP_PHONE_TIPS2"
+                        translate-values="{'heatmapUrl': myOptions.data.overlayUrl}"></li>
+                    <li translate="WIDGET.EDITOR.HEATMAP.ERROR_HTTP_PHONE_TIPS3"></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 非移动端提示 -->
+        <div ng-show="!isPhone">
+            <div class="js-error-url hide" 
+                translate="WIDGET.EDITOR.HEATMAP.ERROR_URL"
+                translate-values="{'moreUrl': myOptions.productConfigs.link.heatmapHelp}"></div>
+
+            <div class="js-error-http hide">
+                <header translate="WIDGET.EDITOR.HEATMAP.ERROR_HTTP_TIPS1"></header>
+                <ul>
+                    <li translate="WIDGET.EDITOR.HEATMAP.ERROR_HTTP_TIPS2"
+                        translate-values="{'moreHttps': myOptions.productConfigs.link.heatmapHttpsHelp}"></li>
+                    <li translate="WIDGET.EDITOR.HEATMAP.ERROR_HTTP_TIPS3"
+                        translate-values="{'heatmapUrl': myOptions.data.overlayUrl}"></li>
+                </ul>
+            </div>
+		</div>
+	</div>
+
+	<!-- loading -->
+	<div class="pt-loading hide">
+	    <span class="new-widget-loading">
+	        <svg>
+	            <use xlink:href="#icon-refresh-outside"></use>
+	        </svg>
+	    </span>
+	</div>
+</div>
+
+<!--Tools-->
+<div class="widget-tools">
+    <div class="chart-tips ">
+        <div class="chart-tips-trigger dsIcon">
+            <svg>
+                <use xlink:href="#icon-ds-ptengine"></use>
+            </svg>
+            <div class="tips-wrap" ng-if="myOptions.data.title || myOptions.data.time">
+                <div class="inner">
+                    <div class="arrows"></div>
+                    <div class="tips-content">
+                    	<div class="text-ellipsis" title="{{myOptions.data.title}}">
+                    		<span translate="WIDGET.EDITOR.HEATMAP.PAGE_TITLE"></span>
+                    		{{myOptions.data.title}}
+                    	</div>
+                    	<div class="text-ellipsis" title="{{myOptions.data.time}}">
+                    		<span translate="WIDGET.EDITOR.HEATMAP.PAGE_TIME"></span>
+                    		{{myOptions.data.time}}
+                    	</div>
+                    	<div class="text-ellipsis" ng-if=" myOptions.data.filter != '' " title="{{myOptions.data.filter}}">
+                    		<span translate="WIDGET.EDITOR.HEATMAP.PAGE_FILTER"></span>
+                    		{{myOptions.data.filter}}
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

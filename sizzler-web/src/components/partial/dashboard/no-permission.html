@@ -1,0 +1,16 @@
+<!--没有权限方法该dashboard-->
+<div class="no-permission" >
+    <div class="inner" ng-class="{'phone': pt.settings.isPhone}">
+        <svg>
+            <use xlink:href="{{productConfigs.logo}}"></use>
+        </svg>
+        <h2>{{'DASHBOARD.PERMISSION.TITLE' | translate}}</h2>
+        <p translate="DASHBOARD.PERMISSION.DETAIL" translate-values="{{$ctrl.state}}"></p>
+        <p class="m-t-lg">
+            <a ng-click="$ctrl.switchAccount()" class="btn btn-success">{{'DASHBOARD.PERMISSION.SWITCH_ACCOUNT' | translate}}</a>
+        </p>
+        <p class="m-t">
+            <a ng-click="$ctrl.viewCurrentAccount()" class="last">{{'DASHBOARD.PERMISSION.CURRENT_ACCOUNT' | translate}}</a>
+        </p>
+    </div>
+</div>

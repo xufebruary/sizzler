@@ -1,0 +1,183 @@
+//@import "compass";
+//@import "../../../../assets/sass/framework/varibles";
+//@import "../../../../assets/sass/framework/mixin-ui";
+//@import "../../../../assets/sass/framework/mixin-basic";
+
+//= require "compass"
+//= require "../../../../assets/sass/framework/varibles";
+//= require "../../../../assets/sass/framework/mixin-ui";
+//= require "../../../../assets/sass/framework/mixin-basic";
+
+.onboarding-connect {
+  width: 620px;
+  margin: 0 auto;
+  background-color: #fff;
+    padding-top: 50px;
+
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: -1;
+  }
+  .profile-header {
+    text-align: center;
+    h2 {
+      font-size: 20px;
+      color: #424242;
+      line-height: 28px;
+      margin-top: 0;
+      margin-bottom: 22px;
+    }
+    .profile-header-search {
+      position: relative;
+      display: inline-block;
+      input {
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        min-width: 158px;
+        height: 26px;
+        background-color: #fff;
+        padding: 0 20px 0 4px;
+      }
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: #bdbdbd;
+        position: absolute;
+        right: 6px;
+        top: 5px;
+      }
+    }
+
+  }
+  .profile-body {
+    width: auto;
+    margin: 15px auto 80px;
+    position: relative;
+    .profile-body-title {
+      line-height: 40px;
+      background: #ecedf0;
+      padding-left: 14px;
+    }
+    .profile-body-list {
+      border: 1px solid #eeeeee;
+      max-height: 440px;
+      overflow: auto;
+      overflow-x: hidden;
+
+      .ngscroll-content-container {
+        overflow: hidden;
+      }
+
+      .profile-body-list-tips {
+        line-height: 50px;
+        background: #ffffff;
+        font-size: 14px;
+        color: #757575;
+        padding-left: 24px;
+      }
+
+      ul {
+        width: 620px;
+        padding-left: 0;
+        margin-bottom: -1px;
+        li {
+          list-style: none;
+          line-height: 50px;
+          background: #ffffff;
+          font-size: 14px;
+          color: #757575;
+          box-shadow: 0 -1px #eee;
+          cursor: pointer;
+          padding-left: 24px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          &:hover:not(.profile-active) {
+            background-color: #dcedc8;
+          }
+          //a:link {
+          //  color: #757575;
+          //}
+          //a:visited {
+          //  color: #757575;
+          //}
+          a {
+            color: #757575;
+          }
+          a:hover {
+            color: #616161;
+          }
+
+          svg {
+            width: 20px;
+            height: 20px;
+            fill: #757575;
+            margin-bottom: -5px;
+          }
+        }
+        ul {
+          li {
+            padding-left: 54px;
+          }
+          ul li {
+            padding-left: 84px;
+          }
+        }
+      }
+      .profile-active {
+        background-color: #9ccc65;
+
+        a {
+          color: #fff!important;
+          svg {
+            fill: #fff!important;
+          }
+
+          .text-green-400 {
+           color: #fff!important;
+          }
+        }
+      }
+    }
+  }
+  .profile-footer {
+    position: relative;
+    width: auto;
+    line-height: 90px;
+    //margin-bottom: 80px;
+    height: 90px;
+    a {
+      float: left;
+
+      span {
+        float: none;
+        text-decoration: underline;
+      }
+      &:hover span{
+        text-decoration: none;
+      }
+    }
+    span {
+      float: right;
+    }
+
+    .error-tips {
+      padding: 0 10px;
+      background-color: #ee6e66;
+      border-radius: 8px;
+      font-size: 16px;
+      color: #fff;
+      line-height: 30px;
+      position: absolute;
+      top: -10px;
+      right: 0;
+      z-index: 30;
+    }
+  }
+}

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    ">
+
+    <bean id="standardModelDataUtil"
+          class="com.sizzler.proxy.standardModel.StandardModelDataUtil">
+        <property name="tableLimit" value="1000"/>
+        <!-- sql table中默认限制, 0 无限制 -->
+        <property name="resultLimit" value="10000"/>
+        <!-- sql 结果集返回限制， 0 无限制 -->
+        <property name="dateTransformMap">
+            <map>
+                <entry key="timestamp">
+                    <map>
+                        <entry key="mysqlDateFormat" value="timestamp"></entry>
+                        <entry key="dateRegexp" value="^[1-9](([0-9]{9})|([0-9]{12}))$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy-MM-dd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y-%m-%d"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy/MM/dd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y/%m/%d"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}/[0-1]?[0-9]{1}/[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy.MM.dd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y.%m.%d"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}\\.[0-1]?[0-9]{1}\\.[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy年MM月dd日">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y年%m月%d日"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}年[0-1]?[0-9]{1}月[0-3]?[0-9]{1}日$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM/dd/yyyy">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m/%d/%Y"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}/[0-3]?[0-9]{1}/[1-2][0-9]{3}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM-dd-yyyy">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m-%d-%Y"></entry>
+                        <entry key="dateRegexp"
+                               value="[0-1]?[0-9]{1}-[0-3]?[0-9]{1}-[1-2][0-9]{3}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM.dd.yyyy">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m.%d.%Y"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}\\.[0-3]?[0-9]{1}\\.[1-2][0-9]{3}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy-M-d">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y-%c-%e"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}/[0-1]?[0-9]{1}/[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy/M/d">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y/%c/%e"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}/[0-1]?[0-9]{1}/[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy.M.d">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y.%c.%e"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}\\.[0-1]?[0-9]{1}\\.[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy年M月d日">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y年%c月%e日"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}年[0-1]?[0-9]{1}月[0-3]?[0-9]{1}日$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM/dd/yy">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m/%d/%y"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}/[0-3]?[0-9]{1}/[0-9]{2}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM-dd-yy">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m-%d-%y"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}-[0-3]?[0-9]{1}-[0-9]{2}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM.dd.yy">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m.%d.%y"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}\\.[0-3]?[0-9]{1}\\.[0-9]{2}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM-dd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m-%d"></entry>
+                        <entry key="dateRegexp" value="^[0-1]?[0-9]{1}-[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM/dd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m/%d"></entry>
+                        <entry key="dateRegexp" value="^[0-1]?[0-9]{1}/[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM.dd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m.%d"></entry>
+                        <entry key="dateRegexp" value="^[0-1]?[0-9]{1}\\.[0-3]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="MM月dd日">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m月%d日"></entry>
+                        <entry key="dateRegexp" value="^[0-1]?[0-9]{1}月[0-3]?[0-9]{1}日$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyyMMdd">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y%m%d"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}[0-1]{1}[0-9]{1}[0-3]{1}[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy-MM-dd-HH">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y-%m-%d-%H"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1}-[0-2]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="yyyy-MM-dd-HH-mm-ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y-%m-%d-%k-%i-%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1}-[0-2]?[0-9]{1}-[0-5]?[0-9]{1}-[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%k:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="HH:mm">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%k:%i"></entry>
+                        <entry key="dateRegexp" value="^[0-2]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+                <entry key="HH:mm a">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%k:%i %p"></entry>
+                        <entry key="dateRegexp" value="^[0-2]?[0-9]{1}:[0-5]?[0-9]{1}"></entry>
+                    </map>
+                </entry>
+                <entry key="HH:mm:ss a">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%k:%i:%s %p"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}"></entry>
+                    </map>
+                </entry>
+                <entry key="HH時mm分ss秒">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%k時%i分%s秒"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-2]?[0-9]{1}時[0-5]?[0-9]{1}分[0-5]?[0-9]{1}秒$"></entry>
+                    </map>
+                </entry>
+                <!-- 新增加的时间格式 by you.zou 2016.3.1 -->
+                <entry key="yyyy-MM-dd HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y-%m-%d %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <entry key="yyyy/MM/dd HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y/%m/%d %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}/[0-1]?[0-9]{1}/[0-3]?[0-9]{1} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <entry key="yyyy.MM.dd HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y.%m.%d %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}.[0-1]?[0-9]{1}.[0-3]?[0-9]{1} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <!-- 两位年 -->
+                <entry key="yy-MM-dd HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%y-%m-%d %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-9]{2}-[0-1]?[0-9]{1}-[0-3]?[0-9]{1} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <entry key="yy/MM/dd HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%y/%m/%d %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-9]{2}/[0-1]?[0-9]{1}/[0-3]?[0-9]{1} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <entry key="yy.MM.dd HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%y.%m.%d %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-9]{2}.[0-1]?[0-9]{1}.[0-3]?[0-9]{1} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <!-- 四位年，年月顺序颠倒 -->
+                <entry key="MM-dd-yyyy HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m-%d-%Y %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}-[0-3]?[0-9]{1}-[1-2][0-9]{3} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <entry key="MM/dd/yyyy HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m/%d/%Y %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}/[0-3]?[0-9]{1}/[1-2][0-9]{3} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <entry key="MM.dd.yyyy HH:mm:ss">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%m.%d.%Y %H:%i:%s"></entry>
+                        <entry key="dateRegexp"
+                               value="^[0-1]?[0-9]{1}.[0-3]?[0-9]{1}.[1-2][0-9]{3} [0-2]?[0-9]{1}:[0-5]?[0-9]{1}:[0-5]?[0-9]{1}$"></entry>
+                    </map>
+                </entry>
+
+                <!-- 中文年月日格式 -->
+                <entry key="yyyy年MM月dd日 HH時mm分ss秒">
+                    <map>
+                        <entry key="mysqlDateFormat" value="%Y年%m月%d日 %H時%i分%s秒"></entry>
+                        <entry key="dateRegexp"
+                               value="^[1-2][0-9]{3}年[0-1]?[0-9]{1}月[0-3]?[0-9]{1}日 [0-2]?[0-9]{1}時[0-5]?[0-9]{1}分[0-5]?[0-9]{1}秒$"></entry>
+                    </map>
+                </entry>
+            </map>
+        </property>
+        <!--
+            时间粒度数据结构，分为两级（数据源-sourceType，时间粒度-groupType）
+            不同的关系型数据库，对应的函数参数规则不同
+        -->
+        <property name="dateGroupbyMap">
+            <map>
+                <!-- 在后续扩展新的关系型数据库时，只需要在这里添加对应的数据库类型及对应的时间规则即可 -->
+                <entry key="mysql|upload">
+                    <map>
+                        <!-- 时间轴使用的补全版日期格 -->
+                        <entry key="timeline">
+                            <map>
+                                <!-- 秒 -->
+                                <entry key="seconds" value="%Y-%m-%d-%H-%i-%s"></entry>
+                                <!-- 分 -->
+                                <entry key="minute" value="%Y-%m-%d-%H-%i-00"></entry>
+                                <!-- 时 -->
+                                <entry key="hour" value="%Y-%m-%d-%H-00-00"></entry>
+                                <!-- 日 -->
+                                <entry key="day" value="%Y-%m-%d-00-00-00"></entry>
+                                <!-- 月 -->
+                                <entry key="month" value="%Y-%m"></entry>
+                                <!-- 年 -->
+                                <entry key="year" value="%Y"></entry>
+                                <!-- 季度 -->
+                                <entry key="quarter" value="%Y"></entry>
+                                <!-- 周 -->
+                                <entry key="week" value="%Y-%m-%d"></entry>
+                                <!-- day of week -->
+                                <entry key="dayOfWeek" value="#2"></entry>
+                                <!-- day of month -->
+                                <entry key="dayOfMonth" value="#3"></entry>
+                                <!-- day of year -->
+                                <entry key="dayOfYear" value="#4"></entry>
+                            </map>
+                        </entry>
+                        <!-- 普通数据轴的时间格式，不需要补全 -->
+                        <entry key="dataline">
+                            <map>
+                                <!-- 秒 -->
+                                <entry key="time_seconds" value="%H:%i:%s"></entry>
+                                <!-- 分 -->
+                                <entry key="time_minute" value="%H:%i"></entry>
+                                <!-- 时 -->
+                                <entry key="time_hour" value="%H"></entry>
+                                <!-- 秒 -->
+                                <entry key="time_secondsa" value="%H:%i:%s %p"></entry>
+                                <!-- 分 -->
+                                <entry key="time_minutea" value="%H:%i %p"></entry>
+                                <!-- 时 -->
+                                <entry key="time_houra" value="%H %p"></entry>
+
+                                <!-- 秒 -->
+                                <entry key="seconds" value="%Y-%m-%d %H:%i:%s"></entry>
+                                <!-- 分 -->
+                                <entry key="minute" value="%Y-%m-%d %H:%i"></entry>
+                                <!-- 时 -->
+                                <entry key="hour" value="%Y-%m-%d %H"></entry>
+                                <!-- 日 -->
+                                <entry key="day" value="%Y-%m-%d"></entry>
+                                <!-- 月 -->
+                                <entry key="month" value="%Y-%m"></entry>
+                                <!-- 年 -->
+                                <entry key="year" value="%Y"></entry>
+                                <!-- 季度 -->
+                                <entry key="quarter" value="%Y"></entry>
+                                <!-- 周 -->
+                                <entry key="week" value="%Y-%m-%d"></entry>
+                                <!-- day of week -->
+                                <entry key="dayOfWeek" value="#2"></entry>
+                                <!-- day of month -->
+                                <entry key="dayOfMonth" value="#3"></entry>
+                                <!-- day of year -->
+                                <entry key="dayOfYear" value="#4"></entry>
+                            </map>
+                        </entry>
+                    </map>
+                </entry>
+            </map>
+        </property>
+    </bean>
+
+</beans>

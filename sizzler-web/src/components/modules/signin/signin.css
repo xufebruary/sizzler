@@ -1,0 +1,380 @@
+@charset "utf-8";
+/*
+  Name:    Login
+  Explain: Login & Signin & Signup
+  Author:  Dawn
+  Date:    2015-11-12
+*/
+
+.login-default-color {color: #dcedc8;}
+.login-link {}
+.login-a {text-decoration: underline;}
+.login-link:hover,
+.login-a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+a.login-default-color.login-a:hover {
+	text-decoration: none;
+}
+.login-forgot-link:focus{
+	color:#dcedc8;
+	text-decoration:underline;
+}
+.login-signup-link:focus{
+	color:#fff;
+}
+
+.login {
+	width: 340px;
+	margin: -50px auto;
+	padding-top: 200px;
+}
+.login:before {
+	content: "";
+	background-color: #7cb342;
+}
+.login-bg,
+.login:before {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+.login.pt-phone{
+    padding-top: 150px;
+}
+
+/* header */
+.login header {
+	height: 50px;
+	position: relative;
+	z-index: 10;
+}
+.login header:before,
+.login header:after,
+.login-or:before,
+.login-or:after {
+	content: "";
+	width: 55px;
+	height:2px;
+	background-color:#fff;
+	position: absolute;
+	left: 0;
+	top: 32px;
+	margin-top: -1px;
+	z-index: -1;
+}
+.login header:after {
+	left: auto;
+	right: 0;
+}
+.login header svg {
+	fill:#FFF;
+	display: block;
+	width:203px;
+	height: 100%;
+	margin: 0 auto;
+}
+
+/* body */
+.login-bd {
+	margin-top: 66px;
+    position: relative;
+	z-index: 10;
+}
+.login-bd.pt-loading {
+	z-index: 20;
+}
+.login-ptengine.pt-loading {
+	z-index: 20;
+}
+.login-info {
+    position: absolute;
+    width: 140%;
+    bottom: 100%;
+    left: -20%;
+}
+.ipt-login {
+	width: 100%;
+	height: 40px;
+	background-color: #9ccc65;
+	border-radius: 4px;
+	padding: 1px 12px 1px 44px;
+	position: relative;
+}
+.ipt-login svg {
+	width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 13px;
+    left: 14px;
+    fill: #fff;
+}
+.ipt-login input {
+	color: #fff;
+	width: 100%;
+	height: 100%;
+	box-shadow: none;
+}
+.ipt-login input::-moz-placeholder {
+	color: #dcedc8;
+	opacity: 1;
+	font-size: 17px;
+	letter-spacing: 0;
+	font-family: "Myriad Set Pro", 'Meiryo', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ヒラギノ角ゴ Pro W3';
+}
+.ipt-login input:-ms-input-placeholder {
+	color: #dcedc8;
+	font-size: 17px;
+	letter-spacing: 0;
+	font-family: "Myriad Set Pro", 'Meiryo', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ヒラギノ角ゴ Pro W3';
+}
+.ipt-login input::-webkit-input-placeholder {
+	color: #dcedc8;
+	font-size: 17px;
+	letter-spacing: 0;
+	font-family: "Myriad Set Pro", 'Meiryo', 'Hiragino Kaku Gothic Pro', 'メイリオ', 'ヒラギノ角ゴ Pro W3';
+}
+.ipt-login input[type="password"] {
+	letter-spacing: .1em;
+	font-family: initial;
+	font-size: 18px;
+}
+.ipt-login input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 1000px #9ccc65 inset;
+	-webkit-text-fill-color: #fff;
+}
+.check-login {
+	height: 50px;
+	line-height: 1em;
+}
+.check-login .check-box > i {
+	width: 13px;
+    height: 13px;
+    border-color: #fff;
+}
+.check-login a {}
+
+.btn-login,
+.btn-login-google {
+	width: 100%;
+	height: 40px;
+	background-color: #689f38;
+	color: #fff;
+	border-radius: 4px;
+	cursor: pointer;
+}
+.btn-login:hover,
+.btn-login-google:hover {
+	box-shadow: 1px 2px 2px 1px rgba(0,0,0,.4);
+}
+.btn-login-google {
+	color: #fff;
+	background-color: #ea4335;
+	position: relative;
+	padding-left: 47px;
+}
+.btn-login-google:before {
+	content: "";
+	width: 45px;
+	height: 30px;
+	border-right: 1px solid #fff;
+	background: url(/components/modules/signin/img/icon-google.png) no-repeat 12px center;
+	position: absolute;
+	top: 5px;
+	left: 0;
+}
+
+
+/*footer*/
+.login footer {
+	position: relative;
+	z-index: 10;
+}
+.login footer small {}
+.login footer a:hover {
+	color: #fff;
+}
+.login-or {
+	height: 30px;
+	line-height: 30px;
+	position: relative;
+}
+.login-or:before,
+.login-or:after {
+	width: 56px;
+	top: 50%;
+	left: 50%;
+	height: 1px;
+	margin-left: -84px;
+	background-color: #aed581;
+}
+.login-or:after {
+	margin-left: 26px;
+}
+.login-or span {}
+
+.login-ft {
+	float: left;
+	left: 50%;
+	position: relative;
+}
+.login-ft a {
+	margin: 0 10px;
+	width: 46px;
+	height: 46px;
+	border-radius: 50%;
+	display: inline-block;
+	background-color: #fff;
+	padding: 10px;
+	left: -50%;
+	position: relative;
+}
+.login-ft a svg {
+	width: 25px;
+	height: 25px;
+}
+.login-ft a svg.svg-google {
+	fill: #df2424;
+}
+.login-ft a svg.svg-facebook {
+	fill: #0060b9;
+}
+.login-ft a svg.svg-linkedin {
+	fill: #0083be;
+}
+
+
+/*forgot*/
+.forgot-info {
+	height: 40px;
+}
+.forgot-link {
+	text-decoration: underline;
+}
+.forgot-link:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+.login-signup-return{
+    margin-bottom: 50px;
+}
+
+/*reset*/
+.reset-bd {
+	padding-top: 35px;
+}
+.reset-success {
+	font-size: 32px;
+	padding-top: 5px;
+}
+.reset-countDown {
+	width: 600px;
+	height: 62px;
+	line-height: 62px;
+    margin-left: -130px;
+    border: 1px solid #fff;
+    background-color: #689f38;
+}
+
+/*signup*/
+.signup-info {
+    width: 140%;
+	height: 50px;
+    padding-top: 10px;
+    margin-left: -20%;
+}
+.signup-info a {}
+.signup-info a:focus,
+.signup-info a:active {color: #dcedc8}
+
+footer .pre-register{
+	padding-top: 35px;
+	text-align: center;
+}
+footer .pre-register .treaty{
+	font-size: 18px;
+	color: #fff;
+	text-decoration: underline;
+}
+footer .pre-register .treaty:hover {
+	text-decoration: none;
+}
+footer .pre-register .other-register-tips{
+	text-align: center;
+	padding-top: 30px;
+	color: #dcedc8;
+	font-size: 14px;
+}
+footer .pre-register .other-register-tips span{
+	position: relative;
+}
+footer .pre-register .other-register-tips span:before,
+footer .pre-register .other-register-tips span:after{
+	content: '';
+	position: absolute;
+	top: 5px;
+	width: 30px;
+	height: 1px;
+	background-color: #dcedc8;
+}
+footer .pre-register .other-register-tips span:before{
+	left: -40px;
+}
+footer .pre-register .other-register-tips span:after{
+	right: -40px;
+}
+footer .pre-register .other-register{
+	padding-top: 20px;
+	text-align: center;
+}
+footer .pre-register .other-register a{
+	padding-right: 35px;
+}
+footer .pre-register .other-register a:last-child{
+	padding: 0;
+}
+footer .pre-register .other-register a svg{
+	width: 40px;
+	height: 40px;
+}
+footer .pre-register .other-register a svg.hover{
+	display: none;
+}
+footer .pre-register .other-register a svg.default{
+	display: inline;
+}
+
+
+/***********     移动端适配      ***********/
+
+.pt-phone-login-error{
+	width: 100%;
+	padding: 5% 5% 0;
+}
+.pt-phone-login-error span,.pt-phone-login-error div{
+	display: block;
+	color: #ef4f4b;
+}
+
+.login-tips-phone {
+    position: absolute;
+    bottom: 100%;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.login-tips-phone .login-tips-phone-info {
+    background-color: #ef4f4b;
+    border-radius: 8px;
+    display: inline-block;
+    line-height: 1.2em;
+    padding: 8px 16px;
+    font-weight: bold;
+    color: #fff;
+    text-align: left;
+}

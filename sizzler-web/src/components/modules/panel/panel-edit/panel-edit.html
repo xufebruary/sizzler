@@ -1,0 +1,87 @@
+<div class="fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content" ng-if="myOptions.sendStatus != 'error'">
+            <header class="pt-popup-hd">
+                <span class="pt-popup-title" translate="PANEL.SET_UP.EDIT_PANEL.TITLE"></span>
+                <a class="pt-popup-close" ng-click="onCancel()">
+                    <svg><use xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd">
+                <!-- 非分享页面 -->
+                <div ng-if="!currentPanelShareId">
+                    <div class="block" translate="PANEL.SET_UP.EDIT_PANEL.SUB_TITLE"></div>
+                    <input type="text" 
+                        class="pt-ipt pt-ipt-success pt-popup-ipt" 
+                        maxlength="50"
+                        ng-if="!currentPanelShareId"
+                        ng-model="myOptions.titleMode"
+                        ui-input
+                        ui-input-options = "{
+                            'autoFocus': 'true',
+                            'onEnter': 'editPanel()',
+                            'onBlur': 'eventBlur()'
+                        }">
+
+                    <div class="m-t" translate="PANEL.SET_UP.EDIT_PANEL.SUB_DESCRIPTION"></div>
+                    <textarea 
+                        class="pt-ipt pt-ipt-success pt-popup-textarea" 
+                        ng-if="!currentPanelShareId"
+                        ng-model="myOptions.descriptionMode" 
+                        maxlength="200"></textarea>
+                </div>
+
+                <!-- 分享页面 -->
+                <div ng-if="currentPanelShareId">
+                    <div translate="PANEL.SET_UP.EDIT_PANEL.SUB_TITLE"></div>
+                    <div class="m-t-xs text-green-400">{{myOptions.titleMode}}</div>
+
+                    <div class="m-t-md" translate="PANEL.SET_UP.EDIT_PANEL.SUB_DESCRIPTION_SHARE"></div>
+                    <div class="m-t-xs">
+                        <span class="text-green-400" ng-if="myOptions.descriptionMode">{{myOptions.descriptionMode}}</span>
+                        <span class="text-black-400" ng-if="!myOptions.descriptionMode" translate="PANEL.SET_UP.EDIT_PANEL.SUB_DESCRIPTION_SHARE_PLACEHOLDER"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 非分享页面 -->
+            <footer class="pt-popup-footer" ng-if="!currentPanelShareId">
+                <button class="pt-btn pt-btn-default m-r-md" ng-click="onCancel()">
+                    <span translate="COMMON.CANCEL"></span>
+                </button>
+                <button class="pt-btn pt-btn-success"
+                        ng-click="editPanel()"
+                        ng-disabled="!myOptions.titleMode || myOptions.titleMode == ''">
+                    <span translate="COMMON.SAVE"></span>
+                </button>
+            </footer>
+
+            <!-- 分享页面 -->
+            <footer class="pt-popup-footer" ng-if="currentPanelShareId">
+                <button class="pt-btn pt-btn-success" ng-click="onCancel()">
+                    <span translate="COMMON.OK"></span>
+                </button>
+            </footer>
+        </div>
+
+        <div class="popup-content" ng-if="myOptions.sendStatus == 'error'">
+            <header class="popup-hd">
+                <a class="popup-btnClose" ng-click="onCancel()">
+                    <svg><use xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="popup-bd padder-v-sm text-md">
+                <span translate="TIP.ERROR.SEND_DATA_ERROR" translate-values="{{productConfigs}}"></span>
+            </div>
+            <footer class="popup-ft text-right m-t-sm">
+                <button class="pt-btn pt-btn-success" ng-click="onCancel()">
+                    <span translate="COMMON.OK"></span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

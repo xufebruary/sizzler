@@ -1,0 +1,266 @@
+﻿<!-- 图表类 -->
+<div class="widget"
+     ng-class="watchWidgetClass()"
+     data-widget-id="{{widget.baseWidget.widgetId}}"
+     ng-if="['chart', 'custom'].indexOf(widget.baseWidget.widgetType) != -1 || widget.baseWidget.graphName=='heatmap'">
+    <div class="widget-hd gridster-hand clearfix">
+        <div class="widget-title pos-rlt"
+             ng-dblclick="widgetTitleFun.editTitle($index)"
+             ng-init="myOptions.widgetTitle[$index].editing = false; myOptions.widgetTitle[$index].name = widget.baseWidget.widgetTitle">
+
+            <span class="text-ellipsis" title="{{widget.baseWidget.widgetTitle}}" has-sys-role="!ptone-admin-user">
+                {{widget.baseWidget.widgetTitle}}
+            </span>
+
+            <span class="text-ellipsis" has-sys-role="ptone-admin-user">
+                {{widget.baseWidget.widgetTitle[rootUser.settingsInfo.locale]}}
+            </span>
+
+            <input type="text"
+                   maxlength="50"
+                   ng-show="myOptions.widgetTitle[$index].editing"
+                   ng-blur="widgetTitleFun.doneEditing($index)"
+                   ng-model="myOptions.widgetTitle[$index].name"
+                   ng-keydown="widgetTitleFun.updateWidgetTitleByKeydown($event, $index)"
+                   ui-focus="myOptions.widgetTitle[$index].editing">
+        </div>
+        <div class="btn-group widget-set" ng-if="rootPanel.now.status == 1 && !rootPanel.now.shareSourceId && !pt.settings.fullScreen">
+            <span class="block widget-more"></span>
+
+            <div class="widget-set-dropdown fadeIn">
+                <a class="block"
+                   ng-click="widgetEdit(widget, $index, 'edit')"
+                   tooltip-placement="left"
+                   tooltip="{{ 'WIDGET.EDIT_WIDGET.TITLE' | translate}}"
+                   site-event-analytics="widget-edit-btn">
+                    <svg>
+                        <use xlink:href="#icon-edit"></use>
+                    </svg>
+                </a>
+                <a class="block"
+                   ng-click="showWidgetOperation('copy', widget)"
+                   tooltip-placement="left"
+                   tooltip="{{ 'WIDGET.COPY_WIDGET.TITLE' | translate}}">
+                    <svg>
+                        <use xlink:href="#icon-copy"></use>
+                    </svg>
+                </a>
+                <a class="block"
+                   ng-click="downloadWidget(widget, $index)"
+                   ng-if="widget._ext.showDownloadCsv"
+                   tooltip-placement="left"
+                   tooltip="{{ 'WIDGET.DOWNLOAD_WIDGET.TITLE' | translate}}">
+                    <svg>
+                        <use xlink:href="#icon-csv"></use>
+                    </svg>
+                </a>
+                <a class="block"
+                   ng-click="showWidgetOperation('delete', widget.baseWidget.widgetId)"
+                   tooltip-placement="left"
+                   tooltip="{{ 'WIDGET.DELETE_WIDGET.TITLE' | translate}}"
+                   site-event-analytics="widget-delete-btn">
+                    <svg>
+                        <use xlink:href="#icon-del"></use>
+                    </svg>
+                </a>
+                <a class="block"
+                   ng-if="rootUser.settingsInfo.demoSwitch == '1' && widget.baseWidget.graphName!='heatmap'"
+                   ng-click="showWidgetDemoData(widget, $index)"
+                   tooltip-placement="left"
+                   tooltip="Demo Data">
+                    <svg>
+                        <use xlink:href="#icon-demo-data"></use>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--Chart-->
+    <ptnonechart class="widget-bd"
+     ng-if="widget.baseWidget.widgetType =='chart' && rootWidget.drawChart && ((widget.variables[0].metrics.length > 0 && dsConfig.editor.data.drewChartNeedMetrics) || ( !dsConfig.editor.data.drewChartNeedMetrics && (widget.variables[0].metrics.length > 0 || (widget.variables[0].dimensions.length > 0 && widget.variables[0].metrics.length <= 0 && widget.baseWidget.graphName == 'table') )))" on-finish-render-filters></ptnonechart>
+
+    <!-- 热图 -->
+    <div heatmap
+        ng-if="widget.baseWidget.graphName=='heatmap'"
+        class="chart-heatmap"
+        is-full-screen="pt.settings.fullScreen"
+        is-phone="pt.settings.isPhone"
+        heatmap-url="widget.toolData.value"
+        widget-id="widget.baseWidget.widgetId"
+        widget-title="widget.baseWidget.widgetTitle"
+        chart-drawing="widget.widgetDrawing"
+        chart-min-size="rootChart.rowHeight"
+        chart-size-x="widget.sizeX"
+        chart-size-y="widget.sizeY"
+        chart-is-title-update="widget.baseWidget.isTitleUpdate"
+        locale="rootUser.settingsInfo.locale"
+        on-update-title="updateWidgetTitle(sendData, 'heatmap')"></div>
+
+    <!-- 空提示 -->
+    <div class="widget-empty"
+         ng-if="isWidgetEmpty(widget,dsConfig)">
+        <a class="block"
+           ng-hide="isShowSingleDimensions(widget,dsConfig)"
+           ng-click="widgetEdit(widget, $index, 'edit')"
+           site-event-analytics="widget-edit-btn">
+            <svg>
+                <use xlink:href="#icon-edit"></use>
+            </svg>
+        </a>
+        <p ng-show="isShowSingleDimensions(widget,dsConfig)" class="only-dimensions-tips">{{'WIDGET.EMPTY_WIDGET.ONLY_DIMENSIONS' | translate}}</p>
+    </div>
+
+    <!--Tools-->
+    <div class="widget-tools"
+        ng-if="widget.baseWidget.widgetType =='chart'">
+        <!-- chart-error-tips -->
+        <div class="chart-tips">
+            <div chart-tips-trigger
+                 class="chart-tips-trigger"
+                 ng-if="widget.baseWidget.isExample == 1 && !hasSysRolesFun('ptone-admin-user')">
+                <svg>
+                    <use xlink:href="#icon-example-ds"></use>
+                </svg>
+                <div class="tips-wrap">
+                    <div class="inner">
+                        <div class="arrows"></div>
+                        <div class="tips-content">
+                            {{'CHART.MSG.MSG_EXAMPLE_DATA1' | translate}}<br>
+
+                            <span ng-if="rootPage.dashboardMode == 'READ'">{{'CHART.MSG.MSG_EXAMPLE_DATA2' | translate}}</span>
+                            <a ng-if="rootPage.dashboardMode == 'EDIT'" href="javascript:" ng-click="widgetEdit(widget, $index, 'edit')" class="text-warning">{{'CHART.MSG.MSG_EXAMPLE_DATA2' | translate}}</a>
+                            {{'CHART.MSG.MSG_EXAMPLE_DATA3' | translate}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--没有时间维度则提示-->
+            <div ng-if="dimensionsCheck(widget) && !data.showError"
+                 class="chart-tips-trigger"
+                 chart-tips-trigger>
+                <svg>
+                    <use xlink:href="#icon-warning"></use>
+                </svg>
+                <div class="tips-wrap">
+                    <div class="inner">
+                        <div class="arrows"></div>
+                        <div class="tips-content" translate="WIDGET.ERROR.NO_TIME_DIMENSIONS"></div>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="data.showError"
+                 class="chart-tips-trigger"
+                 chart-tips-trigger>
+                <svg>
+                    <use xlink:href="#icon-warning"></use>
+                </svg>
+                <div class="tips-wrap">
+                    <div class="inner">
+                        <div class="arrows"></div>
+                        <div class="tips-content" ng-if="data.errorMsg!='MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED'" ng-bind-html="bindHtml(data.errorMsg)"></div>
+                        <div class="tips-content"  ng-if="data.errorMsg=='MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED'" >
+                            <span translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_1"></span>
+                            <a class="text-black-400 text-u-l" translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_2" ng-click="goToDs()"></a>
+                            <span translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_3"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div chart-tips-trigger
+                 ng-show="widget.variables[0].ptoneDsInfoId != 0"
+                 class="dsIcon padder-l-xs chart-tips-trigger">
+                <dom-svg-func class="" data-svgid="{{'#icon-ds-'+widget.variables[0].dsCode.toLowerCase()}}"></dom-svg-func>
+                <div class="tips-wrap" ng-hide="!data || data.showError">
+                    <div class="inner">
+                        <div class="arrows"></div>
+                        <div class="tips-content">
+                            <p ng-show="[6,20].indexOf(+widget.variables[0].ptoneDsInfoId) > -1">
+                                <span> {{'CHART.MSG.UPDATE' | translate}}</span>:
+                                {{data.widgetExtInfo.dataUpdateTime | date}}
+                                <br/>
+                                <a href="javascript:" data-widget-id="{{widget.baseWidget.widgetId}}"
+                                   class="text-warning refresh-widget" data-update-source-data="true">
+                                    {{'CHART.MSG.UPDATE_SOURCE_DATA' | translate}}
+                                </a>
+                                <span ng-show="widget._ext.updateSorceDataStatus">
+                                &nbsp;&nbsp; {{ ('CHART.MSG.UPDATE_SOURCE_DATA_' + widget._ext.updateSorceDataStatus) | translate}}
+                                </span>
+                            </p>
+
+                            <!-- widget左下角的指标维度显示 -->
+                            <!-- 目前分为两种：指标、维度，值、分类，分别用于数据源及数据库，在这里抽取出两套逻辑 -->
+
+                            <!-- 指标 -->
+                            <p ng-show="widget.variables[0].metrics.length > 0">
+                                <span ng-show="dsConfig.editor.data.metrics" translate="WIDGET.EDITOR.DATA.METRICS"></span>
+                                <span ng-show="dsConfig.editor.data.value" translate="WIDGET.EDITOR.DATA.VALUE"></span>
+                                <span>: </span>
+
+                                <span>
+                                    {{chartTips(widget, 'metrics', dsConfig)}}
+                                </span>
+                            </p>
+                            
+                            <!-- 维度 -->
+                            <p ng-show="widget.variables[0].dimensions.length > 0">
+                                <span ng-show="dsConfig.editor.data.dimensions" translate="WIDGET.EDITOR.DATA.DIMENSIONS"></span>
+                                <span ng-show="dsConfig.editor.data.attributes" translate="WIDGET.EDITOR.DATA.ATTRIBUTES"></span>
+                                <span>: </span>
+
+                                <span>
+                                    {{chartTips(widget, 'dimensions', dsConfig)}}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- chart-loading" -->
+    <div class="pt-loading" ng-show="widget.widgetDrawing == 'drawing'">
+        <span class="new-widget-loading">
+            <svg>
+                <use xlink:href="#icon-refresh-outside"></use>
+            </svg>
+        </span>
+    </div>
+
+    <!-- custom widget -->
+    <div class="custom-widget"
+         ng-repeat="child in widget.children"
+         ng-if="widget.baseWidget.widgetType == 'custom' && widget.children.length > 0"
+         id="{{child.baseWidget.widgetId}}"
+         custom-widget
+         ng-mousedown="getEdit()"
+         ng-mouseup="removeEdit()"
+         data-index = {{$index}}></div>
+    <div ng-repeat="child in widget.children"
+         ng-if="widget.baseWidget.widgetType == 'custom' && widget.children.length > 0">
+        <div ng-show="child.widgetDrawing == 'drawing'" class="new-widget-loading" >
+            <svg>
+                <use xlink:href="#icon-refresh-outside"></use>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<!-- 工具类 -->
+<div class="widget gridster-hand"
+    data-widget-id="{{widget.baseWidget.widgetId}}"
+    ng-if="widget.baseWidget.widgetType == 'tool' && widget.baseWidget.graphName == 'text'">
+
+    <!-- 富文本框 -->
+    <div rich-text
+        class="chart-richtext"
+        on-finish-render-filters
+        data-index="{{$index}}"
+        ng-if="widget.baseWidget.graphName == 'text'"></div>
+</div>
+
+<!-- 编辑时外框 -->
+<editor-border ng-if="(modal.editorNowIndex == $index && modal.editorShow) || (widget.baseWidget.widgetType == 'tool' && widget.baseWidget.widgetEdit)"></editor-border>
+

@@ -1,0 +1,2 @@
+updateDataProviderAdaptive=com.sizzler.provider.adaptive.UpdateDataProviderAdaptive
+upload=com.sizzler.provider.service.upload.UploadProviderImpl

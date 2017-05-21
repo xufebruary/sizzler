@@ -1,0 +1,76 @@
+﻿<!-- widget 列表 -->
+<div gridstack
+     class="grid-stack"
+     options="gridstackOptions"
+     gridstack-handler = "gridstackOptions.handler"
+     on-change="onChange(event,items)"
+     on-drag-start="onDragStart(event,ui)"
+     on-drag-stop="onDragStop(event,ui)"
+     on-resize-start="onResizeStart(event,ui)"
+     on-resize-stop="onResizeStop(event,ui)"
+     ng-class="{'read-mode':rootPage.dashboardMode !== 'EDIT', 'mobile': pt.settings.isPhone}">
+    <div gridstack-item
+         ng-repeat="widget in rootWidget.list track by widget.baseWidget.widgetId"
+         class="grid-stack-item li-widget"
+         gs-item-widget-id="widget.baseWidget.widgetId"
+         gs-item-x="widget.col"
+         gs-item-y="widget.row"
+         gs-item-width="widget.sizeX"
+         gs-item-height="widget.sizeY"
+         gs-item-min-width="widget.minSizeX"
+         gs-item-min-height="widget.minSizeY"
+         gs-item-autopos="widget.autoPos"
+         on-item-added="onItemAdded(item)"
+         on-item-removed="onItemRemoved(item)"
+         ng-class="{'draggableDisabled': gridstackOptions.disableDrag}"
+         on-repeat-finish="widgetRepeatFinish()">
+        <div widget-direction 
+            class="grid-stack-item-content"
+            ng-class="{'clear': ['drawing', 'waiting', 'resizeStart'].indexOf(widget.widgetDrawing) >= 0 || !rootWidget.drawChart }">
+
+            <!-- 单个widget -->
+            <widget></widget>
+        </div>
+    </div>
+</div>
+
+
+<!-- widget 复制 -->
+<!-- <div widget-demo ng-if="modal.demoShow"></div> -->
+
+<!-- widget 编辑  -->
+<widgeteditor ng-if="modal.editorShow"></widgeteditor>
+
+
+<!-- widget 复制 -->
+<widget-copy
+    ng-if="myOptions.widget.copy"
+    panels="rootPanel.list"
+    panel-layout="rootPanel.layout.panelLayout"
+    current-panel-id="rootPanel.now.panelId"
+    widgets="rootWidget.list"
+    current-widget="myOptions.widget.info"
+    on-cancel="hideWidgetOperation('copy')"
+    on-success="widgetOperationCallBack('copy', data)">
+</widget-copy>
+
+<!-- widget 删除 -->
+<widget-delete
+    ng-if="myOptions.widget.delete"
+    current-widget-id="myOptions.widget.info"
+    on-cancel="hideWidgetOperation('delete')"
+    on-success="widgetOperationCallBack('delete', data)">
+</widget-delete>
+
+<!-- widget demo数据 -->
+<widget-demo
+    class="widget-demo"
+    ng-if="myOptions.widget.demo"
+    modal="modal"
+    pt-settings="pt.settings"
+    current-panel-id="rootPanel.now.panelId"
+    current-widget="myOptions.widget.info"
+    on-cancel="hideWidgetOperation('demo')"
+    on-success="widgetOperationCallBack('demo', data)">
+</widget-demo>
+

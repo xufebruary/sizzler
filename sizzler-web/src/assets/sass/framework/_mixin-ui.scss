@@ -1,0 +1,136 @@
+//mixin UI---by jianqing
+@import "compass";
+@import "varibles";
+//color
+//color
+.black{
+  color: $black;
+}
+.white{
+  color: $white;
+}
+.green{
+  color: $green;
+}
+
+
+//button
+@mixin btn{
+  @include border-radius(3px);
+  @include box-shadow(rgb(137,178,78) 0 0 1px 1px inset);
+  background: #7ea746;
+  border: 1px solid #7aa244;
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 6px;
+  padding-right: 6px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  &:hover{
+    @include box-shadow(rgba(100,100,100,.3) 1px 1px 3px 1px);
+    @include background-image(linear-gradient(top, #8ab94b, #7ea746));
+    text-decoration: none;
+    color: $white;
+    cursor: pointer;
+  }
+  &.b{
+    font-weight: bold;
+  }
+  //33px-height
+  &.btn33{
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+  //36px-height
+  &.btn36{
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  &.btn-large{
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+  &.btn-default{
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+  &.btn-small{
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  &.btn-mini{
+    padding: 2px;
+  }
+  &.btn-orange{
+    @include box-shadow(rgb(255,135,12) 0 0 1px 1px inset);
+    background: #fd7700;
+    border: 1px solid #f17201;
+    &:hover{
+      @include box-shadow(rgba(100,100,100,.3) 1px 1px 3px 1px);
+      @include background-image(linear-gradient(top, #ff942d, #fd7b06));
+    }
+  }
+  &.btn-gray{
+    @include background-image(linear-gradient(top, #ffffff, #f5f5f5));
+    @include box-shadow(rgb(255,255,255) 0 0 1px 1px inset);
+    background: #fafafa ;
+    border: 1px solid #bebebe;
+    color: $black !important;
+    &:hover{
+      @include box-shadow(rgba(100,100,100,.3) 0px 0px 0px 0px);
+      background: #f5f5f5 ;
+      color: $black;
+    }
+    .icon{
+      color: $orange;
+      font-size: 16px;
+    }
+  }
+  &.btn-block {
+    @include box-sizing(border-box);
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100%;
+  }
+  .icon{
+    color: $white;
+    font-size: 16px;
+    vertical-align: text-top;
+  }
+}
+
+
+//more
+@mixin more{
+  width: 3px;
+  height: 3px;
+  position: absolute;
+  top: 50%;
+  margin-top: -1px;
+  left: 50%;
+  margin-left: -1px;
+  @include border-radius(3px);
+  background: $bgGrayLight;
+  &:before,
+  &:after{
+    content: "";
+    position: absolute;
+    top: -5px;
+    width: 3px;
+    height: 3px;
+    @include border-radius(3px);
+    background: $bgGrayLight;
+  }
+  &:after{
+    top: auto;
+    bottom: -4.5px;
+  }
+}

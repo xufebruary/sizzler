@@ -1,0 +1,82 @@
+<div class="ds__timezone fade in">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <p>{{fieds.name}}</p>
+                <span class="pt-popup-title" translate="DATA_SOURCE.TIMEZONE.TITLE"></span> (Beta)
+            </header>
+            <div class="pt-popup-bd padder-v-sm text-md">
+                <span class="block text-md" translate="DATA_SOURCE.TIMEZONE.SELECT_LABEL"></span>
+                <div dropdown
+                    auto-close="outsideClick"
+                    is-open="myOptions.dropdownIsOpen"
+                    class="ds__timezone-list-wrap"
+                    ng-class="{'disabled': myOptions.defaultTimezoneModel}"
+                >
+                    <a dropdown-toggle 
+                        class="mod-popup-ipt block text-md clearfix"
+                        ng-click="dropdownToggle()"
+                    >
+                        <span class="pull-left text-ellipsis">
+                            {{myOptions.currentTimezone.name}}
+                        </span>
+                        <b class="caret pull-right m-t-sm"></b>
+                    </a>
+                    <div class="ds__timezone-dropdown dropdown-menu"
+                        ng-class="{'no-search-data': myOptions.dropdownOptions.length == 0}"
+                    >
+                        <div class="ds__timezone-search">
+                            <input type="text" ng-model="search" ng-change="searchChange(search)">
+                            <a><!-- search --></a>
+                        </div>                    
+                        <ul class="ds__timezone-list">
+                            <!-- <li ng-repeat="timezone in myOptions.timezoneList | filter:search"
+                                ng-click="selectTimezone(timezone)"
+                            > -->
+                            <li ng-repeat="timezone in myOptions.dropdownOptions"
+                                ng-click="selectTimezone(timezone)"
+                            >
+                                <a title="{{panel.panelTitle}}"
+                                    class="padder-sm text-md text-ellipsis"
+                                    ng-class="{'active': timezone.name == myOptions.currentTimezone.name}"
+                                >
+                                    {{timezone.name}}
+                                </a>
+                            </li>
+                        </ul>
+                </div>
+                </div>
+                <label class="ds__timezone-checkbox" ng-class="{'disabled': !myOptions.isSupoortTimezone}">
+                    <input
+                        type="checkbox"
+                        class="checkbox-ipt"
+                        ng-disabled="!myOptions.isSupoortTimezone"
+                        ng-model="myOptions.defaultTimezoneModel"
+                    >
+                    <i class="checkbox-hook"></i>
+                    <span class="text-black-400 m-l-xs-m" translate="DATA_SOURCE.TIMEZONE.CHECKBOX_LABEL"></span>
+                </label>
+                <div class="m-t-sm" translate="{{myOptions.tipsLocalCode}}"></div>
+            </div>
+            <footer class="pt-popup-footer">
+                <div class="error-tips" ng-if="myOptions.errorTips">
+                    <span translate="DATA_SOURCE.TIMEZONE.ERROR_TIPS"></span>
+                </div>
+
+                <button class="pt-btn pt-btn-default m-r-md" ng-click="hide()">
+                    <span translate="COMMON.CANCEL">Cancel</span>
+                </button>
+                <button
+                    class="pt-btn pt-btn-success"
+                    ng-click="save()"
+                    ng-class="{'disabled': isDisabled()}"
+                >
+                    <span translate="COMMON.SAVE">Save</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>

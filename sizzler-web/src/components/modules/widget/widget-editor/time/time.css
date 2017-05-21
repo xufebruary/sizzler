@@ -1,0 +1,111 @@
+@charset "utf-8";
+
+/*
+  Name:    Editor-Time
+  Explain: Widget Editor Stpe C - Time
+  Author:  Dawn
+  Date:    2015-10-08
+*/
+.editor-time {
+}
+
+.editor-time .line {
+  border-bottom: 1px solid #616161;
+}
+
+.ipt-time {
+  width: 40px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid #616161;
+  line-height: 1em;
+}
+
+.time-active {
+  color: #bdbdbd !important;
+}
+
+.time-datePicker {
+
+  /*height: 200px;*/
+  background: #9ccc65;
+  position: relative;
+}
+
+.time-datePicker:before {
+  content: "";
+  width: 100%;
+  height: 31px;
+  top: 0;
+  left: 0;
+  position: absolute;
+  background-color: #212121;
+}
+
+.time-datePicker:after {
+  width: 22px;
+  height: auto;
+  top: 30px;
+  bottom: 0;
+  left: 10px;
+  z-index: 1;
+  background-color: #85B74B;
+}
+
+.time-datePicker-hide {
+  height: 10px;
+  background: #212121;
+  border-radius: 0 0 2px 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.time-datePicker-hide:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  margin: 0 0 0 -3px;
+  border-width: 4px;
+  border-color: transparent transparent #424242 transparent;
+  border-style: dashed dashed dashed solid;
+  -webkit-transition: border-color .3s linear;
+  -moz-transition: border-color .3s linear;
+  -o-transition: border-color .3s linear;
+  -ms-transition: border-color .3s linear;
+  transition: border-color .3s linear;
+}
+
+.time-datePicker-hide:hover:before {
+  border-color: transparent transparent #757575 transparent;
+}
+.dimension-time .time-slt-a {width: 188px;}
+.dimension-time .time-slt-a .editor-dropdown-toggle input {width: 140px; color: #323232;}
+.dimension-time .editor-dropdown .dropdown-menu{
+  min-width: 150px;
+}
+.date-dimension-list-bd{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #424242;
+  width: 100%;
+  z-index: 1;
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  border-radius: 2px;
+}
+.date-dimension-list-bd ul li{
+  cursor: pointer;
+}
+.date-dimension-list-hd{
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #757575;
+  overflow: hidden;
+}
+.date-dimension-list-hd span{
+  width: 168px;
+  color: #212121;
+}

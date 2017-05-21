@@ -1,0 +1,115 @@
+<!-- content -->
+<div class="content ds-manage wrapper-xl no-padding" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000">指标维度管理&nbsp;->&nbsp;生成复合指标维度</span>
+        </ol>
+    </header>
+   
+    <div class="clearfix m-t-xl">
+
+        <!-- 选择类型： metrics || dimension -->
+        <div class="clearfix animated fadeInDown m-b-xs base">
+            <span class="m-r-sm pull-left title">类型:</span>
+            <div class="pull-left pos-rlt" dropdown>
+                <div class="clear" dropdown-toggle>
+                    <span class="block padder-xs pull-left padder-lineheight" style="font-size: 20px;color: red;">{{currentType}}</span>
+                    <div class="pull-right text-center"> <b class="caret m-l-none"></b></div>
+                </div>
+                <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                    <li ng-repeat="item in typeList"
+                    ng-click="changeType(item)">
+                        <a class="padder">{{item}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 创建指标、维度分类-->
+    	<div class="base addCategory">
+    		<span class="title">Add new Category: </span>
+            <table width="80%">
+                <tr>
+                    <td>
+                        <div >
+                    	    <label style="margin-left:20px;">ID：</label>
+                    		<input type="text" ng-model="newCategory.id"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
+                            <label style="margin-left:20px;">Name:</label>
+                            <input type="text" ng-model="newCategory.name"/>
+                        </div>
+                    </td>
+                    <td>
+                        <a class="btn btn-success" href="javascript:void(0)" ng-click="addCategory(newCategory, currentType)">Add Category</a>
+                    </td>
+                </tr>
+            </table>
+    	</div>
+
+        <!-- 生成指标、维度 -->
+        <div class="base buildCompound">
+            <div class="buildParam">
+                <span class="title">Build Metrics Or Dimension: </span>
+                <span>
+                    <label style="margin-left:20px;">talbeId：</label>
+                    <input type="text" style="width:250px" ng-blur="changeTable(tableId)" ng-model="tableId"/>
+                </span>
+                <span>
+                    <label style="margin-left:20px;">CategoryId：</label>
+                    <input type="text" ng-model="buildParam.categoryId"/>
+                </span>
+                <span style="margin-left: 20px;"><a class="btn btn-success" href="javascript:void(0)" ng-click="build(buildParam, currentType)">Build</a></span>
+            </div>
+            <div class="buildCompoundDiv">
+                <div class="buildCompoundDiv left">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="20%"><input type="checkbox" ng-model="selectAll"><span ng-hide="selectAll">Select All</span><span ng-show="selectAll">Deselect all</span></th>
+                                <th width="20%">ID</th>
+                                <th width="60%">Name</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="item in compoundTempletList">
+                            <td ><input ng-checked="selectAll" name="compoundTempletId" type="checkbox" value="{{item.id}}" /></td>
+                            <td ng-bind="item.id"></td>
+                            <td ng-bind="item.name"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="buildCompoundDiv right">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th width="40%">Key</th>
+                                <th width="60%">Column</th>
+                            </tr>
+                        </thead>
+                        <tr ng-repeat="key in keyList">
+                            <td width="40%" ng-bind="key"></td>
+                            <td width="60%">
+                                <div class="pull-left pos-rlt" dropdown>
+                                    <div class="clear" dropdown-toggle>
+                                        <span class="block padder-xs pull-left padder-lineheight" style="font-size: 16px; width:150px;">{{buildParam.keyToColumnMap[key].name}}</span>
+                                        <div class="pull-right text-center"> <b class="caret m-l-none"></b></div>
+                                    </div>
+                                    <ul class="dropdown-menu animated fadeInDown padder-v-sm no-border">
+                                        <li ng-repeat="col in tableColumnList"
+                                        ng-click="changeKeyMap(key, col)">
+                                            <a class="padder">{{col.name}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+            
+</div>

@@ -1,0 +1,219 @@
+@charset "utf-8";
+/*
+  Name:    mysql
+  Explain: DataSources - mysql
+  Author:  Dawn
+  Date:    2016-1-13
+*/
+
+
+
+.ds-mysql-file .ds-file-name {
+    color: #424242;
+    height: 100%;
+    /*width: -ms-calc(100% - 100px);*/
+    /*width: -moz-calc(100% - 100px);*/
+    /*width: -webkit-calc(100% - 100px);*/
+    /*width: calc(100% - 100px);*/
+}
+
+.ds-file-name .filelist-icon{
+    fill:#757575;
+}
+
+
+    /*add*/
+.add-database {}
+.add-database-hd {
+    margin-top: 60px;
+}
+.add-database-bd {width: 435px;}
+.ds-mysql-dl {}
+.ds-mysql-dl dt {
+    line-height: 20px;
+}
+.ds-mysql-dl dd {
+
+}
+.ds-mysql-dl dd:nth-child(3) {
+    width: auto;
+    position: absolute;
+    top: 20px;
+    right: -20px;
+}
+.ds-mysql-ipt,
+.ds-mysql-textarea {
+    width: 420px;
+    height: 40px;
+    line-height: 40px;
+    color: #424242;
+    background-color: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    border-radius: 4px;
+}
+.ds-mysql-textarea {
+    height: 80px;
+    resize: none;
+}
+.ds-mysql-ipt:focus,
+.ds-mysql-textarea:focus {
+    border: 1px solid #9ccc65;
+}
+.pt-mysql-ipt.error,
+.ds-mysql-ipt.error,
+.ds-mysql-textarea.error {
+    border: 1px solid #ee6e66;
+}
+.ds-mysql-ipt svg {
+    width: 16px;
+    height: 16px;
+    fill: #9E9E9E;
+}
+.pt-mysql-ipt.pt-ipt {
+    width: 420px;
+}
+
+.ds-mysql-ft a,
+.ds-mysql-ft a:hover {
+    text-decoration: underline;
+}
+.ds-mysql-error {
+    line-height: 1em;
+}
+
+
+.ds-mysql-dropdown {
+    width: 420px;
+}
+.ds-mysql-dropdown:hover .ds-mysql-ipt {
+    color: initial;
+    background-color: #e0e0e0;
+}
+.pt-select .pt-dropdown-menu.pt-mysql-dropdowm {
+    left: auto !important;
+    right: 0;
+}
+.ds-mysql-dropdown .dropdown-menu {
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 0 0 4px 4px;
+    top: 100%;
+}
+.ds-mysql-dropdown .dropdown-menu > li > a {
+    color: #616161;
+    padding: 9px 10px;
+}
+.ds-mysql-dropdown .dropdown-menu > li > a:hover,
+.ds-mysql-dropdown .dropdown-menu > li > a:focus,
+.ds-mysql-dropdown .dropdown-menu > .active > a,
+.ds-mysql-dropdown .dropdown-menu > .active > a:hover,
+.ds-mysql-dropdown .dropdown-menu > .active > a:focus {
+    background-color: #9ccc65 !important;
+    width: 100%;
+    color: #fff;
+    box-shadow: none;
+}
+.ds-mysql-dropdown .dropdown-menu > .active > a {
+    background: none !important;
+    color: #9ccc65;
+}
+
+#pt-pt-ds-table-info-showTip{
+	width: 16px;height: 16px;vertical-align: middle;fill: #fbc349;
+}
+
+.pt-ds-table-info .pt-pt-ds-table-info-showTip-a{
+    color: #9ccc65;
+    font-size: 14px;
+}
+.pt-ds-table-info .pt-pt-ds-table-info-showTip-a:hover{
+	text-decoration: underline;
+}
+
+/* tips */
+.pt-ds-table-info .chart-tips-trigger {
+    position: relative;
+}
+.pt-ds-table-info .chart-tips-trigger svg {
+    width: 16px;
+    height: 16px;
+    fill: #9e9e9e;
+    vertical-align: middle;
+}
+
+.pt-ds-table-info .tips-wrap {
+    position: absolute;
+    top: auto;
+    bottom: 26px;
+    left: -10px;
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity .15s linear;
+    -o-transition: opacity .15s linear;
+    transition: opacity .15s linear;
+    z-index: -100;
+}
+
+.pt-ds-table-info .tips-wrap .inner {
+    width: 320px;
+    font-size: 14px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.pt-ds-table-info .chart-tips-trigger:hover .tips-wrap {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+.pt-ds-table-info .chart-tips-trigger:hover .tips-wrap a {
+    text-decoration: underline;
+}
+
+.pt-ds-table-info .tips-wrap .inner .arrows {
+    position: absolute;
+    bottom: -10px;
+    left: 6px;
+    margin: 0;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 11px;
+    border-bottom-width: 0;
+    border-top-color: #999;
+    border-top-color: rgba(0, 0, 0, .25);
+    box-sizing: border-box;
+}
+
+.pt-ds-table-info .tips-wrap .inner .arrows:after {
+    content: '';
+    position: absolute;
+    bottom: 1px;
+    width: 0;
+    height: 0;
+    margin-left: -10px;
+    border-color: transparent;
+    border-style: solid;
+    border-width: 10px;
+    border-bottom-width: 0;
+    border-top-color: #fff;
+    box-sizing: border-box;
+}
+
+.pt-ds-table-info .tips-wrap .inner .tips-content {
+    padding: 9px 14px;
+    background-color: #fff;
+    border-radius: 6px;
+}
+
+.pt-ds-table-info .tips-wrap .inner .tips-content p {
+    margin: 1em 0;
+}
+
+.pt-ds-table-info .tips-wrap .inner .tips-content p span:last-child i {
+    display: none;
+}

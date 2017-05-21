@@ -1,0 +1,243 @@
+.landing-page .banner.success {
+    height: 100%;
+}
+.landing-page  #container.success {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+}
+.landing-page #output.success {
+    width: 100%;
+    height: 100%;
+}
+.landing-page .banner.success .column-bg {
+    z-index: 0;
+}
+.landing-page .banner.success .pre-registration {
+    width: 680px;
+    position: relative;
+    z-index: 1;
+    margin: 30px auto;
+}
+.landing-page .banner.success .pre-registration .logo {
+    text-align: center;
+    padding: 10px 0;
+    position: relative;
+}
+.landing-page .banner.success .pre-registration .logo svg {
+    width: 140px;
+    height: 50px;
+}
+.landing-page .banner.success .pre-registration .logo .back{
+    position: absolute;
+    left: 0;
+    top: 18px;
+    display: block;
+}
+.landing-page .banner.success .pre-registration .logo .back svg{
+    width: 35px;
+    height: 35px;
+    fill: #fff;
+    border: 2px solid #fff;
+    border-radius: 50px;
+    padding: 5px;
+}
+.landing-page .banner.success .pre-registration .logo .back span{
+    color: #fff;
+    font-size: 32px;
+    position: absolute;
+    left: 45px;
+    top: -3px;
+}
+.landing-page .banner.success .pre-registration .share-box2 {
+    border-right: 10px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title {
+    font-size: 22px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    padding: 20px 40px 0 40px;
+    background-color: #80b845;
+    font-weight: bold;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title p {
+    line-height: 28px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title p:last-child {
+    margin: 0;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title .sec {
+    margin-bottom: 0;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title .name {
+    padding-bottom: 5px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title .name span {
+    padding-right: 10px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .title .little {
+    font-weight: normal;
+    font-size: 16px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main {
+    padding: 30px 30px 10px 30px;
+    background-color: #fff;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .top-img {
+    text-align: center;
+    /*padding-top: 10px;*/
+    /*padding-bottom: 15px;*/
+    border: 1px solid #e0e0e0;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .top-img img {
+    /*width: 260px;*/
+    /*height: 160px;*/
+    width: 100%;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .top-img p {
+    text-align: left;
+    padding-left: 20px;
+    font-size: 12px;
+    color: #666666;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .top-img p.tit {
+    padding-top: 25px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a {
+    display: inline-block;
+    color: #fff;
+    border-radius: 3px;
+    padding: 10px 30px;
+    font-size: 16px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a svg {
+    width: 16px;
+    height: 16px;
+    fill: #fff;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.facebook {
+    background-color: #44619d;
+    position: relative;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.facebook:hover {
+    background-color: #4a6aac;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.facebook:before {
+    content: '';
+    position: absolute;
+    right: -30px;
+    top: 8px;
+    width: 2px;
+    height: 24px;
+    background-color: #cccccc;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.twitter {
+    background-color: #00aced;
+    margin-left: 60px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.twitter:hover {
+    background-color: #06b5f7;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.twitter svg {
+    margin-left: 5px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-tip {
+    font-size: 12px;
+    color: #666666;
+    padding-top: 10px;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-main .share-tip span {
+    color: #7fba4c;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-footer {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background: #f4f4f4;
+    padding: 40px 0;
+    text-align: center;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-footer .btn-comm {
+    display: inline-block;
+    padding: 10px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 30px;
+    color: #fff;
+    background: #7fba4c;
+}
+.landing-page .banner.success .pre-registration .share-box2 .share-footer .btn-comm:hover {
+    background: #88c652;
+}
+
+@media (max-width: 1024px) {
+
+}
+
+@media (max-width: 414px) {
+    .landing-page .banner.success{
+        height: 100%;
+    }
+    .landing-page .banner.success .pre-registration {
+        width: 100%;
+    }
+    .landing-page .banner.success .pre-registration .logo .back{
+        top: 13px;
+    }
+    .landing-page .banner.success .pre-registration .logo .back svg{
+        width: 25px;
+        height: 25px;
+        padding: 3px;
+    }
+    .landing-page .banner.success .pre-registration .logo .back span{
+        font-size: 25px;
+        left: 30px;
+    }
+    .landing-page .banner.success .pre-registration .logo svg{
+        width: 110px;
+        height: 35px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .title{
+        font-size: 18px;
+        padding: 20px 40px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .title p{
+        line-height: 22px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .title .little{
+        font-size: 12px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-main .top-img p.tit{
+        font-size: 14px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-main .top-img p{
+        padding: 0 15px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-main .top-img p.tit{
+        padding-top: 15px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a{
+        display: block;
+        font-size: 12px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a:before{
+        display: none;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-main .share-btns a.twitter{
+        margin-left: 0;
+        margin-top: 14px;
+    }
+    .landing-page .banner.success .pre-registration .share-box2 .share-footer .btn-comm{
+        font-size: 12px;
+    }
+}

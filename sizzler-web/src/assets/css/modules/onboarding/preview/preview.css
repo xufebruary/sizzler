@@ -1,0 +1,75 @@
+.black {
+  color: #000;
+}
+
+.white {
+  color: #fff;
+}
+
+.green {
+  color: #9ccc65;
+}
+
+.onboarding-preview {
+  margin: -50px 50px;
+  padding-bottom: 214px;
+    padding-top: 50px;
+}
+.onboarding-preview ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.onboarding-preview .preview-tips {
+  background: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 0;
+  z-index: 100;
+  box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.33);
+  -moz-box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.33);
+  -webkit-box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.33);
+}
+.onboarding-preview .preview-tips p {
+  text-align: center;
+  font-size: 20px;
+  color: #414141;
+  line-height: 24px;
+}
+.onboarding-preview .preview-tips .preview-dsImg {
+  margin: 0 auto;
+  width: 98px;
+  height: 34px;
+  font-size: 0;
+  background-color: #fff;
+  text-align: center;
+  position: relative;
+  border: 1px solid #e0e0e0;
+  box-sizing: content-box;
+  overflow: hidden;
+}
+.onboarding-preview .preview-tips .preview-dsImg img {
+  max-width: 110%;
+  position: absolute;
+  left: -6px;
+  top: -4px;
+}
+.onboarding-preview .preview-tips footer {
+  width: 620px;
+  margin: 30px auto 0;
+}
+.onboarding-preview .preview-tips footer a {
+  text-decoration: underline;
+  font-size: 16px;
+  color: #606060;
+  float: left;
+  margin-top: 5px;
+}
+.onboarding-preview .preview-tips footer a:hover {
+  text-decoration: none;
+}
+.onboarding-preview .preview-tips footer button {
+  float: right;
+}

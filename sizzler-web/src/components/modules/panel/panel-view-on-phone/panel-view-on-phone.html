@@ -1,0 +1,7 @@
+<div class="view-on-phone">
+    <h4 translate="PANEL.QRCODE.VIEW_ON_PHONE"></h4>
+    <img ng-if="$ctrl.state.qrCodeUrl" ng-src="{{$ctrl.state.qrCodeUrl}}" alt="">
+    <br/>
+    <span translate="PANEL.QRCODE.OR"></span>
+    <span class="short-link">{{$ctrl.state.shortenUrl}}</span>
+</div>

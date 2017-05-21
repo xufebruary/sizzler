@@ -1,0 +1,241 @@
+<!-- 通用头部 -->
+<div class="pt-ds-header">
+    <!-- 数据源路径 -->
+    <div class="ds-header-breadcrumb text-black-900">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" translate="DATA_SOURCE.UPLOAD.HD_TITLE_MANAGE">
+            Excel/CSVファイル
+        </span>
+    </div>
+
+    <!-- 数据源默认介绍 -->
+    <div class="pt-ds-header-introduce clearfix m-b-md">
+        <div class="pt-ds-header-introduce-logo"><span class="img">
+        <img ng-src="/assets/images/ds/set-{{myOptions.currentDs.code}}.jpg" alt="{{myOptions.currentDs.name}}"/></span></div>
+        <div class="pt-ds-header-introduce-detail">
+            <p ng-bind-html="'DATA_SOURCE.UPLOAD.INTRODUCE' | translate">Excel/CSVファイル</p>
+        </div>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-click="clickFile('add')"
+           ng-show="myOptions.file.list.length>0">
+            <svg>
+                <use xlink:href="#icon-add-solid" />
+            </svg>
+            <span translate="DATA_SOURCE.UPLOAD.ADD_NEW_FILE">Connect New File</span>
+        </a>
+    </div>
+</div>
+
+<!--无数据时提示层 -->
+<div dataType="noData" class="ds-no-binding m-t-xxl" ng-show=" myOptions.current.mod == 'noData' ">
+    <div class="description">
+        <p ng-bind-html="'DATA_SOURCE.UPLOAD.ADD_ACCOUNT_TIPS' | translate"></p>
+    </div>
+    <p>
+        <button class="pt-btn pt-btn-success pt-btn-add"
+                ng-click="clickFile('add')">
+            <svg>
+                <use xlink:href="#icon-add-solid" />
+            </svg>
+            <span translate="DATA_SOURCE.UPLOAD.ADD_NEW_FILE">Connect New File</span>
+        </button>
+    </p>
+</div>
+
+
+<!-- 已存文件列表 -->
+<div dataType="tableList"
+     class="ds-table-list m-t-xxl ng-hide"
+     ng-show=" myOptions.current.mod == 'tableList' ">
+
+    <div class="pt-ds-table-list-bd">
+        <div class="pt-ds-table clearfix text-center text-black-500"
+             ng-if="myOptions.file.queryStatus == 'success' && myOptions.file.list.length == 0">
+            <p class="ds-table-nodata">
+                <span translate="DATA_SOURCE.MYSQL.NO_FILE">您还没有关联任何文件</span>
+            </p>
+        </div>
+        <div class="pt-ds-table clearfix pos-rlt"
+             ng-repeat="file in myOptions.file.list">
+            <div class="pt-ds-table-info ds-table-info">
+                <div class="pt-file-title clearfix">
+                    <p class="pt-text-ellipsis" title="{{file.name}}">{{file.name}}</p>
+                </div>
+            </div>
+            <div class="pt-ds-table-date">
+                <p class="pt-ds-table-date-list">
+                    <span translate="DATA_SOURCE.UPLOAD.TIPS_FILE_LAST_UPLOAD">connected at</span>
+                    {{file.updateTime | date:'yyyy/MM/dd HH:mm:ss'}}
+                    <!-- {{file.createTime | date:'yyyy/MM/dd'}} -->
+                </p>
+                <p class="pt-ds-table-date-list text-ellipsis"
+                   title="{{file.userName}}">
+                    <span translate="DATA_SOURCE.MYSQL.OWNER"> </span>
+                    <span>: &nbsp;</span>
+                    {{file.userName}}
+                </p>
+            </div>
+            <div class="pt-ds-table-set">
+                <div class="pt-btn-group pt-select" dropdown>
+                    <a class="pt-block m-t-xs pt-btn-more" href="javascript:" dropdown-toggle>
+                        <span class="more"></span>
+                    </a>
+                    <ul class="pt-dropdown-menu pt-mysql-dropdowm">
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="editFile(file, $index)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                                </svg>
+                                <span translate="DATA_SOURCE.MYSQL.BTN_EDIT">Edit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="renameFileShow(file, $index)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-rename"></use>
+                                </svg>
+                                <span translate="DATA_SOURCE.UPLOAD.BTN_RENAME">Rename</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="fileUpdateShow(file, $index)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-refresh"></use>
+                                </svg>
+                                <span translate="DATA_SOURCE.UPLOAD.BTN_FILE_UPDATE">Update file</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="setTimezone(file, $index)">
+                                <svg>
+                                    <use xlink:href="#icon-timezone" />
+                                </svg>
+                                <span translate="DATA_SOURCE.TIMEZONE.BUTTON"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="removeFileShow(file,$index)">
+                                <svg>
+                                    <use xlink:href="#icon-del" />
+                                </svg>
+                                <span translate="DATA_SOURCE.MYSQL.BTN_REMOVE">Remove</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form class="hide" name="uploadFileForm">
+    <input ng-hide="true"
+           type="file"
+           id="uploadFileInput"
+           nv-file-select=""
+           uploader="uploader"
+           ng-disabled="uploader.getNotUploadedItems().length"
+           accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,application/msexcel,text/csv,application/csv,.csv"/>
+</form>
+
+
+
+<!-- 提示模板 -->
+<div tips-two-btn tips-options="{{myOptions.tips.options}}" ng-if="myOptions.tips.show"></div>
+
+<!-- 时区 -->
+<timezone 
+    ng-if="myOptions.timezone.show"
+    fieds="myOptions.timezone.fieds"
+    tips-code="DATA_SOURCE.TIMEZONE.MYSQL_SUPPORT"
+    hide-timezone="hideTimezone()"
+></timezone>
+
+
+<!--上传进度条-->
+<!--<div class="fade in" ng-if="uploader.queue[0].isUploading">-->
+<div class="fade in" ng-if="myOptions.file.isUploading">
+    <div class="popup">
+        <div class="popup-content">
+            <header class="popup-hd" ng-if="!myOptions.file.isUploadFinish">
+                <a class="popup-btnClose" ng-click="cancelUpload()">
+                    <svg><use xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="popup-bd padder-v-sm text-md"
+                 ng-if="!myOptions.file.isUploadFinish">
+                <span>
+                    {{myOptions.file.uploadingI18n}}
+                </span>
+                <div class="progress-xs progress">
+                    <div class="progress-bar progress-bar-success"
+                         ng-style="{ 'width': myOptions.file.progress + '%' }"></div>
+                </div>
+            </div>
+            <div class="popup-bd padder-v-sm text-md text-center"
+                 ng-if="myOptions.file.isUploadFinish">
+                <span translate="DATA_SOURCE.UPLOAD.TIPS_DATA_PROCESSING">
+                    数据处理中......
+                </span>
+            </div>
+            <footer class="popup-ft text-right m-t-sm"
+                    ng-if="!myOptions.file.isUploadFinish">
+                <button class="pt-btn pt-btn-default"
+                        ng-click="cancelUpload()">
+                    <span translate="COMMON.CANCEL"></span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <!-- bg -->
+    <div class="modal-backdrop fade in"></div>
+</div>
+
+<!--文件重命名-->
+<div class="fade in" ng-if="myOptions.fileRename.showTips">
+    <div class="pt-popup">
+        <div class="pt-popup-content">
+            <header class="pt-popup-hd">
+                <span class="pt-popup-title" translate="DATA_SOURCE.UPLOAD.EDIT_FILE_NAME">ファイル名名の編集</span>
+                <a class="pt-popup-close" ng-click="close()">
+                    <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+                </a>
+            </header>
+            <div class="pt-popup-bd">
+                <div class="popup-ipt">
+                    <span class="block" translate="DATA_SOURCE.UPLOAD.EDIT_FILE_NAME_TIPS">ファイル名を入力してください。ファイル形式の記入は不要です。</span>
+                    <input type="text"
+                           maxlength="50"
+                           class="pt-ipt pt-ipt-success pt-popup-ipt"
+                           ng-model="myOptions.fileRename.fileNewName"
+                           ng-keydown="eventKeydown($event)"
+                           ui-Focus="true">
+                </div>
+            </div>
+            <footer class="pt-popup-footer">
+                <button class="pt-btn pt-btn-default m-r-md" ng-click="close()" >
+                    <span translate="COMMON.CANCEL">Cancel</span>
+                </button>
+                <button class="pt-btn pt-btn-success"
+                        ng-click="renameFile(myOptions.fileRename.fileNewName)"
+                        ng-disabled="myOptions.fileRename.fileNewName == ''" >
+                    <span translate="COMMON.SAVE">Save</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+    <div class="modal-backdrop fade in"></div>
+</div>

@@ -1,0 +1,463 @@
+@charset "utf-8";
+
+/*
+  Name:    DataSources
+  Explain: Mod-DataSources style
+  Author:  Dawn
+  Date:    2015-12-3
+*/
+
+
+.changeType {
+	border: 1px solid #bbb;
+	color: #bbb;
+	background: #eee;
+	border-radius: 2px;
+	padding: 2px;
+	font-size: 9px;
+	float: right;
+	line-height: 9px;
+	margin: 3px 3px 0 0;
+}
+
+.changeType:hover {
+	border: 1px solid #777;
+	color: #777;
+	cursor: pointer;
+}
+
+.changeType.pressed {
+	background-color: #999;
+}
+
+.changeTypeMenu {
+	position: absolute;
+	border: 1px solid #ccc;
+	margin-top: 18px;
+	box-shadow: 0 1px 3px -1px #323232;
+	background: white;
+	padding: 0;
+	font-size: 13px;
+	display: none;
+	z-index: 1000;
+}
+
+.changeTypeMenu li {
+	text-align: left;
+	list-style: none;
+	padding: 2px 20px;
+	cursor: pointer;
+	margin-bottom: 0;
+}
+
+.changeTypeMenu li.active:before {
+	font-size: 12px;
+	content: "\2714";
+	margin-left: -15px;
+	margin-right: 3px;
+}
+
+.changeTypeMenu li:hover {
+	background: #eee;
+}
+
+.hot-headBox {}
+
+.mod-dataSources {
+	margin-right: 200px;
+}
+
+
+.ds-edit {}
+
+
+/* excel编辑器 */
+.ds-editor-box {
+	padding-bottom: 2px;
+	border: 1px solid #bdbdbd;
+	border-radius: 2px;
+	background-color: #eee;
+	/*min-width: 790px;*/
+	max-width: 100%;
+}
+.ds-editor-box-bd {
+	width: 100%;
+	padding: 0 2px;
+	min-height: 280px;
+    overflow-x: auto;
+    /*overflow:auto;*/
+    /*border-bottom: 1px solid #9b9b9b;*/
+}
+.ds-editor-box-bd .ngscroll-content-container {min-width: 100%;}
+.ds-editor-table-hd {
+	min-width: 100%;
+	/*overflow-y: scroll;*/
+	/*padding-right: 17px;*/
+}
+.ds-editor-table-hd .ds-editor-table{
+	/*overflow: hidden;*/
+}
+.ds-editor-table-bd {
+	min-width: 100%;
+	max-height: 400px;
+	/*min-height: 350px;*/
+	/*overflow:auto;*/
+	overflow-y: scroll;
+	/*overflow-y: scroll;*/
+	/*overflow-x: hidden;*/
+}
+.ds-editor-table {
+	min-width: 100%;
+}
+.ds-mysql-editor-box {
+	padding-top: 2px;
+}
+
+
+
+.ds-editor-wrap {
+	min-width: 714px;
+	max-width: 100%;
+}
+.ds-editor {
+	padding-bottom: 2px;
+	border: 1px solid #bdbdbd;
+	border-radius: 2px;
+	background-color: #eee;
+	min-width: 714px;
+	max-width: 100%;
+}
+
+
+.ds-editor-hd-bg {
+	background-color: #3e4042;
+    border-radius: 2px;
+}
+.ds-editor-hd {
+	color: #bdbdbd;
+	padding: 2px 2px 0px 30px;
+	margin-bottom: 6px;
+	/*min-width: 712px;*/
+}
+.ds-editor-hd-tips {
+	position: absolute;
+    left: 0;
+    top: 0;
+    right: 2px;
+    bottom: 4px;
+    z-index: 1;
+}
+.ds-editor-hd-tips .btn-help {
+	position: absolute;
+	left: 50%;
+	top: 56%;
+	-moz-transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+.ds-editor-hd-tips .btn-help p {
+	left: -6px;
+}
+.ds-editor-hd-tips .btn-help .fa-question-circle{
+	font-size:16px;
+}
+.ds-editor-rang {
+	/*height: 40px;*/
+	padding: 10px 15px;
+	margin: 2px;
+}
+.ds-dropdown-rang {}
+.ds-dropdown-rang-toggle,
+.ds-ipt-rang {
+	min-width: 100px;
+    border: 1px solid #737474;
+    border-radius: 4px;
+    height: 20px;
+    padding: 0px 8px;
+}
+.ds-dropdown-rang-tips {
+	clear: both;
+	padding-left: 186px;
+}
+.ds-ipt-rang {
+	min-width: 50px;
+	padding: 0px 0 0 8px;
+}
+.ds-ipt-rang.warning{border: 1px solid #f18b85;}
+.ds-editor-type {
+	margin: 2px 0 1px;
+}
+.ds-editor-header {
+	height: 28px;
+}
+.ds-dropdown-dataType {
+	width: 30px;
+	top: 0;
+    left: 1px;
+    bottom: 4px;
+}
+.ds-dropdown-dataType > button {
+	height: 100%;
+	width: 100%;
+	padding: 8px;
+}
+.ds-dropdown-dataType > button svg.svg-triangle {
+	width: 10px;
+    height: 10px;
+    fill: #757575;
+    position: absolute;
+    top: 1px;
+    right: 2px;
+}
+.ds-dropdown-dataType > button svg {
+	width: 14px;
+	height: 14px;
+	fill: #bdbdbd;
+}
+.ds-dropdown-dataType > button:hover {
+	color:#9ccc65;
+}
+.ds-dropdown-dataType > button:hover svg {
+	fill:#9ccc65;
+}
+.ds-dropdown-dataType-list {
+    top: 100%;
+    min-width: auto;
+}
+.ds-dropdown-dataType-list {
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 15px 0;
+}
+.ds-dropdown-dataType-list > li > a {
+    color: #757575;
+    padding: 5px 12px;
+}
+.ds-dropdown-dataType-list > li > a:hover {
+    color: #757575;
+    background-color: #eee !important;
+}
+.ds-dropdown-dataType-list> li > a > svg {
+    width: 16px;
+    height: 16px;
+    fill: #757575;
+    vertical-align: top;
+    margin-right: 5px;
+}
+
+.ds-dropdown-dataHeader {
+	margin: 0 1px 0 31px;
+	padding-bottom: 2px;
+}
+.dropdown-menu-dataType {
+	position: absolute;
+    top: 26px;
+    left: 10px;
+    min-width: 140px;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 15px 0;
+}
+.dropdown-menu-dataType svg {
+	width: 16px;
+	height: 16px;
+	fill: #757575;
+	margin-right: 2px;
+	vertical-align: middle;
+}
+.dropdown-menu-dataType > li > a {
+	padding: 4px 15px;
+}
+.dropdown-menu-dataType > li > a span {
+	position: relative;
+    top: 3px;
+}
+.dropdown-submenu-a {
+	cursor: default;
+}
+.dropdown-submenu > .dropdown-menu {
+    min-width: auto;
+}
+.dropdown-menu-right {}
+.dropdown-menu-right .dropdown-submenu > .dropdown-menu {
+	right: 100%;
+    left: auto;
+}
+
+.ds-ipt-header {
+	border-radius: 2px;
+    width: 100%;
+    border: 1px solid #9e9e9e;
+    height: 28px;
+    margin-left: 1px;
+    padding: 0 8px;
+}
+.ds-ipt-rang:focus,
+.ds-ipt-header:focus {
+	border:1px solid #9ccc65;
+}
+.ds-ipt-header.bg-danger {
+	color: #616161;
+	border: 2px solid #f18b85;
+	background-color: transparent;
+}
+.ds-editor-hd-box {
+	/*width: 140px;*/
+	height: 28px;
+	padding: 0 1px 2px 1px;
+	font-weight: normal;
+	/*margin-left: 3px;*/
+}
+
+/*table*/
+.ds-editor-bd {
+	max-height: 420px;
+	padding: 2px;
+	border-top: 2px solid #9b9b9b;
+	border-bottom: 1px solid #9b9b9b;
+	min-width: 712px;
+}
+.ds-editor-table {
+	color: #616161;
+	background-color: #fff;
+}
+.ds-table-hd-tr {
+	height: 28px;
+	background-color: #dfdfdf;
+}
+.ds-table-hd-tr .ds-table-first-col {background-color: #fff;}
+.ds-table-hd-th {
+	/*width: 140px;*/
+    border-left: 1px solid #ccc;
+    border-top: 2px solid #9b9b9b;
+}
+.ds-table-hd-th .dropdown-menu-ds {
+	width: 150px;
+	right: 0;
+    left: auto;
+}
+.ds-table-hd-th.ds-table-first-col {
+	background-color: #dfdfdf;
+}
+.ds-table-bd-tr {
+    height: 22px;
+    border-top: 1px solid #ccc;
+}
+.ds-table-bd-td {
+	/*width: 140px;*/
+    border-left: 1px solid #d7d7d7;
+    word-break: break-all;
+}
+.ds-table-bd-td.ds-table-first-col {
+	background-color: #dfdfdf;
+}
+
+.ds-table-hd-btn {
+	height: 13px;
+	width: 14px;
+	position: absolute;
+	top: 8px;
+	right: 6px;
+	border: 1px solid #9e9e9e;
+	padding: 0;
+}
+.ds-table-hd-btn svg {
+	width: 10px;
+    height: 10px;
+    fill: #9e9e9e;
+    vertical-align: top;
+}
+.ds-table-hd-btn:hover {
+	border-color:#757575;
+}
+.ds-table-hd-btn:hover svg {
+	fill:#757575;
+}
+
+.ds-table-first-col {
+	width: 28px;
+	background-color: #bdbdbd;
+    color: #424242;
+}
+
+
+.ds-table-ignore {}
+.ds-table-ignore td,
+.ds-table-ignore td.ds-table-first-col,
+.ds-table-ignore-td,
+.ds-table-ignore-td .ds-editor-hd-bg,
+.ds-table-ignore-td .ds-ipt-header {
+    background-color: #bdbdbd;
+    color: #9e9e9e;
+}
+.ds-table-ignore-td.ds-editor-hd-box {
+ position: relative;
+ background-color: transparent;
+}
+.ds-table-ignore-td.ds-editor-hd-box:before {
+	content:"";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background: transparent;
+}
+.ds-table-ignore-td .ds-editor-hd-bg svg:not(.svg-triangle) {
+	fill: #757575;
+}
+
+.ds-table-header {}
+.ds-table-header td,
+.ds-table-header td.ds-table-first-col {
+    background: #6fbd7f !important;
+    color: #424242 !important;
+}
+
+
+.ds-editor-ft {}
+.ds-editor-box-ft {
+	padding-left: 2px;
+	border-top: 1px solid #9b9b9b;
+}
+.ds-ft-btn {
+	height: 30px;
+	color: #757575;
+	border-radius: 0 0 4px 4px;
+	background: #e0e0e0;
+	border: 1px solid #cdcacb;
+	padding: 4px 12px;
+	max-width: 150px;
+	margin-top: -1px;
+	border-top: 1px solid #9b9b9b;
+	cursor: pointer;
+}
+.ds-ft-btn.active {
+	color: #424242;
+	background-color: #eee;
+	border-top: none;
+}
+.ds-ft-btn.bg-danger {
+    color: #ffffff;
+    background-color: #f05050;
+}
+
+.ds-ft-sheet-btn {
+	border-left: 1px solid #9b9b9b;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 31px;
+    display: none;
+}
+.ds-ft-sheet-btn button {
+	width: 20px;
+	height: 100%;
+}
+.ds-ft-sheet-btn button svg {
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	fill: #757575;
+}

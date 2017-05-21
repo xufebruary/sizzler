@@ -1,0 +1,581 @@
+<div class="editor-pop editor-source wrapper-md">
+
+    <div class="multipleSource" ng-if="modal.editorNow.baseWidget.widgetType === 'custom'">
+        <ul class="list-unstyled">
+            <!-- 数据源列表 -->
+            <li ng-repeat="dataSource in customWidgetOptions.customDataSourceList | orderBy:'(dsOrderNumber)'">
+
+                <a href="javascript:" title="{{dataSource.dsName}}" ng-click="selectCustomDataSource($index,dataSource.dsCode,dataSource.dsConfig,customWidgetOptions.customDataSourceList[$index].folder)">
+                    <i class="fa fa-caret-down text-black-600" ng-class="{'fa-caret-right': !customWidgetOptions.customDataSourceList[$index].folder}"></i>
+                    {{dataSource.dsName}}
+                </a>
+
+                <!-- ？？？ -->
+                <div class="data-source-step" ng-if="customWidgetOptions.customDataSourceList[$index].folder">
+                    <!-- 选择关联账户 -->
+                    <div class="source-box step-b"
+                         ng-show="accountSettings.showSteps && !dataSource.dsConfig.editor.source.secondStepIsHide"
+                         ng-class="{'source-box-pass': modal.editorNow.variables[0].accountName,'source-box-active': accountSettings.now == 'account','no-border': !customWidgetOptions.showProfileIdStep}">
+                        <div class="source-box-hd pos-rlt">
+                            <span class="block pos-abt text-center text-xs ">2</span>
+                            <button class="no-border no-bg editor-font-title"
+                                    title="{{editor.accountName}}"
+                                    ng-click="tab('account',dataSource.dsCode,dataSource.dsConfig.editor.source)"
+                                    ng-class="{'active': accountSettings.now == 'account'}"
+                                    ng-disabled="!dataSource.dsId">
+                                <em ng-show="dataSource.dsConfig.editor.source.account">{{ 'WIDGET.EDITOR.ACCOUNT.ACCOUNT' |
+                                    translate}}</em>
+                                <em ng-show="dataSource.dsConfig.editor.source.connection">{{ 'WIDGET.EDITOR.ACCOUNT.CONNECTION' |
+                                    translate }}</em>
+                                <i class="selected-ds">{{editor.accountName}}</i>
+                            </button>
+                            <i class="fa fa-angle-right text-black-600"
+                               ng-class="{'fa-angle-down': accountSettings.now == 'account'}"></i>
+                        </div>
+                        <div class="source-box-bd animated fadeIn padder-v-md" ng-show="accountSettings.now == 'account'">
+                            <span class="text-black-400 block text-left source-account-title">{{dataSource.dsName}}</span>
+                            <a class="ds-logo m-t-sm btn-source active"
+                               ng-if="accountSettings.accountsList.length<=0"
+                               ng-click="accredit()"
+                               translate="WIDGET.ADD_AUTHOR_ACCOUNT">Add an account
+                            </a>
+                            <div class="source-list-scroll m-t-sm" ng-if="accountSettings.accountsList.length > 0">
+                                <div ui-jq="slimScroll"
+                                     ui-options="{
+                                            width: '345',
+                                            height:'90',
+                                            size:'4px',
+                                            allowPageScroll: false,
+                                            alwaysVisible:true
+                                        }">
+                                    <a class="ds-logo"
+                                       ng-repeat="account in accountSettings.accountsList"
+                                       ng-class="{'active': account.name == editor.accountName}"
+                                       ng-click="selectAccount(account,'custom',dataSource.dsCode,dataSource.dsConfig)">
+                                        {{account.name}}
+                                    </a>
+                                </div>
+                                <a class="text-black-400 block m-t-sm m-t-xs link-source add-account text-center"
+                                   ng-click="accredit(editor.dsId)"
+                                   ng-show="dataSource.dsConfig.editor.source.open_blank && dataSource.dsConfig.editor.source.addAuthorAccount">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                                    </svg>
+                                    <em translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">Add an account</em>
+                                </a>
+
+
+                                <a class="text-black-400 block m-t-sm m-t-xs link-source add-account text-center"
+                                   ng-show="!dataSource.dsConfig.editor.source.open_blank"
+                                   ng-click="goToDsManage(dataSource.code)">
+                                    <svg>
+                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                                    </svg>
+
+                                    <em ng-show="!dataSource.dsConfig.editor.source.addNewDB"
+                                        translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">
+                                        Add an account
+                                    </em>
+                                    <em ng-show="dataSource.dsConfig.editor.source.addNewDB"
+                                        translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DB">
+                                        Add connection
+                                    </em>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 选择档案 -->
+                    <div class="source-box step-c"
+                         ng-show="accountSettings.showSteps && accountSettings.showProfileIdStep"
+                         ng-class="{'source-box-pass': dataSource.dsId,'source-box-active': accountSettings.now == 'profile'}">
+                        <div class="source-box-hd pos-rlt">
+                            <span class="block pos-abt text-center text-xs">
+                                {{dataSource.dsConfig.editor.source.secondStepIsHide ? 2 : 3}}
+                            </span>
+                            <button class="no-border no-bg editor-font-title"
+                                    ng-click="tab('profile',dataSource.dsCode,dataSource.dsConfig.editor.source)"
+                                    ng-class="{'active': accountSettings.now == 'profile'}"
+                                    ng-disabled="!modal.editorNow.variables[0].accountName && !dataSource.dsConfig.editor.source.secondStepIsHide ">
+                                <em translate="WIDGET.EDITOR.ACCOUNT.PROFILE"
+                                    ng-show="dataSource.dsConfig.editor.source.profileName">Profile</em>
+                                <em translate="WIDGET.EDITOR.ACCOUNT.FILE"
+                                    ng-show="dataSource.dsConfig.editor.source.fileName">File</em>
+                                <em translate="WIDGET.EDITOR.ACCOUNT.TABLE"
+                                    ng-show="dataSource.dsConfig.editor.source.tableName">Table</em>
+                                <em translate="WIDGET.EDITOR.ACCOUNT.ACCOUNT_CLIENT"
+                                    ng-show="dataSource.dsConfig.editor.source.accountClientName">Account(Client)</em>
+                                <em translate="WIDGET.EDITOR.ACCOUNT.AD_ACCOUNT"
+                                    ng-show="dataSource.dsConfig.editor.source.adAccountName">Ad Account</em>
+                                <em translate="WIDGET.EDITOR.ACCOUNT.PAGES"
+                                    ng-show="dataSource.dsConfig.editor.source.pagesName">Pages</em>
+                                <!-- <em translate="WIDGET.EDITOR.ACCOUNT.DATATYPE" ng-show="dsConfig.editor.source.dataTypeName">DataType</em> -->
+                            </button>
+                            <i class="fa fa-angle-right text-black-600"
+                               ng-class="{'fa-angle-down': accountSettings.now == 'profile'}"></i>
+                        </div>
+                        <div class="source-box-bd animated fadeIn" ng-show="accountSettings.now == 'profile'">
+                            <span class="text-black-400 block m-t-xs">{{dsData.dsInfo.name}}</span>
+                            <div class="editor-search">
+
+                                <div class="editor-search-hd" ng-show="dsConfig.editor.source.gaSearch || dsConfig.editor.source.dsSearch">
+                                    <input type="text" class="editor-search-ipt" ng-model="accountSettings.searchKey" ng-change="search()">
+                                    <a class="pull-right block text-black-400">
+                                        <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                            </svg>                                    </a>
+                                </div>
+                                <div class="editor-search-bd wrapper-sm clearfix">
+                                    <div style="max-height:140px;overflow:auto;" ng-scrollbar
+                                         scrollbar-config="{show:true, autoResize: true, dragSpeed: 1.2}">
+                                        <div class="text-black-400" ng-if="accountSettings.profile.query != 'querying'">
+                                            <p ng-if="accountSettings.profile.query == 'success' && accountSettings.profile.list.length == 0"
+                                               translate="WIDGET.EDITOR.ACCOUNT.NO_PROFILE">No Profile</p>
+
+                                            <p ng-if="accountSettings.profile.query != 'success' && accountSettings.profile.type != 'facebookad'"
+                                               ng-bind-html="accountSettings.profile.messageCode"
+                                                ></p>
+
+                                            <p ng-if="accountSettings.profile.query != 'success' && accountSettings.profile.type == 'facebookad'"
+                                                >
+                                                <span translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_1"></span>
+                                                <a class="text-black-400 text-u-l"
+                                                   translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_2" ng-click="goToDsManage('facebookad')"></a>
+                                                <span translate="CHART.MSG.MSG_FACEBOOKAD_ACCESSTOKEN_EXPIRED_3"></span>
+                                            </p>
+                                        </div>
+                                        <div class="text-black-400" ng-if="accountSettings.profile.query == 'querying'">
+                                            <p translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">请求数据中...</p>
+                                        </div>
+                                        <ul style="width: 338px"
+                                            class="list-unstyled editor-search-ul"
+                                            ng-if="accountSettings.profile.query == 'success' && accountSettings.profile.list.length > 0">
+
+                                            <!--非mysql和ga账户-->
+                                            <div ng-repeat="profile in accountSettings.profile.list"
+                                                 ng-if="['mysql','googleanalysis'].indexOf(accountSettings.profile.type)<0"
+                                                 on-finish-render-filters>
+                                                <li class="text-over source-li-search-children"
+                                                    ng-click="selectProfile(profile, $event, 'custom',dataSource.dsCode,dataSource.dsConfig.editor.source)">
+                                                    <a href="javascript:"
+                                                       title="{{profile.name}}"
+                                                       class="font-thin block padder-l-md"
+                                                       ng-class="{'active':profile.id == dataSource.dsId}">
+                                                        {{profile.name}}
+                                                    </a>
+                                                </li>
+                                            </div>
+
+                                            <!--mysql账户-->
+                                            <search-list
+                                                ng-if="accountSettings.profile.type == 'mysql'"
+                                                tree-list="accountSettings.profile.list"
+
+                                            ></search-list>
+
+                                            <!--ga账户-->
+                                            <div ng-repeat="gaAccount in accountSettings.profile.list"
+                                                 ng-if="accountSettings.profile.type == 'googleanalysis'"
+                                                 ng-init="ai = $index"
+                                                 on-finish-render-filters>
+                                                <li class="text-over"
+                                                    ng-click="accountSettings.propertieList[ai].t = !accountSettings.propertieList[ai].t">
+                                                    <a href="javascript:void(0);" title="{{gaAccount.accountName}}">
+                                                        <i class="fa fa-caret-down text-black-600"
+                                                           ng-class="{'fa-caret-right': !accountSettings.propertieList[ai].t}"></i>
+                                                        {{gaAccount.accountName}}
+                                                    </a>
+                                                </li>
+                                                <div ng-show="accountSettings.propertieList[ai].t">
+                                                    <div ng-repeat="propertie in gaAccount.webproperties">
+                                                        <li class="m-l-md text-over"
+                                                            ng-click="accountSettings.propertieList[ai].p[$index] = !accountSettings.propertieList[ai].p[$index]">
+                                                            <a href="javascript:void(0);" title="{{propertie.webpropertyName}}">
+                                                                <i class="fa fa-caret-down text-black-600"
+                                                                   ng-class="{'fa-caret-right': !accountSettings.propertieList[ai].p[$index]}"></i>
+                                                                {{propertie.webpropertyName}}
+                                                            </a>
+                                                            <em class="text-black-600">
+                                                                (<span>{{propertie.webpropertyId}}</span>)
+                                                            </em>
+                                                        </li>
+                                                        <div ng-show="accountSettings.propertieList[ai].p[$index]">
+                                                            <div ng-repeat="profile in propertie.profiles">
+                                                                <li class="text-over search-ul-li">
+                                                                    <a href="javascript:void(0);"
+                                                                       class="font-thin block padder-l-xl"
+                                                                       ng-click="selectProfile(profile, $event, 'custom',dataSource.dsCode,dataSource.dsConfig.editor.source)"
+                                                                       world-high
+                                                                       data-searchKey="{{accountSettings.searchKey}}"
+                                                                       title="{{profile.profileName}}"
+                                                                       name="{{profile.profileName}}"
+                                                                       type="gaSource"
+                                                                       ng-class="{'active': profile.profileId == editor.profileId }">
+                                                                    </a>
+                                                                </li>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-black-400 google-drive-add-file"
+                                 ng-show="dsData.dsInfo.code == 'upload' || (dataSource.dsConfig.editor.source.addFile && accountSettings.sltAccount.uid == userInfo.ptId)">
+                                <p>
+                                    <a href="javascript:" ng-click="toAddFile()">
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                                        </svg>
+                                        <em ng-show="dataSource.dsConfig.editor.source.addNewFile"
+                                            translate="WIDGET.EDITOR.ACCOUNT.ADD_FILE">Add New File</em>
+                                        <em ng-show="dataSource.dsConfig.editor.source.addNewTable"
+                                            translate="WIDGET.EDITOR.ACCOUNT.ADD_TABLE">Add New Table</em>
+                                        <em ng-show="dsData.dsInfo.code == 'upload'">
+                                            {{ dsData.dsInfo.name + ("DATA_SOURCE.EDITOR.HD_MANAGE" | translate) }}
+                                        </em>
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="singleSource" ng-if="modal.editorNow.baseWidget.widgetType !== 'custom'">
+
+        <!-- 选择数据源 -->
+        <div class="source-box step-a"
+             ng-class="{'source-box-pass': modal.editorNow.variables[0].ptoneDsInfoId,'source-box-active': accountSettings.now == 'source','no-border': !accountSettings.showSteps}"
+        >
+
+            <!-- 数据源title名称 -->
+            <div class="source-box-hd pos-rlt">
+                <span class="block pos-abt text-center text-xs">1</span>
+
+                <!-- ng-click ??? -->
+                <button
+                    class="no-border no-bg editor-font-title"
+                    title="{{showSelectedDs(modal.editorNow.variables[0].ptoneDsInfoId)}}"
+                    ng-click="tab('source')"
+                    ng-class="{'active': accountSettings.now == 'source'}"
+                >{{ 'WIDGET.EDITOR.ACCOUNT.SOURCE' | translate}}
+
+                    <i class="selected-ds"
+                       ng-class="{'no-selected': modal.editorNow.variables[0].ptoneDsInfoId == 0}"
+                       >
+                        {{showSelectedDs(modal.editorNow.variables[0].ptoneDsInfoId)}}
+                    </i>
+
+                </button>
+                <i class="fa fa-angle-right text-black-600"
+                   ng-class="{'fa-angle-down': accountSettings.now == 'source'}"></i>
+            </div>
+
+            <!-- ng-show ??? -->
+            <div class="source-box-bd m-l-xs animated fadeIn m-t-sm" ng-show="accountSettings.now == 'source'">
+
+                <!-- ng-if ??? -->
+                <div class="m-l text-green-50" ng-if="!accountSettings.isHasPermission">
+                    <span ng-bind-html=" 'WIDGET.EDITOR.ACCOUNT.NO_DS_PERMISSION' | translate:productConfigs "></span>
+                </div>
+
+                <div ui-jq="slimScroll"
+                     ui-options="{
+                        height:'100',
+                        size:'4px',
+                        allowPageScroll: false,
+                        alwaysVisible:true
+                     }"
+                     ng-if="accountSettings.isHasPermission"
+                >
+
+                    <!-- 数据源为空，显示添加数据源-->
+                    <div ng-show="accountSettings.dsAuthList.length == 0">
+                        <p class="padder-sm text-center account-none"><span
+                            translate="WIDGET.EDITOR.ACCOUNT.ACCOUNT_NONE"></span></p>
+                        <p class="padder-sm text-center account-none">
+                            <a ui-sref="pt.dataSources">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                                </svg>
+                                <em translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DATA_SOURCE">添加数据源</em>
+                            </a>
+                        </p>
+                    </div>
+
+                    <div ng-show="accountSettings.dsAuthList.length > 0">
+
+                        <!-- 数据源列表 -->
+                        <a class="ds-logo m-t-sm"
+                           ng-repeat="ds in accountSettings.dsAuthList | orderBy:'(dsOrderNumber-0)'"
+                           title="{{account.dsCode}}"
+                           ng-click="selectDs(ds)"
+                           ng-class="{'active': ds.dsId == modal.editorNow.variables[0].ptoneDsInfoId}">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                     xlink:href="{{'#icon-ds-'+ds.dsCode.toLowerCase()}}"></use>
+                            </svg>
+                            <span class="padder-l-xs">{{ds.dsName}}</span>
+                        </a>
+
+                        <!-- 添加新数据源按钮， ng-hide??? -->
+                        <a ui-sref="pt.dataSources" class="add-ds text-black-400"
+                           pt-log="{
+                                    'where': 'widget_editor',
+                                    'what': 'select_datasource_add_a_datasource'
+                               }"
+                           ng-hide="modal.editorNow.baseWidget.isExample == 1">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                            </svg>
+                            <em translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DATA_SOURCE">添加新数据源</em>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 选择关联账户 -->
+        <div class="source-box step-b ng-hide"
+             ng-show="accountSettings.showSteps && !dsConfig.editor.source.secondStepIsHide && accountSettings.isHasPermission"
+             ng-class="{'source-box-pass': modal.editorNow.variables[0].accountName,'source-box-active': accountSettings.now == 'account','no-border': !accountSettings.showProfileIdStep}"
+        >
+
+            <!-- 第二步title -->
+            <div class="source-box-hd pos-rlt">
+                <span class="block pos-abt text-center text-xs ">2</span>
+
+                <button
+                    class="no-border no-bg editor-font-title"
+                    title="{{modal.editorNow.variables[0].accountName}}"
+                    ng-click="tab('account')"
+                    ng-class="{'active': accountSettings.now == 'account'}"
+                    ng-disabled="!modal.editorNow.variables[0].ptoneDsInfoId"
+                >
+                    <!-- 第二步名称 -->
+                    <em ng-show="dsConfig.editor.source.account">
+                        {{ 'WIDGET.EDITOR.ACCOUNT.ACCOUNT' | translate}}
+                    </em>
+                    <em ng-show="dsConfig.editor.source.connection">
+                        {{ 'WIDGET.EDITOR.ACCOUNT.CONNECTION' | translate }}
+                    </em>
+
+                    <!-- 账户名称 -->
+                    <i class="selected-ds"
+                       ng-if="modal.editorNow.variables[0].accountName && modal.editorNow.variables[0].accountName != ''"
+                    >
+                        {{modal.editorNow.variables[0].accountName}}
+                    </i>
+                </button>
+
+                <!-- 箭头 -->
+                <i class="fa fa-angle-right text-black-600"
+                   ng-class="{'fa-angle-down': accountSettings.now == 'account'}">
+                </i>
+
+            </div>
+
+            <div class="source-box-bd animated fadeIn padder-v-md" ng-show="accountSettings.now == 'account'">
+
+                <!-- 数据源名称 -->
+                <span class="text-black-400 block text-left source-account-title">
+                    {{dsData.dsInfo.name}}
+                </span>
+
+                <!-- 添加账户 -->
+                <div ng-if="accountSettings.accountsList.length == 0">
+                    <!-- 账号型添加新账户 -->
+                    <a class="ds-logo m-t-sm btn-source active"
+                       ng-show="dsConfig.editor.source.open_blank && dsConfig.editor.source.addAuthorAccount"
+                       ng-click="accredit()"
+                       translate="WIDGET.ADD_AUTHOR_ACCOUNT">
+                       Add an account
+                    </a>
+
+                    <!-- 表格型添加新账户 -->
+                    <a class="ds-logo m-t-sm btn-source active"
+                       ng-show="!dsConfig.editor.source.open_blank"
+                       ng-click="goToDsManage(dsData.dsInfo.code)">
+                        <span ng-show="!dsConfig.editor.source.addNewDB"
+                            translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">
+                            Add an account
+                        </span>
+                        <span ng-show="dsConfig.editor.source.addNewDB"
+                            translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DB">
+                            Add connection
+                        </span>
+                    </a>
+                </div>
+
+
+                <div class="source-list-scroll m-t-sm" ng-if="accountSettings.accountsList.length > 0">
+
+                    <!-- 账户列表 -->
+                    <div ui-jq="slimScroll"
+                         ui-options="{
+                        width: '345',
+                        height:'90',
+                        size:'4px',
+                        allowPageScroll: false,
+                        alwaysVisible:true
+                    }">
+                        <a class="ds-logo"
+                           ng-repeat="account in accountSettings.accountsList"
+                           ng-class="{'active': account.name == modal.editorNow.variables[0].accountName}"
+                           ng-click="selectAccount(account)">
+                            {{account.name}}
+                        </a>
+                    </div>
+
+                    <!-- 账号型添加新账户 -->
+                    <a class="text-black-400 block m-t-sm m-t-xs link-source add-account text-center"
+                       ng-click="accredit(editor.dsId)"
+                       ng-show="dsConfig.editor.source.open_blank && dsConfig.editor.source.addAuthorAccount">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+                        <em translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">Add an account</em>
+                    </a>
+
+                    <!-- 表格型添加新账户 -->
+                    <a class="text-black-400 block m-t-sm m-t-xs link-source add-account text-center"
+                       ng-show="!dsConfig.editor.source.open_blank"
+                       ng-click="goToDsManage(dsData.dsInfo.code)">
+                        <svg>
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                        </svg>
+
+                        <em ng-show="!dsConfig.editor.source.addNewDB"
+                            translate="WIDGET.EDITOR.ACCOUNT.ADD_AUTHOR_ACCOUNT">
+                            Add an account
+                        </em>
+                        <em ng-show="dsConfig.editor.source.addNewDB"
+                            translate="WIDGET.EDITOR.ACCOUNT.ADD_NEW_DB">
+                            Add connection
+                        </em>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 选择档案 -->
+        <div class="source-box step-c ng-hide"
+             ng-show="accountSettings.showSteps && accountSettings.showProfileIdStep && accountSettings.isHasPermission"
+             ng-class="{'source-box-pass': modal.editorNow.variables[0].profileId,'source-box-active': accountSettings.now == 'profile'}"
+        >
+            <!-- 第三步title -->
+            <div class="source-box-hd pos-rlt">
+                <span class="block pos-abt text-center text-xs">
+                    {{dsConfig.editor.source.secondStepIsHide ? 2 : 3}}
+                </span>
+
+                <button
+                    class="no-border no-bg editor-font-title"
+                    ng-click="tab('profile')"
+                    ng-class="{'active': accountSettings.now == 'profile'}"
+                    ng-disabled="!modal.editorNow.variables[0].accountName && !dsConfig.editor.source.secondStepIsHide "
+                >
+                    <em translate="WIDGET.EDITOR.ACCOUNT.PROFILE"
+                        ng-show="dsConfig.editor.source.profileName">
+                        Profile
+                    </em>
+
+                    <em translate="WIDGET.EDITOR.ACCOUNT.FILE"
+                        ng-show="dsConfig.editor.source.fileName">
+                        File
+                    </em>
+
+                    <em translate="WIDGET.EDITOR.ACCOUNT.TABLE"
+                        ng-show="dsConfig.editor.source.tableName">
+                        Table
+                    </em>
+
+                    <em translate="WIDGET.EDITOR.ACCOUNT.ACCOUNT_CLIENT"
+                        ng-show="dsConfig.editor.source.accountClientName">
+                        Account(Client)
+                    </em>
+
+                    <em translate="WIDGET.EDITOR.ACCOUNT.AD_ACCOUNT"
+                        ng-show="dsConfig.editor.source.adAccountName">
+                        Ad Account
+                    </em>
+
+                    <em translate="WIDGET.EDITOR.ACCOUNT.PAGES"
+                        ng-show="dsConfig.editor.source.pagesName">
+                        Pages
+                    </em>
+
+                    <em translate="WIDGET.EDITOR.ACCOUNT.OBJECT_REPORT"
+                        ng-show="dsConfig.editor.source.ObjectReportName">
+                        Object/Report
+                    </em>
+                    <em translate="WIDGET.EDITOR.ACCOUNT.REPORTTYPE"
+                        ng-show="dsConfig.editor.source.reportType">
+                        reportType
+                    </em>
+                    <!-- <em translate="WIDGET.EDITOR.ACCOUNT.DATATYPE" ng-show="dsConfig.editor.source.dataTypeName">DataType</em> -->
+                </button>
+
+                <i class="fa fa-angle-right text-black-600" ng-class="{'fa-angle-down': accountSettings.now == 'profile'}"></i>
+            </div>
+
+            <div class="source-box-bd animated fadeIn" ng-show="accountSettings.now == 'profile'">
+
+                <!-- 数据源名称 -->
+                <span class="text-black-400 block m-t-xs">{{dsData.dsInfo.name}}</span>
+
+                <!-- salesforce数据源有两种profile list -->
+                <div class="profile-tab-hd" ng-if="dsConfig.editor.source.profileHasTab">
+                    <button ng-class="{'active': accountSettings.profileTabActive === 'Object'}" ng-click="changeProfileTab('Object')" translate="WIDGET.EDITOR.ACCOUNT.PROFILE_TAB1"></button>
+                    <button ng-class="{'active': accountSettings.profileTabActive === 'Report'}" ng-click="changeProfileTab('Report')" translate="WIDGET.EDITOR.ACCOUNT.PROFILE_TAB2"></button>
+                </div>
+
+                <div class="profile-list">
+                    <div class="querying" ng-if="accountSettings.profile.query !== 'success'">
+                        <span ng-if="accountSettings.profile.query === 'querying'" translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">数据请求中</span>
+                        <span compile="accountSettings.profile.messageCode" ng-if="accountSettings.profile.query === 'error'"></span>
+                    </div>
+
+                    <div class="querying" ng-if="accountSettings.profile.query === 'success' && accountSettings.profile.list.length === 0">
+                        <span translate="WIDGET.EDITOR.ACCOUNT.NO_PROFILE">没有数据</span>
+                    </div>
+
+                    <search-list
+                        ng-if="accountSettings.profile.list && accountSettings.profile.list.length > 0"
+                        tree-list="accountSettings.profile.list"
+                        selected-id="modal.editorNow.variables[0].profileId"
+                        empty-tip="{{'WIDGET.EDITOR.ACCOUNT.NO_PROFILE' | translate}}"
+                        on-select="selectSearchList(data)"
+                    >
+                    </search-list>
+
+                </div>
+
+                <div class="text-black-400 google-drive-add-file"
+                     ng-show="dsData.dsInfo.code == 'upload' || (dsConfig.editor.source.addFile && accountSettings.sltAccount.uid == userInfo.ptId)">
+                    <p>
+                        <a href="javascript:" ng-click="toAddFile()">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-circle-plus"></use>
+                            </svg>
+                            <em ng-show="dsConfig.editor.source.addNewFile"
+                                translate="WIDGET.EDITOR.ACCOUNT.ADD_FILE">Add New File</em>
+                            <em ng-show="dsConfig.editor.source.addNewTable"
+                                translate="WIDGET.EDITOR.ACCOUNT.ADD_TABLE">Add New Table</em>
+                            <em ng-show="dsData.dsInfo.code == 'upload'">
+                                {{ dsData.dsInfo.name + ("DATA_SOURCE.EDITOR.HD_MANAGE" | translate) }}
+                            </em>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

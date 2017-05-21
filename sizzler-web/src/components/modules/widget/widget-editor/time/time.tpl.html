@@ -1,0 +1,264 @@
+<div class="editor-pop editor-time wrapper-md text-black-400">
+    <div class="pt-loading hide"><!--  ng-show="loadSetting.widget || modal.editorNow.widgetDrawing == 'drawing'" -->
+            <span class="pt-center pt-loading-box">
+                <svg class="load-s btnloads white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+                <svg class="load-m btnloadm white"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use></svg>
+            </span>
+    </div>
+     <!-- && modal.editorNow.variables[0].ptoneDsInfoId != 19 -->
+    <div class="dimension-time" ng-show="timeSettings.dateDimensionList.length > 1">
+        <div dropdown
+            auto-close="outsideClick"
+            is-open="timeSetting.dateDimensionListShow"
+            class="time-slt-a pos-rlt editor-dropdown" >
+
+            <div dropdown-toggle
+                class="clear date-dimension-list-hd">
+                <span class="padder-xs pull-left text-ellipsis" title="{{timeSettings.dataDimensionDefaultName}}">{{timeSettings.dataDimensionDefaultName}}</span>
+                <div class="pull-left editor-dropdown-caret text-center"> <b class="caret m-l-none"></b></div>
+            </div>
+
+            <div class="dropdown-menu date-dimension-list-bd">
+                <div ui-jq="slimScroll"
+                    ui-options="{
+                    height:'140',
+                    size:'4px',
+                    allowPageScroll: false,
+                    alwaysVisible: true
+                    }">
+                    <ul class=" wrapper-sm no-border list-unstyled editor-search-ul" ng-if="modal.editorNow.variables[0].ptoneDsInfoId != 19">
+                        <li ng-repeat="item in timeSettings.dateDimensionList" class="text-ellipsis  source-li-search-children"
+                            ng-click="selectDimensionTime(item.id,item.name,item);timeSetting.dateDimensionListShow = !timeSetting.dateDimensionListShow">
+                            <a class="text-ellipsis padder" title="{{item.name}}">{{item.name}}</a>
+                        </li>
+                    </ul>
+                    <!-- 只有salesforce在用这个 -->
+                    <ul class=" wrapper-sm no-border list-unstyled editor-search-ul"  ng-if="modal.editorNow.variables[0].ptoneDsInfoId == 19">
+                        <div ng-repeat="content in timeSettings.categoryList track by $index">
+                            <li class="text-ellipsis"
+                                title="{{content.i18nCode | translate}}"
+                                ng-init="timeSettings.dimensionExpansionIndex[$index] = false"
+                                ng-click="timeSettings.dimensionExpansionIndex[$index] = !timeSettings.dimensionExpansionIndex[$index]"
+                            <a href="javascript:void(0);">
+                                <i class="fa fa-caret-down text-black-600" ng-class="{'fa-caret-right': !timeSettings.dimensionExpansionIndex[$index]}" ></i>
+                                <span>{{content.i18nCode | translate}}</span>
+                            </a>
+                            </li>
+                            <!-- 目前提供给salesforce使用 -->
+                            <div class="div-search" ng-show="timeSettings.dimensionExpansionIndex[$index] && +modal.editorNow.variables[0].ptoneDsInfoId==19">
+                                <div ng-repeat="dim in content.dimensionList">
+                                    <li class="text-over source-li-search-children">
+                                        <a href="javascript:void(0);"
+                                           class="text-ellipsis font-thin block padder-l-md"
+                                           title="{{dim.i18nCode | translate}}"
+                                           world-high
+                                           data-searchKey="{{filter.searchKey[userIndex]}}"
+                                           ng-click="selectDimensionTime(dim.code+'|join|'+dim.dataType,content.name+'-'+dim.name);
+                                       timeSetting.dateDimensionListShow = !timeSetting.dateDimensionListShow;
+                                    timeSettings.dimensionIndex[userIndex] = !timeSettings.dimensionIndex[userIndex]"
+                                           name="{{dim.i18nCode | translate}}">
+                                        </a>
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="line dk m-b m-t"></div>
+    </div>
+    <div class="dynamic-time">
+        <span class="block editor-font-title" translate="WIDGET.EDITOR.TIME.DYNAMIC_TIME_RANGE">Dynamic Time Range</span>
+        <div class="row m-l-none m-r-none m-t-sm">
+            <div class="col-sm-6 no-padder" ng-class="{'time-active': timeSettings.modelTime=='today'}">
+                <label class="check-box editor-a">
+                    <input type="radio" name="time" value="today" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.TODAY">Today</span>
+                </label>
+            </div>
+            <div class="col-sm-6 no-padder" ng-class="{'time-active': timeSettings.modelTime=='yesterday'}">
+                <label class="check-box editor-a">
+                    <input type="radio" name="time" value="yesterday" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.YESTERDAY">Yesterday</span>
+                </label>
+            </div>
+            <div class="col-sm-6 no-padder" ng-class="{'time-active': timeSettings.modelTime=='this_week'}">
+                <label class="check-box editor-a">
+                    <input type="radio" name="time" value="this_week" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.THIS_WEEK">This week</span>
+                </label>
+            </div>
+            <div class="col-sm-6 no-padder" ng-class="{'time-active': timeSettings.modelTime=='last_week'}">
+                <label class="check-box editor-a">
+                    <input type="radio" name="time" value="last_week" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.LAST_WEEK">Last week</span>
+                </label>
+            </div>
+            <div class="col-sm-6 no-padder" ng-class="{'time-active': timeSettings.modelTime=='this_month'}">
+                <label class="check-box editor-a">
+                    <input type="radio" name="time" value="this_month" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.THIS_MONTH">This Month</span>
+                </label>
+            </div>
+            <div class="col-sm-6 no-padder" ng-class="{'time-active': timeSettings.modelTime=='last_month'}">
+                <label class="check-box editor-a">
+                    <input type="radio" name="time" value="last_month" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.LAST_MONTH">Last Month</span>
+                </label>
+            </div>
+            <div class="col-sm-6 no-padder" >
+                <label for="last_days" ng-class="{'time-active': timeSettings.modelTime=='last_days'}">
+                    <div class="check-box editor-a pull-left" style="margin-top: 2px;">
+                        <input type="radio" name="time" id="last_days" value="last_days" ng-model="timeSettings.modelTime">
+                        <i></i>
+                    </div>
+
+                    <span translate="WIDGET.EDITOR.TIME.LAST">Last</span>
+
+                    <input type="number"
+                           min="1"
+                           max="999"
+                           id="inputTime"
+                           class="text-center ipt-time"
+                           ng-class="{'text-danger': timeSettings.timeError[0] && timeSettings.modelTime=='last_days', 'text-success': !timeSettings.timeError[0] && timeSettings.modelTime=='last_days'}"
+                           ng-style="{borderBottom: timeSettings.modelLastDays == null ? '1px solid red' : ''}"
+                           ng-model="timeSettings.modelLastDays"
+                           ng-focus="timeSettings.modelTime='last_days'"
+                           ng-change="lastDaysSet('change')"
+                           ng-blur="lastDaysSet('blur')"
+                    >
+
+                    <!--<input type="text"-->
+                        <!--class="text-center ipt-time"-->
+                        <!--maxlength="3"-->
+                        <!--ng-class="{'text-danger': timeSettings.timeError[0] && timeSettings.modelTime=='last_days', 'text-success': !timeSettings.timeError[0] && timeSettings.modelTime=='last_days'}"-->
+                        <!--ng-model="timeSettings.modelLastDays"-->
+                        <!--ng-focus="timeSettings.modelTime='last_days'"-->
+                        <!--ng-change="lastDaysSet(timeSettings.modelLastDays)">-->
+                    <span translate="WIDGET.EDITOR.TIME.DAYS">days</span>
+                </label>
+
+                <div class="m-l-md" ng-show="timeSettings.modelTime=='last_days'">
+                    <label class="check-box editor-a block">
+                        <input type="radio" name="today" value="past" ng-model="timeSettings.modelToday">
+                        <i></i>
+                        <span translate="WIDGET.EDITOR.TIME.EXCLOUD_TODAY">Excloud today</span>
+                    </label>
+                    <label class="check-box editor-a">
+                        <input type="radio" name="today" value="last" ng-model="timeSettings.modelToday">
+                        <i></i>
+                        <span translate="WIDGET.EDITOR.TIME.INCLOUD_TODAY">Incloud today</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-6 no-padder">
+                <label for="from_today" ng-class="{'time-active': timeSettings.modelTime=='from_today'}">
+                    <div class="check-box editor-a pull-left">
+                        <input type="radio" name="time" id="from_today" value="from_today" ng-model="timeSettings.modelTime">
+                        <i></i>
+                    </div>
+
+                    <span translate="WIDGET.EDITOR.TIME.FROM">From </span>
+                    <input class="text-center ipt-time"
+                           style="width: 70px;"
+                           readonly
+                           ng-model="timeSettings.modelFrom"
+                           ng-class="{'text-success': timeSettings.modelTime=='from_today'}"
+                           ng-focus="timeSettings.dpFromShow = true; timeSettings.modelTime='from_today'">
+                    <span translate="WIDGET.EDITOR.TIME.TO_TODAY">to today</span>
+                </label>
+            </div>
+            <div class="col-sm-12 no-padder">
+                <div class="time-datePicker padder-sm"
+                    ng-if="timeSettings.dpFromShow"
+                    data-picker="picker"
+                    data-deteType="from"
+                    data-changeFun="dateChange"
+                    ui-jq="DatePicker"
+                    ui-options="{
+                        flat: 'true',
+                        format: 'm/d/Y',
+                        date: '{{timeSettings.modelFrom}}',
+                        current: '{{timeSettings.nowDate}}',
+                        calendars: 1,
+                        starts: 1
+                    }"></div>
+                <div class="time-datePicker-hide" ng-if="timeSettings.dpFromShow" ng-click="timeSettings.dpFromShow = false; timeSettings.datePickerHideClick = true"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="line dk m-b m-t"></div>
+
+    <div class="fixed-time">
+        <span class="block editor-font-title" translate="WIDGET.EDITOR.TIME.FIXED_TIME_RANGE">Fixed Time Range</span>
+
+        <label for="fixed">
+            <dl class="sl-item m-b-none" ng-class="{'time-active': timeSettings.modelTime=='fixed'}">
+                <dt class="pull-left">
+                    <div class="check-box editor-a">
+                        <input type="radio" name="time" value="fixed" id="fixed" ng-model="timeSettings.modelTime">
+                        <i></i>
+                    </div>
+                </dt>
+                <dd class="pull-left">
+                    <div>
+                        <span class="m-r-xs thumb-xxs" translate="COMMON.FROM">From</span>
+                        <input type="text"
+                            readonly
+                            class="text-center ipt-time"
+                            ng-class="{'text-success': timeSettings.modelTime=='fixed'}"
+                            style="width: 70px;"
+                            ng-value="timeSettings.modelFixed[0]"
+                            ng-focus="timeSettings.dpFixedShow = true; timeSettings.modelTime='fixed'">
+                    </div>
+                    <div>
+                        <span class="m-r-xs thumb-xxs" translate="COMMON.TO">To</span>
+                        <input type="text"
+                            readonly
+                            class="text-center ipt-time"
+                            ng-class="{'text-success': timeSettings.modelTime=='fixed'}"
+                            style="width: 70px;"
+                            ng-value="timeSettings.modelFixed[1]"
+                            ng-focus="timeSettings.dpFixedShow = true; timeSettings.modelTime='fixed'">
+                    </div>
+                </dd>
+            </dl>
+        </label>
+        <div class="time-datePicker padder-sm"
+            ng-if="timeSettings.dpFixedShow"
+            data-picker="picker"
+            data-deteType="fixed"
+            data-changeFun="dateChange"
+            ui-jq="DatePicker"
+            ui-options="{
+                flat: 'true',
+                format: 'm/d/Y',
+                date: {{timeSettings.modelFixed}},
+                current: '{{timeSettings.nowDate}}',
+                calendars: 1,
+                starts: 1,
+                mode: 'range'
+            }"></div>
+        <div class="time-datePicker-hide" ng-if="timeSettings.dpFixedShow" ng-click="timeSettings.dpFixedShow = false; timeSettings.datePickerHideClick = true"></div>
+        <div class="all-time" ng-show="dsConfig.editor.time.allTimeIsShow">
+            <label for="all-time">
+                <div class="check-box editor-a">
+                    <input type="radio" name="time" value="all_time" id="all-time" ng-model="timeSettings.modelTime">
+                    <i></i>
+                    <span translate="WIDGET.EDITOR.TIME.ALL_TIME">All Time</span>
+                </div>
+            </label>
+        </div>
+        <div class="ptengine-tips" ng-if="modal.editorNow.variables[0].ptoneDsInfoId == 13">
+            <p translate="WIDGET.EDITOR.TIME.PTENGINE_TIPS"></p>
+        </div>
+    </div>
+</div>

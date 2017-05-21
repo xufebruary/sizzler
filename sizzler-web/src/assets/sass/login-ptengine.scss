@@ -1,0 +1,203 @@
+@import "compass";
+@import "framework/varibles";
+
+.login-ptengine{
+  background-color: #fff;
+  width: 360px;
+  margin: 50px auto 0 auto;
+  &:before{
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    background-color: $white;
+  }
+  &.big{
+    width: 500px;
+  }
+  header{
+    height: 95px;
+    text-align: center;
+    box-sizing: content-box;
+    svg{
+      vertical-align: middle;
+      fill: $greenLight;
+      height: 45px;
+      padding-bottom: 20px;
+      box-sizing: content-box;
+    }
+    p{
+      margin: 0;
+      font-size: $fontMiddle;
+    }
+    &.big{
+      height: 45px;
+      width: 500px;
+      padding-bottom: 20px;
+    }
+  }
+  .form-box{
+    border: 1px solid $borderGray;
+    @include border-radius(20px);
+    padding: 40px 50px;
+    .icon{
+      margin: 0 auto;
+      @include border-radius(50%);
+      background-color: $bggray;
+      border: 1px solid $borderGray;
+      width: 90px;
+      height: 90px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 90px;
+      svg{
+        width: 60px;
+        height: 60px;
+        fill: $white;
+        vertical-align: middle;
+      }
+    }
+    .login-bd{
+      margin-top: 25px;
+    }
+    .ipt-login{
+      background-color: $white;
+      padding: 0;
+      height: 38px;
+      margin-bottom: 10px;
+      @include border-radius(0);
+      input[type = email],
+      input[type = password]{
+        border: 1px solid $borderGray;
+        padding: 0 15px;
+        @include border-radius(20px);
+        height: 36px;
+        line-height: 36px;
+        color: $textGray8;
+        &:hover{
+          border-color: $borderGrayHover;
+        }
+        &:focus{
+          border-color: $borderGreen;
+        }
+        &:-webkit-autofill {
+          -webkit-box-shadow: 0 0 0 1000px $white inset;
+          -webkit-text-fill-color: $textGray8;
+        }
+        @include input-placeholder {
+          color: $textGray8;
+          font-size: $fontDefault;
+          text-indent:1em;
+
+        }
+      }
+    }
+    .btn-login{
+      width: 100%;
+      height: 38px;
+      line-height: 38px;
+      font-size: $fontButton;
+      text-align: center;
+      color: $white;
+      background: $bgOrange;
+      border: none;
+      @include border-radius(20px);
+      @include transition(all,.2s,ease-out);
+      &:hover{
+        background-color: $bgOrangeHover;
+        @include box-shadow(none);
+
+      }
+    }
+    footer{
+      padding: 10px 0;
+      text-align: center;
+      a{
+        color: $grayHigh;
+        &:hover{
+          color: $textGray7;
+        }
+      }
+    }
+    .popover{
+      background-color: $bgblue;
+      border: none;
+      @include border-radius(4px);
+      @include transition(all,.2s,ease-out);
+      &.text-danger{
+        color: $white;
+      }
+      .popover-content{
+        padding: 4px 4px 4px 8px;
+      }
+      &.right{
+        .arrow{
+          left: -3px;
+          border-right-color: $bgblue;
+          &:after{
+            display: none;
+          }
+        }
+      }
+    }
+    &.big{
+      width: 500px;
+      padding: 40px 40px 25px 40px;
+      h3{
+        font-size: $fontLarge;
+        color: $textGray7;
+        padding-bottom: 20px;
+        margin: 0;
+      }
+      p.list{
+        line-height: 24px;
+        text-indent: 15px;
+        margin: 0;
+        &:before{
+          content:'';
+          position:absolute;
+          width: 8px;
+          height: 8px;
+          background: $borderGreen;
+          @include border-radius(50%);
+          margin-left: -15px;
+          margin-top: 6px;
+        }
+        &.last{
+          padding-bottom: 35px;
+          border-bottom: 1px solid $gray;
+          margin-bottom: 15px;
+        }
+      }
+      .btns{
+        padding-top:20px;
+        text-align: right;
+        .btn{
+          display: inline-block;
+          width: 120px;
+          height: 38px;
+          line-height: 38px;
+          text-align: center;
+          @include border-radius(20px);
+          padding: 0;
+          &.deny{
+            border: 1px solid $gray;
+            color: $gray;
+          }
+          &.allow{
+            background-color: $bgOrange;
+            color: $white;
+            margin-left: 20px;
+            &:hover{
+              background-color: $bgOrangeHover;
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

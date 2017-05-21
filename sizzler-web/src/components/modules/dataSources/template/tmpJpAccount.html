@@ -1,0 +1,199 @@
+<!-- 通用头部 -->
+<div class="pt-ds-header" ng-show=" myOptions.current.mod  != 'connectionPost' ">
+    <!-- 数据源路径 -->
+    <div class="ds-header-breadcrumb text-black-900">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000">
+            {{myOptions.i18n.hdTitleManage}}
+        </span>
+    </div>
+
+    <!-- 数据源默认介绍 -->
+    <div class="pt-ds-header-introduce clearfix m-b-md">
+        <div class="pt-ds-header-introduce-logo"><span class="img">
+        <img ng-src="/assets/images/ds/set-{{myOptions.currentDs.code}}.jpg" alt="{{myOptions.currentDs.name}}"/></span></div>
+        <div class="pt-ds-header-introduce-detail">
+            <p ng-bind-html="myOptions.i18n.hdIntroduce"></p>
+            <p class="pt-ds-header-introduce-website m-b-none"><a href="https://www.google.com/intl/ja/analytics/" target="_blank">{{myOptions.currentDs.name}} &gt;</a></p>
+        </div>
+        <a class="pt-btn pt-btn-success pt-btn-add ds-gd-add-btn"
+           href="javascript:"
+           ng-show="myOptions.account.list.length != 0"
+           ng-click="connectionShow('add', 'tableList')">
+            <svg>
+                <use xlink:href="#icon-add-solid" />
+            </svg>
+            <span>
+                {{myOptions.i18n.btnConnectNewAccount}}
+            </span>
+        </a>
+
+    </div>
+</div>
+
+
+<!--无数据时提示层 -->
+<div dataType="noData" class="ds-no-binding m-t-xxl" ng-show=" myOptions.current.mod == 'noData' ">
+    <div class="description">
+        <p ng-bind-html="myOptions.i18n.tipsAddAccount"></p>
+    </div>
+    <p>
+        <button class="pt-btn pt-btn-success pt-btn-add" href="javascript:"
+                ng-click="connectionShow('add', 'noData')">
+            <svg>
+                <use xlink:href="#icon-add-solid" />
+            </svg>
+            <span>
+                {{myOptions.i18n.btnConnectNewAccount}}
+            </span>
+        </button>
+    </p>
+</div>
+
+<!-- 输入授权内容的页面 -->
+<div dataType="connectionPost" class="add-database pos-rl padder-b-xxl" ng-show=" myOptions.current.mod  == 'connectionPost' ">
+    <!-- 数据源路径 -->
+    <div class="ds-header-breadcrumb text-black-900 m-b-none">
+        <a class="text-black-900" ui-sref="pt.dataSources" translate="DATA_SOURCE.MANAGEMENT.TITLE">Data Source Management</a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <a class="text-black-900" href="javascript:" ng-click="myOptions.current.mod = myOptions.connection.from" ng-bind="myOptions.i18n.hdTitleManage"></a>
+        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-chevron-small-right"></use></svg>
+        <span class="text-black-1000" ng-if=" myOptions.connection.operateType == 'add' "  ng-bind="myOptions.i18n.connectionHdAddTips">Connect File</span>
+        <span class="text-black-1000" ng-if=" myOptions.connection.operateType == 'edit' " ng-bind="myOptions.i18n.connectionHdEditTips">Connect File</span>
+    </div>
+
+    <header class="add-database-hd padder-l padder-b-lg">
+        <h2 class="text-xl text-black-800 m-n">
+            <span ng-if=" myOptions.connection.operateType == 'add' "  ng-bind="myOptions.i18n.connectionTitleAddIntroduce">Add the Connection </span>
+            <span ng-if=" myOptions.connection.operateType == 'edit'"  ng-bind="myOptions.i18n.connectionTitleEditIntroduce">Edit the Connection</span>
+        </h2>
+        <p class="m-b-none" ng-if=" myOptions.connection.operateType == 'add' " ng-bind-html="myOptions.i18n.connectionTitleSubAddIntroduce"></p>
+        <p class="m-b-none" ng-if=" myOptions.connection.operateType == 'edit' " ng-bind-html="myOptions.i18n.connectionTitleSubEditIntroduce"></p>
+    </header>
+
+    <div class="add-database-bd pos-rlt">
+        <!-- 遍历各个数据源下的数据模型 -->
+        <dl class="clearfix m-b ds-mysql-dl" ng-repeat="model in myOptions.connection.model[myOptions.currentDs.code]">
+            <dt class="font-normal padder-l text-black-600">
+                <span translate="{{model.titleI18nCode}}">Connection Name</span>:</dt>
+            <dd>
+                <span class="text-success padder-r-xs text-md">*</span>
+                <input type="text"
+                       maxlength="30"
+                       name="{{model.name}}"
+                       autocomplete="off"
+                       ng-keydown="panelCopyKeyup($event)"
+                       class="ds-mysql-ipt text-black-800 padder-sm text-md font-thin no-border w-full js_connection_ipt"
+                       ng-model="model.value"
+                       ng-blur="blurVerify($event)">
+
+                <div class="text-danger ds-mysql-error m-t-xs padder-l-md hide">
+                    <span class="js_empty" translate="{{model.errorI18nCode}}">Please enter the value</span>
+                    <!-- <span class="js_exists">已存在</span> -->
+                </div>
+            </dd>
+        </dl>
+
+        <footer class="ds-mysql-ft m-t-xl clearfix text-right">
+            <!-- <a class="pull-left m-l" translate="DATA_SOURCE.S3.TSET" ng-click="dsSrv.connectionPost(dsBinding, 'test')">Test connection</a> -->
+            <button type="button" class="pt-btn pt-btn-default m-r-md" translate="COMMON.CANCEL" ng-click="connectionHide()">cancel</button>
+            <button type="button" class="pt-btn pt-btn-success" translate="COMMON.CONNECT" ng-click="connectionPost(myOptions.connection.operateType)">Save</button>
+        </footer>
+    </div>
+</div>
+
+
+<div dataType="tableList" class="ds-binding m-t-xxl" ng-show=" myOptions.current.mod == 'tableList' ">
+    <div class="ds-add-account padder-b text-right">
+    </div>
+
+    <div class="pt-ds-table-list-bd pt-ds-ga-content-list">
+        <div class="pt-ds-table pt-ds-table-ga" ng-repeat="account in myOptions.account.list" >
+            <div class="pt-ds-table-info" title="{{account.name}}">
+                {{account.name}}
+
+                <!-- 提示信息 -->
+            	<span class="chart-tips-trigger m-l-sm" ng-if="account.showExpireTip" chart-tips-trigger>
+            		<svg>
+                        <use xlink:href= "#icon-warning"></use>
+                    </svg>
+                    <div class="tips-wrap">
+                        <div class="inner">
+                            <div class="arrows"></div>
+                            <div class="tips-content" ng-if="account.uid != userInfo.ptId">
+                                {{ 'DATA_SOURCE.EXPIRED_TITLE.UNOWNER' | translate}}
+                            </div>
+                            <div class="tips-content" ng-if="account.uid == userInfo.ptId">
+                                <span translate="DATA_SOURCE.EXPIRED_TITLE.OWNER_1"></span>
+                                <span translate="DATA_SOURCE.EXPIRED_TITLE.OWNER_2"></span>
+                                <span translate="DATA_SOURCE.EXPIRED_TITLE.OWNER_3"></span>
+                            </div>
+                        </div>
+                    </div>
+                </span>
+                <a translate="DATA_SOURCE.EXPIRED_TITLE.OWNER_2"
+                   class="text-u-l"
+                   ng-click="authorization('again')"
+                   ng-if="account.showExpireTip && account.uid == userInfo.ptId"></a>
+            </div>
+            <div class="pt-ds-table-date pt-ds-table-date-ga" >
+                <p class="pt-ds-table-date-list text-ellipsis" title="{{myOptions.account.currentAccount.userName}}">
+                    <span>
+                    {{myOptions.i18n.tipsOwner}}
+                    </span>
+                    <span>: &nbsp;</span>
+                    {{account.userName}}
+                </p>
+            </div>
+            <div class="pt-ds-table-set pt-ds-table-set-ga" >
+                <div class="pt-btn-group pt-select" dropdown>
+                    <a class="pt-block pt-btn-more pt-selectbtn" href="javascript:"  dropdown-toggle>
+                        <span class="more"></span>
+                    </a>
+                    <ul class="pt-dropdown-menu pt-mysql-dropdowm">
+                        <li>
+                            <a class="pt-btn-add pt-menu" href="javascript:" ng-click="connectionShow('edit', 'tableList',account.connectionId,account.name)">
+                                <svg>
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-edit"></use>
+                                </svg>
+                                <span translate="DATA_SOURCE.S3.ACCOUNT_EDIT" class="ng-scope">Edit</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:"
+                               class="pt-btn-add pt-menu"
+                               ng-click="setTimezone(account, $index)">
+                                <svg>
+                                    <use xlink:href="#icon-timezone" />
+                                </svg>
+                                <span translate="DATA_SOURCE.TIMEZONE.BUTTON"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="pt-btn-add pt-menu" href="javascript:"
+                               ng-click="removeAccountShow(account, $index)">
+                                <svg>
+                                    <use xlink:href="#icon-del" />
+                                </svg>
+                                <span translate="DATA_SOURCE.MANAGEMENT.BTN_REMOVE">Remove</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 提示模板 -->
+<div tips-two-btn tips-options="{{myOptions.tips.options}}" ng-if="myOptions.tips.show"></div>
+
+<!-- 时区 -->
+<timezone 
+    ng-if="myOptions.timezone.show"
+    fieds="myOptions.timezone.fieds"
+    tips-code="{{myOptions.i18n.tipsTimezoneCode}}"
+    hide-timezone="hideTimezone()"
+></timezone>

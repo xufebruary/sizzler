@@ -1,0 +1,41 @@
+<!-- content -->
+<div class="content ds-manage wrapper-xl no-padding" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000">国际化文案管理&nbsp;->&nbsp;国际化文案管理</span>
+        </ol>
+    </header>
+   
+    <div class="clearfix m-t-xl" ng-show="!editModel">
+    	<div class="userTitle">
+    		<span>语言列表</span>
+    	</div>
+        <table class="userTable">
+        	<thead>
+        		<tr>
+        			<th width="10%">语言类型</th>
+        			<th width="25%">语言文件</th>
+        			<th width="15%">Operation</th>
+        		</tr>
+        	</thead>
+        	<tr ng-repeat="json in jsonList">
+        		<td width="10%" ng-bind="json.title"></td>
+        		<td width="25%" ng-bind="json.fileName"></td>
+        		<td width="15%">
+	        		<a class="btn btn-success"  ng-click="showJson(json)">修改</a>
+        		</td>
+        	</tr>
+        </table>
+    </div>
+    
+    <div class="clearfix m-t-xl" ng-show="editModel">
+    	<div class="userTitle" style="height:auto;">
+    		<span>编辑国际化文案<br>文件名：{{nowJson.fileName}}<br>语言类型：{{nowJson.title}}</span>
+    		<br>
+    		<a class="btn btn-black"  ng-click="backList()">返回</a>
+    		<a class="btn btn-success"  ng-click="exportFile()">导出文件</a>
+    		<a class="btn btn-danger" ng-if="showUpdate"  ng-click="signUpdate()">同步更新</a>
+    	</div>
+    	<div id="editor" class="json-editor"></div>  
+    </div>
+</div>

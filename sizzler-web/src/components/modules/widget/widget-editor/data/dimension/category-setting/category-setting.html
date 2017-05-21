@@ -1,0 +1,35 @@
+<div class="animated fadeInRight text-black-400">
+    <header class="filter-hd clearfix">
+        <span class="pull-left" translate="WIDGET.EDITOR.SORT.DIMENSION">Dimension</span>
+        <span class="pull-left block text-ellipsis" title="{{$ctrl.dimension.name}}" style="max-width: 50%;">: {{$ctrl.dimension.name}}</span>
+    </header>
+    <!--max-->
+    <div class="m-t">
+        <div>
+            <span translate="WIDGET.EDITOR.MAX.CATEGORIES">Numbers of categories to show</span>
+            <input class="no-border text-md text-green-400 max-ipt"
+                   type="number"
+                   min="{{$ctrl.state.sliderOptions.floor}}"
+                   max="{{$ctrl.state.sliderOptions.ceil}}"
+                   ng-model="$ctrl.state.iptValue"
+                   ng-change="$ctrl.setIptValue('change')"
+                   ng-blur="$ctrl.setIptValue('blur')">
+        </div>
+
+        <rzslider rz-slider-model="$ctrl.state.sliderValue"
+                  rz-slider-options="$ctrl.state.sliderOptions"></rzslider>
+
+        <label class="check-box m-b-none m-t-xl" ng-class="{'disabled': $ctrl.dimensionIndex > 0}">
+            <input type="checkbox" name="showOthers" ng-model="$ctrl.state.showOthers" ng-disabled="$ctrl.dimensionIndex > 0">
+            <i class="m-r-none"></i>
+            <span class="text-black-400 m-l-xs-m ng-scope" translate="WIDGET.EDITOR.MAX.SHOW_OTHERS">Show Others</span>
+        </label>
+    </div>
+
+    <footer class="clearfix m-t-sm">
+        <button class="text-center block btn-filter-common btn-filter-apply pull-right m-l"
+                ng-click="$ctrl.save()"
+                translate="COMMON.APPLY">Apply</button>
+        <a class="text-center block btn-filter-common btn-filter-cancel pull-right" ng-click="$ctrl.close()" translate="COMMON.CANCEL">Cancel</a>
+    </footer>
+</div>

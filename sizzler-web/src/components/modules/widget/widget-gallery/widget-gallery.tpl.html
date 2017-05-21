@@ -1,0 +1,128 @@
+<div class="widget-gallery-wrap">
+    <div ng-if="!myOptions.isSuccess">
+        <div class="block modal fade in">
+            <div class="popup-content">
+                <header class="widget-gallery-hd">
+                    <a class="popup-btnClose" ng-click="close()">
+                        <svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use></svg>
+                    </a>
+
+                    <div class="tab"
+                         ng-class="{'active_1': myOptions.currentStep == 'ds', 'active_2': myOptions.currentStep == 'gallery'}">
+                        <button>1</button>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <button>2</button>
+                    </div>
+
+                    <div class="clearfix">
+                        <h3 class="title">{{myOptions.headTitle}}</h3>
+                        <div class="search" ng-if="myOptions.currentStep == 'gallery'">
+                            <input type="text"
+                                   ng-model="myOptions.modelSearch"
+                                   ng-keydown="keyEvent($event)">
+                            <a class="pull-right block text-black-400" ng-click="search()">
+                                <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+                            </svg>
+                            </a>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="widget-gallery-bd clearfix">
+                    <!--loading-->
+                    <div class="pt-loading">
+                        <span class="pt-center pt-loading-box-sm">
+                            <svg class="load-s btnloads">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+                            </svg>
+                            <svg class="load-m btnloadm">
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-loading"></use>
+                            </svg>
+                        </span>
+                    </div>
+
+                    <div class="widget-gallery-list"
+                         ui-jq="slimScroll"
+                         ui-options="{
+                            height:'440',
+                            size:'6px',
+                            color:'#737373',
+                            distance:'0px',
+                            allowPageScroll:false,
+                            alwaysVisible:true
+                        }">
+                        <!--数据源模版-->
+                        <div ng-if="myOptions.currentStep == 'ds'">
+                            <div single-gallery-data-source
+                                 ng-repeat="ds in myOptions.dsList | orderBy:'(orderNumber-0)'"
+                                 title="{{ds.name}}"
+                                 gallery-ds="ds"
+                                 gallery-current-ds="myOptions.currentDs"
+                                 gallery-choose-event="chooseEvent(type, data, flag)"
+                                 gallery-img-load="imgLoad()"></div>
+                        </div>
+
+                        <!--widget gallery模版-->
+                        <div ng-if="myOptions.currentStep == 'gallery'">
+                            <div single-widget-gallery
+                                 ng-repeat="gallery in myOptions.galleryList"
+                                 gallery-local="rootUser.settingsInfo.locale"
+                                 gallery-choose-event="chooseEvent(type, data, flag)"
+                                 gallery-current="gallery"
+                                 gallery-slt-list="myOptions.sltGalleryList"></div>
+                        </div>
+
+                        <!--无数据提示-->
+                        <div class="no-data" ng-if="myOptions.currentStep == 'gallery' && myOptions.queryList && myOptions.galleryList.length == 0">
+                            <span translate="WIDGET.GALLERY.STEP_2.TIPS_NO_DATA"></span>
+                        </div>
+                    </div>
+
+                    <div class="widget-gallery-chart-info animated">
+                        <div class="info-title"></div>
+                        <div class="info-bd"></div>
+                        <span class="arrow bottom arrow-info"></span>
+                    </div>
+                </div>
+
+                <footer class="widget-gallery-ft text-right clearfix">
+                    <button class="pt-btn pt-btn-default m-r-md" ng-click="clickEvent('left')">
+                        <span>{{myOptions.btnLeftI18n}}</span>
+                    </button>
+                    <button class="pt-btn pt-btn-success"
+                            ng-click="clickEvent('right')"
+                            ng-class="{'disabled': myOptions.btnIsDisabled}">
+                        <span>{{myOptions.btnRightI18n}}</span>
+                    </button>
+
+                    <div class="error-tips fade" ng-class="{'in': myOptions.errorDs}">
+                        <span>{{myOptions.footerTips}}</span>
+                    </div>
+
+                    <div class="help-tips" ng-if="myOptions.currentStep == 'gallery'">
+                        <span translate="WIDGET.GALLERY.STEP_2.TIPS_HELP_1"></span>
+                        <a href="#none" translate="WIDGET.GALLERY.STEP_2.TIPS_HELP_2" ng-click="callIntercom()"></a>
+                        <span translate="WIDGET.GALLERY.STEP_2.TIPS_HELP_3"></span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in"></div>
+    </div>
+
+
+    <div class="tips-success" ng-if="myOptions.isSuccess">
+        <svg>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ok"></use>
+        </svg>
+        <span translate="WIDGET.GALLERY.STEP_2.TIPS_ADD_SUCCESS">
+
+        </span>
+    </div>
+</div>

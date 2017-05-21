@@ -1,0 +1,72 @@
+//@import "compass";
+//@import "../../../public/sass/framework/varibles";
+//@import "../../../public/sass/framework/mixin-ui";
+//@import "../../../public/sass/framework/mixin-basic";
+
+.account-create-success {
+    padding-top: 80px;
+    min-height: 460px;
+
+    .login-bd {
+        margin-top: 17px;
+        position: inherit;
+
+        .pos-bot {
+            position: absolute;
+            bottom: 52px;
+            width: 340px;
+        }
+    }
+
+    .user-email {
+        height: auto;
+        font-size: 24px;
+        color: #fff;
+        text-align: center;
+        word-break: break-all;
+        line-height: 1.1em;
+    }
+
+    .tips-info {
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        margin: 20px 0 30px;
+        line-height: 1.4em;
+    }
+
+    .tips-ul {
+        font-size: 16px;
+        color: #fff;
+        text-align: left;
+        margin: 50px 0 0 0;
+        line-height: 1.2em;
+        list-style: decimal;
+    }
+
+    .onboarding-tips {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        background-color: #3e4041;
+        opacity: 0.9;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        border-radius: 8px;
+        padding: 14px;
+        z-index: 9999;
+
+        p {
+            font-size: 18px;
+            color: #fff;
+            line-height: 20px;
+        }
+
+         span {
+            font-size: 14px;
+            color: #fff;
+            line-height: 20px;
+        }
+    }
+}

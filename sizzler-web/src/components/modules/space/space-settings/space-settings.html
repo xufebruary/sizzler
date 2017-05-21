@@ -1,0 +1,244 @@
+<div class="space-setting">
+
+    <header class="space-setting-hd">
+        <h2 translate="SPACE.SETTINGS.TITLE">Space Details</h2>
+        <span translate="SPACE.SETTINGS.OWNER">Owner</span>
+        <span>: {{$ctrl.space.ownerEmail}}</span>
+    </header>
+
+    <div class="space-setting-bd clearfix">
+        <!--owner-->
+        <div class="forms" ng-if="$ctrl.space.type == 'owner'">
+            <form name="$ctrl.spaceForm" ng-submit="$ctrl.saveSpace()" novalidate>
+                <dl class="forms-dl">
+                    <dt>
+                        <span translate="SPACE.SETTINGS.SPACE_NAME">Space name</span>
+                    </dt>
+                    <dd>
+                        <input
+                            name="name"
+                            type="text"
+                            maxLength="30"
+                            class="pt-ipt"
+                            ng-model="$ctrl.space.name"
+                            ng-blur="$ctrl.check('name')"
+                            ng-focus="$ctrl.clearErrors('name')"
+                            ng-class="{'error': $ctrl.hasErrors('name')}"
+                        >
+                    </dd>
+                    <dd ng-show="$ctrl.errors.name.required">
+                        <span translate="SPACE.CREATE.STEP_A.ERROR_NAME_EMPTY"></span>
+                    </dd>
+                </dl>
+                <dl class="forms-dl">
+                    <dt>
+                        <span translate="SPACE.SETTINGS.SPACE_DOMAIN">Space domain</span>
+                    </dt>
+                    <dd>
+                        <span>{{$ctrl.space.host}}/</span>
+                        <input
+                            name="domain"
+                            type="text"
+                            maxLength="30"
+                            class="pt-ipt"
+                            ng-model="$ctrl.space.domain"
+                            ng-blur="$ctrl.check('domain')"
+                            ng-focus="$ctrl.clearErrors('domain')"
+                            ng-class="{'error': $ctrl.hasErrors('domain')}"
+                        >
+                    </dd>
+                    <dd ng-show="$ctrl.errors.domain" ng-messages="$ctrl.errors.domain">
+                        <span ng-message="required"
+                              translate="SPACE.CREATE.STEP_A.ERROR_DOMAIN_EMPTY">
+                        </span>
+                        <span ng-message="reg"
+                              translate="SPACE.CREATE.STEP_A.ERROR_DOMAIN_ERROR">
+                        </span>
+                        <span ng-message="unique"
+                              translate="SPACE.CREATE.STEP_A.ERROR_DOMAIN_ALREADY">
+                        </span>
+                    </dd>
+                </dl>
+                <dl class="forms-dl">
+                    <dt>
+                        <span translate="SPACE.SETTINGS.WEEK_START">Your business hour start</span>
+                    </dt>
+                    <dd>
+                        <div class="pt-select mod-setting-dropdown" dropdown>
+                            <a class="pt-ipt pt-selectIpt" dropdown-toggle>
+                                <span>{{'HEADER.PROFILE.SETTINGS.'+$ctrl.space.weekStart.toUpperCase() | translate}}</span>
+                                <svg class="pull-right m-r-xs">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         xlink:href="#icon-triangle-down"></use>
+                                </svg>
+                            </a>
+                            <ul class="pt-dropdown-menu pt-ipt animated fadeInDown">
+                                <li ng-class="{'active': $ctrl.space.weekStart == 'sunday'}">
+                                    <a id="settings-sunday"
+                                       ng-click="$ctrl.sltWeekStart('sunday')"
+                                       translate="HEADER.PROFILE.SETTINGS.SUNDAY">Sunday</a>
+                                </li>
+                                <li ng-class="{'active': $ctrl.space.weekStart == 'monday'}">
+                                    <a id="settings-monday"
+                                       ng-click="$ctrl.sltWeekStart('monday')"
+                                       translate="HEADER.PROFILE.SETTINGS.MONDAY">Monday</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="pt-btn-help pull-right space-btn-help">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                            </svg>
+                            <p translate="TIP.SETTIING.TIP_1"></p>
+                        </div>
+                    </dd>
+                </dl>
+
+                <footer class="clearfix">
+                    <a ng-click="$ctrl.showDialog()"
+                        pt-log="{
+                            'where': 'space_setting',
+                            'what': 'delete_space',
+                            'value':'{{$ctrl.space.spaceId}}'
+                        }">
+                        <span translate="SPACE.SETTINGS.BTN_DELETE">Delete this Space</span>
+                    </a>
+                    <button
+                        class="pt-btn pt-btn-success"
+                        type="submit"
+                        pt-log="{
+                            'where': 'space_setting',
+                            'what': 'save_setting',
+                            'value':'{{$ctrl.space.spaceId}}'
+                        }">
+
+                        <span translate="SPACE.SETTINGS.BTN_SAVE">Save Setting</span>
+                    </button>
+                </footer>
+            </form>
+        </div>
+
+        <!--follower-->
+        <div class="follower" ng-if="$ctrl.space.type == 'follower'">
+            <div>
+                <span translate="SPACE.SETTINGS.SPACE_NAME">Space name</span>
+                <span>{{$ctrl.space.name}}</span>
+            </div>
+            <div>
+                <span translate="SPACE.SETTINGS.SPACE_DOMAIN">Space domain</span>
+                <span>{{$ctrl.space.host}}/{{$ctrl.space.domain}}</span>
+            </div>
+            <div>
+                <span translate="SPACE.SETTINGS.WEEK_START">Your business hour start</span>
+                <span>{{'HEADER.PROFILE.SETTINGS.'+ $ctrl.space.weekStart.toUpperCase() | translate}}</span>
+                <div class="btn-help pull-right space-btn-help">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-ask"></use>
+                    </svg>
+                    <p translate="TIP.SETTIING.TIP_1"></p>
+                </div>
+            </div>
+
+            <footer class="clearfix">
+                <button class="pt-btn pt-btn-success"
+                        ng-click="$ctrl.showDialog()"
+                        pt-log="{
+                            'where': 'space_setting',
+                            'what': 'quit_space',
+                            'value':'{{$ctrl.space.spaceId}}'
+                        }">
+                    <span translate="SPACE.SETTINGS.BTN_QUIT">Exit Space</span>
+                </button>
+            </footer>
+        </div>
+    </div>
+
+    <!--弹出框-->
+    <div class="space-setting-wrap" ng-if="$ctrl.state.showDialog">
+        <div class="block modal fade in">
+
+            <!--owner显示删除-->
+            <div class="pt-popup" ng-if="$ctrl.space.type == 'owner'">
+                <div class="pt-popup-content">
+                    <header class="pt-popup-hd">
+                        <span class="popup-title" translate="SPACE.SETTINGS.DELETE_TITLE">Delete Space</span>
+                        <a class="pt-popup-close" ng-click="$ctrl.closeDialog()">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+                            </svg>
+                        </a>
+                    </header>
+                    <div class="pt-popup-bd padder-v-sm">
+                        <span translate="SPACE.SETTINGS.DELETE_TIPS"></span>
+                    </div>
+                    <footer class="pt-popup-footer">
+                        <button class="pt-btn m-r-md pt-btn-danger"
+                                ng-click="$ctrl.deleteSpace()"
+                                pt-log="{
+                                    'where': 'space_setting',
+                                    'what': 'confirm_delete_space',
+                                    'value':'{{$ctrl.space.spaceId}}'
+                                }">
+                            <span translate="COMMON.DELETE">Delete</span>
+                        </button>
+                        <button class="pt-btn pt-btn-default" 
+                            ng-click="$ctrl.closeDialog()"
+                            pt-log="{
+                                'where': 'space_setting',
+                                'what': 'cancel_delete_space',
+                                'value':'{{$ctrl.space.spaceId}}'
+                            }">
+                            <span translate="COMMON.CANCEL">Cancel</span>
+                        </button>
+
+                    </footer>
+                </div>
+            </div>
+
+            <!--follower显示退出-->
+            <div class="pt-popup" ng-if="$ctrl.space.type == 'follower'">
+                <div class="pt-popup-content">
+                    <header class="pt-popup-hd">
+                        <span class="popup-title" translate="SPACE.SETTINGS.QUIT_TITLE">Quit the space</span>
+                        <a class="pt-popup-close" ng-click="$ctrl.closeDialog()" site-event-analytics
+                           id="panel-delete-close-window">
+                            <svg>
+                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-close"></use>
+                            </svg>
+                        </a>
+                    </header>
+                    <div class="pt-popup-bd">
+                        <span translate="SPACE.SETTINGS.QUIT_TIPS"></span>
+                    </div>
+                    <footer class="pt-popup-footer">
+
+                        <button class="pt-btn pt-btn-danger"
+                                ng-click="$ctrl.quitSpace()"
+                                pt-log="{
+                                    'where': 'space_setting',
+                                    'what': 'confirm_quit_space',
+                                    'value':'{{$ctrl.space.spaceId}}'
+                                }">
+                            <span translate="SPACE.SETTINGS.TIPS_BTN_QUIT">Quit the space</span>
+                        </button>
+                        <button class="pt-btn pt-btn-default m-l-md" 
+                            ng-click="$ctrl.closeDialog()"
+                            pt-log="{
+                                'where': 'space_setting',
+                                'what': 'cancel_quit_space',
+                                'value':'{{$ctrl.space.spaceId}}'
+                            }">
+                            <span translate="COMMON.CANCEL">Cancel</span>
+                        </button>
+
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- bg -->
+        <div class="modal-backdrop fade in"></div>
+    </div>
+</div>
+
+

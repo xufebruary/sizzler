@@ -1,0 +1,245 @@
+@charset "utf-8";
+
+/*
+  Name:    Settings
+  Explain: Mod-settings style
+  Author:  Dawn
+  Date:    2015-11-7
+*/
+
+.mod-setting-aside{
+    width: 200px;
+}
+.mod-setting-aside a.back-dashboard{
+    min-width: 80%;
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 8px;
+    background-color: #fff;
+    color: #616161;
+    font-size: 14px;
+}
+.mod-setting-aside a.back-dashboard svg{
+    width: 16px;
+    height: 16px;
+    fill: #616161;
+    vertical-align: -3px;
+}
+.mod-setting-aside ul.nav a{
+    height: 40px;
+    line-height: 40px;
+    border-left: 6px solid transparent;
+    padding: 0;
+    font-size: 14px;
+    color: #616161;
+    display: inline-block;
+    width: 100%;
+    text-indent: 2em;
+}
+.mod-setting-aside ul.nav a:hover {
+    background-color: #dddfe3;
+}
+.mod-setting-aside ul.nav a.active{
+    border-left: 6px solid #96cc65;
+    background-color: #fff;
+}
+.mod-setting-aside ul.nav a svg {
+    width: 16px;
+    height: 16px;
+    fill: #616161;
+    vertical-align: top;
+}
+.mod-setting-aside ul.nav a.active svg {
+    fill: #9ccc65;
+}
+
+
+.mod-setting {
+	width: 100%;
+	min-width: 480px;
+    padding-top: 190px;
+    margin-top: -140px;
+}
+.mod-setting:after{
+    content:'';
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #fff;
+    top: 50px;
+    left: 0;
+    z-index: -2;
+}
+.mod-setting:before {
+	height: 180px;
+	background-color: #9ccc65;
+	z-index: 1031;
+}
+.mod-setting-wrap {
+	width: 640px;
+	background-color: #9dcd64;
+	position: relative;
+	z-index: 1031;
+	padding: 105px 0 10px 50px;
+	box-shadow: 2px 2px 3px 3px rgba(0, 0, 0, .2);
+	margin-bottom: 40px;
+}
+.mod-setting-close {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+.mod-setting-bd {
+	width: 400px;
+	margin: 40px auto 80px 290px;
+	position: relative;
+}
+.mod-setting-bd header {}
+.mod-setting-bd header strong {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: #9ccc65;
+	padding: 15px;
+	/*margin: 0 auto 12px;*/
+    float:left;
+}
+.mod-setting-bd header strong svg {
+	width: 30px;
+    height: 30px;
+    fill: #fff;
+    vertical-align: top;
+    overflow: hidden;
+}
+.mod-setting-bd header span {
+	font-size: 24px;
+    color: #9ccc65;
+    float:left;
+    margin:15px;
+}
+.mod-setting-bd header a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+.mod-setting-content {}
+.mod-setting-dl {}
+.mod-setting-dl dt {
+	color: #757575;
+	line-height: 20px;
+}
+.mod-setting-dl dt .btn-help svg {
+    fill: #bdbdbd;
+}
+.mod-setting-dl dt .btn-help:hover svg {
+    fill: #fbc349;
+}
+.mod-setting-dl dt .btn-help p{
+    z-index: 2000;
+}
+.mod-setting-dl dd {
+
+}
+.mod-setting-dl dd:nth-child(3) {
+	width: auto;
+	position: absolute;
+    top: 20px;
+    right: -20px;
+}
+.mod-setting-ipt {
+	height: 40px;
+	line-height: 40px;
+	color: #424242;
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.mod-setting-ipt svg {
+    width: 16px;
+    height: 16px;
+    fill: #bdbdbd;
+    margin-top: 12px;
+}
+
+.mod-setting-error {
+	margin: 10px 0;
+	line-height: 1em;
+	padding-left: 10px;
+}
+
+.mod-setting-dropdown {
+
+}
+.mod-setting-dropdown:hover .mod-setting-ipt {
+    color: initial;
+    background-color: #e0e0e0;
+}
+.mod-setting-dropdown .dropdown-menu {
+	width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 0 0 4px 4px;
+    top: 100%;
+}
+.mod-setting-dropdown .dropdown-menu > li > a {
+	color: #616161;
+	padding: 9px 10px;
+}
+.mod-setting-dropdown .dropdown-menu > li > a:hover,
+.mod-setting-dropdown .dropdown-menu > li > a:focus,
+.mod-setting-dropdown .dropdown-menu > .active > a,
+.mod-setting-dropdown .dropdown-menu > .active > a:hover,
+.mod-setting-dropdown .dropdown-menu > .active > a:focus {
+	background-color: #9ccc65 !important;
+    width: 100%;
+    color: #fff;
+    box-shadow: none;
+}
+.mod-setting-dropdown .dropdown-menu > .active > a {
+	background: none !important;
+    color: #9ccc65;
+}
+
+
+.mod-setting-btn {}
+.mod-setting-btn.active,
+.mod-setting-btn:hover {
+	color: #757575;
+	box-shadow: 0 2px 0 0 #9ccc65;
+}
+
+.mod-setting-ft {
+	/*width: 620px;*/
+    margin: 30px auto 0;
+	position: relative;
+}
+.mod-setting-ft::after{
+    content:"";
+    display:table;
+    clear:both;
+}
+.mod-setting-ft .btn-success{
+    float:right;
+}
+/*@keyframes font-save-success-out{*/
+    /*from{opacity:1;}*/
+    /*to{opacity:0}*/
+/*}*/
+.mod-setting-ft .font-save-success{
+    color:#9ccc65;
+    margin-top: 6px;
+    display: none;
+    margin-left: 10px;
+}
+/*.mod-setting-ft button {
+	width: 80px;
+	height: 30px;
+	color: #fff;
+	display:  inline-block;
+    line-height: 1em;
+    background-color: #757575;
+    border-radius: 4px;
+}
+.mod-setting-ft button:hover {
+	background-color: #9ccc65;
+}*/

@@ -1,0 +1,62 @@
+<!-- aside (left) -->
+<div class="aside clear bg-gray-lighter pull-left hide">
+    <div class="aside-wrap">
+        <nav class="data-source-aside m-t-xl">
+            <p class="text-center m-b-xxl">
+                <a class="btn back-dashboard" ui-sref="pt.dashboard">
+                    <svg>
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-left-arrow"></use>
+                    </svg>
+                    <span translate="DATA_SOURCE.ASIDE.DASHBOARD">back to dashboard</span>
+                </a>
+            </p>
+            <ul class="nav">
+                <li>
+                    <a ui-sref="pt.settings" ng-class="{active: $state.current.name == 'pt.settings' }">
+                        <svg class="m-t-sm m-r-sm">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-account"></use>
+                        </svg>
+                        <span translate="HEADER.PROFILE.SETTINGS.ACCOUNTSET">Account</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="pt.dataSources" ng-class="{active: $state.current.name.indexOf('pt.dataSources')>=0 }">
+                        <svg class="m-t-sm m-r-sm">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-datasource"></use>
+                        </svg>
+                        <span translate="DATA_SOURCE.ASIDE.DATA_SOURCES">Data Source</span>
+                    </a>
+                </li>
+                <li has-permission="ptone-system-view">
+                    <a ui-sref="pt.system" ng-class="{active: $state.current.name == 'pt.system' }">
+                        <svg class="m-t-sm m-r-sm">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-hacker"></use>
+                        </svg>
+                        <span>系统管理</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+<!-- content -->
+<div class="content ds-manage wrapper-xl" ui-view>
+    <header class="ds-manage-header m-b-n-sm">
+        <ol class="ds-header-breadcrumb m-b-none">
+            <span class="text-black-1000">系统管理</span>
+        </ol>
+    </header>
+   
+    <div class="clearfix m-t-xl">
+        <span class="text-xl m-r-xs">Refresh Cache: </span>
+        <button class="btn btn-success" ng-click="refreshCache()">Refresh</button>
+        
+        <span id="refresh_cache" 
+            class="text-xl m-l-sm"
+            ng-show="myOptions.tipsShow"
+            ng-class="{'text-danger': myOptions.status !='success', 'text-success': myOptions.status =='success'}" >
+            {{myOptions.status}}
+        </span>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+.ds-fba-content > ul {
+    border: 1px solid #eee;
+}
+
+.ds-fba-content > ul > li {
+    height: 50px;
+    line-height: 1em;
+}
+
+.ds-fba-content > ul > li:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.ds-fba-content > ul > li .row div:first-child {
+    padding-left: 20px;
+    line-height: 50px;
+    color: #424242;
+    font-size: 14px;
+}
+
+.ds-fba-content-name {
+    max-width: 90%;
+}

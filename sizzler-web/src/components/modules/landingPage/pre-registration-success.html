@@ -1,0 +1,69 @@
+<div class="landing-page">
+    <div id="container" class="success"><div id="output"></div></div>
+    <div class="banner success">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 col-xs-12">
+                    <div class="pre-registration">
+                        <p class="logo">
+                            <svg>
+                                <use xlink:href="{{productConfigs.logo}}"></use>
+                            </svg>
+                            <a class="back" ui-sref="landingPage">
+                                <svg>
+                                    <use xlink:href="#icon-back"></use>
+                                </svg>
+                                <span>Back</span>
+                            </a>
+                        </p>
+                        <div class="share-box2">
+                            <div class="title">
+                                <p class="name"><span>Hi</span>{{loadSetting.preRegistrationName}}:</p>
+                                <p class="sec">事前登録が完了しました！</p>
+                                <p class="little">PtOneが利用できるようになりましたらメールで連絡いたします。</p>
+                            </div>
+                            <div class="share-main">
+                                <div class="top-img">
+                                    <img src="/assets/images/landingpage/envelope.png" alt="" class="img-responsive center-block"/>
+                                    <!--<p class="tit">PtOne | BIより使いやすいダッシュボードサービス</p>-->
+                                    <!--<p>毎日見たい重要なKPIなどのデータを簡単に管理できるビジネスダッシュボードサービス。</p>-->
+                                    <!--<p>様々なSaaS型サービスやデーターベースと連携したクラウド型ソフトウェアです。</p>-->
+                                </div>
+                                <div class="share-btns">
+                                    <a target="_blank"
+                                       ng-click="gtmEvent('community_refer_facebook'); facebookShare()"
+                                       class="facebook">
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-facebook2"></use>
+                                        </svg>
+                                        <span>Facebookでシェアする</span>
+                                    </a>
+                                    <a target="_blank"
+                                       ng-click="gtmEvent('community_refer_twitter')"
+                                       class="twitter">
+                                        <svg>
+                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-logo-twitter"></use>
+                                        </svg>
+                                        <span>Twitterでシェアする</span>
+                                    </a>
+                                </div>
+                                <p class="share-tip">
+                                    友人や同僚にシェアをしましょう。シェアをしてくれたユーザーは <span>早期にPtOneの利用ができるように優先対応</span> をさせていただきます。
+                                </p>
+                            </div>
+                            <div class="share-footer">
+                                <a class="btn-comm" target="_blank"
+                                   ng-click="gtmEvent('succ_page_more_community')">PtOneのコミュニティを見てみよう</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column-bg" column-bg>
+            <span class="item">&nbsp;</span>
+        </div>
+    </div>
+</div>
+

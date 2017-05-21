@@ -1,0 +1,3 @@
+metaProviderAdaptive=com.sizzler.provider.adaptive.MetaProviderAdaptive
+upload=com.sizzler.provider.service.upload.UploadMetaProviderImpl
+mysql=com.sizzler.provider.service.database.DataBaseProviderImpl

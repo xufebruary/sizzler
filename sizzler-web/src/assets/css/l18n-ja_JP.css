@@ -1,0 +1,37 @@
+@charset "utf-8";
+
+/*
+  Name:    English Style
+  Explain: l18n - JP
+  Author:  Dawn
+  Date:    2015-08-12
+*/
+
+
+body {
+  font-family:  "Myriad Set Pro", "Meiryo", "Hiragino Kaku Gothic Pro", "メイリオ", "ヒラギノ角ゴ Pro W3";
+}
+
+/* aside menu */
+.btn-add-dashboard {
+  width: 180px;
+}
+.btn-add-dashboard span {
+  font-size: 14px;
+  letter-spacing: -1px;
+}
+.editor section.editor-bd ul li span{
+  font-size: 12px;
+}
+
+
+/*widget tips*/
+.widget .chart-tips{
+  font-size: 12px;
+}
+.widget .chart-tips .tips-wrap .inner{
+  font-size: 12px;
+}
+.widget .chart-tips .tips-wrap .inner a{
+  font-size: 12px;
+}
