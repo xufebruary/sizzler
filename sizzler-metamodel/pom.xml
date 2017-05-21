@@ -15,7 +15,6 @@
         <module>excel</module>
         <module>hadoop</module>
         <module>csv</module>
-        <module>test</module>
         <module>full</module>
         <module>saas</module>
         <module>json</module>
