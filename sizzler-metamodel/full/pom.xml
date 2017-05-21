@@ -4,42 +4,42 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>metamodel</artifactId>
-        <groupId>com.ptmind.ptone</groupId>
+        <groupId>com.sizzler</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ptmind.ptone</groupId>
+    <groupId>com.sizzler</groupId>
     <artifactId>metamodel-full</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-hadoop</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-csv</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-excel</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-jdbc</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-pojo</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-json</artifactId>
             <version>${project.version}</version>
         </dependency>

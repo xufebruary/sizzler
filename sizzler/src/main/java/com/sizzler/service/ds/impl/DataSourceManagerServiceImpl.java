@@ -22,8 +22,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.exception.BusinessErrorCode;
 import com.sizzler.common.exception.BusinessException;
 import com.sizzler.common.exception.ServiceException;
@@ -36,6 +34,8 @@ import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.MetaContentNode;
 import com.sizzler.common.sizzler.UserConnection;
 import com.sizzler.common.sizzler.UserConnectionConfig;
+import com.sizzler.common.utils.CollectionUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.dao.ds.UserConnectionSourceDao;
 import com.sizzler.datasource.reflex.ClassReflex;
 import com.sizzler.domain.ds.PtoneDsInfo;

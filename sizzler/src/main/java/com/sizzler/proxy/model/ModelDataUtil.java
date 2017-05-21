@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.cache.CurrentUserCache;
 import com.sizzler.cache.DataCacheService;
 import com.sizzler.common.exception.ErrorCode;
@@ -26,7 +24,9 @@ import com.sizzler.common.sizzler.DataBaseConnection;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.PtoneDateUtil;
 import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.common.utils.JodaDateUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.ds.UserConnectionSource;
 import com.sizzler.domain.ds.UserConnectionSourceTableColumn;
 import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
@@ -348,7 +348,7 @@ public class ModelDataUtil {
    * @param modelQueryParam
    * @param dsCode
    * @param enclose
-   *          @return
+   * @return
    * @modifi shaoqiang.guo 因为添加了连接池，故在在tableName前面添加库名
    */
   public String buildFrom(ModelQueryParam modelQueryParam, String dsCode, String enclose,
@@ -418,16 +418,8 @@ public class ModelDataUtil {
     }
 
     List<String> dimensionsKeyList = ptoneWidgetParam.getDimensionsKeyList();// 维度列表的Keys
-                                                                             // add
-                                                                             // by
-                                                                             // you.zou
-                                                                             // 2016-02-19
     List<PtoneMetricsDimension> dimensionDatas = ptoneWidgetParam.getDimensions();// 维度参数集合
-                                                                                  // add
-                                                                                  // by
-                                                                                  // you.zou
-    // 2016-02-19
-    // 清理在keyList中没有的维度参数 add by you.zou 2016-02-19
+    // 清理在keyList中没有的维度参数
     List<PtoneMetricsDimension> currentDimensionData = new ArrayList<PtoneMetricsDimension>();
     for (PtoneMetricsDimension data : dimensionDatas) {
       if (dimensionsKeyList.contains(data.getCode() + "-" + data.getUuid())) {

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 
 import com.alibaba.fastjson.JSON;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.sizzler.DataBaseConfig;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.ds.UserCompoundMetricsDimension;
 
 public class UserCompoundMetricsDimensionDto extends UserCompoundMetricsDimension {

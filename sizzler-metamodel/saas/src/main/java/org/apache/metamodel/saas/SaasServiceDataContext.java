@@ -17,16 +17,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by ptmind on 2015/12/3.
- */
 public abstract class SaasServiceDataContext extends QueryPostprocessDataContext {
   protected String schemaName;
   protected String tableName;
   protected CommonQueryRequest queryRequest;
   protected Map<String, String> metricsDataTypeMap;
   protected TableDataProvider tableDataProvider = null;
-
 
   public SaasServiceDataContext(CommonQueryRequest queryRequest) {
     this.queryRequest = queryRequest;
@@ -89,9 +85,8 @@ public abstract class SaasServiceDataContext extends QueryPostprocessDataContext
     String[] columnNames = new String[columnNameList.size()];
     ColumnType[] columnTypes = new ColumnType[columnTypeList.size()];
 
-    SimpleTableDef tableDef =
-        new SimpleTableDef(getTableName(), columnNameList.toArray(columnNames),
-            columnTypeList.toArray(columnTypes));
+    SimpleTableDef tableDef = new SimpleTableDef(getTableName(),
+        columnNameList.toArray(columnNames), columnTypeList.toArray(columnTypes));
 
     MutableTable table = tableDef.toTable();
     table.setSchema(schema);

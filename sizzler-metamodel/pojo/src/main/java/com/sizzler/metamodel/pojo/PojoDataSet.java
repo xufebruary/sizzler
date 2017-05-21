@@ -1,4 +1,6 @@
-package com.ptmind.ptone.metamodel.pojo;
+package com.sizzler.metamodel.pojo;
+
+import java.util.Iterator;
 
 import org.apache.metamodel.data.AbstractDataSet;
 import org.apache.metamodel.data.DefaultRow;
@@ -6,11 +8,6 @@ import org.apache.metamodel.data.Row;
 import org.apache.metamodel.query.SelectItem;
 import org.apache.metamodel.schema.Column;
 
-import java.util.Iterator;
-
-/**
- * Created by ptmind on 2015/11/26.
- */
 public class PojoDataSet<E> extends AbstractDataSet {
 
   private TableDataProvider tableDataProvider;
@@ -22,7 +19,6 @@ public class PojoDataSet<E> extends AbstractDataSet {
     this.tableDataProvider = tableDataProvider;
     this.iterator = tableDataProvider.iterator();
   }
-
 
   @Override
   public boolean next() {

@@ -9,7 +9,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ptmind.common.utils.StringUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.sys.SysConfigParam;
 import com.sizzler.service.sys.SysConfigParamService;
 

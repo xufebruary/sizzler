@@ -24,9 +24,9 @@ import org.apache.metamodel.schema.MutableSchema;
 import org.apache.metamodel.schema.MutableTable;
 import org.apache.metamodel.util.FileHelper;
 
-import com.google.api.ads.common.lib.exception.ServiceException;
-import com.ptmind.common.utils.StringUtil;
+import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.sizzler.DataBaseConfig;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.db.DataBaseType;
 
 /**

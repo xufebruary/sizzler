@@ -10,8 +10,8 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ptmind.common.utils.CollectionUtil;
 import com.sizzler.common.base.service.ServiceBaseInterfaceImpl;
+import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.dao.ds.UserConnectionSourceDao;
 import com.sizzler.domain.ds.UserConnectionSource;
 import com.sizzler.domain.ds.dto.UserAccountSource;

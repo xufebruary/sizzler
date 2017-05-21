@@ -15,13 +15,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.alibaba.fastjson.JSON;
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.sizzler.DataBaseConfig;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.common.utils.JodaDateUtil;
 import com.sizzler.common.utils.SpringContextUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.ds.UserConnectionSource;
 import com.sizzler.domain.ds.UserConnectionSourceTableColumn;
 import com.sizzler.domain.ds.dto.UserConnectionSourceDto;

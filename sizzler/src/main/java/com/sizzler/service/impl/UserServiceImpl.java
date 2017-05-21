@@ -1,10 +1,8 @@
 package com.sizzler.service.impl;
 
 import java.beans.IntrospectionException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -16,15 +14,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.ptmind.common.utils.StringUtil;
-import com.ptmind.common.utils.UuidUtil;
-import com.sizzler.common.SourceType;
 import com.sizzler.common.base.service.ServiceBaseInterfaceImpl;
 import com.sizzler.common.exception.BusinessErrorCode;
 import com.sizzler.common.exception.BusinessException;
-import com.sizzler.common.sizzler.DsConstants;
-import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.utils.StringUtil;
+import com.sizzler.common.utils.UuidUtil;
 import com.sizzler.dao.UserDao;
 import com.sizzler.dao.UserSettingDao;
 import com.sizzler.domain.session.PTSession;

@@ -14,9 +14,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.base.dao.DaoBaseInterfaceImpl;
 import com.sizzler.common.utils.DataOperationUtils;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.dao.VariableDao;
 import com.sizzler.domain.variable.PtoneVariableInfo;
 import com.sizzler.domain.variable.dto.PtoneVariableWithWidgetId;

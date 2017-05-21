@@ -1,15 +1,17 @@
-package com.ptmind.ptone.metamodel.json.util;
+package com.sizzler.metamodel.json.util;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-/**
- * Created by ptmind on 2016/6/13.
- */
 public class JsonFlattenerUtil {
 
   private final static Logger logger = LoggerFactory.getLogger(JsonFlattenerUtil.class);
@@ -34,9 +36,8 @@ public class JsonFlattenerUtil {
 
   public static LinkedHashMap<String, Object> parse(JsonNode jsonObject) {
     LinkedHashMap<String, Object> row = new LinkedHashMap<String, Object>();
-    row =
-        (LinkedHashMap) com.github.wnameless.json.flattener.JsonFlattener.flattenAsMap(jsonObject
-            .toString());
+    row = (LinkedHashMap) com.github.wnameless.json.flattener.JsonFlattener.flattenAsMap(jsonObject
+        .toString());
     return row;
   }
 

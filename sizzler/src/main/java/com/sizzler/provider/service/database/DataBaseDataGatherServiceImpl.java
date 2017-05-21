@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.exception.DataSourceExceptionUtil;
 import com.sizzler.common.exception.DataSourceOperateException;
 import com.sizzler.common.exception.ErrorCode;
@@ -32,6 +31,7 @@ import com.sizzler.common.sizzler.DataBaseConfig;
 import com.sizzler.common.sizzler.DataBaseConnection;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.MetaRequest;
 import com.sizzler.provider.common.db.DataBaseType;
 import com.sizzler.provider.common.exception.DataSourceLogMessageUtil;

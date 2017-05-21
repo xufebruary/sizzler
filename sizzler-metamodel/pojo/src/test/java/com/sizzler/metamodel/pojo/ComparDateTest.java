@@ -1,23 +1,13 @@
-package com.ptmind.ptone.metamodel.pojo;
+package com.sizzler.metamodel.pojo;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.metamodel.DataContext;
 import org.apache.metamodel.data.DataSet;
 import org.apache.metamodel.data.Row;
-import org.apache.metamodel.query.FilterItem;
-import org.apache.metamodel.query.FromItem;
-import org.apache.metamodel.query.FunctionType;
-import org.apache.metamodel.query.Query;
-import org.apache.metamodel.schema.Column;
 import org.apache.metamodel.schema.ColumnType;
-import org.apache.metamodel.schema.ImmutableColumn;
-import org.apache.metamodel.schema.MutableColumn;
-import org.apache.metamodel.schema.MutableTable;
-import org.apache.metamodel.schema.Table;
 import org.apache.metamodel.util.SimpleTableDef;
 
 public class ComparDateTest {

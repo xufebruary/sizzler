@@ -1,4 +1,4 @@
-package com.ptmind.ptone.metamodel.pojo;
+package com.sizzler.metamodel.pojo;
 
 import org.apache.metamodel.util.HasName;
 import org.apache.metamodel.util.SimpleTableDef;

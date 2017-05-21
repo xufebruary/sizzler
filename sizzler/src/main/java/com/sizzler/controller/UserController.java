@@ -2,11 +2,6 @@ package com.sizzler.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,18 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ptmind.common.utils.CodecUtil;
-import com.ptmind.common.utils.DateUtil;
 import com.sizzler.common.MediaType;
-import com.sizzler.common.exception.BusinessErrorCode;
-import com.sizzler.common.exception.BusinessException;
-import com.sizzler.domain.space.dto.SpaceInfoDto;
 import com.sizzler.domain.user.PtoneUser;
-import com.sizzler.domain.user.PtoneUserBasicSetting;
 import com.sizzler.domain.user.vo.ActiveUserVo;
-import com.sizzler.system.Constants;
-import com.sizzler.system.api.common.ResponseResult;
-import com.sizzler.system.api.common.RestResultGenerator;
 
 /**
  * @ClassName: UserController

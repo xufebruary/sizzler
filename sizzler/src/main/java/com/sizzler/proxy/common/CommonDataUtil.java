@@ -18,8 +18,6 @@ import org.springframework.stereotype.Component;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.ptmind.common.utils.StringUtil;
-import com.ptmind.common.utils.UuidUtil;
 import com.sizzler.cache.DataCacheService;
 import com.sizzler.cache.SysConfigParamCache;
 import com.sizzler.common.sizzler.DataBaseConfig;
@@ -27,6 +25,8 @@ import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.PtoneDateUtil;
 import com.sizzler.common.sizzler.UserConnection;
 import com.sizzler.common.utils.JodaDateUtil;
+import com.sizzler.common.utils.StringUtil;
+import com.sizzler.common.utils.UuidUtil;
 import com.sizzler.domain.ds.UserConnectionSourceTableColumn;
 import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
 import com.sizzler.domain.ds.dto.UserCompoundMetricsDimensionDto;

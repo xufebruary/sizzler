@@ -10,8 +10,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ptmind.common.utils.CollectionUtil;
 import com.sizzler.common.base.service.ServiceBaseInterfaceImpl;
+import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.dao.ds.UserConnectionSourceTableColumnDao;
 import com.sizzler.domain.ds.UserConnectionSourceTableColumn;
 import com.sizzler.domain.ds.dto.UserConnectionSourceTableColumnDto;

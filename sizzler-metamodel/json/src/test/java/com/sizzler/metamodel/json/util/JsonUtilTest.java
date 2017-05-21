@@ -1,4 +1,4 @@
-package com.ptmind.ptone.metamodel.json.util;
+package com.sizzler.metamodel.json.util;
 
 import java.util.ArrayList;
 import java.util.List;

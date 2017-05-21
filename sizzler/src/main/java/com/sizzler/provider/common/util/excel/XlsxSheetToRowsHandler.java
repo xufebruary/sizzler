@@ -20,7 +20,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.ptmind.common.utils.StringUtil;
+import com.sizzler.common.utils.StringUtil;
 
 /**
  * Created by xin.zhang on 2016/6/24.
@@ -296,10 +296,6 @@ public class XlsxSheetToRowsHandler extends DefaultHandler {
 
   /**
    * 清理字符串前后的空格
-   * @author you.zou
-   * @date 2016年12月26日 上午10:52:37
-   * @param str
-   * @return
    */
   private static String trimString(String str){
     if(StringUtil.isBlank(str)){

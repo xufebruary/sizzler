@@ -1,11 +1,8 @@
 package com.sizzler.provider.common.util;
 
 
-import com.ptmind.common.utils.StringUtil;
+import com.sizzler.common.utils.StringUtil;
 
-/**
- * Created by ptmind on 2015/10/22.
- */
 public class CommonPtoneDataToPtoneResponseDataConverter extends
     PtoneDataToPtoneResponseDataConverter {
 

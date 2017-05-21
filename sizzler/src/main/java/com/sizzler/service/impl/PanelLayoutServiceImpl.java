@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.Constants.JsonViewConstants;
 import com.sizzler.common.base.service.ServiceBaseInterfaceImpl;
 import com.sizzler.common.exception.BusinessErrorCode;
@@ -20,6 +19,7 @@ import com.sizzler.common.exception.BusinessException;
 import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.lock.DistributedLockConstants;
 import com.sizzler.common.lock.annotation.DistributedLock;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.dao.PanelLayoutDao;
 import com.sizzler.domain.panel.PtonePanelInfo;
 import com.sizzler.domain.panel.PtonePanelLayout;

@@ -1,10 +1,11 @@
-package com.ptmind.ptone.metamodel.json;
+package com.sizzler.metamodel.json;
 
-import com.ptmind.ptone.metamodel.json.util.JsonUtil;
-import com.ptmind.ptone.metamodel.json.util.JsonFlattenerUtil;
-import com.ptmind.ptone.metamodel.pojo.ArrayTableDataProvider;
-import com.ptmind.ptone.metamodel.pojo.PojoDataSet;
-import com.ptmind.ptone.metamodel.pojo.TableDataProvider;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.metamodel.MetaModelException;
 import org.apache.metamodel.QueryPostprocessDataContext;
@@ -12,17 +13,24 @@ import org.apache.metamodel.data.DataSet;
 import org.apache.metamodel.data.MaxRowsDataSet;
 import org.apache.metamodel.ptutil.CollectionUtil;
 import org.apache.metamodel.ptutil.StringUtil;
-import org.apache.metamodel.schema.*;
+import org.apache.metamodel.schema.Column;
+import org.apache.metamodel.schema.ColumnType;
+import org.apache.metamodel.schema.MutableSchema;
+import org.apache.metamodel.schema.MutableTable;
+import org.apache.metamodel.schema.Schema;
+import org.apache.metamodel.schema.Table;
 import org.apache.metamodel.util.ColumnTypeUtil;
 import org.apache.metamodel.util.SimpleTableDef;
 
-import java.io.Serializable;
-import java.util.*;
+import com.sizzler.metamodel.json.util.JsonFlattenerUtil;
+import com.sizzler.metamodel.json.util.JsonUtil;
+import com.sizzler.metamodel.pojo.ArrayTableDataProvider;
+import com.sizzler.metamodel.pojo.PojoDataSet;
+import com.sizzler.metamodel.pojo.TableDataProvider;
 
-/**
- * Created by ptmind on 2016/6/13.
- */
 public abstract class JsonDataContext extends QueryPostprocessDataContext implements Serializable {
+
+  private static final long serialVersionUID = 1976198035600088038L;
 
   private String jsonStr;
   private String schemaName = "json";
@@ -87,9 +95,9 @@ public abstract class JsonDataContext extends QueryPostprocessDataContext implem
         _rowList = JsonFlattenerUtil.getRowList(rowMapList, columnNameSet);
         // 转成column数组。
         _columnArray = columnNameSet.toArray(new String[] {});
-        //验证columnArray中的字段是否都包含在了_columnArray中
+        // 验证columnArray中的字段是否都包含在了_columnArray中
         _columnArray = JsonUtil.validJsonColumnArrayIsComplete(_columnArray, columnArray);
-        //验证完列之后，还需要验证一下数据，看看是否需要填充缺失的列数据
+        // 验证完列之后，还需要验证一下数据，看看是否需要填充缺失的列数据
         _rowList = JsonUtil.validRowListByJsonColumnArray(_rowList, _columnArray);
         columnTypeList = new ArrayList<ColumnType>(_columnArray.length);
         createColumnsTypeArray(_columnArray, columnTypeList);
@@ -156,8 +164,6 @@ public abstract class JsonDataContext extends QueryPostprocessDataContext implem
     return schemaName;
   }
 
-
-
   @Override
   protected DataSet materializeMainSchemaTable(Table table, Column[] columns, int maxRows) {
     DataSet dataSet = new PojoDataSet(tableDataProvider, columns);
@@ -170,7 +176,6 @@ public abstract class JsonDataContext extends QueryPostprocessDataContext implem
   public SimpleTableDef getTableDef() {
     return tableDef;
   }
-
 
   public TableDataProvider getTableDataProvider() {
     return tableDataProvider;

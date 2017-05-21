@@ -1,4 +1,7 @@
-package com.ptmind.ptone.metamodel.pojo;
+package com.sizzler.metamodel.pojo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.metamodel.DataContext;
 import org.apache.metamodel.data.DataSet;
@@ -6,13 +9,6 @@ import org.apache.metamodel.data.Row;
 import org.apache.metamodel.schema.ColumnType;
 import org.apache.metamodel.util.SimpleTableDef;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-/**
- * Created by ptmind on 2015/11/26.
- */
 public class CountTest {
 
   public static void main(String[] args) {

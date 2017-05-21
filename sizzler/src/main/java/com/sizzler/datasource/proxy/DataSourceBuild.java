@@ -21,14 +21,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.log.ElkLogUtil;
 import com.sizzler.common.log.LogMessage;
 import com.sizzler.common.log.LogMessageUtil;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.common.utils.JodaDateUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.datasource.reflex.ClassReflex;
 import com.sizzler.domain.ds.UserConnectionSource;
 import com.sizzler.domain.ds.UserConnectionSourceTable;

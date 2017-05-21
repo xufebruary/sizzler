@@ -1,4 +1,4 @@
-package com.ptmind.ptone.metamodel.pojo;
+package com.sizzler.metamodel.pojo;
 
 import org.apache.metamodel.MetaModelException;
 import org.apache.metamodel.QueryPostprocessDataContext;
@@ -10,9 +10,6 @@ import org.apache.metamodel.util.SimpleTableDef;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * Created by ptmind on 2015/11/26.
- */
 public class PojoDataContext extends QueryPostprocessDataContext implements Serializable {
 
   private String schemaName;

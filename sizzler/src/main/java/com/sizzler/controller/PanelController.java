@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.MediaType;
 import com.sizzler.domain.panel.PanelGlobalComponent;
 import com.sizzler.domain.panel.PtonePanelInfo;

@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.ptmind.common.utils.StringUtil;
 import com.ptmind.cpdetector.CpdetectorUtil;
 import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.log.ElkLogUtil;
@@ -32,6 +31,7 @@ import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.FileType;
 import com.sizzler.common.sizzler.UserConnection;
 import com.sizzler.common.sizzler.UserConnectionConfig;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.MetaRequest;
 import com.sizzler.provider.common.exception.DataSourceLogMessageUtil;
 import com.sizzler.provider.common.file.PtoneFile;

@@ -8,12 +8,12 @@ import org.apache.log4j.Logger;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.exception.ErrorCode;
 import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.log.LogMessage;
 import com.sizzler.common.sizzler.DataBaseConfig;
 import com.sizzler.common.sizzler.DataBaseConnection;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.db.DataBaseType;
 import com.sizzler.provider.common.query.connection.pool.DataBaseConnectionInfo;
 import com.sizzler.provider.common.query.connection.pool.DataBaseConnectionPool;

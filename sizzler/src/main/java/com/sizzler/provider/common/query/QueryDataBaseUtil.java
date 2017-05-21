@@ -22,11 +22,11 @@ import org.slf4j.LoggerFactory;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.log.LogMessage;
 import com.sizzler.common.sizzler.DataBaseConfig;
+import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.common.utils.SpringContextUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.file.PtoneFile;
 
 /**

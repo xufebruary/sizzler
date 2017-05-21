@@ -7,9 +7,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.base.dao.DaoBaseInterfaceImpl;
 import com.sizzler.common.utils.DataOperationUtils;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.dao.ds.UserCompoundMetricsDimensionDao;
 import com.sizzler.domain.ds.UserCompoundMetricsDimension;
 import com.sizzler.system.Constants;

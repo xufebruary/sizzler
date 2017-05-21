@@ -14,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.base.service.ServiceBaseInterfaceImpl;
 import com.sizzler.common.exception.ServiceException;
+import com.sizzler.common.utils.CollectionUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.dao.WidgetDao;
 import com.sizzler.dao.space.SpaceInfoDao;
 import com.sizzler.domain.panel.PtonePanelInfo;

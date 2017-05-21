@@ -5,7 +5,7 @@
 
     <groupId>com.sizzler</groupId>
     <artifactId>sizzler</artifactId>
-    <version>2.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>sizzler</name>
 
@@ -99,7 +99,7 @@
         <!-- sizzler-cpdetector for determineChartSet -->
         <sizzler-cpdetector.version>1.0</sizzler-cpdetector.version>
 
-        <ptone-metamodel.version>1.0-SNAPSHOT</ptone-metamodel.version>
+        <sizzler-metamodel.version>1.0-SNAPSHOT</sizzler-metamodel.version>
 
     </properties>
 
@@ -413,28 +413,16 @@
             <version>${sizzler-cpdetector.version}</version>
         </dependency>
 
-        <!-- metamodel dependencies -->
+        <!-- metamodel -->
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
-            <artifactId>metamodel-full</artifactId>
-            <version>${ptone-metamodel.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-core</artifactId>
-            <version>${ptone-metamodel.version}</version>
+            <version>${sizzler-metamodel.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-hadoop</artifactId>
-            <version>${ptone-metamodel.version}</version>
+            <version>${sizzler-metamodel.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>javax.servlet</groupId>
@@ -446,6 +434,19 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        
+        <!-- metamodel dependencies -->
+        <!-- <dependency> -->
+        <!-- <groupId>com.sizzler</groupId> -->
+        <!-- <artifactId>metamodel-full</artifactId> -->
+        <!-- <version>${sizzler-metamodel.version}</version> -->
+        <!-- <exclusions> -->
+        <!-- <exclusion> -->
+        <!-- <groupId>org.slf4j</groupId> -->
+        <!-- <artifactId>slf4j-log4j12</artifactId> -->
+        <!-- </exclusion> -->
+        <!-- </exclusions> -->
+        <!-- </dependency> -->
 
     </dependencies>
 
@@ -459,6 +460,13 @@
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <deploy.env>product</deploy.env>
+                <deploy.name>ROOT</deploy.name>
+            </properties>
         </profile>
     </profiles>
 

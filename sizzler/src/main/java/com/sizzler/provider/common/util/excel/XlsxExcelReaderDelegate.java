@@ -25,8 +25,8 @@ import org.apache.poi.xssf.eventusermodel.XSSFReader;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
-import com.ptmind.common.utils.CollectionUtil;
 import com.sizzler.common.sizzler.DsConstants;
+import com.sizzler.common.utils.CollectionUtil;
 
 public class XlsxExcelReaderDelegate implements ExcelReaderDelegate {
 

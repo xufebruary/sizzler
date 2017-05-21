@@ -2,8 +2,6 @@ package com.sizzler.controller.rest;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +11,6 @@ import java.util.TreeMap;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -28,26 +25,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.ptmind.common.utils.CollectionUtil;
-import com.ptmind.common.utils.StringUtil;
 import com.sizzler.common.Constants.JsonViewConstants;
 import com.sizzler.common.MediaType;
-import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.log.LogMessage;
 import com.sizzler.common.restful.JsonView;
 import com.sizzler.common.restful.JsonViewFactory;
+import com.sizzler.common.utils.CollectionUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.panel.PanelGlobalComponent;
 import com.sizzler.domain.panel.PtonePanelInfo;
 import com.sizzler.domain.panel.PtonePanelLayout;
 import com.sizzler.domain.panel.dto.PanelInfoExt;
 import com.sizzler.domain.panel.dto.PanelInfoWithComponents;
-import com.sizzler.domain.panel.dto.PanelLayoutNode;
 import com.sizzler.domain.panel.vo.PanelExtVo;
 import com.sizzler.domain.pmission.PtoneSysRole;
 import com.sizzler.domain.session.dto.PtoneSession;
 import com.sizzler.domain.space.PtoneSpaceInfo;
 import com.sizzler.domain.user.PtoneUser;
-import com.sizzler.domain.user.PtoneUserBasicSetting;
 import com.sizzler.domain.widget.dto.AcceptWidget;
 import com.sizzler.system.Constants;
 import com.sizzler.system.OpreateConstants;

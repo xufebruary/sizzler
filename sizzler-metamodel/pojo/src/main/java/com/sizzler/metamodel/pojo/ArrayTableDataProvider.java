@@ -1,14 +1,13 @@
-package com.ptmind.ptone.metamodel.pojo;
-
-import org.apache.metamodel.util.SimpleTableDef;
+package com.sizzler.metamodel.pojo;
 
 import java.util.Collection;
 import java.util.Iterator;
 
-/**
- * Created by ptmind on 2015/11/26.
- */
+import org.apache.metamodel.util.SimpleTableDef;
+
 public class ArrayTableDataProvider implements TableDataProvider<Object[]> {
+
+  private static final long serialVersionUID = -6240512529924956208L;
 
   private SimpleTableDef tableDef;
   private Collection<Object[]> dataCollection;

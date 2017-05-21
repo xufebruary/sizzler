@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.ptmind.common.utils.StringUtil;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
 import com.sizzler.proxy.common.CommonDataUtil;
 import com.sizzler.proxy.common.model.CommonQueryParam;
