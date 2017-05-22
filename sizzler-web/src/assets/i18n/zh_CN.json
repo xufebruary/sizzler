@@ -515,6 +515,16 @@
                     "VAR": "基于样本计算方差估值。",
                     "IGNOREDATA": "显示没有数据的项"
                 },
+                "GRANULARITY": {
+                    "SECONDS": "秒",
+                    "MINUTE": "分",
+                    "HOUR": "时",
+                    "DAY": "日",
+                    "MONTH": "月",
+                    "YEAR": "年",
+                    "WEEK": "周",
+                    "QUARTER": "季度"
+				},
                 "REMOVE": "删除",
                 "DEL_CALCULATE_VALUE_0": "",
                 "DEL_CALCULATE_VALUE_1": "个Widget正在使用计算指标『",

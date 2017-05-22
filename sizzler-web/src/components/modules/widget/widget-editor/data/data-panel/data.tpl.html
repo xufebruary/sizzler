@@ -514,14 +514,14 @@
                                     {{dimensions.name}}&nbsp;&nbsp;
                                     <span ng-if="dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'">
                                         <span ng-if="dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'">by&nbsp;</span>
-                                        <span ng-if="dimensions.datePeriod == 'seconds'" translate="COMMON.DURATION_FORMAT.SECONDS">Seconds</span>
-                                        <span ng-if="dimensions.datePeriod == 'minute'" translate="DIMENSION.GA.MINUTE">Minute</span>
-                                        <span ng-if="dimensions.datePeriod == 'hour'" translate="DIMENSION.GA.HOUR">Hour</span>
-                                        <span ng-if="dimensions.datePeriod == 'day'" translate="DIMENSION.GOOGLEADWORDS.DAY">Day</span>
-                                        <span ng-if="dimensions.datePeriod == 'month'" translate="DIMENSION.GOOGLEADWORDS.MONTH">Month</span>
-                                        <span ng-if="dimensions.datePeriod == 'year'" translate="DIMENSION.GOOGLEADWORDS.YEAR">Year</span>
-                                        <span ng-if="dimensions.datePeriod == 'quarter'" translate="DIMENSION.GOOGLEADWORDS.QUARTER">Quarter</span>
-                                        <span ng-if="dimensions.datePeriod == 'week'"  translate="DIMENSION.GOOGLEADWORDS.WEEK">Week</span>
+                                        <span ng-if="dimensions.datePeriod == 'seconds'" translate="WIDGET.EDITOR.DATA.GRANULARITY.SECONDS">Seconds</span>
+                                        <span ng-if="dimensions.datePeriod == 'minute'" translate="WIDGET.EDITOR.DATA.GRANULARITY.MINUTE">Minute</span>
+                                        <span ng-if="dimensions.datePeriod == 'hour'" translate="WIDGET.EDITOR.DATA.GRANULARITY.HOUR">Hour</span>
+                                        <span ng-if="dimensions.datePeriod == 'day'" translate="WIDGET.EDITOR.DATA.GRANULARITY.DAY">Day</span>
+                                        <span ng-if="dimensions.datePeriod == 'month'" translate="WIDGET.EDITOR.DATA.GRANULARITY.MONTH">Month</span>
+                                        <span ng-if="dimensions.datePeriod == 'year'" translate="WIDGET.EDITOR.DATA.GRANULARITY.YEAR">Year</span>
+                                        <span ng-if="dimensions.datePeriod == 'quarter'" translate="WIDGET.EDITOR.DATA.GRANULARITY.QUARTER">Quarter</span>
+                                        <span ng-if="dimensions.datePeriod == 'week'"  translate="WIDGET.EDITOR.DATA.GRANULARITY.WEEK">Week</span>
                                     </span>
                                 </em>
                                 <i class="count-more" ng-if="dimensions.dataType == 'DATE' || dimensions.dataType == 'TIME' ||  dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'">
@@ -540,21 +540,21 @@
                             </p>
                             <ul class="list-unstyled" ng-if="dataSettings.groupByGranularity">
                                 <li ng-if="groupBy(dimensions.dataFormat) == 'year' || groupBy(dimensions.dataFormat) == 'month' || groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'year');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.YEAR">Year</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'year');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.YEAR">Year</p></li>
                                 <li ng-if="groupBy(dimensions.dataFormat) == 'month' || groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'month');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.MONTH">Month</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'month');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.MONTH">Month</p></li>
                                 <li ng-if="(groupBy(dimensions.dataFormat) == 'day' || groupBy(dimensions.dataFormat) == 'month'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME') && dsConfig.editor.data.isSupportQuarterOfGroupBy"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'quarter');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.QUARTER">Quarter</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'quarter');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.QUARTER">Quarter</p></li>
                                 <li ng-if="groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'day');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GOOGLEADWORDS.DAY">Day</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'day');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.DAY">Day</p></li>
                                 <li ng-if="(groupBy(dimensions.dataFormat) == 'day'|| dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME') && dsConfig.editor.data.isSupportWeekOfGroupBy"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'week');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title"  translate="DIMENSION.GOOGLEADWORDS.WEEK">Week</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'week');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title"  translate="WIDGET.EDITOR.DATA.GRANULARITY.WEEK">Week</p></li>
                                 <li ng-if="groupBy(dimensions.dataFormat) == 'hour' || groupBy(dimensions.dataFormat) == 'minute' || groupBy(dimensions.dataFormat) == 'seconds' || dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'hour');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GA.HOUR">Hour</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'hour');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.HOUR">Hour</p></li>
                                 <li ng-if="groupBy(dimensions.dataFormat) == 'minute' || groupBy(dimensions.dataFormat) == 'seconds' || dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'minute');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="DIMENSION.GA.MINUTE">Minute</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'minute');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.MINUTE">Minute</p></li>
                                 <li ng-if="groupBy(dimensions.dataFormat) == 'seconds' || dimensions.dataType == 'TIMESTAMP' || dimensions.dataType == 'DATETIME'"
-                                    ng-click="changeDimensionsGroupBy(dimensions,'seconds');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="COMMON.DURATION_FORMAT.SECONDS">Second</p></li>
+                                    ng-click="changeDimensionsGroupBy(dimensions,'seconds');dataSettings.attributeSelectBox[valueIndex] = false"><p class="title" translate="WIDGET.EDITOR.DATA.GRANULARITY.SECONDS">Second</p></li>
                             </ul>
                         </div>
                     </div>

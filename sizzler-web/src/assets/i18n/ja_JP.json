@@ -516,6 +516,16 @@
                     "VAR": "Calculate Variance value",
                     "IGNOREDATA": "Show items without data"
                 },
+                "GRANULARITY": {
+                    "SECONDS": "Seconds",
+                    "MINUTE": "Minute",
+                    "HOUR": "Hour",
+                    "DAY": "Day",
+                    "MONTH": "Month",
+                    "YEAR": "Year",
+                    "WEEK": "Week",
+                    "QUARTER": "Quarter"
+				},
                 "REMOVE": "Remove",
                 "DEL_CALCULATE_VALUE_0": "",
                 "DEL_CALCULATE_VALUE_1": "widgets are showing data using [",
