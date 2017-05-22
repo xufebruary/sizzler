@@ -516,7 +516,7 @@
                     "VAR": "Calculate Variance value",
                     "IGNOREDATA": "Show items without data"
                 },
-                "Granularity": {
+                "GRANULARITY": {
                     "SECONDS": "Seconds",
                     "MINUTE": "Minute",
                     "HOUR": "Hour",
