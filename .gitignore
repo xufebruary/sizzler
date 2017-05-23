@@ -1,0 +1,8 @@
+sizzler-web/dist.zip
+sizzler-web/dist/
+sizzler-web/node_modules/
+./target
+**/target
+**/.classpath
+**/.settings
+**/.project
