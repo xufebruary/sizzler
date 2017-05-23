@@ -17,18 +17,18 @@
     var location = window.location.hostname.toLowerCase();
     //产品的默认配置
     var product = {
-        name: '悠哉数据平台', //品牌名称
-        alias: 'uzai', //品牌名称别名
-        smallLogo: '#icon-logo-uzai-small', //小图标手机上显示
-        logo: '#icon-logo-uzai', //大图标pc上显示
+        name: 'Sizzler', //品牌名称
+        alias: 'sizzler', //品牌名称别名
+        smallLogo: '', //小图标手机上显示
+        logo: '#icon-logo-sizzler', //大图标pc上显示
         logoClass: {  //logo样式
             header: "headerDefalut" //dashboard头部logo
         },
-        email: 'chenxi@uzai.com', //联系邮箱
+        email: '', //联系邮箱
         defaultLocale: 'zh_CN', //默认显示的语言
-        title: '悠哉数据平台', //网站的title
-        favicon: 'favicon_uzai', //title上的图标
-        source: 'uzai',
+        title: 'Sizzler', //网站的title
+        favicon: '', //title上的图标
+        source: 'sizzler',
         datasource: {
             ip: 'IP Address' //数据源需要授权的ip地址
         },
@@ -42,7 +42,7 @@
             heatmapHttpsHelp: null//热图HTTPS帮助中心
         }
     };
-    //根据location设置datadeck配置
+    /*//根据location设置datadeck配置
     if(location.indexOf("datadeck") != -1){
         var datadeck = { //欧美
             name: 'DataDeck',
@@ -126,6 +126,6 @@
             }
         };
         product = ptone;
-    }
+    }*/
     return product;
 });
