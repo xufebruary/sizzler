@@ -1289,6 +1289,17 @@
             "OWNER": "添加者"
         },
         "MYSQL_AMAZONRDS": {
+            "HD_TITLE_MANAGE": "Oracle 连接管理",
+            "HD_INTRODUCE": "Oracle数据库主要用于组织、管理和使用很庞大或复杂的数据信息。<br>关联Oracle数据库后可以直接使用您数据库表的数据。",
+            "CONNECTION_TITLE_ADD_INTRODUCE": "添加Oracle数据库连接",
+            "CONNECTION_TITLE_SUB_ADD_INTRODUCE": "请填写数据库文件所在的数据库连接信息，创建数据库连接成功后，即可选择其中的文件继续进行连接。",
+            "ADD_FILE_TIPS_TITLE": "Oracle数据连接",
+            "CONNECTION_TITLE_EDIT_INTRODUCE": "编辑Oracle数据库连接",
+
+            "CONNECTION_TITLE_SUB_EDIT_INTRODUCE": "您可以在此修改当前数据库连接的配置信息。<br><br>※请注意，修改后的配置如果和原有配置存在权限差异，可能导致{{name}}无法正常访问基于原有配置设置的文件连接。",
+            "CONNECTION_HD_EDIT_TIPS": "编辑数据库连接"
+        },
+        "MYSQL_AMAZONRDS_BAK": {
             "HD_TITLE_MANAGE": "Amazon RDS for MySQL连接管理",
 
             "HD_INTRODUCE": "Amazon RDS 让用户能够在云中轻松设置、操作和扩展 MySQL 部署。<br>借助 Amazon RDS，您可以在几分钟内部署可扩展的 MySQL 部署。<br>关联后，您可以在{{name}}中直接实时使用数据库文件中的数据。",
