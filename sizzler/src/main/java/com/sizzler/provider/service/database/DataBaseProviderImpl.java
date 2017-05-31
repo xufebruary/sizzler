@@ -20,13 +20,21 @@ import com.sizzler.provider.domain.request.DataBaseEditorDataRequest;
 import com.sizzler.provider.domain.request.DataBaseFileMetaRequest;
 import com.sizzler.provider.domain.request.DataBaseMetaFolderRequest;
 
-@Service("dataBaseProbider")
+@Service("dataBaseProvider")
 public class DataBaseProviderImpl implements DataProvider, MetaProvider, EditorDataProvider {
   
   private static final Logger log = LoggerFactory.getLogger(DataBaseProviderImpl.class);
 
   @Autowired
   private DataBaseGatherService dataBaseGatherService;
+  
+  public DataBaseGatherService getDataBaseGatherService() {
+    return dataBaseGatherService;
+  }
+
+  public void setDataBaseGatherService(DataBaseGatherService dataBaseGatherService) {
+    this.dataBaseGatherService = dataBaseGatherService;
+  }
 
   @Override
   public DataResponse getData(DataRequest dataRequest) {

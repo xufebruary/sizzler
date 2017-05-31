@@ -1,0 +1,2 @@
+extensionFactoryAdaptive=com.sizzler.common.extension.factory.AdaptiveExtensionFactory
+spring=com.sizzler.common.extension.spring.SpringExtensionFactory

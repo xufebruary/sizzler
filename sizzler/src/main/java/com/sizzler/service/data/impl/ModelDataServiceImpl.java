@@ -25,6 +25,7 @@ import com.sizzler.common.sizzler.DataBaseConfig;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.PtoneDateUtil;
 import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.store.file.FileStoreStrategy;
 import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.common.utils.JodaDateUtil;
 import com.sizzler.common.utils.StringUtil;
@@ -84,6 +85,9 @@ public class ModelDataServiceImpl implements ModelDataService {
 
   @Autowired
   private PtoneDsService ptoneDsService;
+  
+  @Autowired
+  private FileStoreStrategy fileStoreStrategy;
 
 
   @Override
@@ -216,9 +220,9 @@ public class ModelDataServiceImpl implements ModelDataService {
     // 使用时间轴并且有时间维度
     useDatetimeAxis = (useDatetimeAxis && xAxisDateDimension != null);
 
+    String filePath = "/" + userConnection.getUid() + "/" + dsCode;
     String fileId = sourceDto.getFileId();
-    String hdfsPath =
-        Constants.buildHdfsDataPath(userConnection.getUid(), dsCode, sourceDto.getFileId());
+    String hdfsPath = fileStoreStrategy.buildFilePath(filePath, sourceDto.getFileId());
     MutableSchema schema = dataSourceManagerService.getMutableSchemaByTableId(tableId);
     UserConnectionSourceTableDto tableDto = sourceDto.getTables().get(0);
     String tableName = tableDto.getName();

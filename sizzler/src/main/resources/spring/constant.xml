@@ -11,28 +11,33 @@
 
 
     <bean id="Constants" class="com.sizzler.system.Constants">
-        <property name="hdfsClusterPath" value="${hdfs.cluster.path}" />
         <property name="productDomain" value="${product.domain}" />
-        <property name="ftpServerDomain" value="${ftp.serverDomain}" />
         <property name="collectServerUrl" value="${collect.server.url}" />
+<!--         <property name="ftpServerDomain" value="${ftp.serverDomain}" /> -->
     </bean>
 
-    <!-- <bean id="hdfsConstants" class="com.sizzler.system.HdfsConstants"> -->
-    <!-- <property name="hdfsPath" value="${hdfs.cluster.path}"/> -->
-    <!-- <property name="ha" value="${ha}"/> -->
-    <!-- <property name="defaultFS" value="${fs.defaultFS}"/> -->
-    <!-- <property name="nameservices" value="${dfs.nameservices}"/> -->
-    <!-- <property name="nodeConfigList" value="${nodeConfigList}"/> -->
-    <!-- </bean> -->
-
-
     <!-- ftp client -->
-    <!-- <bean id="ftpClient" class="com.sizzler.common.utils.FtpClient"> -->
-    <!-- <property name="server" value="${ftp.server}"/> -->
-    <!-- <property name="port" value="${ftp.port}"/> -->
-    <!-- <property name="user" value="${ftp.user}"/> -->
-    <!-- <property name="password" value="${ftp.password}"/> -->
-    <!-- </bean> -->
+<!--     <bean id="ftpClient" class="com.sizzler.common.utils.FtpClientUtil"> -->
+<!--         <property name="server" value="${ftp.server}" /> -->
+<!--         <property name="port" value="${ftp.port}" /> -->
+<!--         <property name="user" value="${ftp.user}" /> -->
+<!--         <property name="password" value="${ftp.password}" /> -->
+<!--     </bean> -->
 
+    <!-- file store local strategy -->
+    <bean id="fileStoreStrategy"
+        class="com.sizzler.common.store.file.impl.LocalFileStoreStrategy">
+        <property name="localPath" value="${file.store.local.path}" />
+    </bean>
+
+<!--     file store hdfs strategy -->
+<!--     <bean id="fileStoreStrategy" -->
+<!--         class="com.sizzler.common.store.file.impl.HdfsFileStoreStrategy"> -->
+<!--         <property name="hdfsPath" value="${file.store.hdfs.cluster.path}" /> -->
+<!--         <property name="ha" value="${file.store.hdfs.ha}" /> -->
+<!--         <property name="defaultFS" value="${file.store.hdfs.fs.defaultFS}" /> -->
+<!--         <property name="nameservices" value="${file.store.hdfs.dfs.nameservices}" /> -->
+<!--         <property name="nodeConfigList" value="${file.store.hdfs.nodeConfigList}" /> -->
+<!--     </bean> -->
 
 </beans>

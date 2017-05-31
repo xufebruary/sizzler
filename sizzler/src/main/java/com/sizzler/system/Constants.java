@@ -96,8 +96,6 @@ public class Constants {
 
   public static String providerStatus;
 
-  public static String hdfsClusterPath;
-
   public static String ptoneAdminEmail;
 
   public static String middlePropertiesName;
@@ -404,10 +402,6 @@ public class Constants {
     Constants.providerStatus = providerStatus;
   }
 
-  public void setHdfsClusterPath(String hdfsClusterPath) {
-    Constants.hdfsClusterPath = hdfsClusterPath;
-  }
-
   public static String getCollectServerUrl() {
     return collectServerUrl;
   }
@@ -416,9 +410,6 @@ public class Constants {
     Constants.collectServerUrl = collectServerUrl;
   }
 
-  public static String buildHdfsDataPath(String uid, String dsCode, String fileId) {
-    return Constants.hdfsClusterPath + "/ptone/" + uid + "/" + dsCode + "/" + fileId + "_data.xls";
-  }
 
   public void setPtoneAdminEmail(String ptoneAdminEmail) {
     Constants.ptoneAdminEmail = ptoneAdminEmail;

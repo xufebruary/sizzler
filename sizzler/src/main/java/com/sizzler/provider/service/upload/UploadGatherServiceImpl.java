@@ -1,9 +1,5 @@
 package com.sizzler.provider.service.upload;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -17,18 +13,16 @@ import org.apache.metamodel.data.Row;
 import org.apache.metamodel.schema.MutableSchema;
 import org.apache.metamodel.util.CommonQueryRequest;
 import org.apache.metamodel.util.FileHelper;
-import org.apache.metamodel.util.HdfsResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
-import com.ptmind.cpdetector.CpdetectorUtil;
 import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.log.ElkLogUtil;
 import com.sizzler.common.log.LogMessage;
 import com.sizzler.common.sizzler.DsConstants;
-import com.sizzler.common.sizzler.FileType;
 import com.sizzler.common.sizzler.UserConnection;
 import com.sizzler.common.sizzler.UserConnectionConfig;
 import com.sizzler.common.utils.StringUtil;
@@ -41,10 +35,8 @@ import com.sizzler.provider.common.impl.ExcelEditorDataResponse;
 import com.sizzler.provider.common.impl.ExcelUpdateDataRequest;
 import com.sizzler.provider.common.query.QueryDataBaseUtil;
 import com.sizzler.provider.common.util.BuildStringUtil;
+import com.sizzler.provider.common.util.FileStoreUtil;
 import com.sizzler.provider.common.util.PtoneFileUtil;
-import com.sizzler.provider.common.util.PtoneHdfsUtil;
-import com.sizzler.provider.common.util.SpliterFileUtil;
-import com.sizzler.provider.common.util.excel.ExcelUtil;
 import com.sizzler.provider.domain.request.ExcelDataRequest;
 import com.sizzler.provider.domain.response.UploadFileMetaResponse;
 import com.sizzler.provider.domain.response.UploadUpdateDataResponse;
@@ -58,6 +50,13 @@ public class UploadGatherServiceImpl implements UploadGatherService {
   private static final String UPDATE_DATA = "updateData";
   private static final String GET_EDITOR_DATA = "getEditorData";
   private static final String FILE_ID = "fileId";
+
+  @Autowired
+  private FileStoreUtil fileStoreUtil;
+
+  private static String buildUserDatabase(String uid) {
+    return "sizzler_" + uid;
+  }
 
   @Override
   public UploadFileMetaResponse getMeta(MetaRequest metaRequest) throws ServiceException {
@@ -87,7 +86,7 @@ public class UploadGatherServiceImpl implements UploadGatherService {
     LogMessage logMessage = DataSourceLogMessageUtil.buildLogMessage(dataRequest);
     DefaultDataResponse response = new DefaultDataResponse();
     String uid = dataRequest.getUserConnection().getUid();
-    String dataBaseName = "ptone_" + uid;
+    String dataBaseName = buildUserDatabase(uid);
     String tableName = dataRequest.getTableName();
     CommonQueryRequest commonQueryRequest = dataRequest.getQueryRequest();
     String query = BuildStringUtil.buildQuerySql(commonQueryRequest.getQuery(), tableName,
@@ -263,59 +262,18 @@ public class UploadGatherServiceImpl implements UploadGatherService {
 
   private PtoneFile getFile(UserConnection userConnection, Boolean maxRowLimit) throws Exception {
 
-    PtoneFile ptoneFile = null;
-    InputStream inputStream = null;
-    ByteArrayOutputStream swapStream = null;
-    ByteArrayInputStream byteArrayInputStream = null;
-    try {
+    maxRowLimit = maxRowLimit == null ? true : maxRowLimit;
+    Map<String, Object> config = (Map<String, Object>) JSON.parse(userConnection.getConfig());
 
-      maxRowLimit = maxRowLimit == null ? true : maxRowLimit;
-      Map<String, Object> config = (Map<String, Object>) JSON.parse(userConnection.getConfig());
+    String path = (String) config.get(UserConnectionConfig.UploadConfig.PATH);
+    String type = (String) config.get(UserConnectionConfig.UploadConfig.TYPE);
+    String spliter = (String) config.get(UserConnectionConfig.UploadConfig.SPLITER);
+    String fileId = (String) config.get(UserConnectionConfig.UploadConfig.FILE_ID);
+    String fileName = (String) config.get(UserConnectionConfig.UploadConfig.FILE_NAME);
 
-      String path = (String) config.get(UserConnectionConfig.UploadConfig.PATH);
-      String type = (String) config.get(UserConnectionConfig.UploadConfig.TYPE);
-      String spliter = (String) config.get(UserConnectionConfig.UploadConfig.SPLITER);
-      String fileId = (String) config.get(UserConnectionConfig.UploadConfig.FILE_ID);
-      String fileName = (String) config.get(UserConnectionConfig.UploadConfig.FILE_NAME);
+    PtoneFile ptoneFile = fileStoreUtil.getPtoneFileFormFileStore(path, fileId, fileName, type,
+        spliter, maxRowLimit);
 
-      // HdfsResource hdfsResource = new HdfsResource(path);
-      HdfsResource hdfsResource = PtoneHdfsUtil.createHdfsResource(path);
-      inputStream = hdfsResource.read();
-
-      String hdfsFileName = hdfsResource.getName();
-      FileType fileType = FileType.getFileTypeByName(type);
-      if (StringUtil.isBlank(fileName)) {
-        fileName = hdfsFileName;
-      }
-
-      if (fileType == FileType.EXCEL) {
-        ptoneFile = ExcelUtil.convertExcelToPtoneFile(fileName, inputStream, maxRowLimit);
-      } else if (fileType == FileType.CSV || fileType == FileType.TSV || fileType == FileType.TXT) {
-        // if(fileName.length() > 31){
-        // fileName = fileName.substring(0, 31);
-        // }
-
-        swapStream = new ByteArrayOutputStream();
-        byte[] buff = new byte[1024 * 10]; // buff用于存放循环读取的临时数据
-        int rc = 0;
-        while ((rc = inputStream.read(buff, 0, 100)) > 0) {
-          swapStream.write(buff, 0, rc);
-        }
-        byteArrayInputStream = new ByteArrayInputStream(swapStream.toByteArray());
-
-        // 先监测编码
-        Charset charset = CpdetectorUtil.determineChartSet(byteArrayInputStream);
-
-        ptoneFile = SpliterFileUtil.convertSpliterFileToPtoneFile(fileName, byteArrayInputStream,
-            spliter, maxRowLimit, charset);
-
-      }
-      if (ptoneFile != null && StringUtil.isBlank(ptoneFile.getId())) {
-        ptoneFile.setId(fileId);
-      }
-    } finally {
-      FileHelper.safeClose(byteArrayInputStream, swapStream, inputStream);
-    }
     return ptoneFile;
   }
 
@@ -335,7 +293,7 @@ public class UploadGatherServiceImpl implements UploadGatherService {
       PtoneFile dataPtoneFile = PtoneFileUtil.generateDataFile(ptoneFile, schema,
           ignoreRowStartMap, ignoreRowEndMap);
 
-      String dataBaseName = "ptone_" + request.getUserConnection().getUid();
+      String dataBaseName = buildUserDatabase(request.getUserConnection().getUid());
 
       Connection connection = null;
       try {

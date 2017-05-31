@@ -152,6 +152,7 @@
         class="com.sizzler.common.extension.spring.SpringContextSetter">
     </bean>
     
+    <bean class="com.sizzler.common.utils.SpringContextUtil"/>
     
     <!-- Jvm 监控统计  -->
     <bean id="jvmMonitorSchedule" class="com.sizzler.common.monitor.jvm.JvmMonitorSchedule"
@@ -160,7 +161,6 @@
         <property name="logPath" value="${log.path.home}"/>
     </bean>
     
-    <bean class="com.sizzler.common.utils.SpringContextUtil"/>
     <!-- Druid数据库连接池基本配置 -->
     <bean id="druidDataSourceConfig" class="com.sizzler.provider.common.query.connection.pool.DruidDataSourceConfig">
         <property name="initialSize" value="${jdbc.initialSize}"/>
