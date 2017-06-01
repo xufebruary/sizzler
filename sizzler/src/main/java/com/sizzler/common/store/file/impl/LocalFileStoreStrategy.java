@@ -33,33 +33,6 @@ public class LocalFileStoreStrategy implements FileStoreStrategy {
   public void uploadFile(InputStream inputStream, String path) throws Exception {
     OutputStream out = this.getWriteFileOutputStream(path);
     IOUtils.copyBytes(inputStream, out, 4096, true);
-
-    // File destFile = new File(path);
-    // BufferedOutputStream out = null;
-    // try {
-    // out = new BufferedOutputStream(new FileOutputStream(destFile));
-    // byte[] b = new byte[1024];
-    // while (inputStream.read(b) != -1) {
-    // out.write(b);
-    // }
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // } finally {
-    // if (inputStream != null) {
-    // try {
-    // inputStream.close();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // if (out != null) {
-    // try {
-    // out.close();
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
-    // }
   }
 
   @Override

@@ -158,7 +158,7 @@
     <bean id="jvmMonitorSchedule" class="com.sizzler.common.monitor.jvm.JvmMonitorSchedule"
         init-method="start">
         <property name="applicateName" value="${module.name}"/>
-        <property name="logPath" value="${log.path.home}/jvm"/>
+        <property name="logPath" value="${log.path.home}/${module.name}/jvm"/>
     </bean>
     
     <!-- Druid数据库连接池基本配置 -->

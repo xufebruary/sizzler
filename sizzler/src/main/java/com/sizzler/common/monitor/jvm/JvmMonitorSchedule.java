@@ -1,5 +1,6 @@
 package com.sizzler.common.monitor.jvm;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -62,6 +63,14 @@ public class JvmMonitorSchedule extends TimerTask {
               Thread.sleep(200);
             }
             try {
+              File file = new File(fileName);
+              if (!file.exists()) {
+                // 如果目标文件所在的目录不存在，则创建父目录
+                if (!file.getParentFile().exists()) {
+                  file.getParentFile().mkdirs();
+                }
+              }
+              
               writer = new FileWriter(fileName, true);
               currentLogFileName = fileName;
             } catch (Exception e) {

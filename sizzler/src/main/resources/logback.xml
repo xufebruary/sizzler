@@ -101,7 +101,7 @@
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy
             class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log.path.home}/elk/${module.name}/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${log.path.home}/${module.name}/elk/%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -118,7 +118,7 @@
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy
             class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${log.path.home}/collect/${module.name}/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${log.path.home}/${module.name}/collect/%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
