@@ -197,6 +197,9 @@ public class Constants {
       + "/users/active";
   public static final String API_VALIDATE_RESET_PASSWORD = "GET|/api/" + API_VERSION_PERFIX
       + API_VERSION_1 + "/users/password/reset/validate";
+  
+  public static final String API_COLLECT_JSON = "POST|/api/" + API_VERSION_PERFIX
+      + API_VERSION_1 + "/collect";
 
   public static final String UI_OPERATE_SAVE = "save";
   public static final String UI_OPERATE_EDIT_SAVE = "edit_save";

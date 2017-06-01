@@ -112,6 +112,23 @@
         additivity="false">
         <appender-ref ref="ELK_FILE" />
     </logger>
+    
+    <!--增加用于打印采集日志的appender -->
+    <appender name="COLLECT_FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.path.home}/collect/${module.name}/%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg%n</pattern>
+        </layout>
+    </appender>
+    <logger name="com.sizzler.common.log.CollectLogUtil" level="INFO"
+        additivity="false">
+        <appender-ref ref="COLLECT_FILE" />
+    </logger>
 
     <root level="${logger.level}">
         <appender-ref ref="ALL" level="${logger.level}" />

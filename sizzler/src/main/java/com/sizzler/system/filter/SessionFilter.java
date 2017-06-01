@@ -56,7 +56,7 @@ public class SessionFilter implements Filter {
 
   // 不进行拦截的URL
   private String[] newApiSkipMethodAndPaths = {Constants.API_PANELS_SHARE_VERIFICATION,Constants.API_SEND_PASSWORD_EMAIL,Constants.API_VALIDATE_FORGOT_PASSWORD,
-  Constants.API_REPEAT_SEND_ACTIVE_USER_EMAIL,Constants.API_ACTIVE_NEW_USER,Constants.API_VALIDATE_RESET_PASSWORD};
+  Constants.API_REPEAT_SEND_ACTIVE_USER_EMAIL,Constants.API_ACTIVE_NEW_USER,Constants.API_VALIDATE_RESET_PASSWORD, Constants.API_COLLECT_JSON};
 
   // share页面通过accessToken校验的URL
   private String[] sharePaths = {Constants.SHARE_USER_INFO, Constants.SHARE_GET_PANEL,
