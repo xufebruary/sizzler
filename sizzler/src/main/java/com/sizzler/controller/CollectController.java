@@ -1,12 +1,13 @@
 package com.sizzler.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
@@ -15,6 +16,8 @@ import com.sizzler.common.MediaType;
 import com.sizzler.common.log.CollectLogUtil;
 import com.sizzler.system.Constants;
 import com.sizzler.system.api.annotation.ApiVersion;
+import com.sizzler.system.api.common.ResponseResult;
+import com.sizzler.system.api.common.RestResultGenerator;
 
 @RestController("collectController")
 @RequestMapping("{version}/collect")
@@ -23,12 +26,17 @@ import com.sizzler.system.api.annotation.ApiVersion;
 public class CollectController extends BaseController {
 
   @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void collectLog(@RequestBody JSONObject jsonObj,
+  public ResponseResult<Map<String, Object>> collectLog(@RequestBody JSONObject jsonObj,
       @RequestParam(value = "type", required = false) String type) {
 
     // 打印采集到的日志到日志文件
     CollectLogUtil.info(JSON.toJSONString(jsonObj));
+
+    Map<String, Object> response = new HashMap<String, Object>();
+    response.put("_RejCode", "000000");
+    response.put("ReturnMsg", jsonObj);
+
+    return RestResultGenerator.genResult(response);
   }
 
 }
