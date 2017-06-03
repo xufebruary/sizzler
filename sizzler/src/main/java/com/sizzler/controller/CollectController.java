@@ -24,15 +24,15 @@ import com.sizzler.system.api.annotation.ApiVersion;
 public class CollectController extends BaseController {
 
   @RequestMapping(value = "", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON)
-  public Map<String, Object> collectLog(@RequestBody JSONObject jsonObj,
+  public Map<String, Object> collectLog(@RequestBody Object object,
       @RequestParam(value = "type", required = false) String type) {
 
     // 打印采集到的日志到日志文件
-    CollectLogUtil.info(JSON.toJSONString(jsonObj));
+    CollectLogUtil.info(JSON.toJSONString(object));
 
     Map<String, Object> response = new HashMap<String, Object>();
     response.put("_RejCode", "000000");
-    response.put("ReturnMsg", jsonObj);
+    response.put("ReturnMsg", "success");
 
     return response;
   }
