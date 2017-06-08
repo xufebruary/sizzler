@@ -31,7 +31,7 @@
         "RETURN_TO_SIGNIN": "Return to Login Page",
         "NO_ACCOUNT": "",
         "LOGIN_WITH_GOOGLE": "Log in with your Google account",
-        "LOGIN_WITH_PTENGINE": "Log in with your Ptengine account",
+        "LOGIN_WITH_PTENGINE": "Log in with your Sizzler account",
         "FORGOT_PASSWORD": "Forgot your password?",
         "SIGNUP": "Create a new account",
         "SIGNUP_PTENGINE": "Create a new account",
@@ -53,22 +53,22 @@
             "PRE_REGISTRATION": "This account has not been activated"
         },
         "PTENGINE": {
-            "LOGIN_TIPS": "Log in with your Ptengine account.",
-            "AUTHORIZE_1": "Ptmind would like to: ",
-            "AUTHORIZE_2": "know who you are on Ptengine; ",
+            "LOGIN_TIPS": "Log in with your Sizzler account.",
+            "AUTHORIZE_1": "Sizzler would like to: ",
+            "AUTHORIZE_2": "know who you are on Sizzler; ",
             "AUTHORIZE_3": "view your email address; ",
-            "AUTHORIZE_4": "view your Ptengine data",
-            "AUTHORIZE_5": "By clicking Allow, you allow this app and Ptengine to use your information in accordance with their respective terms of service and privacy policies. ",
+            "AUTHORIZE_4": "view your Sizzler data",
+            "AUTHORIZE_5": "By clicking Allow, you allow this app and Sizzler to use your information in accordance with their respective terms of service and privacy policies. ",
             "AUTHORIZE_6": "Cancel",
             "AUTHORIZE_7": "Allow"
         },
         "PTAPP": {
-            "LOGIN_TIPS": "Log in with your Ptengine account.",
-            "AUTHORIZE_1": "Ptmind would like to: ",
-            "AUTHORIZE_2": "know who you are on Ptengine for App; ",
+            "LOGIN_TIPS": "Log in with your Sizzler account.",
+            "AUTHORIZE_1": "Sizzler would like to: ",
+            "AUTHORIZE_2": "know who you are on Sizzler for App; ",
             "AUTHORIZE_3": "view your email address; ",
-            "AUTHORIZE_4": "view your Ptengine for App data",
-            "AUTHORIZE_5": "By clicking Allow, you allow this app and Ptengine for App to use your information in accordance with their respective terms of service and privacy policies. ",
+            "AUTHORIZE_4": "view your Sizzler for App data",
+            "AUTHORIZE_5": "By clicking Allow, you allow this app and Sizzler for App to use your information in accordance with their respective terms of service and privacy policies. ",
             "AUTHORIZE_6": "Cancel",
             "AUTHORIZE_7": "Allow"
         },
@@ -116,7 +116,7 @@
         "SPACE_DOMAIN_TIPS": "Address can only have lowercase letters, numbers and dashes, and cannot start and end with dash.",
         "SPACE_NAME": "Space title",
         "USER_EMAIL": "Email",
-        "UPDATA_FAILED": "Operation failed. If you're trying to create an account, please click the activation button in your email again. If you have already activated your account, please log in directly at <a href=\"/\">dash.datadeck.com</a>."
+        "UPDATA_FAILED": "Operation failed. If you're trying to create an account, please click the activation button in your email again. If you have already activated your account, please log in directly at "
     },
     "ACCOUNT_SETTING": {
         "CHANGE_PASSWORD_TIP": "Your password has been reset. Please login again with your new password."
@@ -395,7 +395,7 @@
         "ADD_WIDGET": "Add a widget",
         "ADD_WIDGET_OF_CHART": "Chart",
         "ADD_WIDGET_OF_TOOL": "Rich text",
-        "ADD_WIDGET_OF_HEATMAP": "Ptengine Heatmap",
+        "ADD_WIDGET_OF_HEATMAP": "Sizzler Heatmap",
         "ADD_WIDGET_OF_CUSTOM": "Custom widget",
         "ADD_WIDGET_OF_GALLERY": "Choose from gallery",
         "WIDGET_DEFAULT_NAME": "Unnamed widget",
@@ -471,13 +471,13 @@
                 "ACCOUNT_CLIENT": "Account",
                 "AD_ACCOUNT": "Campaign account",
                 "PAGES": "Page",
-                "NO_DS_PERMISSION.PTONE_COMCN_DOMAIN": "This Data source is not available for you. Please contact us at <a class=\"text-green-50 text-u-l\" href=\"mailto:ptone@ptmind.co.jp\">ptone@ptmind.co.jp</a>!",
-                "NO_DS_PERMISSION.PTONE_CN_DOMAIN": "This Data source is not available for you. Please contact us at <a class=\"text-green-50 text-u-l\" href=\"mailto:ptone@ptmind.co.jp\">ptone@ptmind.co.jp</a>!",
-                "NO_DS_PERMISSION.PTONE_JP_DOMAIN": "This Data source is not available for you. Please contact us at <a class=\"text-green-50 text-u-l\" href=\"mailto:ptone@ptmind.co.jp\">ptone@ptmind.co.jp</a>!",
-                "NO_DS_PERMISSION.DATADECK_JP_DOMAIN": "This Data source is not available for you. Please contact us at <a class=\"text-green-50 text-u-l\" href=\"mailto:support@datadeck.jp\">support@datadeck.jp</a>!",
-                "NO_DS_PERMISSION.DATADECK_COM_DOMAIN": "This Data source is not available for you. Please contact us at <a class=\"text-green-50 text-u-l\" href=\"mailto:support@datadeck.com\">support@datadeck.com</a>!",
+                "NO_DS_PERMISSION.PTONE_COMCN_DOMAIN": "This Data source is not available for you. Please contact us at !",
+                "NO_DS_PERMISSION.PTONE_CN_DOMAIN": "This Data source is not available for you. Please contact us at !",
+                "NO_DS_PERMISSION.PTONE_JP_DOMAIN": "This Data source is not available for you. Please contact us at !",
+                "NO_DS_PERMISSION.DATADECK_JP_DOMAIN": "This Data source is not available for you. Please contact us at !",
+                "NO_DS_PERMISSION.DATADECK_COM_DOMAIN": "This Data source is not available for you. Please contact us at !",
                 "OBJECT_REPORT": "Object / Report",
-                "NO_DS_PERMISSION": "This Data source is not available for you. Please contact us at <a class=\"text-green-50 text-u-l\" href=\"mailto:{{email}}\">{{email}}</a>!",
+                "NO_DS_PERMISSION": "This Data source is not available for you. Please contact us at !",
                 "PROFILE_TAB1": "Object",
                 "PROFILE_TAB2": "Report",
                 "REPORTTYPE": "Report Type"
@@ -525,7 +525,7 @@
                     "YEAR": "Year",
                     "WEEK": "Week",
                     "QUARTER": "Quarter"
-				},
+                },
                 "REMOVE": "Remove",
                 "DEL_CALCULATE_VALUE_0": "",
                 "DEL_CALCULATE_VALUE_1": "widgets are showing data using [",
@@ -653,13 +653,13 @@
             },
             "HEATMAP": {
                 "HEATMAP_URL": "Setting",
-                "TITLE": "Link of Ptengine heatmap in share page",
-                "HELP_TIPS": "Clicking the 'share' button on the Heatmap feature in Ptengine and then using the URL of the share page. <a href=\"{{moreUrl}}\" target=\"_blank\">Learn more</a>",
+                "TITLE": "Link of Sizzler heatmap in share page",
+                "HELP_TIPS": "Clicking the 'share' button on the Heatmap feature in Sizzler and then using the URL of the share page. <a href=\"{{moreUrl}}\" target=\"_blank\">Learn more</a>",
                 "PLACEHOLDER": "Please copy the link of your Ptenigne heatmap in share page, and then paste it here.",
                 "PAGE_TITLE": "Title:",
                 "PAGE_TIME": "Date:",
                 "PAGE_FILTER": "Filter:",
-                "ERROR_URL": "The link you entered is invalid, please make sure you entered the link of Ptengine heatmap in share page. <a href=\"{{moreUrl}}\" target=\"_blank\">Learn more</a>",
+                "ERROR_URL": "The link you entered is invalid, please make sure you entered the link of Sizzler heatmap in share page. <a href=\"{{moreUrl}}\" target=\"_blank\">Learn more</a>",
                 "ERROR_PHONE_URL": "The link you entered is invalid, please check and try again.",
                 "ERROR_HTTP_TIPS1": "Your browser prevents this content from being displayed.<br>You can work around by:",
                 "ERROR_HTTP_TIPS2": "Using Chrome or Firefox broswer and clicking the shield icon <span class=\"heatmap-error-http chrome\"></span> or lock icon <span class=\"heatmap-error-http firefox\"></span> at the address bar to disable protection for now to load scripts. <a href=\"{{moreHttps}}\" target=\"_blank\">Learn more</a>",
@@ -729,7 +729,7 @@
         }
     },
     "FOOTER": {
-        "POWER_BY": "Powered by Ptmind",
+        "POWER_BY": "Powered by Sizzler",
         "POLICY": {
             "SERVICE": "Terms of use",
             "PRIVACY": "Privacy policy",
@@ -1341,7 +1341,7 @@
                 "TITLE": "Create your space",
                 "SPACE_DOMAIN": "Custom address :",
                 "SPACE_NAME": "Space title :",
-                "PLACEHOLDER_DOMAIN": "e.g. {{alias}}, ptmind, development_team",
+                "PLACEHOLDER_DOMAIN": "e.g. Sizzler, development_team",
                 "PLACEHOLDER_NAME": "Space name cannot be longer than 30 characters",
                 "ERROR_DOMAIN_EMPTY": "Custom address cannot be blank.",
                 "ERROR_DOMAIN_ALREADY": "This custom address already exists.",
