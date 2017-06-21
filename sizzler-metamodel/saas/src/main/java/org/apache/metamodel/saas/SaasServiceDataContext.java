@@ -1,7 +1,7 @@
 package org.apache.metamodel.saas;
 
-import com.ptmind.ptone.metamodel.pojo.PojoDataSet;
-import com.ptmind.ptone.metamodel.pojo.TableDataProvider;
+import com.sizzler.metamodel.pojo.PojoDataSet;
+import com.sizzler.metamodel.pojo.TableDataProvider;
 
 import org.apache.metamodel.MetaModelException;
 import org.apache.metamodel.QueryPostprocessDataContext;
