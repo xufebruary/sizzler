@@ -6,7 +6,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.apache.hadoop.io.IOUtils;
+//import org.apache.hadoop.io.IOUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.sizzler.common.store.file.FileStoreStrategy;
 
@@ -32,7 +33,8 @@ public class LocalFileStoreStrategy implements FileStoreStrategy {
   @Override
   public void uploadFile(InputStream inputStream, String path) throws Exception {
     OutputStream out = this.getWriteFileOutputStream(path);
-    IOUtils.copyBytes(inputStream, out, 4096, true);
+    //IOUtils.copyBytes(inputStream, out, 4096, true);
+    IOUtils.copy(inputStream,out);
   }
 
   @Override
