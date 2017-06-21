@@ -13,11 +13,11 @@
     <artifactId>metamodel-full</artifactId>
 
     <dependencies>
-        <dependency>
+        <!--<dependency>
             <groupId>com.sizzler</groupId>
             <artifactId>metamodel-hadoop</artifactId>
             <version>${project.version}</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.sizzler</groupId>
             <artifactId>metamodel-csv</artifactId>
