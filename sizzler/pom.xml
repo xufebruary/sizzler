@@ -419,6 +419,7 @@
             <artifactId>metamodel-core</artifactId>
             <version>${sizzler-metamodel.version}</version>
         </dependency>
+        <!--
         <dependency>
             <groupId>com.sizzler</groupId>
             <artifactId>metamodel-hadoop</artifactId>
@@ -434,7 +435,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        
+        -->
         <!-- metamodel dependencies -->
         <!-- <dependency> -->
         <!-- <groupId>com.sizzler</groupId> -->
