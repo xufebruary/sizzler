@@ -9,17 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.ptmind.ptone</groupId>
+    <groupId>com.sizzler</groupId>
     <artifactId>metamodel-saas</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-core</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.ptmind.ptone</groupId>
+            <groupId>com.sizzler</groupId>
             <artifactId>metamodel-pojo</artifactId>
         </dependency>
     </dependencies>
