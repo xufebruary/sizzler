@@ -462,6 +462,16 @@
             </activation>
         </profile>
         <profile>
+            <id>test</id>
+            <properties>
+                <deploy.env>test</deploy.env>
+                <deploy.name>sizzler</deploy.name>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
             <id>product</id>
             <properties>
                 <deploy.env>product</deploy.env>
