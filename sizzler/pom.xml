@@ -479,6 +479,13 @@
                 <deploy.name>ROOT</deploy.name>
             </properties>
         </profile>
+        <profile>
+            <id>yn-product</id>
+            <properties>
+                <deploy.env>yn-product</deploy.env>
+                <deploy.name>ROOT</deploy.name>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
