@@ -71,7 +71,8 @@ function panelSltSrv($rootScope, $location, $stateParams, $state, dataMutualSrv,
         setLocalStorage();
 
         //socket初始化，链接成功后请求widget列表
-        initWidgetDataSocket(getWidgetList);
+        //initWidgetDataSocket(getWidgetList);
+        getWidgetList();
     }
 
 
