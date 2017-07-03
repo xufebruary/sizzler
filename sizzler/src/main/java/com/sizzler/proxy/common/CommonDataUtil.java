@@ -436,7 +436,11 @@ public class CommonDataUtil {
    * @date: 2016年7月26日
    * @author peng.xu
    */
-  public static String fixColumnByDataType(String colName, String dataType, String dsCode) {
+  public static String fixColumnByDataType(String colName, String dataType, String dsCode,boolean isNeedFix) {
+    if(!isNeedFix)
+    {
+      return  colName;
+    }
     String fixColName = colName;
     if (PtoneMetricsDimension.DATA_TYPE_PERCENT.equals(dataType)) {
       String[] strList = { " ", "%" };
@@ -481,7 +485,8 @@ public class CommonDataUtil {
         column = "((" + column + ")/100)";
         fixColumn = DataBaseConfig.buildCalculateColumn(dsCode, column, calculateType, false);
       } else {
-        fixColumn = DataBaseConfig.buildCalculateColumn(dsCode, column, calculateType, true);
+        //直接将isNeedConvertData 设置为false
+        fixColumn = DataBaseConfig.buildCalculateColumn(dsCode, column, calculateType, false);
       }
     }
     return fixColumn;
@@ -511,7 +516,7 @@ public class CommonDataUtil {
         String srcColName = DataBaseConfig.encloseColumn(dsCode, metrics.getCode());
 
         if (fixData) {
-          srcColName = CommonDataUtil.fixColumnByDataType(srcColName, dataType, dsCode);
+          srcColName = CommonDataUtil.fixColumnByDataType(srcColName, dataType, dsCode,false);
           srcColName = DataBaseConfig.toNumber(dsCode, srcColName);
         }
 
@@ -544,7 +549,7 @@ public class CommonDataUtil {
       fixColName = this.fixCompoundMetricsColumn(compoundMetrics, fixData);
     } else {
       fixColName = CommonDataUtil.fixColumnByDataType(colName, metrics.getDataType(),
-          ptoneWidgetParam.getDsCode());
+          ptoneWidgetParam.getDsCode(),false);
     }
     return fixColName;
   }

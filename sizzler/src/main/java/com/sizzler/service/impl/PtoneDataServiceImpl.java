@@ -1,13 +1,5 @@
 package com.sizzler.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sizzler.cache.DataCacheService;
@@ -32,12 +24,15 @@ import com.sizzler.domain.user.PtoneUser;
 import com.sizzler.domain.widget.dto.AcceptWidget;
 import com.sizzler.proxy.common.CommonDataUtil;
 import com.sizzler.proxy.dispatcher.PtoneWidgetData;
-import com.sizzler.service.DataSourceManagerService;
-import com.sizzler.service.PtoneDataService;
-import com.sizzler.service.PtoneUserConnectionService;
-import com.sizzler.service.UserService;
-import com.sizzler.service.WidgetDataService;
+import com.sizzler.service.*;
 import com.sizzler.system.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service("ptoneDataService")
 public class PtoneDataServiceImpl implements PtoneDataService {
@@ -155,11 +150,13 @@ public class PtoneDataServiceImpl implements PtoneDataService {
     }
 
 
-    this.pushWidgetDataToSocket(jsonView, widgetId, webParamMap, widget);
+    //this.pushWidgetDataToSocket(jsonView, widgetId, webParamMap, widget);
+
+    jsonView.setDataVersion(webParamMap.get(JsonViewConstants.PARAM_DATA_VERSION));
 
     long end = System.currentTimeMillis();
-    logger.info(LOG_PREFIX + "PtoneDataServiceImpl::get WidgetData<" + widgetId
-        + "> to Websocket -->" + (end - start));
+    logger.warn(LOG_PREFIX + "PtoneDataServiceImpl::get WidgetData<" + widgetId
+        + "> cost -->" + (end - start)+" ms");
 
     this.printWidgetDataElkLog(widget, webParamMap, start, end, queryStatus, queryMsg, isCacheData);
 

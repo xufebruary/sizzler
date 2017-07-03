@@ -336,6 +336,12 @@ public class DataBaseConfig {
   }
 
   public static String toNumber(String dbCode, String column) {
+
+    //andy 2017-07-03 mysql直接返回
+    if(DB_CODE_MYSQL.equalsIgnoreCase(dbCode))
+    {
+      return column;
+    }
     String result = "";
 
     String fixColumn = fixNumber(dbCode, column);

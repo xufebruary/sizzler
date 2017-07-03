@@ -1,26 +1,5 @@
 package com.sizzler.provider.service.database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-
-import org.apache.metamodel.MetaModelHelper;
-import org.apache.metamodel.data.CachingDataSetHeader;
-import org.apache.metamodel.data.DataSet;
-import org.apache.metamodel.data.DataSetHeader;
-import org.apache.metamodel.data.InMemoryDataSet;
-import org.apache.metamodel.data.Row;
-import org.apache.metamodel.schema.Column;
-import org.apache.metamodel.schema.MutableSchema;
-import org.apache.metamodel.schema.MutableTable;
-import org.apache.metamodel.util.FileHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
 import com.sizzler.common.exception.DataSourceExceptionUtil;
 import com.sizzler.common.exception.DataSourceOperateException;
 import com.sizzler.common.exception.ErrorCode;
@@ -31,7 +10,6 @@ import com.sizzler.common.sizzler.DataBaseConfig;
 import com.sizzler.common.sizzler.DataBaseConnection;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.UserConnection;
-import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.MetaRequest;
 import com.sizzler.provider.common.db.DataBaseType;
 import com.sizzler.provider.common.exception.DataSourceLogMessageUtil;
@@ -53,6 +31,22 @@ import com.sizzler.provider.domain.response.DataBaseEditorDataResponse;
 import com.sizzler.provider.domain.response.DataBaseFileMetaResponse;
 import com.sizzler.provider.domain.response.DataBaseMetaFolderResponse;
 import com.sizzler.provider.domain.response.DataBaseMetaResponse;
+import org.apache.metamodel.MetaModelHelper;
+import org.apache.metamodel.data.*;
+import org.apache.metamodel.schema.Column;
+import org.apache.metamodel.schema.MutableSchema;
+import org.apache.metamodel.schema.MutableTable;
+import org.apache.metamodel.util.FileHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 @Service("dataBaseGatherService")
 public class DataBaseDataGatherServiceImpl implements DataBaseGatherService {
@@ -482,6 +476,7 @@ public class DataBaseDataGatherServiceImpl implements DataBaseGatherService {
       response.setObjetRowList(QueryDataBaseUtil.buildResultRowList(resultSet));
 
       List<Object> totalRowList = new ArrayList<Object>();
+      /*
       if (dataRequest.getQueryRequest().getMetrics() != null
           && !dataRequest.getQueryRequest().getMetrics().equals("")) {
         String totalQuery = dataRequest.getQueryRequest().getTotalQuery();
@@ -499,6 +494,7 @@ public class DataBaseDataGatherServiceImpl implements DataBaseGatherService {
           totalRowList = totalResultRowList.get(0);
         }
       }
+      */
       response.setTotalRowList(totalRowList);
 
     } catch (ServiceException se) {

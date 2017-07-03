@@ -1,29 +1,12 @@
 package com.sizzler.proxy.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.metamodel.util.CommonQueryRequest;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sizzler.cache.CurrentUserCache;
 import com.sizzler.cache.DataCacheService;
 import com.sizzler.common.exception.ErrorCode;
 import com.sizzler.common.exception.ServiceException;
-import com.sizzler.common.sizzler.DataBaseConfig;
-import com.sizzler.common.sizzler.DataBaseConnection;
-import com.sizzler.common.sizzler.DsConstants;
-import com.sizzler.common.sizzler.PtoneDateUtil;
-import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.sizzler.*;
 import com.sizzler.common.utils.CollectionUtil;
 import com.sizzler.common.utils.JodaDateUtil;
 import com.sizzler.common.utils.StringUtil;
@@ -52,6 +35,14 @@ import com.sizzler.service.ds.PtoneDsService;
 import com.sizzler.service.ds.UserConnectionSourceTableColumnService;
 import com.sizzler.system.Constants;
 import com.sizzler.system.ServiceFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.metamodel.util.CommonQueryRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.*;
 
 @Component("modelDataUtil")
 public class ModelDataUtil {
@@ -807,8 +798,15 @@ public class ModelDataUtil {
     sqlObj.setOrder(orderBuilder.toString());
     sqlObj.setLimit(limitBuilder.toString());
     sqlObj.setSql(sqlBuilder.toString());
-    sqlObj.setTotalSql(totalSqlBuilder.toString());
+    if(totalSqlBuilder.toString().contains("select"))
+    {
+      sqlObj.setTotalSql(totalSqlBuilder.toString());
+    }else {
+      sqlObj.setTotalSql("");
+    }
 
+    log.warn("sql:"+sqlObj.getSql());
+    //log.warn("toal_sql:"+sqlObj.getTotalSql());
     return sqlObj;
   }
 
@@ -1197,11 +1195,11 @@ public class ModelDataUtil {
               || PtoneMetricsDimension.DATA_TYPE_DURATION.equals(dataType)) {
 
             // 修正字段
-            String fixColName = CommonDataUtil.fixColumnByDataType(column, dataType, dsCode);
+            String fixColName = CommonDataUtil.fixColumnByDataType(column, dataType, dsCode,false);
 
             // 通过加法运算将字符串转为数字 TODO: 库中有字符串的数值类型有问题
             itemSB.append(DataBaseConfig.toNumber(dsCode, fixColName)).append(op)
-                .append(DataBaseConfig.toNumber(dsCode, "'" + value + "'")).append(rel);
+                .append(DataBaseConfig.toNumber(dsCode, "" + value + " ")).append(rel);
           } else {
             itemSB.append(" ").append(column).append(op).append(" '").append(value).append("' ")
                 .append(rel);
