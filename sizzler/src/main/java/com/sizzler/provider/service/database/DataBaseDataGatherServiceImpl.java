@@ -10,6 +10,7 @@ import com.sizzler.common.sizzler.DataBaseConfig;
 import com.sizzler.common.sizzler.DataBaseConnection;
 import com.sizzler.common.sizzler.DsConstants;
 import com.sizzler.common.sizzler.UserConnection;
+import com.sizzler.common.utils.StringUtil;
 import com.sizzler.provider.common.MetaRequest;
 import com.sizzler.provider.common.db.DataBaseType;
 import com.sizzler.provider.common.exception.DataSourceLogMessageUtil;
@@ -476,7 +477,7 @@ public class DataBaseDataGatherServiceImpl implements DataBaseGatherService {
       response.setObjetRowList(QueryDataBaseUtil.buildResultRowList(resultSet));
 
       List<Object> totalRowList = new ArrayList<Object>();
-      /*
+
       if (dataRequest.getQueryRequest().getMetrics() != null
           && !dataRequest.getQueryRequest().getMetrics().equals("")) {
         String totalQuery = dataRequest.getQueryRequest().getTotalQuery();
@@ -494,7 +495,7 @@ public class DataBaseDataGatherServiceImpl implements DataBaseGatherService {
           totalRowList = totalResultRowList.get(0);
         }
       }
-      */
+
       response.setTotalRowList(totalRowList);
 
     } catch (ServiceException se) {
