@@ -153,7 +153,7 @@ WidgetServices.prototype = {
                 "graphName": graphName,
                 "mapCode": mapCode,
                 "showTimePeriod": '0',
-                "showMetricAmount": '1' //指标总量的显示（大标题下面的数值）
+                "showMetricAmount": '0' //指标总量的显示（大标题下面的数值）
             },
             "variables": [{
                 "variableId": variableId,

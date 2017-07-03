@@ -470,7 +470,7 @@ function editorChart($translate, $rootScope, dataMutualSrv, siteEventAnalyticsSr
 		scope.displaySet = function (type) {
 			if (type == 'auto') {
 				scope.modal.editorNow.baseWidget.showTimePeriod = '0';
-				scope.modal.editorNow.baseWidget.showMetricAmount = '1';
+				scope.modal.editorNow.baseWidget.showMetricAmount = '0';
 				scope.modal.editorNow.chartSetting.showLegend = '',
 					scope.modal.editorNow.chartSetting.showDataLabels = '',
 					scope.modal.editorNow.chartSetting.xAxis = [{
@@ -826,7 +826,7 @@ function editorChart($translate, $rootScope, dataMutualSrv, siteEventAnalyticsSr
 					"graphName": type == 'tool' ? 'text' : type,
                     "mapCode": ProductConfig.defaultMapCode,
 					"showTimePeriod": '0',
-					"showMetricAmount": '1'
+					"showMetricAmount": '0'
 				},
 				"variables": [
 					{
