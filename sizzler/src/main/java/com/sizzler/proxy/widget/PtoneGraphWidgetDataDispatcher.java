@@ -37,7 +37,7 @@ public class PtoneGraphWidgetDataDispatcher {
   
   public static final int LINE_TOP_N = 1000;
   
-  public static final int LEGEND_MAX_COUNT = 10;
+  public static final int LEGEND_MAX_COUNT = 50; //将第二个维度的最大值修改为50
   
   /**
    * 图例的排序顺序： 优先按照指标排序，然后按照下面的设置规则排序，如果不设置默认按照valueDesc排序，设置为其他值则不排序
