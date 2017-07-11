@@ -124,7 +124,8 @@ angular
 					var _sourceData = datasourceFactory.getDatasource(_widgetId);
 					var _graphName = _baseWidget.graphName;
 					//如果是table类型的，就直接使用_sourceData.chartData的数据，如果不是table类型的，就走接口获取table的数据
-					if (_graphName == "table") {
+					//if (_graphName == "table") {
+					if (_graphName == "other_graph_name") {
 						//执行下载
 						createCSV(_sourceData.chartData, _widgetTitle, _panleTitle);
 						$scope.modal.download.isBegin = false;
@@ -157,7 +158,7 @@ angular
 
 						// 修正widgetInfo,指标、维度国际化
 						angular.forEach(widgetInfo.variables, function (variable) {
-							
+
 							//修正指标显示名称(别名)
 		                    angular.forEach(variable.metrics, function(m){
 		                        if(m.alias) {

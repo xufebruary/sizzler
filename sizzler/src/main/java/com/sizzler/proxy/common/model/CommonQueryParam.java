@@ -1,14 +1,14 @@
 package com.sizzler.proxy.common.model;
 
+import com.sizzler.cache.CurrentUserCache;
+import com.sizzler.common.utils.StringUtil;
+import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.sizzler.cache.CurrentUserCache;
-import com.sizzler.common.utils.StringUtil;
-import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
 
 public class CommonQueryParam implements Serializable {
 
@@ -40,6 +40,7 @@ public class CommonQueryParam implements Serializable {
       new LinkedHashMap<String, PtoneMetricsDimension>();
   private boolean useDatetimeAxis; // create by you.zou 用于在API的日期处理时，判断返回的数据类型是yyyy-MM-dd hh:mm:ss
                                    // 或者 yyyy-MM-dd-hh-mm-ss
+  private boolean isDownload;
 
   // /////////////////////////////////////////////////////////
 
@@ -339,5 +340,12 @@ public class CommonQueryParam implements Serializable {
   public void setProfileId(String profileId) {
     this.profileId = profileId;
   }
-  
+
+  public boolean isDownload() {
+    return isDownload;
+  }
+
+  public void setDownload(boolean download) {
+    isDownload = download;
+  }
 }

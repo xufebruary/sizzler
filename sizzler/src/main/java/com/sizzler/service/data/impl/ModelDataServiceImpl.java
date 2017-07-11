@@ -7,16 +7,6 @@
 
 package com.sizzler.service.data.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.metamodel.schema.MutableSchema;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.sizzler.cache.CurrentUserCache;
 import com.sizzler.cache.PtoneBasicChartInfoCache;
 import com.sizzler.common.exception.ErrorCode;
@@ -39,11 +29,7 @@ import com.sizzler.domain.widget.GaWidgetInfo;
 import com.sizzler.domain.widget.PtoneWidgetInfo;
 import com.sizzler.proxy.common.CommonDataUtil;
 import com.sizzler.proxy.common.model.ModelData;
-import com.sizzler.proxy.dispatcher.ChartDataType;
-import com.sizzler.proxy.dispatcher.GraphType;
-import com.sizzler.proxy.dispatcher.PtoneDispatcher;
-import com.sizzler.proxy.dispatcher.PtoneVariableData;
-import com.sizzler.proxy.dispatcher.PtoneWidgetParam;
+import com.sizzler.proxy.dispatcher.*;
 import com.sizzler.proxy.model.ModelDataUtil;
 import com.sizzler.proxy.model.model.ModelQueryParam;
 import com.sizzler.proxy.variable.model.GraphVariableDataDesc;
@@ -53,6 +39,11 @@ import com.sizzler.service.ds.PtoneDsService;
 import com.sizzler.service.ds.UserConnectionSourceService;
 import com.sizzler.service.ds.UserConnectionSourceTableColumnService;
 import com.sizzler.system.Constants;
+import org.apache.metamodel.schema.MutableSchema;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 /**
  * 从数据源取数service类 <br/>
@@ -284,6 +275,12 @@ public class ModelDataServiceImpl implements ModelDataService {
     modelQueryParam.setSource(sourceDto.parseToSource());
     modelQueryParam.setHdfsPath(hdfsPath);
     modelQueryParam.setSchema(schema);
+
+    //设置是否是 download请求
+    if(webParamMap.containsKey("csvGraphName")&&webParamMap.get("csvGraphName").equals("table"))
+    {
+      modelQueryParam.setDownload(true);
+    }
 
     // 查询数据，并对查询到的结果数据进行处理
     ModelData modelData = null;

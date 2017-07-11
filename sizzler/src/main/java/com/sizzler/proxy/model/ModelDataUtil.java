@@ -427,6 +427,8 @@ public class ModelDataUtil {
     boolean hasGroup = false;
     boolean hasOrder = false;
 
+    boolean isDownload = modelQueryParam.isDownload();
+
     // 设置时间范围过滤
     PtoneMetricsDimension dateDimension = modelQueryParam.getDateDimension();
     if (dateDimension != null) {
@@ -773,12 +775,17 @@ public class ModelDataUtil {
     }
 
     // 设置limit, mysql等database 的table限制数据
-    if (tableLimit > 0 && DataBaseConfig.isDatabase(dsCode)
-        && GraphType.TABLE.equals(GraphType.valueOf(graphType.toUpperCase()))) {
-      limitBuilder.append(DataBaseConfig.getLimitStr(dsCode, 0, tableLimit));
-    } else if (resultLimit > 0) {
-      limitBuilder.append(DataBaseConfig.getLimitStr(dsCode, 0, resultLimit));
+    //如果是download,则不设置limit限制
+    if(!isDownload)
+    {
+      if (tableLimit > 0 && DataBaseConfig.isDatabase(dsCode)
+              && GraphType.TABLE.equals(GraphType.valueOf(graphType.toUpperCase()))) {
+        limitBuilder.append(DataBaseConfig.getLimitStr(dsCode, 0, tableLimit));
+      } else if (resultLimit > 0) {
+        limitBuilder.append(DataBaseConfig.getLimitStr(dsCode, 0, resultLimit));
+      }
     }
+
     sqlBuilder.append(selectBuilder).append(" ").append(fromBuilder).append(" ")
         .append(whereBuilder).append(" ").append(groupBuilder).append(" ").append(orderBuilder);
     if (DataBaseConfig.DB_CODE_SQLSERVER.equalsIgnoreCase(dsCode)) {
