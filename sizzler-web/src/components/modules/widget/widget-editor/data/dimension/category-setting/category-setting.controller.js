@@ -51,7 +51,7 @@ function categorySettingController() {
 		if (index == 0) {
 			max = currentValue = graphName == 'line' ? 1000 : 100;
 		} else {
-			currentValue = max = 10;
+			currentValue = max = 50;
 		}
 
 		if (dimension.max != null) {
