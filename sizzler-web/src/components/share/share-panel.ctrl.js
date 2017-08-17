@@ -571,7 +571,7 @@ function shareCtrlFunc($scope, $rootScope, $translate, $localStorage, $http, $ti
 				window.document.title = ProductConfig.title;
 				image = document.getElementById(ProductConfig.favicon);
 			}
-			favicon.image(image);
+			//favicon.image(image);
 
 			//处理Token
 			if (data.status == 'success') {
@@ -628,11 +628,13 @@ function shareCtrlFunc($scope, $rootScope, $translate, $localStorage, $http, $ti
 		}
 
 		//GA 虚拟PV
+        /*
 		setTimeout(function () {
 			if (dataLayer_TZGC5N && dataLayer_TZGC5N instanceof Array) {
 				dataLayer_TZGC5N.push({'event': 'page_view'});
 			}
 		}, 0);
+		*/
 	};
 
 

@@ -1,27 +1,5 @@
 package com.sizzler.system.filter;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.sizzler.common.utils.SpringContextUtil;
 import com.sizzler.common.utils.StringUtil;
 import com.sizzler.common.utils.WebUtil;
@@ -30,6 +8,21 @@ import com.sizzler.domain.user.PtoneUser;
 import com.sizzler.service.UserService;
 import com.sizzler.system.Constants;
 import com.sizzler.system.ServiceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.servlet.*;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SessionFilter implements Filter {
 
@@ -139,11 +132,15 @@ public class SessionFilter implements Filter {
     // 通过accessToken判断分享链接的访问权限
     for (String path : sharePaths) {
       if (StringUtil.startsWithIgnoreCase(requestUri, path)) {
+        /*
         String accessToken = request.getParameter(Constants.PT_ACCESS_TOKEN);
         if (validateAccessToken(accessToken)) {
           chain.doFilter(req, response);
           return;
         }
+        */
+        chain.doFilter(req, response);
+        return;
       }
     }
     for (String methodAndPath : newApiShareMethodAndPaths) {
@@ -151,11 +148,15 @@ public class SessionFilter implements Filter {
       String urlMethod = url[0];
       String urlPath = url[1];
       if (StringUtil.startsWithIgnoreCase(requestUri, urlPath)) {
+        /*
         String accessToken = request.getParameter(Constants.PT_ACCESS_TOKEN);
         if (urlMethod.equalsIgnoreCase(requestMethod) && validateAccessToken(accessToken)) {
           chain.doFilter(req, response);
           return;
         }
+        */
+        chain.doFilter(req, response);
+        return;
       }
     }
 

@@ -1,31 +1,5 @@
 package com.sizzler.controller.rest;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSON;
 import com.sizzler.common.MediaType;
 import com.sizzler.common.log.LogMessage;
@@ -35,6 +9,7 @@ import com.sizzler.common.utils.CodecUtil;
 import com.sizzler.common.utils.DateUtil;
 import com.sizzler.common.utils.StringUtil;
 import com.sizzler.domain.ds.PtoneDsInfo;
+import com.sizzler.domain.panel.PtonePanelInfo;
 import com.sizzler.domain.pmission.PtoneSysPermission;
 import com.sizzler.domain.pmission.PtoneSysRole;
 import com.sizzler.domain.session.dto.PtoneSession;
@@ -51,6 +26,25 @@ import com.sizzler.system.Constants;
 import com.sizzler.system.OpreateConstants;
 import com.sizzler.system.ServiceFactory;
 import com.sizzler.system.annotation.MethodRemark;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Controller
 @Scope("prototype")
@@ -561,6 +555,56 @@ public class UserController {
       logger.error(user.getUserEmail() + " | send SysMetaLog For PTE Signup error");
       e.printStackTrace();
     }
+  }
+
+  /**
+   * 分享链接的登录校验
+   *
+   * @param request
+   * @param response
+   * @return
+   * @author:
+   * @date: 2015-07-1
+   */
+  @RequestMapping(value = "shareSignin/{type}/{panelId}", method = RequestMethod.GET,
+          produces = MediaType.APPLICATION_JSON)
+  public @ResponseBody JsonView shareSigninValidate(HttpServletRequest request,
+                                                    HttpServletResponse response, @PathVariable("type") String type,
+                                                    @PathVariable("panelId") String panelId,
+                                                    @RequestParam(value = "password", required = false) String password) {
+    JsonView jsonView = JsonViewFactory.createJsonView();
+
+    try {
+      Map<String, Object> param = new HashMap<>();
+      String result = serviceFactory.getPanelService().validateSharePanel(panelId, password);
+      if (PtonePanelInfo.PANEL_STATUS_VALIDATE.equals(result)) {
+        Map<String, Object[]> paramMap = new HashMap<>();
+        paramMap.put("panelId", new Object[] {panelId});
+        PtonePanelInfo panelInfo = serviceFactory.getPanelService().getByWhere(paramMap);
+        PtoneSpaceInfo spaceInfo = serviceFactory.getSpaceService().get(panelInfo.getSpaceId());
+        List<PtoneSysPermission> sysPermissions =
+                serviceFactory.getPtonePermissionManagerService().findUserPermissionByUid(spaceInfo.getOwnerId());
+        List<PtoneSysRole> sysRoles =
+                serviceFactory.getPtonePermissionManagerService().findUserSysRoleByUid(spaceInfo.getOwnerId());
+        param.put("permissions", sysPermissions);// 权限列表
+        param.put("roles", sysRoles);// 角色列表
+
+        HttpSession session = request.getSession();
+        String sid = session.getId();
+        String accessToken = CodecUtil.getMD5ofStr(sid + "_" + panelId);
+        //serviceFactory.getRedisService().setKey(accessToken, 5 * 60, sid + "_" + panelId);// token有效时间为5分钟
+        //session.setAttribute(Constants.Current_Ptone_Anonymous, new PtoneUser());
+        //session.setAttribute(Constants.PT_ACCESS_TOKEN, accessToken);
+        param.put("accessToken", accessToken);
+        jsonView.successPack(param);
+      } else{
+        jsonView.failedPack(result, param);
+        return jsonView;
+      }
+    } catch (Exception e) {
+      jsonView.errorPack(type + "<" + panelId + "> share sign in error.", e);
+    }
+    return jsonView;
   }
 
 }

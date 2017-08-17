@@ -76,6 +76,7 @@
                 <i class="fa fa-compress fa-fw text-active"></i>
             </a>
 
+            <!--
             <div class="social-share ng-hide" ng-show="!isDomain('datadeck.cn') && !sharePanelMsg.panelShareOff">
                 <span class="social-share-btn">
                     <svg>
@@ -84,7 +85,7 @@
                 </span>
 
             </div>
-
+            -->
             <div class="account hd-dropdown-wrap">
                 <a class="account-btn"
                    ng-class="{'visibility':userInfo.userEmail}"
@@ -113,7 +114,7 @@
                     </ul>
                 </div>
             </div>
-
+            <!--
             <div class="add-dashboard" ng-if="!sharePanelMsg.panelShareOff">
                 <a href="javascript:"
                    ng-show="userInfo.userEmail"
@@ -128,6 +129,7 @@
                    ng-class="{'visibility':!userInfo.userEmail}"
                    translate="SHARE.HEADER.LOGIN" translate-values="{{productConfigs}}"></a>
             </div>
+            -->
         </div>
         <div class="header-share clearfix" ng-class="{'fullScreen': rootPage.shareFullScreen,'pt-phone': pt.settings.isPhone}" ng-if="pt.settings.isPhone">
             <div class="inner clearfix">
@@ -139,7 +141,9 @@
                 </p>
                 <div class="pt-phone-title" ng-if="pt.settings.isPhone">
                     <p ng-bind="rootPanel.now.panelTitle"></p>
+                    <!--
                     <p class="small" ng-bind="'(by&nbsp;&nbsp;'+rootPanel.now.spaceName + ')'"></p>
+                    -->
                 </div>
             </div>
         </div>
@@ -156,7 +160,9 @@
                 </div>
                 <div class="dashboard-title pull-left text-ellipsis" title="{{rootPanel.now.panelTitle}}" ng-if="!pt.settings.isPhone">
                     <span>
+                        <!--
                         <small>(&nbsp;by&nbsp;{{rootPanel.now.spaceName}}&nbsp;)</small>
+                        -->
                     </span>
                 </div>
                 <div class="dashboard-title-help  pull-left" ng-show="rootPanel.now.description && !pt.settings.isPhone">
