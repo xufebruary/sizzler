@@ -267,7 +267,8 @@ function dsUploadCtrl($scope, $document, $rootScope, $translate, $timeout, FileU
 	//校验文件大小(MAX: 50M)
 	$scope.checkFileSize = function () {
 		var size = $scope.uploader.queue[0].file.size;
-		return size < 50 * 1024 * 1024;
+		//return size < 50 * 1024 * 1024;
+		return true;
 	};
 
 	//文件上传队列清空操作
