@@ -172,6 +172,8 @@ public class DataBaseConfig {
 
   public static String max(String dbCode, String column, Boolean isNeedConvert) {
     String fixColumn = column;
+    //andy 2017-09-14 修正max按照字符码的顺序进行排序
+    isNeedConvert = true;
     if (isNeedConvert) {
       fixColumn = DataBaseConfig.toNumber(dbCode, column);
     }
@@ -180,6 +182,8 @@ public class DataBaseConfig {
 
   public static String min(String dbCode, String column, Boolean isNeedConvert) {
     String fixColumn = column;
+    //andy 2017-09-14 修正min按照字符码的顺序进行排序
+    isNeedConvert = true;
     if (isNeedConvert) {
       fixColumn = DataBaseConfig.toNumber(dbCode, column);
     }
