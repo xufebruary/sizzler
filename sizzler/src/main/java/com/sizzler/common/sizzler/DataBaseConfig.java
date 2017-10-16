@@ -378,7 +378,8 @@ public class DataBaseConfig {
 
     if (DB_CODE_MYSQL.equalsIgnoreCase(dbCode) || DB_CODE_MYSQLAMAZONRDS.equalsIgnoreCase(dbCode)) {
 
-      result = " str_to_date(" + column + " , '" + dateFormat + "') ";
+      //result = " str_to_date(" + column + " , '" + dateFormat + "') ";
+      result = column;
     } else if (DB_CODE_POSTGRE.equalsIgnoreCase(dbCode)) {
       /**
        * 
