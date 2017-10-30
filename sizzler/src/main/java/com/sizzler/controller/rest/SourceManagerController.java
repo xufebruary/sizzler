@@ -1,25 +1,5 @@
 package com.sizzler.controller.rest;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.sizzler.common.MediaType;
@@ -39,12 +19,23 @@ import com.sizzler.domain.ds.dto.UIDataBaseConnection;
 import com.sizzler.domain.ds.dto.UiAccountConnection;
 import com.sizzler.domain.ds.dto.UserAccountSource;
 import com.sizzler.domain.ds.vo.UserConnectionSourceVo;
+import com.sizzler.domain.space.PtoneSpaceUser;
 import com.sizzler.domain.user.PtoneUser;
 import com.sizzler.provider.common.UpdateDataResponse;
 import com.sizzler.system.Constants;
 import com.sizzler.system.OpreateConstants;
 import com.sizzler.system.ServiceFactory;
 import com.sizzler.system.annotation.MethodRemark;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 /**
  * @ClassName: SourceManagerController
@@ -185,8 +176,18 @@ public class SourceManagerController {
       // List<UserConnection> connectionsResults =
       // serviceFactory.getPtoneUserConnectionService().findByWhere(paramMap,orderMap);
 
+      /*
       List<UserConnection> connectionsResults =
           serviceFactory.getPtoneUserConnectionService().findSpaceUserConnectionList(spaceId, dsId);
+      */
+      List<UserConnection> connectionsResults = new ArrayList<>();
+      List<PtoneSpaceUser> spaceList = serviceFactory.getSpaceUserService().getUserSpaceUserList(loginUser.getPtId());
+      for(PtoneSpaceUser space:spaceList)
+      {
+        String tmpSpaceId = space.getSpaceId();
+        List<UserConnection> tmpConnectionsResults = serviceFactory.getPtoneUserConnectionService().findSpaceUserConnectionList(tmpSpaceId, dsId);
+        connectionsResults.addAll(tmpConnectionsResults);
+      }
 
       jsonView.successPack(connectionsResults);
     } catch (Exception e) {
@@ -237,9 +238,23 @@ public class SourceManagerController {
       // HttpSession session = serviceFactory.getSessionContext().getSession(sid, request);
       // PtoneUser loginUser = (PtoneUser) session.getAttribute(Constants.Current_Ptone_User);
       PtoneUser loginUser = serviceFactory.getSessionContext().getLoginUser(sid);
+
+
+      /*
       List<UserAccountSource> userConnectionResults =
           serviceFactory.getDataSourceManagerService().getSpaceAuthAccount(spaceId, connectionId,
               dsId);
+      */
+      List<UserAccountSource> userConnectionResults = new ArrayList<>();
+      List<PtoneSpaceUser> spaceList = serviceFactory.getSpaceUserService().getUserSpaceUserList(loginUser.getPtId());
+      for(PtoneSpaceUser space:spaceList)
+      {
+        String tmpSpaceId = space.getSpaceId();
+        List<UserAccountSource> tmpUserConnectionResults = serviceFactory.getDataSourceManagerService().getSpaceAuthAccount(tmpSpaceId, connectionId, dsId);
+        userConnectionResults.addAll(tmpUserConnectionResults);
+      }
+
+
       jsonView.successPack(userConnectionResults);
     } catch (Exception e) {
       jsonView.errorPack("get Auth Account error", e);
@@ -290,9 +305,21 @@ public class SourceManagerController {
       // HttpSession session = serviceFactory.getSessionContext().getSession(sid, request);
       // PtoneUser loginUser = (PtoneUser) session.getAttribute(Constants.Current_Ptone_User);
       PtoneUser loginUser = serviceFactory.getSessionContext().getLoginUser(sid);
+
+      /*
       List<MetaContentNode> metaContentNodeList =
           serviceFactory.getDataSourceManagerService().getSpaceWidgetAuthAccount(spaceId,
               connectionId, dsId);
+      */
+      List<MetaContentNode> metaContentNodeList = new ArrayList<>();
+      List<PtoneSpaceUser> spaceList = serviceFactory.getSpaceUserService().getUserSpaceUserList(loginUser.getPtId());
+      for(PtoneSpaceUser space:spaceList)
+      {
+        String tmpSpaceId = space.getSpaceId();
+        List<MetaContentNode> tmpMetaContentNodeList = serviceFactory.getDataSourceManagerService().getSpaceWidgetAuthAccount(tmpSpaceId, connectionId, dsId);
+        metaContentNodeList.addAll(tmpMetaContentNodeList);
+      }
+
       jsonView.successPack(metaContentNodeList);
     } catch (Exception e) {
       jsonView.errorPack("get Widget Auth Account error", e);
@@ -408,8 +435,20 @@ public class SourceManagerController {
     JsonView jsonView = JsonViewFactory.createJsonView();
     try {
       PtoneUser loginUser = serviceFactory.getSessionContext().getLoginUser(sid);
+
+      /*
       List<DsContentView> dsContentViews =
           serviceFactory.getDataSourceManagerService().getSpaceDsContentView(spaceId,loginUser.getSource());
+      */
+      List<DsContentView> dsContentViews = new ArrayList<>();
+      List<PtoneSpaceUser> spaceList = serviceFactory.getSpaceUserService().getUserSpaceUserList(loginUser.getPtId());
+      for(PtoneSpaceUser space:spaceList)
+      {
+         String tmpSpaceId = space.getSpaceId();
+         List<DsContentView> tmpDsContentViews = serviceFactory.getDataSourceManagerService().getSpaceDsContentView(tmpSpaceId,loginUser.getSource());
+         dsContentViews.addAll(tmpDsContentViews);
+      }
+
 //      List<PtoneSysPermission> sysPermissions = PermissionUtil.getUserPermissionBySpaceId(serviceFactory,spaceId,sid);
 //      dsContentViews =
 //          PermissionUtil.validateDataSourcePermission(dsContentViews, sysPermissions, "dsCode","reverse");

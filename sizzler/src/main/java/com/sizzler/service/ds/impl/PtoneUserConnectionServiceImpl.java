@@ -1,16 +1,5 @@
 package com.sizzler.service.ds.impl;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.alibaba.fastjson.JSON;
 import com.sizzler.common.SourceType;
 import com.sizzler.common.base.service.ServiceBaseInterfaceImpl;
@@ -30,6 +19,12 @@ import com.sizzler.domain.user.PtoneUser;
 import com.sizzler.service.PtoneUserConnectionService;
 import com.sizzler.system.Constants;
 import com.sizzler.system.ServiceFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.*;
 
 @Service("ptoneUserConnectionService")
 public class PtoneUserConnectionServiceImpl extends ServiceBaseInterfaceImpl<UserConnection, Long>
@@ -104,8 +99,9 @@ public class PtoneUserConnectionServiceImpl extends ServiceBaseInterfaceImpl<Use
   public UserConnection getSpaceUserConnection(String spaceId, long dsId, String connectionId,
       String name, boolean useConnectionId) {
     Map<String, Object[]> param = new HashMap<>();
-    param.put("spaceId", new Object[] { spaceId });
+    //param.put("spaceId", new Object[] { spaceId });
     param.put("dsId", new Object[] { dsId });
+    useConnectionId = true;
     if (useConnectionId) {
       // 同一空间下，不同用户连接相同文件导致获去connection错误问题（导致解绑后重新授权相同账号，无法修复历史widget，需要重新关联数据源）,如gd、mysql
       // isApiDs(dsCode) = true, 则根据name来判断，跳过connectionId ， 如 ga、adwords
