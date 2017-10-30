@@ -700,9 +700,11 @@ public class DataSourceBuild {
       // 列名超了30个字符后，需要截取前30个字符
       for (int i = 0; i < column.length; i++) {
         MutableColumn mutableColumn = (MutableColumn) column[i];
+        /*
         if (mutableColumn.getName().length() > 30) {
           mutableColumn.setName(mutableColumn.getName().substring(0, 30));
         }
+        */
       }
       Set<String> columnSet = new HashSet<>();// 所有不重名列集合
       int countIndex = 0;// 列名计数器
