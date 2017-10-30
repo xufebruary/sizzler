@@ -500,7 +500,8 @@ function dataSourcesCtrl($scope, $rootScope, $translate, $state, $document, data
                 }*/
                 for (var j = dsData.table[i].schema.length - 1; j >= 0; j--) {
                     //dsData.table[i].schema[j].id = uuid();
-                    dsData.table[i].schema[j].name =  dsData.table[i].schema[j].name ? dsData.table[i].schema[j].name.substr(0,30) : $translate.instant('DATA_SOURCE.EDITOR.COL')+i2s(j);//截取30
+                    // dsData.table[i].schema[j].name =  dsData.table[i].schema[j].name ? dsData.table[i].schema[j].name.substr(0,30) : $translate.instant('DATA_SOURCE.EDITOR.COL')+i2s(j);//截取30
+                    dsData.table[i].schema[j].name =  dsData.table[i].schema[j].name ? dsData.table[i].schema[j].name : $translate.instant('DATA_SOURCE.EDITOR.COL')+i2s(j);//截取30
 
                     //GD
                     /*if(!dsData.table[i].schema[j].code || dsData.table[i].schema[j].code==''){
