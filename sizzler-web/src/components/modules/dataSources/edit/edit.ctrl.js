@@ -217,7 +217,8 @@ function dsEditorCtrl($scope, $rootScope, $translate, $state, $document, $timeou
 				}
 				angular.element('.ds-table-bd-tr').removeClass('ds-table-header').eq(editSet.dataRange.headerIndex - 1).addClass('ds-table-header');
 				for (var i = $scope.dsEditor.hotTable.schema.length - 1; i >= 0; i--) {
-					var name = $scope.dsEditor.hotTable.data[editSet.dataRange.headerIndex - 1][i].substr(0, 30);
+					//var name = $scope.dsEditor.hotTable.data[editSet.dataRange.headerIndex - 1][i].substr(0, 30);
+                    var name = $scope.dsEditor.hotTable.data[editSet.dataRange.headerIndex - 1][i];
 					if (name == '') {
 						name = $translate.instant('DATA_SOURCE.EDITOR.COL') + i2s(i);
 					}
@@ -359,7 +360,8 @@ function dsEditorCtrl($scope, $rootScope, $translate, $state, $document, $timeou
 			if ($scope.dsEditor.hotTable.headMode == 'custom') {
 				$scope.editSet.headData.modeHeadValue[i] = $scope.dsEditor.hotTable.schema[i].name;
 			} else {
-				$scope.dsEditor.hotTable.schema[i].name = $scope.editSet.headData.modeHeadValue[i] = $scope.dsEditor.hotTable.data[editSet.dataRange.headerIndex - 1][i].substr(0, 30);
+				//$scope.dsEditor.hotTable.schema[i].name = $scope.editSet.headData.modeHeadValue[i] = $scope.dsEditor.hotTable.data[editSet.dataRange.headerIndex - 1][i].substr(0, 30);
+                $scope.dsEditor.hotTable.schema[i].name = $scope.editSet.headData.modeHeadValue[i] = $scope.dsEditor.hotTable.data[editSet.dataRange.headerIndex - 1][i];
 			}
 
 			if ($scope.dsEditor.hotTable.schema[i].name == '') {
