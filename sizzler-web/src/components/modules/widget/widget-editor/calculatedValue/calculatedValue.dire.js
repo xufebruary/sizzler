@@ -386,6 +386,10 @@ function calculatedValue($document, $timeout, $translate, dataMutualSrv, uiLoadi
 						//GTM
 						//siteEventAnalyticsSrv.setGtmEvent('click_element','calc_metric','calc_metric.edit.save.'+sendData.name);
 					} else {
+						if(scope.dataSettings.tempCalculatedValueList == null)
+						{
+                            scope.dataSettings.tempCalculatedValueList = [];
+						}
 						scope.dataSettings.tempCalculatedValueList.push(angular.copy(data.content));
 
 						//将滚动条滚动至底部
@@ -585,10 +589,15 @@ function calculatedValue($document, $timeout, $translate, dataMutualSrv, uiLoadi
 		scope.dataInit = function () {
 			scope.myOptions.metricsList = angular.copy(scope.dataSettings.tempMetricsList);
 			scope.myOptions.tmpMetricsList = angular.copy(scope.dataSettings.tempMetricsList);
+			if(scope.dataSettings.calculatedValueList == null)
+			{
+                scope.dataSettings.calculatedValueList = []
+			}
 			scope.myOptions.calculatedValueList = angular.copy(scope.dataSettings.calculatedValueList);
 			//scope.myOptions.tmpCalculatedValueList = angular.copy(scope.dataSettings.calculatedValueList);
 
 			//剔除不符合的数据类型,现支持['NUMBER','CURRENCY','DURATION']
+			/*
 			if (!scope.dsConfig.editor.data.calculatedValueScopeShowAll) {
 				var tmpList = [];
 				for (var i = 0; i < scope.myOptions.metricsList.length; i++) {
@@ -601,7 +610,8 @@ function calculatedValue($document, $timeout, $translate, dataMutualSrv, uiLoadi
 				scope.myOptions.metricsList = angular.copy(tmpList);
 				scope.myOptions.tmpMetricsList = angular.copy(tmpList);
 			}
-
+			*/
+			
 			//剔除有错误的已存计算指标
 			//for (var i = 0; i < scope.myOptions.calculatedValueList.length; i++) {
 			//    if (scope.myOptions.calculatedValueList[i].isValidate == 0) {

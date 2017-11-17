@@ -1125,12 +1125,15 @@ function editorData($localStorage, $document, $translate, $timeout, dataMutualSr
 				if (scope.dsConfig.editor.data.calculatedValueScopeShowAll) {
 					scope.dataSettings.showCalculatedValue = true;
 				} else {
+                    scope.dataSettings.showCalculatedValue = true;
+					/*
 					for (var i = 0; i < scope.dataSettings.metricsList.length; i++) {
 						if (['NUMBER', 'PERCENT', 'CURRENCY', 'DURATION'].indexOf(scope.dataSettings.metricsList[i].dataType) >= 0) {
 							scope.dataSettings.showCalculatedValue = true;
 							break;
 						}
 					}
+					*/
 				}
 			}
 		};
