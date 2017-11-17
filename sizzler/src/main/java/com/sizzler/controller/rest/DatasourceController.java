@@ -1,33 +1,26 @@
 package com.sizzler.controller.rest;
 
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.sizzler.common.MediaType;
+import com.sizzler.common.restful.JsonView;
+import com.sizzler.common.restful.JsonViewFactory;
+import com.sizzler.domain.ds.PtoneDsInfo;
+import com.sizzler.domain.ds.UserCompoundMetricsDimension;
+import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
+import com.sizzler.domain.ds.dto.UserCompoundMetricsDimensionDto;
+import com.sizzler.domain.user.PtoneUser;
+import com.sizzler.system.ServiceFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.sizzler.common.MediaType;
-import com.sizzler.common.restful.JsonView;
-import com.sizzler.common.restful.JsonViewFactory;
-import com.sizzler.domain.ds.PtoneDsInfo;
-import com.sizzler.domain.ds.dto.PtoneMetricsDimension;
-import com.sizzler.domain.pmission.PtoneSysPermission;
-import com.sizzler.domain.session.dto.PtoneSession;
-import com.sizzler.domain.user.PtoneUser;
-import com.sizzler.system.ServiceFactory;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @Scope("prototype")
@@ -289,10 +282,28 @@ public class DatasourceController {
   @RequestMapping(value = "addCalculatedValue", method = RequestMethod.POST,
       produces = MediaType.APPLICATION_JSON)
   @ResponseBody
-  public JsonView addCompoundMetrics(@RequestParam(
+  public JsonView addCompoundMetrics(
+          @RequestBody UserCompoundMetricsDimensionDto userCompoundMetricsDimensionDto, @RequestParam(
           value = "sid", required = true) String sid) {
     JsonView jsonView = JsonViewFactory.createJsonView();
-    jsonView.successPack(null);
+    try {
+      PtoneUser loginPtoneUser = serviceFactory.getSessionContext().getLoginUser(sid);
+      userCompoundMetricsDimensionDto.setUid(loginPtoneUser.getPtId());
+      userCompoundMetricsDimensionDto.setUserEmail(loginPtoneUser.getUserEmail());
+      userCompoundMetricsDimensionDto.setCreatorId(loginPtoneUser.getPtId());
+      userCompoundMetricsDimensionDto.setModifierId(loginPtoneUser.getPtId());
+      userCompoundMetricsDimensionDto
+              .setSourceType(UserCompoundMetricsDimension.SOURCE_TYPE_USER_CREATE);
+      userCompoundMetricsDimensionDto.setType(PtoneMetricsDimension.TYPE_COMPOUND_METRICS);
+
+      userCompoundMetricsDimensionDto =
+              serviceFactory.getPtoneDsService().addUserCompoundMetricsDimension(
+                      userCompoundMetricsDimensionDto);
+
+      jsonView.successPack(userCompoundMetricsDimensionDto);
+    } catch (Exception e) {
+      jsonView.errorPack("add CompoundMetrics error.", e);
+    }
     return jsonView;
   }
 
@@ -306,12 +317,25 @@ public class DatasourceController {
   @RequestMapping(value = "updateCalculatedValue", method = RequestMethod.POST,
       produces = MediaType.APPLICATION_JSON)
   @ResponseBody
-  public JsonView updateCompoundMetrics( @RequestParam(
+  public JsonView updateCompoundMetrics(
+          @RequestBody UserCompoundMetricsDimensionDto userCompoundMetricsDimensionDto, @RequestParam(
           value = "sid", required = true) String sid) {
     JsonView jsonView = JsonViewFactory.createJsonView();
-    jsonView.successPack(null);
+    try {
+      PtoneUser loginPtoneUser = serviceFactory.getSessionContext().getLoginUser(sid);
+      userCompoundMetricsDimensionDto.setModifierId(loginPtoneUser.getPtId());
+
+      userCompoundMetricsDimensionDto =
+              serviceFactory.getPtoneDsService().updateUserCompoundMetricsDimension(
+                      userCompoundMetricsDimensionDto);
+
+      jsonView.successPack(userCompoundMetricsDimensionDto);
+    } catch (Exception e) {
+      jsonView.errorPack("update CompoundMetrics error.", e);
+    }
     return jsonView;
   }
+
 
   /**
    * 删除复合指标
@@ -320,9 +344,18 @@ public class DatasourceController {
       produces = MediaType.APPLICATION_JSON)
   @ResponseBody
   public JsonView deleteCompoundMetrics(@PathVariable("id") String id, @RequestParam(value = "sid",
-      required = true) String sid) {
+          required = true) String sid) {
     JsonView jsonView = JsonViewFactory.createJsonView();
-    jsonView.successPack(null);
+    try {
+      PtoneUser loginPtoneUser = serviceFactory.getSessionContext().getLoginUser(sid);
+
+      serviceFactory.getPtoneDsService().deleteUserCompoundMetricsDimension(id,
+              loginPtoneUser.getPtId());
+
+      jsonView.successPack("delete CompoundMetrics success");
+    } catch (Exception e) {
+      jsonView.errorPack("delete CompoundMetrics error.", e);
+    }
     return jsonView;
   }
 
@@ -333,9 +366,16 @@ public class DatasourceController {
       method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
   @ResponseBody
   public JsonView findCompoundMetricsList(@PathVariable("spaceId") String spaceId,
-      @PathVariable("dsId") String dsId, @PathVariable("tableId") String tableId) {
+                                          @PathVariable("dsId") String dsId, @PathVariable("tableId") String tableId) {
     JsonView jsonView = JsonViewFactory.createJsonView();
-    jsonView.successPack(null);
+    try {
+      List<UserCompoundMetricsDimensionDto> list =
+              serviceFactory.getPtoneDsService().findUserCompoundMetricsDimensionList(spaceId, dsId,
+                      tableId, new String[] {PtoneMetricsDimension.TYPE_COMPOUND_METRICS});
+      jsonView.successPack(list);
+    } catch (Exception e) {
+      jsonView.errorPack("find CompoundMetrics List error.", e);
+    }
     return jsonView;
   }
 
@@ -345,9 +385,17 @@ public class DatasourceController {
   @RequestMapping(value = "validateCalculatedValue", method = RequestMethod.POST,
       produces = MediaType.APPLICATION_JSON)
   @ResponseBody
-  public JsonView validateCompoundMetrics() {
+  public JsonView validateCompoundMetrics(
+          @RequestBody UserCompoundMetricsDimensionDto userCompoundMetricsDimensionDto) {
     JsonView jsonView = JsonViewFactory.createJsonView();
-    jsonView.successPack(null);
+    try {
+      boolean isValidate =
+              serviceFactory.getPtoneDsService().validateCompoundMetrics(
+                      userCompoundMetricsDimensionDto, true);
+      jsonView.successPack(isValidate);
+    } catch (Exception e) {
+      jsonView.errorPack("find CompoundMetrics List error.", e);
+    }
     return jsonView;
   }
 
@@ -360,6 +408,12 @@ public class DatasourceController {
   @ResponseBody
   public JsonView getUseCompoundMetricsWidgetCount(@PathVariable("id") String id) {
     JsonView jsonView = JsonViewFactory.createJsonView();
+    try {
+      long count = serviceFactory.getPtoneDsService().getUseCompoundMetricsWidgetCount(id);
+      jsonView.successPack(count);
+    } catch (Exception e) {
+      jsonView.errorPack("get CompoundMetrics Widget Count error.", e);
+    }
     return jsonView;
   }
 

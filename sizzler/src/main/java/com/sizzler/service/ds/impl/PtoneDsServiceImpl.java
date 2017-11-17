@@ -1,17 +1,5 @@
 package com.sizzler.service.ds.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.sizzler.cache.PtoneDsInfoCache;
 import com.sizzler.common.exception.ServiceException;
 import com.sizzler.common.expr.FuncExpression;
@@ -33,6 +21,13 @@ import com.sizzler.service.ds.UserCompoundMetricsDimensionService;
 import com.sizzler.service.space.SpaceService;
 import com.sizzler.system.Constants;
 import com.sizzler.system.ServiceFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service("ptoneDsService")
 public class PtoneDsServiceImpl implements PtoneDsService {
@@ -126,7 +121,7 @@ public class PtoneDsServiceImpl implements PtoneDsService {
                     .getAvailableColumn(colId);
 
             if (column == null
-                || !PtoneMetricsDimension.isNumberDataType(column.getDataType())
+                //|| !PtoneMetricsDimension.isNumberDataType(column.getDataType())
                 || serviceFactory.getDataSourceManagerService().getConnectionSourceById(sourceId) == null
                 || serviceFactory.getPtoneUserConnectionService().get(connectionId) == null) {
               return false;

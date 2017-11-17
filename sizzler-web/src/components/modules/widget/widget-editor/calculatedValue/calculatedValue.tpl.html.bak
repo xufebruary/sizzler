@@ -1,0 +1,153 @@
+<div class="block modal fade in">
+	<div class="pt-popup calculatedValue">
+		<div class="pt-popup-content">
+			<header class="pt-popup-hd">
+				<span class="pt-popup-title" translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_TITLE">calculated value</span>
+				<a class="pt-popup-close" ng-click="closeTips()">
+					<svg><use xlink:href="#icon-close"></use></svg>
+				</a>
+			</header>
+			<div class="pt-popup-bd">
+				<!--<span class="block" translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_TIPS"></span>-->
+				<span class="block" ng-bind-html="'WIDGET.EDITOR.CALCULATED_VALUE.SET_TIPS_01' | translate" ng-if="!dsConfig.editor.data.isSupportFunc"></span>
+				<span class="block" ng-bind-html="'WIDGET.EDITOR.CALCULATED_VALUE.SET_TIPS_02' | translate" ng-if="dsConfig.editor.data.isSupportFunc"></span>
+
+				<div class="calculatedValue-name clearfix">
+					<span translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_NAME">Name</span>
+					<input type="text"
+						   ng-model="myOptions.name"
+						   maxlength="50"
+						   ng-class="{'error': myOptions.errorName}"
+						   translate
+						   translate-attr-placeholder="WIDGET.EDITOR.CALCULATED_VALUE.SET_NAME_PLACEHOLDER">
+				</div>
+
+				<div class="calculatedValue-formula pos-rlt" ng-class="{'error': myOptions.errorFormula}">
+					<textarea class="invisible" id="calculatedValue-formula" p="{{myOptions.newFormula.placeholder}}" contenteditable="true">{{myOptions.newFormula.aggregator}}</textarea>
+				</div>
+
+				<span class="block" translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_METRICS">Metrics</span>
+
+				<div class="calculatedValue-search">
+					<div class="calculatedValue-search-hd">
+						<input type="text"
+							   class="calculatedValue-search-ipt"
+							   ng-model="metricsKey"
+							   ng-change="search()">
+						<a class="pull-right block">
+							<svg>
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+							</svg>
+						</a>
+					</div>
+
+					<div class="calculatedValue-search-bd clearfix">
+						<div ng-if="loadSetting.widget" translate="WIDGET.EDITOR.ACCOUNT.GET_PROFILE_ING">数据请求中</div>
+						<div ui-jq="slimScroll"
+							 ui-options="{
+									height:'168',
+									size:'4px',
+									allowPageScroll: false,
+									alwaysVisible: true
+								}">
+							<ul class="list-unstyled editor-search-ul" id="metricsList">
+								<div ng-show="myOptions.metricsList.length==0" translate="WIDGET.EDITOR.CALCULATED_VALUE.NO_DATA">no data</div>
+								<div ng-show="myOptions.metricsList.length>0"
+									 ng-repeat="content in myOptions.metricsList">
+									<li class="text-ellipsis search-ul-li"
+										title="{{content.i18nCode | translate}}"
+										ng-click="myOptions.metricsListIndex[$index] = !myOptions.metricsListIndex[$index]"
+										ng-show="dsConfig.editor.data.metricsTwoLayer">
+										<a href="javascript:void(0);">
+											<i class="fa fa-caret-down text-black-600"
+											   ng-class="{'fa-caret-right': !myOptions.metricsListIndex[$index]}" ></i>
+											<span title="{{content.name}}">{{content.name}}</span>
+											<!--<span world-high data-searchKey="{{metricsKey}}" name="{{content.name}}"></span>-->
+										</a>
+									</li>
+									<li class="text-ellipsis search-ul-li"
+										ng-class="{'li-with-svg': dsConfig.editor.data.metricsOneLayer}"
+										title="{{content.i18nCode | translate}}"
+										ng-click="metricsToFormula(content, 'metrics')"
+										ng-show="dsConfig.editor.data.metricsOneLayer">
+										<a href="javascript:" class="width-svg">
+											<svg class="icon-dataType pull-left" ng-if="!dsConfig.editor.data.calculatedValueScopeShowAll">
+												<use xlink:href="#icon-ds-number" ng-if=" content.dataType == 'NUMBER' "/>
+												<use xlink:href="#icon-ds-percent" ng-if=" content.dataType == 'PERCENT' "/>
+												<use xlink:href="#icon-ds-duration" ng-if=" content.dataType == 'DURATION' "/>
+												<use xlink:href="#icon-ds-currency-jpy" ng-if=" content.dataType == 'CURRENCY' &&  content.dataFormat == '¥##' "/>
+												<use xlink:href="#icon-ds-currency-rmb" ng-if=" content.dataType == 'CURRENCY' &&  content.dataFormat == '¥###' "/>
+												<use xlink:href="#icon-ds-currency-usd" ng-if=" content.dataType == 'CURRENCY' &&  content.dataFormat == '$##' "/>
+											</svg>
+											<span class="pull-left text-ellipsis" style="max-width: 430px;" world-high title="{{content.name}}" name="{{content.name}}" data-searchKey="{{metricsKey}}"></span>
+											<svg class="pull-right icon-add">
+												<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-hollow"></use>
+											</svg>
+										</a>
+									</li>
+
+									<div class="div-search" ng-show="myOptions.metricsListIndex[$index]">
+										<div ng-repeat="metrics in content.metricsList">
+											<li class="text-over search-ul-li"
+												ng-click="metricsToFormula(metrics, 'metrics')">
+												<a href="javascript:void(0);"
+												   class="text-ellipsis font-thin block padder-l-md"
+												   title="{{metrics.i18nCode | translate}}"
+												   id="{{metrics.id}}"
+												   type="metrics">
+													<span world-high data-searchKey="{{metricsKey}}" name="{{metrics.name}}"></span>
+													<svg class="pull-right icon-add">
+														<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-hollow"></use>
+													</svg>
+												</a>
+											</li>
+										</div>
+									</div>
+								</div>
+
+								<!--已存计算指标列表-->
+								<!--
+								<li class="search-line" ng-if="myOptions.calculatedValueList.length>0"></li>
+								<li class="search-ul-li calculated-li"
+									ng-repeat=" calculatedValue in myOptions.calculatedValueList"
+									ng-hide="calculatedValue.id == dataSettings.calculatedValueCurrent.id">
+									<a href="javascript:void(0);"
+									   ng-click="metricsToFormula(calculatedValue, 'metrics')">
+										<svg class="pull-left m-r-xs">
+											<use xlink:href="#icon-fx"></use>
+										</svg>
+										<span class="text-ellipsis pull-left" style="max-width: 430px;" world-high data-searchKey="{{metricsKey}}" name="{{calculatedValue.name}}" title="{{calculatedValue.name}}"></span>
+										<svg class="pull-right icon-add">
+											<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-add-hollow"></use>
+										</svg>
+									</a>
+								</li>
+								-->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="pt-popup-footer">
+				<div class="calculatedValue-errorTips" ng-if="myOptions.errorName || myOptions.errorFormula">
+					<svg>
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-warning"></use>
+					</svg>
+					<span ng-if="myOptions.errorName" translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_ERROR_TIPS_1">指标名称已重复,请重新输入</span>
+					<span ng-if="myOptions.errorFormula" translate="WIDGET.EDITOR.CALCULATED_VALUE.SET_ERROR_TIPS_2">指标名称已重复,请重新输入</span>
+				</div>
+				<button class="pt-btn pt-btn-default m-r-md" ng-click="closeTips()" id="panel-copy-close" site-event-analytics>
+					<span translate="COMMON.CANCEL">Cancel</span>
+				</button>
+				<button class="pt-btn pt-btn-success"
+						ng-disabled="myOptions.name == '' || myOptions.newFormula.aggregator == ''"
+						ng-click="verifyData()">
+					<span translate="COMMON.SAVE">Save</span>
+				</button>
+			</footer>
+		</div>
+	</div>
+</div>
+
+<!-- bg -->
+<div class="modal-backdrop fade in"></div>
