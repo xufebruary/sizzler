@@ -6,3 +6,12 @@ sizzler-web/node_modules/
 **/.classpath
 **/.settings
 **/.project
+**/.gitignore
+**/*.bat
+**/*.bak
+**/*.log
+**/*.zip
+**/*.me
+**/* bak
+**/* me
+/sizzler-web/readme.txt
