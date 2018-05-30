@@ -9,7 +9,7 @@
 
 /*
   Color Style
-  
+
   10: Primary
   20: Dark
   30: Black
@@ -49,7 +49,7 @@
 .text-black-600 {color: #757575;}
 .text-black-700 {color: #616161;}
 .text-black-800 {color: #424242;}
-.text-black-900 {color: #212121;}
+.text-black-900 {color: #fff;}
 .text-black-1000 {color: #fff;}
 
 
@@ -223,7 +223,7 @@
   color: #3e4042;
 }
 .bg-dark a.btn-add-dashboard:hover span:before,
-.bg-dark a.btn-add-dashboard:hover span:after { 
+.bg-dark a.btn-add-dashboard:hover span:after {
   background-color: #3e4042;
 }
 .bg-dark a.btn-add-dashboard:focus {

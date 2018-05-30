@@ -14,8 +14,8 @@
 }
 .pt-btn.pt-btn-success {
   color: #fff;
-  background-color: #9ccc65;
-  border-color: #9ccc65;
+  background-color: #0062a3;
+  border-color: #0062a3;
   -webkit-transition: background-color 0.1s ease-in-out;
   -moz-transition: background-color 0.1s ease-in-out;
   -o-transition: background-color 0.1s ease-in-out;
@@ -24,8 +24,8 @@
 }
 .pt-btn.pt-btn-success:hover {
   color: #fff;
-  background-color: #7cb342;
-  border-color: #7cb342;
+  background-color: #207cdd;
+  border-color: #207cdd;
 }
 .pt-btn.pt-btn-danger {
   color: #fff;

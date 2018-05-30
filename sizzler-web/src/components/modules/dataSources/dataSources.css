@@ -282,6 +282,7 @@
 
 .ds-user-source {
     padding-top: 60px;
+    display:none;
 }
 
 .ds-user-source h2 {
@@ -478,7 +479,7 @@
 
 .ds-header-breadcrumb {
     padding: 12px 30px 8px;
-    background-color: #96cc65;
+    background-color: #192334;
     border-radius: 4px;
     margin: 0;
     margin-bottom: 60px;

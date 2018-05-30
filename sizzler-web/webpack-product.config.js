@@ -172,6 +172,7 @@ module.exports = function(ENV){
 				{from: './assets/video/**/*'}, //视频
 				{from: './assets/css/l18n*.css'}, //国际化样式
 				{from: './components/modules/widget/widget-editor/chart/**/*'}, //样式
+				{from: './/components/modules/signin/img/*'}, //图片
 				{from: './assets/libs/**/*'},
 				{from: './assets/css/browser-not-support.css', to: './browser-not-support/browser-not-support.css'},
 				{from: './configs/product.config.js', to: './browser-not-support/product.config.js'},

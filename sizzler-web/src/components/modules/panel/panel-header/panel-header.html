@@ -98,7 +98,7 @@
 			    </div>
 
 			    <!-- 分享 -->
-			    <div class="panel-header-team dashboard-share" ng-class="{'pos-rlt': !pt.settings.fullScreen}" ng-if="!rootPanel.now.shareSourceId && !pt.settings.fullScreen">
+			    <!-- <div class="panel-header-team dashboard-share" ng-class="{'pos-rlt': !pt.settings.fullScreen}" ng-if="!rootPanel.now.shareSourceId && !pt.settings.fullScreen">
 			        <a class="content-hd-a"
 			           ng-click="showPanelOperation('share')"
 			           id="panel-share"
@@ -113,7 +113,7 @@
 			            <svg>
 			                <use xlink:href="#icon-share"></use>
 			            </svg>
-			        </a>
+			        </a> -->
 
 			        <!--onboarding 功能介绍(分享面板入口)-->
 			        <!-- <func-tips
@@ -122,13 +122,13 @@
 			            tips-code="ONBOARDING.TIPS.FUNC_TIPS.DASHBOARD_SHARE_ENTRY"
 			            tips-user-info="rootUser.settingsInfo.showTips"
 			            on-ok="showPanelOperation('share')"></func-tips> -->
-			    </div>
+			    <!-- </div> -->
 
 		    	<!-- 二维码 -->
                 <!-- <div dropdown class="panel-header-team panel-mobile"
                      auto-close="outsideClick"
                      ng-if="!pt.settings.fullScreen && !pt.settings.isPhone">
-                    <a class="content-hd-a" 
+                    <a class="content-hd-a"
                        dropdown-toggle
                        tooltip-placement="bottom"
                        tooltip="{{'PANEL.QRCODE.TITLE' | translate }}"
@@ -146,7 +146,7 @@
 
 		    	<!-- more -->
 		    	<div dropdown class="panel-header-team dashboard-more" ng-if="!pt.settings.fullScreen && !pt.settings.isPhone">
-		    		<a class="content-hd-a" 
+		    		<a class="content-hd-a"
 		    			dropdown-toggle
 		    			tooltip-placement="bottom-left"
                        	tooltip="{{'PANEL.MORE' | translate }}">
